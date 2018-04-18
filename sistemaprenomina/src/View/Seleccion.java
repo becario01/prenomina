@@ -26,7 +26,8 @@ public static String depto;
             this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
-        
+       txtcargo.setText(depto);
+       txtnombre.setText(nombre);
       }
 
       /**

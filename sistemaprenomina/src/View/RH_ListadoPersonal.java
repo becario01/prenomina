@@ -34,170 +34,152 @@ import javax.swing.table.TableRowSorter;
  */
 public class RH_ListadoPersonal extends javax.swing.JFrame {
 
-      public static controllerBD controller;
-      public static ResultSet rs;
-      private Connection userConn;
-      private TableRowSorter trsFiltro;
-      int x , y;
+    public static controllerBD controller;
+    public static ResultSet rs;
+    private Connection userConn;
+    private TableRowSorter trsFiltro;
+    int x, y;
 
-      private PreparedStatement st;
-   
-      Connection conn;
-      PreparedStatement stmt;
+    private PreparedStatement st;
 
-      /**
-       * Creates new form RH_ListadoPersonal
-       */
-      public RH_ListadoPersonal() throws SQLException {
+    Connection conn;
+    PreparedStatement stmt;
 
-            initComponents();
-            this.setResizable(false);
+    /**
+     * Creates new form RH_ListadoPersonal
+     */
+    public RH_ListadoPersonal() throws SQLException {
+
+        initComponents();
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         cargarTitulos1();
-        
-        
-      }
 
-     
-      
-      
- DefaultTableModel tabla1 = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int Fila, int Colum) {
-                  return false;
+    }
+
+    DefaultTableModel tabla1 = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int Fila, int Colum) {
+            return false;
+        }
+    };
+    DefaultTableModel tabla2 = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int Fila, int Colum) {
+            return false;
+        }
+    };
+
+    public void cargarTitulos1() throws SQLException {
+        tabla1.addColumn("ID EMPLEADO");
+        tabla1.addColumn("NOMBRE");
+        tabla1.addColumn("DEPARTAMENTO");
+        tabla1.addColumn("PUESTO");
+        this.tbListadoAct.setModel(tabla1);
+
+        TableColumnModel columnModel = tbListadoAct.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(55);
+        columnModel.getColumn(1).setPreferredWidth(200);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
+
+        cargardatos1();
+        cargarTitulos2();
+
+    }
+
+    public void cargardatos1() throws SQLException {
+        String sql = "select empleadoId, nombre, depto, puesto from empleados where  estatus=1 ";
+        String datos[] = new String[4];
+
+        try {
+            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                datos[0] = rs.getString("empleadoId");
+                datos[1] = rs.getString("nombre");
+                datos[2] = rs.getString("depto");
+                datos[3] = rs.getString("puesto");
+
+                tabla1.addRow(datos);
+
             }
-      };
-      DefaultTableModel tabla2 = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int Fila, int Colum) {
-                  return false;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (this.userConn == null) {
+                Conexion1.close(conn);
             }
-      };
+        }
 
-      public void cargarTitulos1() throws SQLException {
-            tabla1.addColumn("ID EMPLEADO");
-            tabla1.addColumn("NOMBRE");
-            tabla1.addColumn("DEPARTAMENTO");
-            tabla1.addColumn("PUESTO");
-            this.tbListadoAct.setModel(tabla1);
-            
-            TableColumnModel columnModel = tbListadoAct.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(55);
-            columnModel.getColumn(1).setPreferredWidth(200);
-            columnModel.getColumn(2).setPreferredWidth(150);
-            columnModel.getColumn(3).setPreferredWidth(150);
-
-            cargardatos1();
-            cargarTitulos2();
-
-      }
-
-     
-
-      public void cargardatos1() throws SQLException {
-            String sql = "select empleadoId, nombre, depto, puesto from empleados where  estatus=1 ";
-            String datos[] = new String[4];
-
-            try {
-                  conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-                  stmt = conn.prepareStatement(sql);
-                  rs = stmt.executeQuery();
-                  while (rs.next()) {
-                        datos[0] = rs.getString("empleadoId");
-                        datos[1] = rs.getString("nombre");
-                        datos[2] = rs.getString("depto");
-                        datos[3] = rs.getString("puesto");
-                     
-                        tabla1.addRow(datos);
-
-                  }
-            } catch (Exception e) {
-                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-            } finally {
-                  Conexion1.close(rs);
-                  Conexion1.close(stmt);
-                  if (this.userConn == null) {
-                        Conexion1.close(conn);
-                  }
-            }
-
-      }
+    }
 //      
 
-      public void cargardatos2() throws SQLException {
-            String sql = "select empleadoId, nombre, depto, puesto from empleados where estatus=0 ";
-            String datos[] = new String[4];
+    public void cargardatos2() throws SQLException {
+        String sql = "select empleadoId, nombre, depto, puesto from empleados where estatus=0 ";
+        String datos[] = new String[4];
 
-            try {
-                  conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-                  stmt = conn.prepareStatement(sql);
-                  rs = stmt.executeQuery();
-                  while (rs.next()) {
-                        datos[0] = rs.getString("empleadoId");
-                        datos[1] = rs.getString("nombre");
-                        datos[2] = rs.getString("depto");
-                        datos[3] = rs.getString("puesto");
-                        tabla2.addRow(datos);
+        try {
+            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                datos[0] = rs.getString("empleadoId");
+                datos[1] = rs.getString("nombre");
+                datos[2] = rs.getString("depto");
+                datos[3] = rs.getString("puesto");
+                tabla2.addRow(datos);
 
-                  }
-            } catch (Exception e) {
-                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-            } finally {
-                  Conexion1.close(rs);
-                  Conexion1.close(stmt);
-                  if (this.userConn == null) {
-                        Conexion1.close(conn);
-                  }
             }
-
-      }
-
-      public void limpiar(DefaultTableModel tabla) {
-            for (int i = 0; i < tabla.getRowCount(); i++) {
-                  tabla.removeRow(i);
-                  i -= 1;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (this.userConn == null) {
+                Conexion1.close(conn);
             }
+        }
 
-      }
+    }
 
-      public void filtro(JTextField txt) {
-          trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
-      }
-      
-      
-      
+    public void limpiar(DefaultTableModel tabla) {
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            tabla.removeRow(i);
+            i -= 1;
+        }
 
+    }
 
-      
+    public void filtro(JTextField txt) {
+        trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
+    }
 
-      public void cargarTitulos2() throws SQLException {
-            tabla2.addColumn("ID EMPLEADO");
-            tabla2.addColumn("NOMBRE");
-            tabla2.addColumn("DEPARTAMENTO");
-            tabla2.addColumn("PUESTO");
-            this.tbListadoIna.setModel(tabla2);
-             TableColumnModel columnModel = tbListadoIna.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(55);
-            columnModel.getColumn(1).setPreferredWidth(200);
-            columnModel.getColumn(2).setPreferredWidth(150);
-            columnModel.getColumn(3).setPreferredWidth(150);
-            cargardatos2();
-      }
+    public void cargarTitulos2() throws SQLException {
+        tabla2.addColumn("ID EMPLEADO");
+        tabla2.addColumn("NOMBRE");
+        tabla2.addColumn("DEPARTAMENTO");
+        tabla2.addColumn("PUESTO");
+        this.tbListadoIna.setModel(tabla2);
+        TableColumnModel columnModel = tbListadoIna.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(55);
+        columnModel.getColumn(1).setPreferredWidth(200);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
+        cargardatos2();
+    }
 
-
-    
-      
-      
-      
-      
 //       
-      /**
-       * This method is called from within the constructor to initialize the
-       * form. WARNING: Do NOT modify this code. The content of this method is
-       * always regenerated by the Form Editor.
-       */
-      @SuppressWarnings("unchecked")
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -466,151 +448,154 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
       private void miDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDesactivarActionPerformed
-   int fila = tbListadoAct.getSelectedRow();
-            if (fila >= 0) {
-                  String cod = tbListadoAct.getValueAt(fila, 0).toString();
-                  String nom = tbListadoAct.getValueAt(fila, 1).toString();
+          int fila = tbListadoAct.getSelectedRow();
+          if (fila >= 0) {
+              String cod = tbListadoAct.getValueAt(fila, 0).toString();
+              String nom = tbListadoAct.getValueAt(fila, 1).toString();
 
-                  controllerBD act = new controllerBD();
+              controllerBD act = new controllerBD();
 
-                  try {
-                        act.desactivar(cod, nom);
+              try {
+                  act.desactivar(cod, nom);
 
-                  } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "error" + ex);
-                  }
+              } catch (SQLException ex) {
+                  JOptionPane.showMessageDialog(null, "error" + ex);
+              }
 
-            } else {
-                  JOptionPane.showMessageDialog(null, "Selecione una fila ");
-            }
-            limpiar(tabla1);
-            limpiar(tabla2);
+          } else {
+              JOptionPane.showMessageDialog(null, "Selecione una fila ");
+          }
+          limpiar(tabla1);
+          limpiar(tabla2);
 
-            try {
-                  cargardatos1();
-                  cargardatos2();
-            } catch (SQLException ex) {
-                  Logger.getLogger(RH_ListadoPersonal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+          try {
+              cargardatos1();
+              cargardatos2();
+          } catch (SQLException ex) {
+              Logger.getLogger(RH_ListadoPersonal.class.getName()).log(Level.SEVERE, null, ex);
+          }
 
       }//GEN-LAST:event_miDesactivarActionPerformed
 
       private void miActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miActivarActionPerformed
 
-            int fila = tbListadoIna.getSelectedRow();
-            if (fila >= 0) {
-                  String cod = tbListadoIna.getValueAt(fila, 0).toString();
-                  String nom = tbListadoIna.getValueAt(fila, 1).toString();
+          int fila = tbListadoIna.getSelectedRow();
+          if (fila >= 0) {
+              String cod = tbListadoIna.getValueAt(fila, 0).toString();
+              String nom = tbListadoIna.getValueAt(fila, 1).toString();
 
-                  controllerBD act = new controllerBD();
-                  try {
-                        act.activar(cod,nom);
+              controllerBD act = new controllerBD();
+              try {
+                  act.activar(cod, nom);
 
-                  } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "error" + ex);
-                  }
+              } catch (SQLException ex) {
+                  JOptionPane.showMessageDialog(null, "error" + ex);
+              }
 
-            } else {
-                  JOptionPane.showMessageDialog(null, "Selecione una fila ");
-            }
-            limpiar(tabla1);
-            limpiar(tabla2);
-            
+          } else {
+              JOptionPane.showMessageDialog(null, "Selecione una fila ");
+          }
+          limpiar(tabla1);
+          limpiar(tabla2);
 
-            try {
-                  cargardatos2();
-                  cargardatos1();
-            } catch (SQLException ex) {
-                  Logger.getLogger(RH_ListadoPersonal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+          try {
+              cargardatos2();
+              cargardatos1();
+          } catch (SQLException ex) {
+              Logger.getLogger(RH_ListadoPersonal.class.getName()).log(Level.SEVERE, null, ex);
+          }
 
       }//GEN-LAST:event_miActivarActionPerformed
 
       private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
+          this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
       }//GEN-LAST:event_jButton2ActionPerformed
 
       private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-            System.exit(0);        // TODO add your handling code here:
+          System.exit(0);        // TODO add your handling code here:
       }//GEN-LAST:event_jButton3ActionPerformed
 
       private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-           
+          String dep = lblcargo.getText();
+          String nom = lblnombrerh.getText();
+
           RH_Inicio us = new RH_Inicio();
-            us.show(true);
-            this.show(false);
+          us.show(true);
+          RH_Inicio.lblcargo.setText(dep);
+          RH_Inicio.lblnombrerh.setText(nom);
+          this.show(false);
       }//GEN-LAST:event_jButton4ActionPerformed
 
       private void txtBuscar1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar1KeyTyped
-            txtBuscar1.addKeyListener(new KeyAdapter() {
-                  public void keyReleased(final KeyEvent e) {
-                        String cadena = (txtBuscar1.getText()).toUpperCase();
-                        txtBuscar1.setText(cadena);
-                        repaint();
-                        filtro(txtBuscar1);
-                  }
-            });
-            trsFiltro = new TableRowSorter(tbListadoIna.getModel());
-            tbListadoIna.setRowSorter(trsFiltro);
+          txtBuscar1.addKeyListener(new KeyAdapter() {
+              public void keyReleased(final KeyEvent e) {
+                  String cadena = (txtBuscar1.getText()).toUpperCase();
+                  txtBuscar1.setText(cadena);
+                  repaint();
+                  filtro(txtBuscar1);
+              }
+          });
+          trsFiltro = new TableRowSorter(tbListadoIna.getModel());
+          tbListadoIna.setRowSorter(trsFiltro);
       }//GEN-LAST:event_txtBuscar1KeyTyped
 
       private void txtBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscar1ActionPerformed
-            // TODO add your handling code here:
+          // TODO add your handling code here:
       }//GEN-LAST:event_txtBuscar1ActionPerformed
 
       private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
 
-            txtBuscar.addKeyListener(new KeyAdapter() {
-                  public void keyReleased(final KeyEvent e) {
-                        String cadena = (txtBuscar.getText()).toUpperCase();
-                        txtBuscar.setText(cadena);
-                        repaint();
-                        filtro(txtBuscar);
-                  }
-            });
-            trsFiltro = new TableRowSorter(tbListadoAct.getModel());
-            tbListadoAct.setRowSorter(trsFiltro);
+          txtBuscar.addKeyListener(new KeyAdapter() {
+              public void keyReleased(final KeyEvent e) {
+                  String cadena = (txtBuscar.getText()).toUpperCase();
+                  txtBuscar.setText(cadena);
+                  repaint();
+                  filtro(txtBuscar);
+              }
+          });
+          trsFiltro = new TableRowSorter(tbListadoAct.getModel());
+          tbListadoAct.setRowSorter(trsFiltro);
       }//GEN-LAST:event_txtBuscarKeyTyped
 
-      /**
-       * @param args the command line arguments
-       */
-      public static void main(String args[]) {
-            /* Set the Nimbus look and feel */
-            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
              * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
-            try {
-                  for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                        if ("Nimbus".equals(info.getName())) {
-                              javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                              break;
-                        }
-                  }
-            } catch (ClassNotFoundException ex) {
-                  java.util.logging.Logger.getLogger(RH_ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                  java.util.logging.Logger.getLogger(RH_ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                  java.util.logging.Logger.getLogger(RH_ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                  java.util.logging.Logger.getLogger(RH_ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
-            //</editor-fold>
-            //</editor-fold>
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RH_ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RH_ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RH_ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RH_ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
 
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                  public void run() {
-                        try {
-                              new RH_ListadoPersonal().setVisible(true);
-                        } catch (SQLException ex) {
-                              Logger.getLogger(RH_ListadoPersonal.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                  }
-            });
-      }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new RH_ListadoPersonal().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RH_ListadoPersonal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;

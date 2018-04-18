@@ -8,6 +8,8 @@ package View;
 import Conexion.Conexion1;
 import Controller.autorizacionRH;
 import Controller.exportReporte;
+import static View.RH_Inicio.lblcargo;
+import static View.RH_Inicio.lblnombrerh;
 import static View.RH_ListadoPersonal.rs;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -43,7 +45,6 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private TableRowSorter trsFiltro;
     public static String codid;
     int x, y;
-    
 
     /**
      * Creates new form RH_UsuariosConIncidencias
@@ -56,6 +57,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         combosemana();
         combodepartamento();
         cargarTitulos1();
+        panelincidencias.setVisible(false);
 
     }
 
@@ -310,7 +312,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         lblcargo = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        panelincidencias = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnBuscar6 = new javax.swing.JButton();
         btnBuscar7 = new javax.swing.JButton();
@@ -426,7 +428,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
 
-        jPanel3.setBackground(new java.awt.Color(51, 102, 255));
+        panelincidencias.setBackground(new java.awt.Color(51, 102, 255));
 
         jPanel1.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -585,21 +587,21 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         tbIncidencias.setComponentPopupMenu(pmAutorizar);
         jScrollPane2.setViewportView(tbIncidencias);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelincidenciasLayout = new javax.swing.GroupLayout(panelincidencias);
+        panelincidencias.setLayout(panelincidenciasLayout);
+        panelincidenciasLayout.setHorizontalGroup(
+            panelincidenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelincidenciasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelincidenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane2)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        panelincidenciasLayout.setVerticalGroup(
+            panelincidenciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelincidenciasLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
@@ -624,9 +626,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 .addComponent(cmbDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelincidencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -645,7 +647,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                         .addComponent(cmbDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelincidencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -659,6 +661,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
           int sem = cmbSemana.getSelectedIndex();
           try {
               if (sem != 0) {
+                  panelincidencias.setVisible(true);
                   cargardatosFiltroSemana(sem);
 
               }
@@ -748,6 +751,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
       }//GEN-LAST:event_btnBuscar5ActionPerformed
 
       private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
+          String dep = lblcargo.getText();
+          String nomm = lblnombrerh.getText();
           int fila = tbIncidencias.getSelectedRow();
           if (fila >= 0) {
               try {
@@ -757,7 +762,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
                   RH_uci_detalles deta = new RH_uci_detalles();
                   deta.show();
-
+                  RH_uci_detalles.lblcargo.setText(dep);
+                  RH_uci_detalles.lblnombrerh.setText(nomm);
                   RH_uci_detalles.txtnombre.setText(nom);
                   RH_uci_detalles.txtid.setText(codid);
                   RH_uci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
@@ -780,9 +786,13 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String dep = lblcargo.getText();
+          String nom = lblnombrerh.getText();
         try {
-            menuopciones sele = new menuopciones();
+            RH_Inicio sele = new RH_Inicio();
             sele.setVisible(true);
+            RH_Inicio.lblcargo.setText(dep);
+            RH_Inicio.lblnombrerh.setText(nom);
             this.setVisible(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -865,12 +875,12 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
+    private javax.swing.JPanel panelincidencias;
     private javax.swing.JPopupMenu pmAutorizar;
     public static javax.swing.JTable tbIncidencias;
     private javax.swing.JTextField txtBuscar;
