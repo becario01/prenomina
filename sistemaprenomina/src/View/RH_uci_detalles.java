@@ -444,6 +444,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                         limpiar(tabla1);
                         cargardatosFiltroSemana(sem, id);
                         
+                        
 
                   } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Error en: " + e);

@@ -515,6 +515,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
             }
             limpiar(tabla1);
             limpiar(tabla2);
+            
 
             try {
                   cargardatos2();

@@ -347,6 +347,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         String dep= lblcargo.getText();
         String nom= lblnombrerh.getText();
         
+        
           try {
               RH_ListadoPersonal lis = new RH_ListadoPersonal();
               lis.show();

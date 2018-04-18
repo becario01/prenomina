@@ -43,6 +43,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private TableRowSorter trsFiltro;
     public static String codid;
     int x, y;
+    
 
     /**
      * Creates new form RH_UsuariosConIncidencias
