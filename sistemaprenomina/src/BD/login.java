@@ -7,15 +7,15 @@ package BD;
 
 import java.sql.*; 
 import Conexion.Conexion;
-//import View.JA_inicio;
-//import static View.JA_inicio.lblcargojefe;
-//import static View.JA_inicio.lblnombrejefe;
-//import View.JA_newincidencia;
-//import View.RH_Inicio;
+import View.JA_inicio;
+import static View.JA_inicio.lblcargojefe;
+import static View.JA_inicio.lblnombrejefe;
+import View.JA_newincidencia;
+import View.RH_Inicio;
 import javax.swing.JOptionPane;
-//import View.JA_inicio;
-//import View.Jflogin;
-//import View.Seleccion;
+import View.JA_inicio;
+import View.Jflogin;
+import View.Seleccion;
 /**
  *
  * @author Becarios
@@ -42,31 +42,31 @@ public class login {
             rs = stmt.executeQuery();
 if (rs.next() == false) {
      JOptionPane.showMessageDialog(null,  "El Usuario no Existe","",JOptionPane.ERROR_MESSAGE);
-//     Jflogin usl = new Jflogin();
-//     usl.setVisible(true);
+     Jflogin usl = new Jflogin();
+     usl.setVisible(true);
      
    
 } else{
     nombre = rs.getString(2);
     depto = rs.getString(7);
     int tipousuario= rs.getInt(5);
-//    JA_inicio inicion = new JA_inicio();
+    JA_inicio inicion = new JA_inicio();
     
     if (tipousuario == 0) {
         JOptionPane.showMessageDialog(null,  "Bienvenido Usuario Jefe","",JOptionPane.INFORMATION_MESSAGE);
-//         JA_inicio ini=new JA_inicio();
-//         JA_inicio.lblcargojefe.setText(depto);
-//         JA_inicio.lblnombrejefe.setText(nombre);
+         JA_inicio ini=new JA_inicio();
+         JA_inicio.lblcargojefe.setText(depto);
+         JA_inicio.lblnombrejefe.setText(nombre);
 
   
-//            ini.show(true);
+            ini.show(true);
     }else if(tipousuario == 1){
         JOptionPane.showMessageDialog(null,  "Bienvenido Usuario RH","",JOptionPane.INFORMATION_MESSAGE);
-//        Seleccion.nombre= nombre;
-//            Seleccion.depto= depto;
-//        
-//          Seleccion rh=new Seleccion();
-//            rh.show(true);   
+        Seleccion.nombre= nombre;
+            Seleccion.depto= depto;
+        
+          Seleccion rh=new Seleccion();
+            rh.show(true);   
 
             
          
