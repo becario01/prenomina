@@ -21,7 +21,7 @@ public class Conexion {
  
    private static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     //El puerto es opcional
-    private static String JDBC_URL = "jdbc:sqlserver://localhost:1433;databaseName=INCIDENCIAS";
+    private static String JDBC_URL = "jdbc:sqlserver://192.168.11.32:1433;databaseName=INCIDENCIAS";
     private static String JDBC_USER = "sa";
     private static String JDBC_PASS = "123456789";
     private static Driver driver = null;

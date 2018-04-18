@@ -66,7 +66,9 @@ if (rs.next() == false) {
             Seleccion.depto= depto;
         
           Seleccion rh=new Seleccion();
-            rh.show(true);   
+            rh.show(true);
+            Seleccion.txtcargo.setText(depto);
+            Seleccion.txtnombre.setText(nombre);
 
             
          
