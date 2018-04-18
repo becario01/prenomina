@@ -50,7 +50,7 @@ if (rs.next() == false) {
     nombre = rs.getString(2);
     depto = rs.getString(7);
     int tipousuario= rs.getInt(5);
-    JA_inicio inicion = new JA_inicio();
+   
     
     if (tipousuario == 0) {
         JOptionPane.showMessageDialog(null,  "Bienvenido Usuario Jefe","",JOptionPane.INFORMATION_MESSAGE);
@@ -63,9 +63,8 @@ if (rs.next() == false) {
     }else if(tipousuario == 1){
         JOptionPane.showMessageDialog(null,  "Bienvenido Usuario RH","",JOptionPane.INFORMATION_MESSAGE);
         Seleccion.nombre= nombre;
-            Seleccion.depto= depto;
-        
-          Seleccion rh=new Seleccion();
+        Seleccion.depto= depto;
+        Seleccion rh=new Seleccion();
             rh.show(true);   
 
             

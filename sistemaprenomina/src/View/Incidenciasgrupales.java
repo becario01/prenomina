@@ -102,31 +102,7 @@ public void selecSeman(String vsemana){
             }
 
 
-public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,String comentario,int idNominci,String horastrab ,String Semana){
-              Connection conn = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    try {
-        String sql = "SELECT *  from semanas WHERE semana = '" + Semana + "'";
-        conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-        stmt = conn.prepareStatement(sql);
-        rs = stmt.executeQuery();
-        while (rs.next()) {
-            int id = rs.getInt(1);
-            registrargrupos(codigoemp, dia, fecha, horaextra, comentario, id, idNominci, horastrab);
 
-        }
-
-    } catch (Exception e) {
-        System.out.println("" + e);
-    } finally {
-        Conexion.close(rs);
-        Conexion.close(stmt);
-    }
-
-    
-    
-}
 
     
 public int registrargrupos(int empleadoId,String dia,String fecha,int horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
@@ -155,7 +131,7 @@ public int registrargrupos(int empleadoId,String dia,String fecha,int horasextra
        
 }     
 
-public  String guardar(String fechas){
+public  String guardar(String fechas) throws SQLException{
           
     select_incidencia sin = new select_incidencia();
 
@@ -168,14 +144,17 @@ public  String guardar(String fechas){
         int horaextra = 1;
         String horastrab= "10";
    
-               for (int i = 0; i < jtbdatosgrupos.getColumnCount(); i++) {
-                  String codigos = jtbdatosgrupos.getValueAt(i, 0).toString();
+              for (int i = 0; i < jtbdatosgrupos.getColumnCount()+1; i++) {
+                 String codigos = jtbdatosgrupos.getValueAt(i, 0).toString();
          int codigo = Integer.parseInt(codigos);
-              verfechas(codigo,dia, fecha, horaextra, comentario, incidencia.getIdNomIncidencia(), horastrab,Semna.getText());
+                   System.out.println(codigos);
+             registrargrupos(codigo,dia, fecha, horaextra, comentario,1,incidencia.getIdNomIncidencia(),horastrab);
         }
           } catch (ParseException ex) {
               Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
           }
+         JOptionPane.showMessageDialog(null,"Incidencia registrada");
+         
          JOptionPane.showMessageDialog(null,"Incidencia registrada");
          
     return fechas;
@@ -599,33 +578,63 @@ public  String guardar(String fechas){
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
-guardar(lblfechal.getText());
+        try {
+            guardar(lblfechal.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_btnLunesActionPerformed
 
     private void btnDomingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomingoActionPerformed
-guardar(lblfechad.getText());
+        try {
+            guardar(lblfechad.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDomingoActionPerformed
 
     private void btnJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuevesActionPerformed
-guardar(lblfechaj.getText());
+        try {
+            guardar(lblfechaj.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnJuevesActionPerformed
 
     private void btnMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiercolesActionPerformed
-guardar(lblfechami.getText());
+        try {
+            guardar(lblfechami.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnMiercolesActionPerformed
 
     private void btnMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMartesActionPerformed
-guardar(lblfecham.getText());
+        try {
+            guardar(lblfecham.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnMartesActionPerformed
 
     private void btnViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViernesActionPerformed
-guardar(lblfechav.getText());
+//        try {
+//            guardar(lblfechav.getText());
+//            System.out.println();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        System.out.println(lblfechav.getText());
     }//GEN-LAST:event_btnViernesActionPerformed
 
     private void btnSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSabadoActionPerformed
-guardar(lblfechas.getText());
+        try {
+            guardar(lblfechas.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSabadoActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed

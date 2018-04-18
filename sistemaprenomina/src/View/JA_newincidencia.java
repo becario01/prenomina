@@ -49,14 +49,20 @@ public class JA_newincidencia extends javax.swing.JFrame {
         pnDia.setVisible(false);
 
     }
-
-    public void mostrardatos(Object cod, Object nombre, String semana) {
+public void botonesnew (){
+    btnregresar.setToolTipText("Regrear ventana anterior");
+    btnminimizar.setToolTipText("Minimizar ventana");
+    btncerrar.setToolTipText("Cerrar");
+}
+   public void mostrardatos(Object cod, Object nombre, String semana,String nomjefe,String cargo) {
         String nom = (String) nombre;
         Object codi = cod;
         lblnomemp.setText(nom);
         lblempid.setText((String) codi);
         lblsemana.setText(semana);
-
+        lblnombrej.setText(nomjefe);
+        lblcargo.setText(cargo);
+ 
     }
 
     public void selecSeman(String vsemana) {
@@ -147,13 +153,13 @@ public class JA_newincidencia extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        lblnombrej = new javax.swing.JLabel();
+        btnminimizar = new javax.swing.JButton();
+        btncerrar = new javax.swing.JButton();
+        btnregresar = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        lblcargoj = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        lblnombrej = new javax.swing.JTextField();
+        lblcargo = new javax.swing.JTextField();
         lblsemana = new javax.swing.JLabel();
         btnrango = new javax.swing.JButton();
 
@@ -455,13 +461,13 @@ public class JA_newincidencia extends javax.swing.JFrame {
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 315, 20));
 
         lblnomemp.setBackground(new java.awt.Color(51, 102, 255));
-        lblnomemp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblnomemp.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnomemp.setForeground(new java.awt.Color(255, 255, 255));
         lblnomemp.setBorder(null);
         getContentPane().add(lblnomemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 320, -1));
 
         lblempid.setBackground(new java.awt.Color(51, 102, 255));
-        lblempid.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblempid.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblempid.setForeground(new java.awt.Color(255, 255, 255));
         lblempid.setBorder(null);
         lblempid.addActionListener(new java.awt.event.ActionListener() {
@@ -480,53 +486,63 @@ public class JA_newincidencia extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/user.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
+        btnminimizar.setBorderPainted(false);
+        btnminimizar.setContentAreaFilled(false);
+        btnminimizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnminimizarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 0, 32, 30));
+        jPanel1.add(btnminimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 0, 32, 30));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
+        btncerrar.setBorderPainted(false);
+        btncerrar.setContentAreaFilled(false);
+        btncerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btncerrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 32, 30));
+        jPanel1.add(btncerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 32, 30));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
+        btnregresar.setBorderPainted(false);
+        btnregresar.setContentAreaFilled(false);
+        btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnregresarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
-
-        lblnombrej.setEnabled(false);
-        jPanel1.add(lblnombrej, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
 
         jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
 
-        lblcargoj.setEnabled(false);
-        jPanel1.add(lblcargoj, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
-
         jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
+
+        lblnombrej.setEditable(false);
+        lblnombrej.setBackground(new java.awt.Color(229, 230, 234));
+        lblnombrej.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblnombrej.setForeground(new java.awt.Color(51, 102, 255));
+        lblnombrej.setAutoscrolls(false);
+        lblnombrej.setBorder(null);
+        lblnombrej.setCaretColor(new java.awt.Color(51, 102, 255));
+        jPanel1.add(lblnombrej, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+
+        lblcargo.setEditable(false);
+        lblcargo.setBackground(new java.awt.Color(229, 230, 234));
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblcargo.setForeground(new java.awt.Color(51, 102, 255));
+        lblcargo.setBorder(null);
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
         lblsemana.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lblsemana.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 50, 150, 40));
+        getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 280, 40));
 
         btnrango.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnrango.setText("Rango");
@@ -546,19 +562,22 @@ public class JA_newincidencia extends javax.swing.JFrame {
         selecSeman(lblsemana.getText());
     }//GEN-LAST:event_btnDiaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnminimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminimizarActionPerformed
         this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnminimizarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
         System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btncerrarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        JA_inicio ini = new JA_inicio();
-        ini.show(true);
-        this.show(false);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
+    JA_inicio ini = new JA_inicio();
+        ini.setVisible(true);
+        
+        JA_inicio.lblnombrejefe.setText(lblnombrej.getText());
+        JA_inicio.lblcargojefe.setText(lblcargo.getText());
+        this.setVisible(false);
+    }//GEN-LAST:event_btnregresarActionPerformed
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
         select_incidencia inci = new select_incidencia();
@@ -684,10 +703,10 @@ public class JA_newincidencia extends javax.swing.JFrame {
     private javax.swing.JButton btnMiercoles;
     private javax.swing.JButton btnSabado;
     private javax.swing.JButton btnViernes;
+    private javax.swing.JButton btncerrar;
+    private javax.swing.JButton btnminimizar;
     private javax.swing.JButton btnrango;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnregresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
@@ -707,7 +726,7 @@ public class JA_newincidencia extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    public static javax.swing.JLabel lblcargoj;
+    private javax.swing.JTextField lblcargo;
     private javax.swing.JTextField lblempid;
     private javax.swing.JLabel lblfechad;
     private javax.swing.JLabel lblfechaj;
@@ -716,7 +735,7 @@ public class JA_newincidencia extends javax.swing.JFrame {
     private javax.swing.JLabel lblfechami;
     private javax.swing.JLabel lblfechas;
     private javax.swing.JLabel lblfechav;
-    public static javax.swing.JLabel lblnombrej;
+    private javax.swing.JTextField lblnombrej;
     private javax.swing.JTextField lblnomemp;
     private javax.swing.JLabel lblsemana;
     private javax.swing.JPanel pnDia;

@@ -104,7 +104,7 @@ public class select_fechas extends javax.swing.JFrame {
               String comentario = tctcomentario.getText();
               int idsemana = semana.getIdSemana();
               int idincidencia = incidencia.getIdNomIncidencia();
-          insertarrangos(1122,indi, fe,1,comentario,idsemana , idincidencia, "sad");
+        insertarrangos(codigoem,indi, fe,1,comentario,idsemana , idincidencia, "10");
         
            
           
