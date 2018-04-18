@@ -33,6 +33,10 @@ public class RH_uci_detalles extends javax.swing.JFrame {
       PreparedStatement stmt;
       public static ResultSet rs;
       private Connection userConn;
+      Connection conn1;
+      PreparedStatement stmt1;
+      public static ResultSet rs1;
+      private Connection userConn1;
 
       /**
        * Creates new form RH_uci_detalles
@@ -87,10 +91,9 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
       public void cargardatosFiltroSemana(int idSemana, int cod) throws SQLException {
 
-            String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha, re.entrada, re.salida, inc.horasTrab, nomin.nombre AS nombreinc, inc.comentario \n"
+            String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha, inc.horasTrab, nomin.nombre AS nombreinc, inc.comentario \n"
                     + "from incidencias inc\n"
                     + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                    + "INNER JOIN registros re on inc.empleadoId=re.empleadoId \n"
                     + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
                     + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
                     + "where inc.idSemana='" + idSemana + "' and inc.empleadoId='" + cod + "' ";
@@ -105,12 +108,39 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                         datos[1] = rs.getString("actualizadoJA");
                         datos[2] = rs.getString("actualizadoRH");
                         datos[3] = rs.getString("fecha");
-                        datos[4] = rs.getString("entrada");
-                        datos[5] = rs.getString("salida");
+                        datos[4] = "";
+                        datos[5] = "";
                         datos[6] = rs.getString("horasTrab");
                         datos[7] = rs.getString("nombreinc");
                         datos[8] = rs.getString("comentario");
+                        
+                        String sql1="SELECT entrada, salida from registros where empleadoId='"+cod+"' and fecha='"+datos[3]+"'";
+                        try {
+                  conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
+                  stmt1 = conn1.prepareStatement(sql1);
+                  rs1 = stmt1.executeQuery();
 
+                  while (rs1.next()) {
+                      datos[4]=rs1.getString("entrada");
+                      datos[5]=rs1.getString("salida");
+
+                  }
+            } catch (Exception e) {
+                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            } finally {
+                  Conexion1.close(rs1);
+                  Conexion1.close(stmt1);
+                  if (this.userConn1 == null) {
+                        Conexion1.close(conn1);
+                  }
+            }
+
+                        
+                        
+                        
+                        
+                        
+                        
                         tabla1.addRow(datos);
                   }
             } catch (Exception e) {
@@ -230,7 +260,6 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -314,12 +343,12 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 32, 30));
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setContentAreaFilled(false);
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 32, 30));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 0, 32, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
         jButton4.setBorderPainted(false);
@@ -329,7 +358,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, 32, 30));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
@@ -368,11 +397,8 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                             .addComponent(txtid)
                             .addComponent(txtnombre))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,6 +493,10 @@ public class RH_uci_detalles extends javax.swing.JFrame {
  
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
       /**
        * @param args the command line arguments
        */
@@ -512,7 +542,6 @@ public class RH_uci_detalles extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemAutorizar;
     private javax.swing.JMenuItem itemNegar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

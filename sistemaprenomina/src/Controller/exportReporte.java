@@ -124,7 +124,7 @@ public class exportReporte {
                         String sql1 = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha, re.entrada, re.salida, inc.horasTrab, nomin.nombre AS nombreinc, inc.comentario \n"
                                 + "from incidencias inc\n"
                                 + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                                + "INNER JOIN registros re on inc.empleadoId=re.empleadoId and inc.fecha=re.fecha\n"
+                                + "INNER JOIN registros re on inc.empleadoId=re.empleadoId \n"
                                 + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
                                 + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
                                 + "where inc.idSemana='" + idSemana + "' and inc.empleadoId='" + datos[0] + "' ";

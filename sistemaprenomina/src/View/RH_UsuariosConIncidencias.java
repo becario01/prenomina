@@ -79,10 +79,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         TableColumnModel columnModel = tbIncidencias.getColumnModel();
 
-        columnModel.getColumn(0).setPreferredWidth(75);
-        columnModel.getColumn(1).setPreferredWidth(75);
-        columnModel.getColumn(2).setPreferredWidth(30);
-        columnModel.getColumn(3).setPreferredWidth(200);
+        columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(1).setPreferredWidth(200);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
 
     }
 
