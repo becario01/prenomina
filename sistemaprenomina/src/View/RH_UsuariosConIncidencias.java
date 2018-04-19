@@ -7,6 +7,7 @@ package View;
 
 import Conexion.Conexion;
 import Conexion.Conexion1;
+import Controller.EJefes;
 import Controller.autorizacionRH;
 import Controller.exportReporte;
 import static View.RH_Inicio.lblcargo;
@@ -294,7 +295,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     
     
     
-     public void reportetxt (){
+        public void reportetxt (int semana){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.txt", "txt", "TXT"));//filtro para ver solo archivos .edu
         int seleccion = fileChooser.showSaveDialog(null);
@@ -319,7 +320,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 String idempleado = rs.getString("empleadoId");
                 bw.write("E\t" + idempleado);
                 bw.newLine();
-               String incidencias = " select nomi.nombre,inc.fecha from incidencias inc  inner join NomIncidencia nomi   on inc.idNomIncidencia  = nomi.idNomIncidencia where inc.empleadoId ='" + idempleado + "'";
+               String incidencias = " select nomi.nombre,inc.fecha from incidencias inc  inner join NomIncidencia nomi   on inc.idNomIncidencia  = nomi.idNomIncidencia where inc.empleadoId ='" + idempleado + "' and inc.idSemana ='"+semana+"' ";
                 conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                 nstmt = conn.prepareStatement(incidencias);
                 interno = nstmt.executeQuery();
@@ -399,7 +400,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         btnBuscar7 = new javax.swing.JButton();
         btnBuscar4 = new javax.swing.JButton();
         btnBuscar5 = new javax.swing.JButton();
-        btnBuscar2 = new javax.swing.JButton();
+        btntxtreporte = new javax.swing.JButton();
         btnBuscar3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -551,15 +552,15 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         });
         jPanel1.add(btnBuscar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 0, 73, -1));
 
-        btnBuscar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportetxtL.png"))); // NOI18N
-        btnBuscar2.setContentAreaFilled(false);
-        btnBuscar2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportetxtO.png"))); // NOI18N
-        btnBuscar2.addActionListener(new java.awt.event.ActionListener() {
+        btntxtreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportetxtL.png"))); // NOI18N
+        btntxtreporte.setContentAreaFilled(false);
+        btntxtreporte.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportetxtO.png"))); // NOI18N
+        btntxtreporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar2ActionPerformed(evt);
+                btntxtreporteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 73, -1));
+        jPanel1.add(btntxtreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 73, -1));
 
         btnBuscar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calfaltasL.png"))); // NOI18N
         btnBuscar3.setBorderPainted(false);
@@ -790,9 +791,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel11MouseDragged
 
-    private void btnBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar2ActionPerformed
-       
-    }//GEN-LAST:event_btnBuscar2ActionPerformed
+    private void btntxtreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntxtreporteActionPerformed
+int sem = cmbSemana.getSelectedIndex();
+     reportetxt(sem);
+    }//GEN-LAST:event_btntxtreporteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -835,12 +837,12 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar2;
     private javax.swing.JButton btnBuscar3;
     private javax.swing.JButton btnBuscar4;
     private javax.swing.JButton btnBuscar5;
     private javax.swing.JButton btnBuscar6;
     private javax.swing.JButton btnBuscar7;
+    private javax.swing.JButton btntxtreporte;
     private javax.swing.JComboBox cmbDepto;
     public static javax.swing.JComboBox cmbSemana;
     private javax.swing.JMenuItem itemDetalles;

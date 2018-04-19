@@ -215,6 +215,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/form.png"))); // NOI18N
         jButton10.setText("Persepciones Deducciones");
         jButton10.setBorder(null);
+        jButton10.setBorderPainted(false);
         jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 240, 100));
 
         jButton11.setBackground(new java.awt.Color(242, 182, 146));
@@ -223,6 +224,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/team.png"))); // NOI18N
         jButton11.setText("Usuarios sin Incidencias ");
         jButton11.setBorder(null);
+        jButton11.setBorderPainted(false);
         jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 240, 100));
 
         jButton13.setBackground(new java.awt.Color(243, 162, 194));
@@ -231,6 +233,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendario.png"))); // NOI18N
         jButton13.setText("  Semanas                               ");
         jButton13.setBorder(null);
+        jButton13.setBorderPainted(false);
         jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 240, 100));
 
         jButton17.setBackground(new java.awt.Color(177, 224, 234));
@@ -239,6 +242,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/problem.png"))); // NOI18N
         jButton17.setText("Usuario con Incidencias         ");
         jButton17.setBorder(null);
+        jButton17.setBorderPainted(false);
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton17ActionPerformed(evt);
@@ -252,6 +256,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/lecture.png"))); // NOI18N
         jButton16.setText("Listado Personal               ");
         jButton16.setBorder(null);
+        jButton16.setBorderPainted(false);
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton16ActionPerformed(evt);
@@ -265,6 +270,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/usuarios.png"))); // NOI18N
         jButton14.setText("Usuarios                             ");
         jButton14.setBorder(null);
+        jButton14.setBorderPainted(false);
         jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, 100));
 
         btnIncidencias.setBackground(new java.awt.Color(247, 203, 111));
@@ -273,12 +279,13 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         btnIncidencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/test.png"))); // NOI18N
         btnIncidencias.setText("      Incidencias");
         btnIncidencias.setBorder(null);
+        btnIncidencias.setBorderPainted(false);
         btnIncidencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIncidenciasActionPerformed(evt);
             }
         });
-        jPanel2.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 240, 100));
+        jPanel2.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 260, 100));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 470, 430));
 

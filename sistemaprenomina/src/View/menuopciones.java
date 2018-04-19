@@ -41,7 +41,6 @@ public class menuopciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         btnEmpleados = new javax.swing.JButton();
         btnRegistros = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -56,12 +55,13 @@ public class menuopciones extends javax.swing.JFrame {
         lblcargo = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logo.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
+        setPreferredSize(new java.awt.Dimension(912, 536));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/addUser.png"))); // NOI18N
         btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +69,7 @@ public class menuopciones extends javax.swing.JFrame {
                 btnEmpleadosActionPerformed(evt);
             }
         });
+        getContentPane().add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 218, -1));
 
         btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/addregistros.png"))); // NOI18N
         btnRegistros.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +77,7 @@ public class menuopciones extends javax.swing.JFrame {
                 btnRegistrosActionPerformed(evt);
             }
         });
+        getContentPane().add(btnRegistros, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 218, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/siguiente.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +85,7 @@ public class menuopciones extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, 218, -1));
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -149,49 +152,16 @@ public class menuopciones extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 50));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74)
-                        .addComponent(btnRegistros)
-                        .addGap(60, 60, 60)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 52));
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEmpleados, btnRegistros, jButton1});
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Seleccione una opción");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 556, 77));
 
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnRegistros)
-                            .addComponent(btnEmpleados))
-                        .addGap(25, 25, 25))))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEmpleados, btnRegistros, jButton1});
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/select.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 60, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -297,6 +267,7 @@ public class menuopciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
