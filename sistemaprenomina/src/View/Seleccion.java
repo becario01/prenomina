@@ -6,6 +6,7 @@
 package View;
 
 import Controller.CargarXLS;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -170,9 +171,7 @@ public static String depto;
       }//GEN-LAST:event_ExsqlActionPerformed
 
       private void DirectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DirectoActionPerformed
-            RH_Inicio rh = new RH_Inicio();
-            rh.show(true);
-            this.setVisible(false);
+           JOptionPane.showMessageDialog(rootPane, "Inabilitado por el momento ");
       }//GEN-LAST:event_DirectoActionPerformed
 
       private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

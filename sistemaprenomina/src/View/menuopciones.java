@@ -57,13 +57,19 @@ public class menuopciones extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(912, 536));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/addUser.png"))); // NOI18N
+        btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/cargarempleados.png"))); // NOI18N
+        btnEmpleados.setBorder(null);
+        btnEmpleados.setContentAreaFilled(false);
+        btnEmpleados.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/cargarempleadosO.png"))); // NOI18N
         btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmpleadosActionPerformed(evt);
@@ -71,7 +77,10 @@ public class menuopciones extends javax.swing.JFrame {
         });
         getContentPane().add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 218, -1));
 
-        btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/addregistros.png"))); // NOI18N
+        btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/rempleadosL.png"))); // NOI18N
+        btnRegistros.setBorder(null);
+        btnRegistros.setContentAreaFilled(false);
+        btnRegistros.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/rempleadosO.png"))); // NOI18N
         btnRegistros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrosActionPerformed(evt);
@@ -79,7 +88,10 @@ public class menuopciones extends javax.swing.JFrame {
         });
         getContentPane().add(btnRegistros, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 218, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/siguiente.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/continuar.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/conitnuarO.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -162,6 +174,24 @@ public class menuopciones extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/select.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 60, 70));
+
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Cargar de Empleados");
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 140, 30));
+
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Carga de Registros ");
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 120, 30));
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Continuar al Sistema");
+        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 140, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -269,6 +299,9 @@ public class menuopciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
