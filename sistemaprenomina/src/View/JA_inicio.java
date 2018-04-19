@@ -71,7 +71,8 @@ public class JA_inicio extends javax.swing.JFrame {
       }
 
       private String[] getColumas() {
-
+   
+  
             String columna[] = {"Actualizado", "ID", "Nombre", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
             return columna;
 
