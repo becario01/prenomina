@@ -5,6 +5,7 @@
  */
 package View;
 
+import Conexion.Conexion;
 import Conexion.Conexion1;
 import Controller.autorizacionRH;
 import Controller.exportReporte;
@@ -14,12 +15,15 @@ import static View.RH_ListadoPersonal.rs;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
@@ -286,6 +291,82 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 //            }
 //
 //      }
+    
+    
+    
+     public void reportetxt (){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.txt", "txt", "TXT"));//filtro para ver solo archivos .edu
+        int seleccion = fileChooser.showSaveDialog(null);
+        try {
+            if (seleccion == JFileChooser.APPROVE_OPTION) {//comprueba si ha presionado el boton de aceptar
+                File JFC = fileChooser.getSelectedFile();
+                String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
+                PrintWriter printwriter = new PrintWriter(JFC);
+                BufferedWriter bw = new BufferedWriter(printwriter);
+                Connection conn = null;
+                PreparedStatement stmt = null;
+                PreparedStatement nstmt = null;
+                ResultSet rs = null;
+                ResultSet interno = null;
+                try {
+                    String sql = "SELECT DISTINCT  empleadoId  from incidencias";
+                    conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+                    stmt = conn.prepareStatement(sql);
+                    rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String idempleado = rs.getString("empleadoId");
+                bw.write("E\t" + idempleado);
+                bw.newLine();
+               String incidencias = " select nomi.nombre,inc.fecha from incidencias inc  inner join NomIncidencia nomi   on inc.idNomIncidencia  = nomi.idNomIncidencia where inc.empleadoId ='" + idempleado + "'";
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+                nstmt = conn.prepareStatement(incidencias);
+                interno = nstmt.executeQuery();
+                while (interno.next()) {
+                    String nomcidencia = interno.getString("nombre");
+                    String Fechainc = interno.getString("fecha");
+                    String[] datos = Fechainc.split("-");
+                    String año = datos[0];
+                    String mes = datos[1];
+                    String dia = datos[2];
+                    String fecha = dia + "/" + mes + "/" + año;
+                    String incidencia = "D " + nomcidencia;
+                    Calendar cal = Calendar.getInstance();
+                    int añoact = cal.get(Calendar.YEAR);
+                    if (incidencia.length() < 40) {
+                        for (int i = incidencia.length(); i < 40; i++) {
+                            incidencia += " ";
+                        }
+                    }
+                    bw.write(incidencia);
+                    bw.write("" + fecha + "\t" + añoact);
+                    bw.newLine();
+
+                }
+
+            }
+            bw.close();//cierra el archivo
+            if (!(PATH.endsWith(".txt"))) {
+                File temp = new File(PATH + ".txt");
+                JFC.renameTo(temp);//renombramos el archivo
+            }
+
+            JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            System.out.println("" + e);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+        }
+
+                    //comprobamos si a la hora de guardar obtuvo la extension y si no se la asignamos
+                }    
+            }catch (Exception e){//por alguna excepcion salta un mensaje de error
+                JOptionPane.showMessageDialog(null,"Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
+            }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -473,6 +554,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         btnBuscar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportetxtL.png"))); // NOI18N
         btnBuscar2.setContentAreaFilled(false);
         btnBuscar2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportetxtO.png"))); // NOI18N
+        btnBuscar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnBuscar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 73, -1));
 
         btnBuscar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calfaltasL.png"))); // NOI18N
@@ -703,6 +789,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private void jLabel11MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseDragged
         this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel11MouseDragged
+
+    private void btnBuscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar2ActionPerformed
+       
+    }//GEN-LAST:event_btnBuscar2ActionPerformed
 
     /**
      * @param args the command line arguments
