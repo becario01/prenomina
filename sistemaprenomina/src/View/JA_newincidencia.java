@@ -49,11 +49,7 @@ public class JA_newincidencia extends javax.swing.JFrame {
         pnDia.setVisible(false);
 
     }
-public void botonesnew (){
-    btnregresar.setToolTipText("Regrear ventana anterior");
-    btnminimizar.setToolTipText("Minimizar ventana");
-    btncerrar.setToolTipText("Cerrar");
-}
+
    public void mostrardatos(Object cod, Object nombre, String semana,String nomjefe,String cargo) {
         String nom = (String) nombre;
         Object codi = cod;
@@ -61,7 +57,7 @@ public void botonesnew (){
         lblempid.setText((String) codi);
         lblsemana.setText(semana);
         lblnombrej.setText(nomjefe);
-        lblcargo.setText(cargo);
+        lblcargoj.setText(cargo);
  
     }
 
@@ -106,6 +102,12 @@ public void botonesnew (){
         }
 
     }
+    
+    public void botonesnew (){
+    btnregresar.setToolTipText("Regrear ventana anterior");
+    btnminimizar.setToolTipText("Minimizar ventana");
+    btncerrar.setToolTipText("Cerrar");
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,10 +158,10 @@ public void botonesnew (){
         btnminimizar = new javax.swing.JButton();
         btncerrar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
+        lblnombrej = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        lblcargoj = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        lblnombrej = new javax.swing.JTextField();
-        lblcargo = new javax.swing.JTextField();
         lblsemana = new javax.swing.JLabel();
         btnrango = new javax.swing.JButton();
 
@@ -461,13 +463,13 @@ public void botonesnew (){
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 315, 20));
 
         lblnomemp.setBackground(new java.awt.Color(51, 102, 255));
-        lblnomemp.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblnomemp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         lblnomemp.setForeground(new java.awt.Color(255, 255, 255));
         lblnomemp.setBorder(null);
         getContentPane().add(lblnomemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 320, -1));
 
         lblempid.setBackground(new java.awt.Color(51, 102, 255));
-        lblempid.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblempid.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         lblempid.setForeground(new java.awt.Color(255, 255, 255));
         lblempid.setBorder(null);
         lblempid.addActionListener(new java.awt.event.ActionListener() {
@@ -516,33 +518,23 @@ public void botonesnew (){
         });
         jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
 
+        lblnombrej.setEnabled(false);
+        jPanel1.add(lblnombrej, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+
         jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
 
+        lblcargoj.setEnabled(false);
+        jPanel1.add(lblcargoj, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
+
         jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
-
-        lblnombrej.setEditable(false);
-        lblnombrej.setBackground(new java.awt.Color(229, 230, 234));
-        lblnombrej.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblnombrej.setForeground(new java.awt.Color(51, 102, 255));
-        lblnombrej.setAutoscrolls(false);
-        lblnombrej.setBorder(null);
-        lblnombrej.setCaretColor(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblnombrej, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
-
-        lblcargo.setEditable(false);
-        lblcargo.setBackground(new java.awt.Color(229, 230, 234));
-        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        lblcargo.setBorder(null);
-        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
         lblsemana.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lblsemana.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 280, 40));
+        getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 50, 150, 40));
 
         btnrango.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnrango.setText("Rango");
@@ -571,12 +563,9 @@ public void botonesnew (){
     }//GEN-LAST:event_btncerrarActionPerformed
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
-    JA_inicio ini = new JA_inicio();
-        ini.setVisible(true);
-        
-        JA_inicio.lblnombrejefe.setText(lblnombrej.getText());
-        JA_inicio.lblcargojefe.setText(lblcargo.getText());
-        this.setVisible(false);
+        JA_inicio ini = new JA_inicio();
+        ini.show(true);
+        this.show(false);
     }//GEN-LAST:event_btnregresarActionPerformed
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
@@ -726,7 +715,7 @@ public void botonesnew (){
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField lblcargo;
+    public static javax.swing.JLabel lblcargoj;
     private javax.swing.JTextField lblempid;
     private javax.swing.JLabel lblfechad;
     private javax.swing.JLabel lblfechaj;
@@ -735,7 +724,7 @@ public void botonesnew (){
     private javax.swing.JLabel lblfechami;
     private javax.swing.JLabel lblfechas;
     private javax.swing.JLabel lblfechav;
-    private javax.swing.JTextField lblnombrej;
+    public static javax.swing.JLabel lblnombrej;
     private javax.swing.JTextField lblnomemp;
     private javax.swing.JLabel lblsemana;
     private javax.swing.JPanel pnDia;
