@@ -59,7 +59,27 @@ public class JA_inicio extends javax.swing.JFrame {
             this.setResizable(false);
             this.setLocationRelativeTo(null);
             this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
+          tbIncidencias.getColumnModel().getColumn(0).setMaxWidth(80);
+          tbIncidencias.getColumnModel().getColumn(1).setMaxWidth(60);
+          tbIncidencias.getColumnModel().getColumn(2).setMaxWidth(240);
+          tbIncidencias.getColumnModel().getColumn(3).setMaxWidth(150);
+          tbIncidencias.getColumnModel().getColumn(4).setMaxWidth(150);
+          tbIncidencias.getColumnModel().getColumn(5).setMaxWidth(150);
+          tbIncidencias.getColumnModel().getColumn(6).setMaxWidth(150);
+          tbIncidencias.getColumnModel().getColumn(7).setMaxWidth(150);
+          tbIncidencias.getColumnModel().getColumn(8).setMaxWidth(150);
+          tbIncidencias.getColumnModel().getColumn(9).setMaxWidth(150);
       }
+      
+public void modificarculumnas(String fechaL,String fechaM,String FechaMi,String FechaJ, String FechaV,String FechaS,String fechaD ){
+tbIncidencias.getColumn("Lunes").setHeaderValue("Lunes"+"  "+fechaL);
+tbIncidencias.getColumn("Martes").setHeaderValue("Martes"+"  "+fechaM); 
+tbIncidencias.getColumn("Miercoles").setHeaderValue("Miercoles"+"  "+FechaMi); 
+tbIncidencias.getColumn("Jueves").setHeaderValue("Jueves"+"  "+FechaJ); 
+tbIncidencias.getColumn("Viernes").setHeaderValue("Viernes"+"  "+FechaV); 
+tbIncidencias.getColumn("Sabado").setHeaderValue("Sabado"+"  "+FechaS); 
+tbIncidencias.getColumn("Domingo").setHeaderValue("Domingo"+"  "+fechaD);
+}
 
       private void cargarModeloSem() {
             ArrayList<EJefes> listaSemanas;
@@ -619,7 +639,7 @@ public class JA_inicio extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 102, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1160, 653));
+        setPreferredSize(new java.awt.Dimension(1362, 555));
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -638,7 +658,7 @@ public class JA_inicio extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 32, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 0, 32, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
         jButton3.setBorderPainted(false);
@@ -648,7 +668,7 @@ public class JA_inicio extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 0, 32, 30));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 0, 32, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
         jButton4.setBorderPainted(false);
@@ -658,7 +678,7 @@ public class JA_inicio extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 0, 32, 30));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 32, 30));
 
         jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 230, 10));
@@ -676,7 +696,7 @@ public class JA_inicio extends javax.swing.JFrame {
                 jLabel6MousePressed(evt);
             }
         });
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 50));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 50));
 
         lblnombrejefe.setBackground(new java.awt.Color(229, 230, 234));
         lblnombrejefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -730,7 +750,7 @@ public class JA_inicio extends javax.swing.JFrame {
         tbIncidencias.setComponentPopupMenu(jPopupMenu1);
         jScrollPane4.setViewportView(tbIncidencias);
 
-        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 1160, 270));
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 1360, 270));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -771,7 +791,7 @@ public class JA_inicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -822,13 +842,15 @@ public class JA_inicio extends javax.swing.JFrame {
           int sem = cmbSemana.getSelectedIndex();
 
           if (sem < 0) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar una entidad federativa", "Verificar", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Debe seleccionar", "Verificar", JOptionPane.WARNING_MESSAGE);
           } else {
 
                 String Semana = cmbSemana.getSelectedItem().toString();
 
                 JA_newincidencia inc = new JA_newincidencia();
                 inc.selecSeman(Semana);
+                 EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
+               modificarculumnas(semana.getFechaL(),semana.getFechaM(),semana.getFechaMi(),semana.getFechaJ(),semana.getFechaV(),semana.getFechaS(),semana.getFechaD());
                 SetFilas();
 
           }
