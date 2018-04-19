@@ -71,15 +71,15 @@ public class JA_inicio extends javax.swing.JFrame {
           tbIncidencias.getColumnModel().getColumn(9).setMaxWidth(150);
       }
       
-public void modificarculumnas(String fechaL,String fechaM,String FechaMi,String FechaJ, String FechaV,String FechaS,String fechaD ){
-tbIncidencias.getColumn("Lunes").setHeaderValue("Lunes"+"  "+fechaL);
-tbIncidencias.getColumn("Martes").setHeaderValue("Martes"+"  "+fechaM); 
-tbIncidencias.getColumn("Miercoles").setHeaderValue("Miercoles"+"  "+FechaMi); 
-tbIncidencias.getColumn("Jueves").setHeaderValue("Jueves"+"  "+FechaJ); 
-tbIncidencias.getColumn("Viernes").setHeaderValue("Viernes"+"  "+FechaV); 
-tbIncidencias.getColumn("Sabado").setHeaderValue("Sabado"+"  "+FechaS); 
-tbIncidencias.getColumn("Domingo").setHeaderValue("Domingo"+"  "+fechaD);
-}
+//public void modificarculumnas(String fechaL,String fechaM,String FechaMi,String FechaJ, String FechaV,String FechaS,String fechaD ){
+//tbIncidencias.getColumn("Lunes").setHeaderValue("Lunes"+"  "+fechaL);
+//tbIncidencias.getColumn("Martes").setHeaderValue("Martes"+"  "+fechaM); 
+//tbIncidencias.getColumn("Miercoles").setHeaderValue("Miercoles"+"  "+FechaMi); 
+//tbIncidencias.getColumn("Jueves").setHeaderValue("Jueves"+"  "+FechaJ); 
+//tbIncidencias.getColumn("Viernes").setHeaderValue("Viernes"+"  "+FechaV); 
+//tbIncidencias.getColumn("Sabado").setHeaderValue("Sabado"+"  "+FechaS); 
+//tbIncidencias.getColumn("Domingo").setHeaderValue("Domingo"+"  "+fechaD);
+//}
 
       private void cargarModeloSem() {
             ArrayList<EJefes> listaSemanas;
@@ -850,7 +850,7 @@ tbIncidencias.getColumn("Domingo").setHeaderValue("Domingo"+"  "+fechaD);
                 JA_newincidencia inc = new JA_newincidencia();
                 inc.selecSeman(Semana);
                  EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-               modificarculumnas(semana.getFechaL(),semana.getFechaM(),semana.getFechaMi(),semana.getFechaJ(),semana.getFechaV(),semana.getFechaS(),semana.getFechaD());
+//               modificarculumnas(semana.getFechaL(),semana.getFechaM(),semana.getFechaMi(),semana.getFechaJ(),semana.getFechaV(),semana.getFechaS(),semana.getFechaD());
                 SetFilas();
 
           }
