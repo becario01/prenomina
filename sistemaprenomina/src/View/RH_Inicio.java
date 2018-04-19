@@ -237,7 +237,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton17.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jButton17.setForeground(new java.awt.Color(51, 102, 255));
         jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/problem.png"))); // NOI18N
-        jButton17.setText("Usuario con Incidencias              ");
+        jButton17.setText("Usuario con Incidencias         ");
         jButton17.setBorder(null);
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
