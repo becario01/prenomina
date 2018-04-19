@@ -712,6 +712,7 @@ public class JA_inicio extends javax.swing.JFrame {
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 40, 40));
 
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        txtBuscar.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setBorder(null);
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -723,7 +724,7 @@ public class JA_inicio extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 730, 80));
 
-        tbIncidencias.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tbIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tbIncidencias.setModel(modeloincidenciasjefe);
         tbIncidencias.setComponentPopupMenu(jPopupMenu1);
         jScrollPane4.setViewportView(tbIncidencias);
@@ -739,7 +740,7 @@ public class JA_inicio extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Seleciona Semana:");
 
-        cmbSemana.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cmbSemana.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbSemana.setModel(modelosemanas);
         cmbSemana.setToolTipText("");
         cmbSemana.addItemListener(new java.awt.event.ItemListener() {
