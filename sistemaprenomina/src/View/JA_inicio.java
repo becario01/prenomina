@@ -25,52 +25,51 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import View.Incidenciasgrupales;
-
 /**
  *
  * @author Vertsequer
  */
 public class JA_inicio extends javax.swing.JFrame {
-
-      private TableRowSorter trsFiltro;
-      int x, y;
+  private TableRowSorter trsFiltro;  
+   int x , y;
       Rjefes rjf;
       RegistrarIncidencia ric;
       Incidenciasgrupales ing;
       JA_newincidencia inc;
       int ultimoIndiceSeleccionado = 0;
-      DefaultComboBoxModel<EJefes> modelosemanas;
+      DefaultComboBoxModel <EJefes> modelosemanas;
       public static ResultSet rs;
       private Connection userConn;
       private PreparedStatement st;
       Conexion con = new Conexion();
       Connection conn;
       PreparedStatement stmt;
-      DefaultTableModel modeloincidenciasjefe = new DefaultTableModel(null, getColumas());
-
-      public JA_inicio() {
-            ing = new Incidenciasgrupales();
-            inc = new JA_newincidencia();
-            ric = new RegistrarIncidencia();
-            rjf = new Rjefes();
-            modelosemanas = new DefaultComboBoxModel<EJefes>();
-            cargarModeloSem();
-            initComponents();
-            this.setResizable(false);
-            this.setLocationRelativeTo(null);
-            this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
-          tbIncidencias.getColumnModel().getColumn(0).setMaxWidth(80);
-          tbIncidencias.getColumnModel().getColumn(1).setMaxWidth(60);
-          tbIncidencias.getColumnModel().getColumn(2).setMaxWidth(240);
-          tbIncidencias.getColumnModel().getColumn(3).setMaxWidth(150);
-          tbIncidencias.getColumnModel().getColumn(4).setMaxWidth(150);
-          tbIncidencias.getColumnModel().getColumn(5).setMaxWidth(150);
-          tbIncidencias.getColumnModel().getColumn(6).setMaxWidth(150);
-          tbIncidencias.getColumnModel().getColumn(7).setMaxWidth(150);
-          tbIncidencias.getColumnModel().getColumn(8).setMaxWidth(150);
-          tbIncidencias.getColumnModel().getColumn(9).setMaxWidth(150);
-      }
-          
+     DefaultTableModel modeloincidenciasjefe = new DefaultTableModel(null,getColumas());
+  
+    public JA_inicio() {
+        ing = new Incidenciasgrupales();
+        inc = new JA_newincidencia();
+        ric = new RegistrarIncidencia();
+        rjf = new Rjefes();
+        modelosemanas = new DefaultComboBoxModel<EJefes>();
+        cargarModeloSem();
+        initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
+         
+    tbIncidencias.getColumnModel().getColumn(0).setMaxWidth(80);
+    tbIncidencias.getColumnModel().getColumn(1).setMaxWidth(60);
+    tbIncidencias.getColumnModel().getColumn(2).setMaxWidth(240);
+     tbIncidencias.getColumnModel().getColumn(3).setMaxWidth(150);
+      tbIncidencias.getColumnModel().getColumn(4).setMaxWidth(150);
+       tbIncidencias.getColumnModel().getColumn(5).setMaxWidth(150);
+        tbIncidencias.getColumnModel().getColumn(6).setMaxWidth(150); 
+        tbIncidencias.getColumnModel().getColumn(7).setMaxWidth(150);
+              tbIncidencias.getColumnModel().getColumn(8).setMaxWidth(150); 
+        tbIncidencias.getColumnModel().getColumn(9).setMaxWidth(150);
+      
+    }
 //public void modificarculumnas(String fechaL,String fechaM,String FechaMi,String FechaJ, String FechaV,String FechaS,String fechaD ){
 //tbIncidencias.getColumn("Lunes").setHeaderValue("Lunes"+"  "+fechaL);
 //tbIncidencias.getColumn("Martes").setHeaderValue("Martes"+"  "+fechaM); 
@@ -80,8 +79,10 @@ public class JA_inicio extends javax.swing.JFrame {
 //tbIncidencias.getColumn("Sabado").setHeaderValue("Sabado"+"  "+FechaS); 
 //tbIncidencias.getColumn("Domingo").setHeaderValue("Domingo"+"  "+fechaD);
 //}
+//    
 
-    private void cargarModeloSem(){
+
+       private void cargarModeloSem(){
             ArrayList<EJefes> listaSemanas;
         listaSemanas = rjf.obtenerSemanas();
 
@@ -95,7 +96,8 @@ public class JA_inicio extends javax.swing.JFrame {
         return columna;
     }
       
-            
+      
+      
       
        public void filtroBusqueda(JTextField txt) {
             trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
@@ -443,7 +445,7 @@ public class JA_inicio extends javax.swing.JFrame {
 
                         } else if (FMartesInc.equalsIgnoreCase("Mi")) {
                             MiercolesInc = days[1];
-                        } else if (FMartesInc.equalsIgnoreCase("J")) {
+                        } else if (FLunesInc.equalsIgnoreCase("J")) {
                             JuevesInc = days[1];
 
                         } else if (FMartesInc.equalsIgnoreCase("V")) {
@@ -463,7 +465,7 @@ public class JA_inicio extends javax.swing.JFrame {
 
                         } else if (FMiercolesInc.equalsIgnoreCase("Mi")) {
                             MiercolesInc = days[2];
-                        } else if (FMiercolesInc.equalsIgnoreCase("J")) {
+                        } else if (FLunesInc.equalsIgnoreCase("J")) {
                             JuevesInc = days[2];
 
                         } else if (FMiercolesInc.equalsIgnoreCase("V")) {
@@ -587,13 +589,14 @@ public class JA_inicio extends javax.swing.JFrame {
         }
 
       }
-
-      /**
-       * This method is called from within the constructor to initialize the
-       * form. WARNING: Do NOT modify this code. The content of this method is
-       * always regenerated by the Form Editor.
-       */
-      @SuppressWarnings("unchecked")
+ 
+   
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -602,9 +605,9 @@ public class JA_inicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnminimizar = new javax.swing.JButton();
+        btncerrar = new javax.swing.JButton();
+        btnregresar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
@@ -636,9 +639,7 @@ public class JA_inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 255));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1362, 555));
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -649,35 +650,35 @@ public class JA_inicio extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/user.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
+        btnminimizar.setBorderPainted(false);
+        btnminimizar.setContentAreaFilled(false);
+        btnminimizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnminimizarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 0, 32, 30));
+        jPanel1.add(btnminimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 0, 32, 30));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
+        btncerrar.setBorderPainted(false);
+        btncerrar.setContentAreaFilled(false);
+        btncerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btncerrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 0, 32, 30));
+        jPanel1.add(btncerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 0, 32, 30));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
+        btnregresar.setBorderPainted(false);
+        btnregresar.setContentAreaFilled(false);
+        btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnregresarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 0, 32, 30));
+        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 0, 32, 30));
 
         jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 230, 10));
@@ -695,8 +696,9 @@ public class JA_inicio extends javax.swing.JFrame {
                 jLabel6MousePressed(evt);
             }
         });
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 50));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 10));
 
+        lblnombrejefe.setEditable(false);
         lblnombrejefe.setBackground(new java.awt.Color(229, 230, 234));
         lblnombrejefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrejefe.setForeground(new java.awt.Color(51, 102, 255));
@@ -705,6 +707,7 @@ public class JA_inicio extends javax.swing.JFrame {
         lblnombrejefe.setCaretColor(new java.awt.Color(51, 102, 255));
         jPanel1.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
 
+        lblcargojefe.setEditable(false);
         lblcargojefe.setBackground(new java.awt.Color(229, 230, 234));
         lblcargojefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargojefe.setForeground(new java.awt.Color(51, 102, 255));
@@ -732,7 +735,6 @@ public class JA_inicio extends javax.swing.JFrame {
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 40, 40));
 
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
-        txtBuscar.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setBorder(null);
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -744,7 +746,7 @@ public class JA_inicio extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 730, 80));
 
-        tbIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tbIncidencias.setModel(modeloincidenciasjefe);
         tbIncidencias.setComponentPopupMenu(jPopupMenu1);
         jScrollPane4.setViewportView(tbIncidencias);
@@ -760,7 +762,7 @@ public class JA_inicio extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Seleciona Semana:");
 
-        cmbSemana.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cmbSemana.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cmbSemana.setModel(modelosemanas);
         cmbSemana.setToolTipText("");
         cmbSemana.addItemListener(new java.awt.event.ItemListener() {
@@ -787,10 +789,8 @@ public class JA_inicio extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cmbSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(974, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -803,33 +803,33 @@ public class JA_inicio extends javax.swing.JFrame {
                     .addComponent(cmbSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(13, 13, 13)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-          System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
+System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_btncerrarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-          this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnminimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminimizarActionPerformed
+  this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnminimizarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-          Jflogin us = new Jflogin();
-          us.show(true);
-          this.show(false);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
+        Jflogin us = new Jflogin();
+        us.show(true);
+        this.show(false);
+    }//GEN-LAST:event_btnregresarActionPerformed
 
     private void jLabel6MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseDragged
-          this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
+        this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
     }//GEN-LAST:event_jLabel6MouseDragged
 
     private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
-          x = evt.getX();
-          y = evt.getY();
+        x = evt.getX();
+        y = evt.getY();
     }//GEN-LAST:event_jLabel6MousePressed
 
     private void cmbSemanaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbSemanaItemStateChanged
@@ -837,22 +837,22 @@ public class JA_inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbSemanaItemStateChanged
 
     private void cmbSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSemanaActionPerformed
-          limpiar(modeloincidenciasjefe);
-          int sem = cmbSemana.getSelectedIndex();
+        limpiar(modeloincidenciasjefe);
+        int sem = cmbSemana.getSelectedIndex();
 
-          if (sem < 0) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar", "Verificar", JOptionPane.WARNING_MESSAGE);
-          } else {
+        if (sem < 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar ", "Verificar", JOptionPane.WARNING_MESSAGE);
+        } else {
 
-                String Semana = cmbSemana.getSelectedItem().toString();
-
-                JA_newincidencia inc = new JA_newincidencia();
-                inc.selecSeman(Semana);
-                 EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
+            String Semana = cmbSemana.getSelectedItem().toString();
+            JA_newincidencia inc = new JA_newincidencia();
+            inc.selecSeman(Semana);
+               EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
 //               modificarculumnas(semana.getFechaL(),semana.getFechaM(),semana.getFechaMi(),semana.getFechaJ(),semana.getFechaV(),semana.getFechaS(),semana.getFechaD());
-                SetFilas();
+               
+            SetFilas();
 
-          }
+        }
     }//GEN-LAST:event_cmbSemanaActionPerformed
 
     private void pmiRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pmiRegistrarMouseClicked
@@ -861,101 +861,104 @@ public class JA_inicio extends javax.swing.JFrame {
 
     private void pmiRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmiRegistrarActionPerformed
 
-          int cuentaFilasSeleccionadas = tbIncidencias.getSelectedRowCount();
 
-          System.out.println("Hay seleccionadas: " + cuentaFilasSeleccionadas + " filas");
-          if (cuentaFilasSeleccionadas == 1) {
-              int fila = tbIncidencias.getSelectedRow();
-              String empid = tbIncidencias.getValueAt(fila, 1).toString();
-              String nombre = tbIncidencias.getValueAt(fila, 2).toString();
-              String Semana = cmbSemana.getSelectedItem().toString();
-              String nombrejefe = lblnombrejefe.getText();
-              String cargojefe = lblcargojefe.getText();
-              inc.setVisible(true);
-              inc.mostrardatos(empid, nombre, Semana, nombrejefe, cargojefe);
-                  inc.botonesnew();
-              this.setVisible(false);
+         int cuentaFilasSeleccionadas = tbIncidencias.getSelectedRowCount();   
+        if (cuentaFilasSeleccionadas == 1) {
+            int fila = tbIncidencias.getSelectedRow();
+            String empid = tbIncidencias.getValueAt(fila, 1).toString();
+            String nombre = tbIncidencias.getValueAt(fila, 2).toString();
+            String Semana = cmbSemana.getSelectedItem().toString();
+            String nombrejefe = lblnombrejefe.getText();
+            String cargojefe = lblcargojefe.getText();
+            inc.setVisible(true);
+            inc.mostrardatos(empid, nombre, Semana,nombrejefe,cargojefe);
+            inc.botonesnew();
+            this.setVisible(false);
 
-          } else {
+        } else {
 
-                TableModel model1 = tbIncidencias.getModel();
-                int indexs[] = tbIncidencias.getSelectedRows();
-                String Semana = cmbSemana.getSelectedItem().toString();
-                ing.Semna.setText(Semana);
-                Object[] row = new Object[4];
+            TableModel model1 = tbIncidencias.getModel();
+            int indexs[] = tbIncidencias.getSelectedRows();
+            String Semana = cmbSemana.getSelectedItem().toString();
+            ing.Semna.setText(Semana);
+            Object[] row = new Object[4];
 
-                DefaultTableModel model2 = (DefaultTableModel) ing.jtbdatosgrupos.getModel();
+            DefaultTableModel model2 = (DefaultTableModel) ing.jtbdatosgrupos.getModel();
 
-                for (int i = 0; i < indexs.length; i++) {
-                      row[0] = model1.getValueAt(indexs[i], 1);
-                      row[1] = model1.getValueAt(indexs[i], 2);
+            for (int i = 0; i < indexs.length; i++) {
+                row[0] = model1.getValueAt(indexs[i], 1);
+                row[1] = model1.getValueAt(indexs[i], 2);
 
-                      model2.addRow(row);
-                }
+                model2.addRow(row);
+            }
 
-                ing.selecSeman(Semana);
-                ing.setVisible(true);
+            ing.selecSeman(Semana);
+            ing.setVisible(true);
 
-          }
-
+        }
+        
     }//GEN-LAST:event_pmiRegistrarActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-          txtBuscar.addKeyListener(new KeyAdapter() {
-                public void keyReleased(final KeyEvent e) {
-                      String cadena = (txtBuscar.getText()).toUpperCase();
-                      txtBuscar.setText(cadena);
-                      repaint();
-                      filtroBusqueda(txtBuscar);
-                }
-          });
-          trsFiltro = new TableRowSorter(tbIncidencias.getModel());
-          tbIncidencias.setRowSorter(trsFiltro);
+         txtBuscar.addKeyListener(new KeyAdapter() {
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (txtBuscar.getText()).toUpperCase();
+                txtBuscar.setText(cadena);
+                repaint();
+                filtroBusqueda(txtBuscar);
+            }
+        });
+        trsFiltro = new TableRowSorter(tbIncidencias.getModel());
+        tbIncidencias.setRowSorter(trsFiltro);
     }//GEN-LAST:event_txtBuscarKeyTyped
 
-      /**
-       * @param args the command line arguments
-       */
-      public static void main(String args[]) {
-            /* Set the Nimbus look and feel */
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
-            try {
-                  for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                        if ("Nimbus".equals(info.getName())) {
-                              javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                              break;
-                        }
-                  }
-            } catch (ClassNotFoundException ex) {
-                  java.util.logging.Logger.getLogger(JA_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                  java.util.logging.Logger.getLogger(JA_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                  java.util.logging.Logger.getLogger(JA_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                  java.util.logging.Logger.getLogger(JA_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JA_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JA_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JA_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JA_inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         //</editor-fold>
-            //</editor-fold>
         //</editor-fold>
-            //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                  public void run() {
-                        new JA_inicio().setVisible(true);
-                  }
-            });
-      }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JA_inicio().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton btncerrar;
+    public static javax.swing.JButton btnminimizar;
+    public static javax.swing.JButton btnregresar;
     public static javax.swing.JComboBox cmbSemana;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
