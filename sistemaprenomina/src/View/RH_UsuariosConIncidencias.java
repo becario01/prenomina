@@ -297,10 +297,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 //            }
 //
 //      }
-    
-    
-    
-        public void reportetxt (int semana){
+    public void reportetxt(int semana) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.txt", "txt", "TXT"));//filtro para ver solo archivos .edu
         int seleccion = fileChooser.showSaveDialog(null);
@@ -321,58 +318,59 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                     stmt = conn.prepareStatement(sql);
                     rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                String idempleado = rs.getString("empleadoId");
-                bw.write("E\t" + idempleado);
-                bw.newLine();
-               String incidencias = " select nomi.nombre,inc.fecha from incidencias inc  inner join NomIncidencia nomi   on inc.idNomIncidencia  = nomi.idNomIncidencia where inc.empleadoId ='" + idempleado + "' and inc.idSemana ='"+semana+"' ";
-                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                nstmt = conn.prepareStatement(incidencias);
-                interno = nstmt.executeQuery();
-                while (interno.next()) {
-                    String nomcidencia = interno.getString("nombre");
-                    String Fechainc = interno.getString("fecha");
-                    String[] datos = Fechainc.split("-");
-                    String año = datos[0];
-                    String mes = datos[1];
-                    String dia = datos[2];
-                    String fecha = dia + "/" + mes + "/" + año;
-                    String incidencia = "D " + nomcidencia;
-                    Calendar cal = Calendar.getInstance();
-                    int añoact = cal.get(Calendar.YEAR);
-                    if (incidencia.length() < 40) {
-                        for (int i = incidencia.length(); i < 40; i++) {
-                            incidencia += " ";
-                        }
-                    }
-                    bw.write(incidencia);
-                    bw.write("" + fecha + "\t" + añoact);
-                    bw.newLine();
+                    while (rs.next()) {
+                        String idempleado = rs.getString("empleadoId");
+                        bw.write("E\t" + idempleado);
+                        bw.newLine();
+                        String incidencias = " select nomi.nombre,inc.fecha from incidencias inc  inner join NomIncidencia nomi   on inc.idNomIncidencia  = nomi.idNomIncidencia where inc.empleadoId ='" + idempleado + "' and inc.idSemana ='" + semana + "' ";
+                        conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+                        nstmt = conn.prepareStatement(incidencias);
+                        interno = nstmt.executeQuery();
+                        while (interno.next()) {
+                            String nomcidencia = interno.getString("nombre");
+                            String Fechainc = interno.getString("fecha");
+                            String[] datos = Fechainc.split("-");
+                            String año = datos[0];
+                            String mes = datos[1];
+                            String dia = datos[2];
+                            String fecha = dia + "/" + mes + "/" + año;
+                            String incidencia = "D " + nomcidencia;
+                            Calendar cal = Calendar.getInstance();
+                            int añoact = cal.get(Calendar.YEAR);
+                            if (incidencia.length() < 40) {
+                                for (int i = incidencia.length(); i < 40; i++) {
+                                    incidencia += " ";
+                                }
+                            }
+                            bw.write(incidencia);
+                            bw.write("" + fecha + "\t" + añoact);
+                            bw.newLine();
 
+                        }
+
+                    }
+                    bw.close();//cierra el archivo
+                    if (!(PATH.endsWith(".txt"))) {
+                        File temp = new File(PATH + ".txt");
+                        JFC.renameTo(temp);//renombramos el archivo
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (Exception e) {
+                    System.out.println("" + e);
+                } finally {
+                    Conexion.close(rs);
+                    Conexion.close(stmt);
                 }
 
+                //comprobamos si a la hora de guardar obtuvo la extension y si no se la asignamos
             }
-            bw.close();//cierra el archivo
-            if (!(PATH.endsWith(".txt"))) {
-                File temp = new File(PATH + ".txt");
-                JFC.renameTo(temp);//renombramos el archivo
-            }
-
-            JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (Exception e) {
-            System.out.println("" + e);
-        } finally {
-            Conexion.close(rs);
-            Conexion.close(stmt);
+        } catch (Exception e) {//por alguna excepcion salta un mensaje de error
+            JOptionPane.showMessageDialog(null, "Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
         }
-
-                    //comprobamos si a la hora de guardar obtuvo la extension y si no se la asignamos
-                }    
-            }catch (Exception e){//por alguna excepcion salta un mensaje de error
-                JOptionPane.showMessageDialog(null,"Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
-            }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -384,6 +382,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         pmAutorizar = new javax.swing.JPopupMenu();
         itemDetalles = new javax.swing.JMenuItem();
+        itemPercepciones = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         cmbSemana = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
@@ -424,6 +423,14 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             }
         });
         pmAutorizar.add(itemDetalles);
+
+        itemPercepciones.setText("Percepciones y Deducciones");
+        itemPercepciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemPercepcionesActionPerformed(evt);
+            }
+        });
+        pmAutorizar.add(itemPercepciones);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -705,26 +712,26 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
       }//GEN-LAST:event_cmbDeptoActionPerformed
 
       private void btnBuscar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar5ActionPerformed
-     try {
-     int idsemana = cmbSemana.getSelectedIndex();
-        String nomsemana=cmbSemana.getSelectedItem().toString();
-        System.out.println(nomsemana);
-        OutputStream out;
-     try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana,nomsemana)) {
-         JFileChooser guardar = new JFileChooser();
-         guardar.setApproveButtonText("Guardar");
-         guardar.showSaveDialog(null);
-         out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
-         workbook.write(out);
-     }
-            out.flush();
-            out.close();
-            JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            System.err.println("Error at file writing");
-            e.printStackTrace();
-        } catch (SQLException ex) {
-            System.err.println("Error at file writing "+ex);
+          try {
+              int idsemana = cmbSemana.getSelectedIndex();
+              String nomsemana = cmbSemana.getSelectedItem().toString();
+              System.out.println(nomsemana);
+              OutputStream out;
+              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana, nomsemana)) {
+                  JFileChooser guardar = new JFileChooser();
+                  guardar.setApproveButtonText("Guardar");
+                  guardar.showSaveDialog(null);
+                  out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
+                  workbook.write(out);
+              }
+              out.flush();
+              out.close();
+              JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
+          } catch (IOException e) {
+              System.err.println("Error at file writing");
+              e.printStackTrace();
+          } catch (SQLException ex) {
+              System.err.println("Error at file writing " + ex);
           }
 
 
@@ -767,7 +774,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String dep = lblcargo.getText();
-          String nom = lblnombrerh.getText();
+        String nom = lblnombrerh.getText();
         try {
             RH_Inicio sele = new RH_Inicio();
             sele.setVisible(true);
@@ -790,9 +797,28 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel11MouseDragged
 
     private void btntxtreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntxtreporteActionPerformed
-int sem = cmbSemana.getSelectedIndex();
-     reportetxt(sem);
+        int sem = cmbSemana.getSelectedIndex();
+        reportetxt(sem);
     }//GEN-LAST:event_btntxtreporteActionPerformed
+
+    private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
+        try {
+            int fila = tbIncidencias.getSelectedRow();
+            if (fila != 0) {
+                String nom = tbIncidencias.getValueAt(fila, 1).toString();
+                String idemp = tbIncidencias.getValueAt(fila, 0).toString();
+                RH_SelectPD per = new RH_SelectPD();
+                per.show(true);
+                RH_SelectPD.lblcod.setText(idemp);
+                RH_SelectPD.lblnombre.setText(nom);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR EN: " + e);
+        }
+    }//GEN-LAST:event_itemPercepcionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -844,6 +870,7 @@ int sem = cmbSemana.getSelectedIndex();
     private javax.swing.JComboBox cmbDepto;
     public static javax.swing.JComboBox cmbSemana;
     private javax.swing.JMenuItem itemDetalles;
+    private javax.swing.JMenuItem itemPercepciones;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
