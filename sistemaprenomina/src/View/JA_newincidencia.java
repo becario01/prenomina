@@ -37,29 +37,35 @@ public class JA_newincidencia extends javax.swing.JFrame {
     Connection conn;
     PreparedStatement stmt;
 
-    public JA_newincidencia() {
+    public JA_newincidencia() {  
         rjf = new Rjefes();
         ejf = new EJefes();
         inci = new select_incidencia();
-
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         pnDia.setVisible(false);
+         
 
     }
-
-   public void mostrardatos(Object cod, Object nombre, String semana,String nomjefe,String cargo) {
+public void botonesnew (){
+    btnregresar.setToolTipText("Regrear ventana anterior");
+    btnminimizar.setToolTipText("Minimizar ventana");
+    btncerrar.setToolTipText("Cerrar");
+}
+    public void mostrardatos(Object cod, Object nombre, String semana,String nomjefe,String cargo) {
         String nom = (String) nombre;
         Object codi = cod;
         lblnomemp.setText(nom);
         lblempid.setText((String) codi);
         lblsemana.setText(semana);
         lblnombrej.setText(nomjefe);
-        lblcargoj.setText(cargo);
+        lblcargo.setText(cargo);
  
     }
+    
+   
 
     public void selecSeman(String vsemana) {
         Connection conn = null;
@@ -83,7 +89,7 @@ public class JA_newincidencia extends javax.swing.JFrame {
                 String fechad = rs.getString(9);
                 String estatus = rs.getString(10);
 
-                System.out.println(fechal + fecham);
+           
                 lblfechal.setText(fechal);
                 lblfecham.setText(fecham);
                 lblfechami.setText(fechami);
@@ -102,12 +108,6 @@ public class JA_newincidencia extends javax.swing.JFrame {
         }
 
     }
-    
-    public void botonesnew (){
-    btnregresar.setToolTipText("Regrear ventana anterior");
-    btnminimizar.setToolTipText("Minimizar ventana");
-    btncerrar.setToolTipText("Cerrar");
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,10 +158,10 @@ public class JA_newincidencia extends javax.swing.JFrame {
         btnminimizar = new javax.swing.JButton();
         btncerrar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
-        lblnombrej = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        lblcargoj = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        lblcargo = new javax.swing.JTextField();
+        lblnombrej = new javax.swing.JTextField();
         lblsemana = new javax.swing.JLabel();
         btnrango = new javax.swing.JButton();
 
@@ -457,19 +457,19 @@ public class JA_newincidencia extends javax.swing.JFrame {
 
         txtCodEmp.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCodEmp.setForeground(new java.awt.Color(255, 255, 255));
-        txtCodEmp.setText("Codigo: ");
+        txtCodEmp.setText("EmpID: ");
         getContentPane().add(txtCodEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 101, -1, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 315, 20));
-        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 315, 20));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 190, 20));
 
         lblnomemp.setBackground(new java.awt.Color(51, 102, 255));
-        lblnomemp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblnomemp.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblnomemp.setForeground(new java.awt.Color(255, 255, 255));
         lblnomemp.setBorder(null);
         getContentPane().add(lblnomemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 320, -1));
 
         lblempid.setBackground(new java.awt.Color(51, 102, 255));
-        lblempid.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblempid.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblempid.setForeground(new java.awt.Color(255, 255, 255));
         lblempid.setBorder(null);
         lblempid.addActionListener(new java.awt.event.ActionListener() {
@@ -477,7 +477,7 @@ public class JA_newincidencia extends javax.swing.JFrame {
                 lblempidActionPerformed(evt);
             }
         });
-        getContentPane().add(lblempid, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 320, 20));
+        getContentPane().add(lblempid, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 190, 20));
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -518,17 +518,27 @@ public class JA_newincidencia extends javax.swing.JFrame {
         });
         jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
 
-        lblnombrej.setEnabled(false);
-        jPanel1.add(lblnombrej, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
-
         jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
 
-        lblcargoj.setEnabled(false);
-        jPanel1.add(lblcargoj, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
-
         jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
+
+        lblcargo.setBackground(new java.awt.Color(229, 230, 234));
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblcargo.setForeground(new java.awt.Color(51, 102, 255));
+        lblcargo.setBorder(null);
+        lblcargo.setDisabledTextColor(new java.awt.Color(51, 102, 255));
+        lblcargo.setEnabled(false);
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 19, 230, 20));
+
+        lblnombrej.setBackground(new java.awt.Color(229, 230, 234));
+        lblnombrej.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblnombrej.setForeground(new java.awt.Color(51, 102, 255));
+        lblnombrej.setBorder(null);
+        lblnombrej.setDisabledTextColor(new java.awt.Color(51, 102, 255));
+        lblnombrej.setEnabled(false);
+        jPanel1.add(lblnombrej, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
@@ -564,8 +574,11 @@ public class JA_newincidencia extends javax.swing.JFrame {
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
         JA_inicio ini = new JA_inicio();
-        ini.show(true);
-        this.show(false);
+        ini.setVisible(true);
+        
+        JA_inicio.lblnombrejefe.setText(lblnombrej.getText());
+        JA_inicio.lblcargojefe.setText(lblcargo.getText());
+        this.setVisible(false);
     }//GEN-LAST:event_btnregresarActionPerformed
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
@@ -634,10 +647,11 @@ public class JA_newincidencia extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSabadoActionPerformed
 
     private void btnrangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrangoActionPerformed
-   select_fechas slf = new select_fechas();
+    select_fechas slf = new select_fechas();
      select_fechas.lblsemana.setText(lblsemana.getText());
      select_fechas.idempleado.setText(lblempid.getText());
          slf.setVisible(true);
+
        
     }//GEN-LAST:event_btnrangoActionPerformed
 
@@ -705,7 +719,7 @@ public class JA_newincidencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -715,7 +729,7 @@ public class JA_newincidencia extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    public static javax.swing.JLabel lblcargoj;
+    private javax.swing.JTextField lblcargo;
     private javax.swing.JTextField lblempid;
     private javax.swing.JLabel lblfechad;
     private javax.swing.JLabel lblfechaj;
@@ -724,7 +738,7 @@ public class JA_newincidencia extends javax.swing.JFrame {
     private javax.swing.JLabel lblfechami;
     private javax.swing.JLabel lblfechas;
     private javax.swing.JLabel lblfechav;
-    public static javax.swing.JLabel lblnombrej;
+    private javax.swing.JTextField lblnombrej;
     private javax.swing.JTextField lblnomemp;
     private javax.swing.JLabel lblsemana;
     private javax.swing.JPanel pnDia;

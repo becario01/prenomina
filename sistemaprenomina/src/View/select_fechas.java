@@ -61,8 +61,6 @@ public class select_fechas extends javax.swing.JFrame {
     }
       
       
-           
-      
       public void inrtevalofechas(String Fechainicio,String Fechafin) throws SQLException, ParseException {
            String dias="";
    
@@ -293,7 +291,8 @@ public class select_fechas extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-  try {
+
+        try {
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
           //fecha inicio
             String formato = jDateChooser2.getDateFormatString();
@@ -312,6 +311,7 @@ public class select_fechas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Al menos elija una FECHA DE NACIMIENTO VALIDA ", "Error..!!", JOptionPane.ERROR_MESSAGE);
 
         }
+     
     }//GEN-LAST:event_jButton3ActionPerformed
 
       /**
