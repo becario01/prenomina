@@ -148,6 +148,7 @@ public class CargarXLS {
                         JOptionPane.showMessageDialog(null, "Error en: " + e);
                   } finally {
                         Conexion1.close(stmt);
+                        JOptionPane.showMessageDialog(null, "Registros Exitosos!");
                         if (this.userConn == null) {
                               Conexion1.close(conn);
                         }
@@ -262,6 +263,7 @@ public class CargarXLS {
                         JOptionPane.showMessageDialog(null, "Error en: " + e);
                   } finally {
                         Conexion1.close(stmt);
+                        JOptionPane.showMessageDialog(null, "Registros Exitosos!");
                         if (this.userConn == null) {
                               Conexion1.close(conn);
                         }
@@ -328,5 +330,6 @@ public class CargarXLS {
             return arrayidemp;
 
       }
+      
 
 }
