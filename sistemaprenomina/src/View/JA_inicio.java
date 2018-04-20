@@ -70,7 +70,7 @@ public class JA_inicio extends javax.swing.JFrame {
           tbIncidencias.getColumnModel().getColumn(8).setMaxWidth(150);
           tbIncidencias.getColumnModel().getColumn(9).setMaxWidth(150);
       }
-//      
+          
 //public void modificarculumnas(String fechaL,String fechaM,String FechaMi,String FechaJ, String FechaV,String FechaS,String fechaD ){
 //tbIncidencias.getColumn("Lunes").setHeaderValue("Lunes"+"  "+fechaL);
 //tbIncidencias.getColumn("Martes").setHeaderValue("Martes"+"  "+fechaM); 
