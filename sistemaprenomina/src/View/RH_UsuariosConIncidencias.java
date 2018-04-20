@@ -8,6 +8,7 @@ package View;
 import Conexion.Conexion;
 import Conexion.Conexion1;
 import Controller.EJefes;
+import Controller.EstiloPercepReport;
 import Controller.autorizacionRH;
 import Controller.estilosreporte;
 import Controller.exportReporte;
@@ -551,6 +552,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         btnBuscar4.setBorderPainted(false);
         btnBuscar4.setContentAreaFilled(false);
         btnBuscar4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/xperxslO.png"))); // NOI18N
+        btnBuscar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnBuscar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 73, -1));
 
         btnBuscar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/REPORTExlsL.png"))); // NOI18N
@@ -819,6 +825,31 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR EN: " + e);
         }
     }//GEN-LAST:event_itemPercepcionesActionPerformed
+
+    private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
+              int idsemana = cmbSemana.getSelectedIndex();
+              String nom= cmbSemana.getSelectedItem().toString();
+        
+
+        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(idsemana,nom);
+JFileChooser guardar = new JFileChooser();
+            guardar.setApproveButtonText("Guardar");
+            guardar.showSaveDialog(null);
+
+            
+                 
+        try {
+            OutputStream out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
+            workbook.write(out);
+            workbook.close();
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            System.err.println("Error at file writing");
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_btnBuscar4ActionPerformed
 
     /**
      * @param args the command line arguments
