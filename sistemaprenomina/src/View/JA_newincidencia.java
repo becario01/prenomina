@@ -634,10 +634,10 @@ public class JA_newincidencia extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSabadoActionPerformed
 
     private void btnrangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrangoActionPerformed
-    select_fechas slf = new select_fechas();
+   select_fechas slf = new select_fechas();
      select_fechas.lblsemana.setText(lblsemana.getText());
+     select_fechas.idempleado.setText(lblempid.getText());
          slf.setVisible(true);
-
        
     }//GEN-LAST:event_btnrangoActionPerformed
 

@@ -1,5 +1,3 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -63,6 +61,8 @@ public class select_fechas extends javax.swing.JFrame {
     }
       
       
+           
+      
       public void inrtevalofechas(String Fechainicio,String Fechafin) throws SQLException, ParseException {
            String dias="";
    
@@ -97,22 +97,17 @@ public class select_fechas extends javax.swing.JFrame {
               EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
               Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
               JA_newincidencia nein = new JA_newincidencia();
-              String codigoemp = "1122";
+              String codigoemp =idempleado.getText();
               int codigoem = Integer.parseInt(codigoemp);
               int horaextra = 1;
               String horastrab = "10";
               String comentario = tctcomentario.getText();
               int idsemana = semana.getIdSemana();
               int idincidencia = incidencia.getIdNomIncidencia();
-        insertarrangos(codigoem,indi, fe,1,comentario,idsemana , idincidencia, "10");
-        
-           
-          
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-         
+              insertarrangos(codigoem,indi, fe,1,comentario,idsemana , idincidencia, "10");
           }
        
-        
+           JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
           
       }
       
@@ -179,10 +174,11 @@ public class select_fechas extends javax.swing.JFrame {
         cmbincidencia = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         lblsemana = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        idempleado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(507, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/save1.png"))); // NOI18N
@@ -271,6 +267,15 @@ public class select_fechas extends javax.swing.JFrame {
         lblsemana.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 80, 30));
 
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("EmpeleadoID:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 90, 30));
+
+        idempleado.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        idempleado.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(idempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 90, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -288,8 +293,7 @@ public class select_fechas extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-
-        try {
+  try {
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
           //fecha inicio
             String formato = jDateChooser2.getDateFormatString();
@@ -302,12 +306,12 @@ public class select_fechas extends javax.swing.JFrame {
 
             
             inrtevalofechas(fechainicio,fechafin);
+           
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Al menos elija una FECHA DE NACIMIENTO VALIDA ", "Error..!!", JOptionPane.ERROR_MESSAGE);
 
         }
-     
     }//GEN-LAST:event_jButton3ActionPerformed
 
       /**
@@ -350,6 +354,7 @@ public class select_fechas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbincidencia;
+    public static javax.swing.JLabel idempleado;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -361,6 +366,7 @@ public class select_fechas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblsemana;

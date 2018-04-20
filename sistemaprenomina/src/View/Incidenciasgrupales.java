@@ -7,6 +7,7 @@ package View;
 
 import BD.Nomincidencia;
 import Conexion.Conexion;
+import Controller.EJefes;
 import Controller.Rincidencia;
 import static View.Incidenciasgrupales.jtbdatosgrupos;
 import java.awt.Color;
@@ -104,7 +105,6 @@ public void selecSeman(String vsemana){
 
 
 
-    
 public int registrargrupos(int empleadoId,String dia,String fecha,int horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
       Connection conn = null;
      PreparedStatement stmt = null;
@@ -118,7 +118,7 @@ public int registrargrupos(int empleadoId,String dia,String fecha,int horasextra
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
-            
+          
         } finally {
             Conexion.close(stmt);
             if (this.userConn == null) {
@@ -138,24 +138,27 @@ public  String guardar(String fechas) throws SQLException{
         String dia;
           try {
        dia = select_incidencia.obtenerDiaSemana(fechas);
+         EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
         Rincidencia incidencia = (Rincidencia)cmbincidencia.getSelectedItem();
         String fecha = fechas;
         String comentario = txtcomentario.getText();
         int horaextra = 1;
         String horastrab= "10";
-   
-              for (int i = 0; i < jtbdatosgrupos.getColumnCount()+1; i++) {
+         int idsemana = semana.getIdSemana();
+        int tabla =  jtbdatosgrupos.getRowCount();
+     
+       
+            
+               for (int i = 0; i <tabla ; i++) {
                  String codigos = jtbdatosgrupos.getValueAt(i, 0).toString();
          int codigo = Integer.parseInt(codigos);
                    System.out.println(codigos);
-             registrargrupos(codigo,dia, fecha, horaextra, comentario,1,incidencia.getIdNomIncidencia(),horastrab);
+             registrargrupos(codigo,dia, fecha, horaextra, comentario,semana.getIdSemana(),incidencia.getIdNomIncidencia(),horastrab);
         }
           } catch (ParseException ex) {
               Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
           }
-         JOptionPane.showMessageDialog(null,"Incidencia registrada");
-         
-         JOptionPane.showMessageDialog(null,"Incidencia registrada");
+       
          
     return fechas;
     
@@ -578,11 +581,13 @@ public  String guardar(String fechas) throws SQLException{
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
-        try {
+           try {
             guardar(lblfechal.getText());
+              JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
 
     }//GEN-LAST:event_btnLunesActionPerformed
@@ -590,6 +595,8 @@ public  String guardar(String fechas) throws SQLException{
     private void btnDomingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomingoActionPerformed
         try {
             guardar(lblfechad.getText());
+            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -598,6 +605,8 @@ public  String guardar(String fechas) throws SQLException{
     private void btnJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuevesActionPerformed
         try {
             guardar(lblfechaj.getText());
+            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -606,6 +615,8 @@ public  String guardar(String fechas) throws SQLException{
     private void btnMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiercolesActionPerformed
         try {
             guardar(lblfechami.getText());
+            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -614,24 +625,29 @@ public  String guardar(String fechas) throws SQLException{
     private void btnMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMartesActionPerformed
         try {
             guardar(lblfecham.getText());
+            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnMartesActionPerformed
 
     private void btnViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViernesActionPerformed
-//        try {
-//            guardar(lblfechav.getText());
-//            System.out.println();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        System.out.println(lblfechav.getText());
+        try {
+            guardar(lblfechav.getText());
+            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }//GEN-LAST:event_btnViernesActionPerformed
 
     private void btnSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSabadoActionPerformed
         try {
             guardar(lblfechas.getText());
+            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
