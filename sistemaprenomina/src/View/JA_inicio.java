@@ -70,7 +70,7 @@ public class JA_inicio extends javax.swing.JFrame {
           tbIncidencias.getColumnModel().getColumn(8).setMaxWidth(150);
           tbIncidencias.getColumnModel().getColumn(9).setMaxWidth(150);
       }
-          
+
 //public void modificarculumnas(String fechaL,String fechaM,String FechaMi,String FechaJ, String FechaV,String FechaS,String fechaD ){
 //tbIncidencias.getColumn("Lunes").setHeaderValue("Lunes"+"  "+fechaL);
 //tbIncidencias.getColumn("Martes").setHeaderValue("Martes"+"  "+fechaM); 
@@ -81,513 +81,514 @@ public class JA_inicio extends javax.swing.JFrame {
 //tbIncidencias.getColumn("Domingo").setHeaderValue("Domingo"+"  "+fechaD);
 //}
 
-    private void cargarModeloSem(){
+      private void cargarModeloSem() {
             ArrayList<EJefes> listaSemanas;
-        listaSemanas = rjf.obtenerSemanas();
+            listaSemanas = rjf.obtenerSemanas();
 
-        for(EJefes semana : listaSemanas){
-            modelosemanas.addElement(semana);
-        }
-    }
-    
-      private String[] getColumas(){
-        String columna[]={"Actualizado","ID","Nombre","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"};
-        return columna;
-    }
-      
-            
-      
-       public void filtroBusqueda(JTextField txt) {
+            for (EJefes semana : listaSemanas) {
+                  modelosemanas.addElement(semana);
+            }
+      }
+
+      private String[] getColumas() {
+   
+  
+            String columna[] = {"Actualizado", "ID", "Nombre", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
+            return columna;
+
+      }
+
+      public void filtroBusqueda(JTextField txt) {
             trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
       }
-    public void SetFilas(){
-            
-         EJefes idsem = (EJefes)cmbSemana.getSelectedItem();
-        
+
+      public void SetFilas() {
+
+            EJefes idsem = (EJefes) cmbSemana.getSelectedItem();
+
             try {
-                 String sql;
-             sql = "SELECT emp.empleadoId ,\n" +
-                     "emp.nombre, \n" +
-                     "       STUFF(( SELECT ','+nomin.nombre \n" +
-                     "               FROM  incidencias inc\n" +
-                     "        INNER JOIN NomIncidencia nomin\n" +
-                     "ON nomin.idNomIncidencia = inc.idNomIncidencia\n" +
-                     "               WHERE\n" +
-                     "                 emp.empleadoId = inc.empleadoId\n" +
-                     "and  	inc.idSemana = '"+idsem.getIdSemana()+"'\n" +
-                     "               order by fecha \n" +
-                     "               FOR XML PATH('')\n" +
-                     "             ) , 1, 1, '' )as datos,\n" +
-                     "\n" +
-                     "               STUFF(( SELECT ','+inc.dia\n" +
-                     "               FROM  incidencias inc\n" +
-                     "        INNER JOIN NomIncidencia nomin\n" +
-                     "ON nomin.idNomIncidencia = inc.idNomIncidencia\n" +
-                     "and  	inc.idSemana = '"+idsem.getIdSemana()+"'   WHERE\n" +
-                     "                 emp.empleadoId = inc.empleadoId\n" +
-                     "               order by fecha \n" +
-                     "               FOR XML PATH('')\n" +
-                     "             ) , 1, 1, '' )as dias\n" +
-                     "\n" +
-                     "  FROM  	empleados emp";
+                  String sql;
+                  sql = "SELECT emp.empleadoId ,\n"
+                          + "emp.nombre, \n"
+                          + "       STUFF(( SELECT ','+nomin.nombre \n"
+                          + "               FROM  incidencias inc\n"
+                          + "        INNER JOIN NomIncidencia nomin\n"
+                          + "ON nomin.idNomIncidencia = inc.idNomIncidencia\n"
+                          + "               WHERE\n"
+                          + "                 emp.empleadoId = inc.empleadoId\n"
+                          + "and  	inc.idSemana = '" + idsem.getIdSemana() + "'\n"
+                          + "               order by fecha \n"
+                          + "               FOR XML PATH('')\n"
+                          + "             ) , 1, 1, '' )as datos,\n"
+                          + "\n"
+                          + "               STUFF(( SELECT ','+inc.dia\n"
+                          + "               FROM  incidencias inc\n"
+                          + "        INNER JOIN NomIncidencia nomin\n"
+                          + "ON nomin.idNomIncidencia = inc.idNomIncidencia\n"
+                          + "and  	inc.idSemana = '" + idsem.getIdSemana() + "'   WHERE\n"
+                          + "                 emp.empleadoId = inc.empleadoId\n"
+                          + "               order by fecha \n"
+                          + "               FOR XML PATH('')\n"
+                          + "             ) , 1, 1, '' )as dias\n"
+                          + "\n"
+                          + "  FROM  	empleados emp";
                   conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                   stmt = conn.prepareStatement(sql);
                   rs = stmt.executeQuery();
                   Object datos[] = new Object[10];
-                while (rs.next()) {
-      
-                    String FLunesInc = "";
-                    String FMartesInc = "";
-                    String FMiercolesInc = "";
-                    String FJuevesInc = "";
-                    String FViernesInc = "";
-                    String FSabadoInc = "";
-                    String FDomingoInc = "";
+                  while (rs.next()) {
 
-                    String DL = "", DMA = "", DMI = "", DJ = "", DV = "", DS = "", DD = "";
-                    String LunesInc = "";
-                    String MartesInc = "";
-                    String MiercolesInc = "";
-                    String JuevesInc = "";
-                    String ViernesInc = "";
-                    String SabadoInc = "";
-                    String DomingoInc = "";
+                        String FLunesInc = "";
+                        String FMartesInc = "";
+                        String FMiercolesInc = "";
+                        String FJuevesInc = "";
+                        String FViernesInc = "";
+                        String FSabadoInc = "";
+                        String FDomingoInc = "";
 
-                    if (rs.getString("datos") == null || rs.getString("datos") == "") {
-                        String empid = rs.getString("empleadoId");
-                        String nom = rs.getString("nombre");
+                        String DL = "", DMA = "", DMI = "", DJ = "", DV = "", DS = "", DD = "";
+                        String LunesInc = "";
+                        String MartesInc = "";
+                        String MiercolesInc = "";
+                        String JuevesInc = "";
+                        String ViernesInc = "";
+                        String SabadoInc = "";
+                        String DomingoInc = "";
 
-                    } else {
-                        String empid = rs.getString("empleadoId");
-                        String nom = rs.getString("nombre");
-                        String Dias = rs.getString("datos");
-                        String Fechas = rs.getString("dias");
-                        if (Dias.contains(",") || Fechas.contains(",")) {
+                        if (rs.getString("datos") == null || rs.getString("datos") == "") {
+                              String empid = rs.getString("empleadoId");
+                              String nom = rs.getString("nombre");
 
-                            String[] days = Dias.split(",");
-                            String[] dates = Fechas.split(",");
-                       
-                                                    if (0 == days.length && 0 == dates.length) {
-                                Dias += ", , , , , , , ,";
-                                Fechas += ", , , , , , , ,";
-                            }
-                            if (1 == days.length && 1 == dates.length) {
-                                Dias += " , , , , , , ,";
-                                Fechas += " , , , , , , ,";
-                            }
-                            if (2 == days.length && 2 == dates.length) {
-                                Dias += " , , , , , ,";
-                                Fechas += " , , , , , ,";
+                        } else {
+                              String empid = rs.getString("empleadoId");
+                              String nom = rs.getString("nombre");
+                              String Dias = rs.getString("datos");
+                              String Fechas = rs.getString("dias");
+                              if (Dias.contains(",") || Fechas.contains(",")) {
 
-                            }
-                            if (3 == days.length && 3 == dates.length) {
-                                Dias += " , , , , ,";
-                                Fechas += " , , , , ,";
+                                    String[] days = Dias.split(",");
+                                    String[] dates = Fechas.split(",");
 
-                            }
-                            if (4 == days.length && 4 == dates.length) {
-                                Dias += " , , , ,";
-                                Fechas += " , , , ,";
+                                    if (0 == days.length && 0 == dates.length) {
+                                          Dias += ", , , , , , , ,";
+                                          Fechas += ", , , , , , , ,";
+                                    }
+                                    if (1 == days.length && 1 == dates.length) {
+                                          Dias += " , , , , , , ,";
+                                          Fechas += " , , , , , , ,";
+                                    }
+                                    if (2 == days.length && 2 == dates.length) {
+                                          Dias += " , , , , , ,";
+                                          Fechas += " , , , , , ,";
 
-                            }
-                            if (5 == days.length && 5 == dates.length) {
-                                Dias += " , , ,";
-                                Fechas += " , , ,";
+                                    }
+                                    if (3 == days.length && 3 == dates.length) {
+                                          Dias += " , , , , ,";
+                                          Fechas += " , , , , ,";
 
-                            }
-                            if (6 == days.length && 6 == dates.length) {
-                                Dias += " , ,";
-                                Fechas += " , ,";
+                                    }
+                                    if (4 == days.length && 4 == dates.length) {
+                                          Dias += " , , , ,";
+                                          Fechas += " , , , ,";
 
-                            }
+                                    }
+                                    if (5 == days.length && 5 == dates.length) {
+                                          Dias += " , , ,";
+                                          Fechas += " , , ,";
 
-                            days = Dias.split(",");
-                            dates = Fechas.split(",");
-                            FLunesInc = dates[0];
-                            FMartesInc = dates[1];
-                            FMiercolesInc = dates[2];
-                            FJuevesInc = dates[3];
-                            FViernesInc = dates[4];
-                            FSabadoInc = dates[5];
-                            FDomingoInc = dates[6];
-                            FLunesInc = FLunesInc.replaceAll(" ", "");
-                            FMartesInc = FMartesInc.replaceAll(" ", "");
-                            FMiercolesInc = FMiercolesInc.replaceAll(" ", "");
-                            FJuevesInc = FJuevesInc.replaceAll(" ", "");
-                            FViernesInc = FViernesInc.replaceAll(" ", "");
-                            FSabadoInc = FSabadoInc.replaceAll(" ", "");
-                            FDomingoInc = FDomingoInc.replaceAll(" ", "");
+                                    }
+                                    if (6 == days.length && 6 == dates.length) {
+                                          Dias += " , ,";
+                                          Fechas += " , ,";
 
-//                            ¿
-          //lunes
-                            if (FLunesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[0];
+                                    }
 
-                            } else if (FLunesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[0];
-
-                            } else if (FLunesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[0];
-                            } else if (FLunesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[0];
-
-                            } else if (FLunesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[0];
-                            } else if (FLunesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[0];
-                            } else if (FLunesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[0];
-                            }
-                            //martes        
-                            if (FMartesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[1];
-
-                            } else if (FMartesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[1];
-
-                            } else if (FMartesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[1];
-                            } else if (FMartesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[1];
-
-                            } else if (FMartesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[1];
-                            } else if (FMartesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[1];
-                            } else if (FMartesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[1];
-                            }
-
-                            //miercoles 
-                            if (FMiercolesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[2];
-
-                            } else if (FMiercolesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[2];
-
-                            } else if (FMiercolesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[2];
-                            } else if (FMiercolesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[2];
-
-                            } else if (FMiercolesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[2];
-                            } else if (FMiercolesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[2];
-                            } else if (FMiercolesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[2];
-                            }
-
-                            //jueves
-                            if (FJuevesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[3];
-
-                            } else if (FJuevesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[3];
-
-                            } else if (FJuevesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[3];
-                            } else if (FJuevesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[3];
-
-                            } else if (FJuevesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[3];
-                            } else if (FJuevesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[3];
-                            } else if (FJuevesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[3];
-                            }
-
-                            //viernes 
-                            if (FViernesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[4];
-
-                            } else if (FViernesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[4];
-
-                            } else if (FViernesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[4];
-                            } else if (FViernesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[4];
-
-                            } else if (FViernesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[4];
-                            } else if (FViernesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[4];
-                            } else if (FViernesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[4];
-                            }
-
-                            //sabado
-                            if (FSabadoInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[5];
-                            } else if (FSabadoInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[5];
-
-                            } else if (FSabadoInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[5];
-                            } else if (FSabadoInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[5];
-
-                            } else if (FSabadoInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[5];
-                            } else if (FSabadoInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[5];
-                            } else if (FSabadoInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[5];
-                            }
-
-                            //domingo
-                            if (FDomingoInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[6];
-
-                            } else if (FDomingoInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[6];
-
-                            } else if (FDomingoInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[6];
-                            } else if (FDomingoInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[6];
-
-                            } else if (FDomingoInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[6];
-                            } else if (FDomingoInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[6];
-                            } else if (FDomingoInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[6];
-                            }
-
-                          
-                    } else {
-
-                        String[] days = Dias.split(",");
-                        String[] dates = Fechas.split(",");
-
-                        if (0 == days.length && 0 == dates.length) {
-                            Dias += ", , , , , , , ,";
-                            Fechas += ", , , , , , , ,";
-                        }
-                        if (1 == days.length && 1 == dates.length) {
-                            Dias += " , , , , , , ,";
-                            Fechas += " , , , , , , ,";
-                        }
-                        if (2 == days.length && 2 == dates.length) {
-                            Dias += " , , , , , ,";
-                            Fechas += " , , , , , ,";
-
-                        }
-                        if (3 == days.length && 3 == dates.length) {
-                            Dias += " , , , , ,";
-                            Fechas += " , , , , ,";
-
-                        }
-                        if (4 == days.length && 4 == dates.length) {
-                            Dias += " , , , ,";
-                            Fechas += " , , , ,";
-
-                        }
-                        if (5 == days.length && 5 == dates.length) {
-                            Dias += " , , ,";
-                            Fechas += " , , ,";
-
-                        }
-                        if (6 == days.length && 6 == dates.length) {
-                            Dias += " , ,";
-                            Fechas += " , ,";
-
-                        }
-
-                        days = Dias.split(",");
-                        dates = Fechas.split(",");
-                        FLunesInc = dates[0];
-                        FMartesInc = dates[1];
-                        FMiercolesInc = dates[2];
-                        FJuevesInc = dates[3];
-                        FViernesInc = dates[4];
-                        FSabadoInc = dates[5];
-                        FDomingoInc = dates[6];
-                        FLunesInc = FLunesInc.replaceAll(" ", "");
-                        FMartesInc = FMartesInc.replaceAll(" ", "");
-                        FMiercolesInc = FMiercolesInc.replaceAll(" ", "");
-                        FJuevesInc = FJuevesInc.replaceAll(" ", "");
-                        FViernesInc = FViernesInc.replaceAll(" ", "");
-                        FSabadoInc = FSabadoInc.replaceAll(" ", "");
-                        FDomingoInc = FDomingoInc.replaceAll(" ", "");
+                                    days = Dias.split(",");
+                                    dates = Fechas.split(",");
+                                    FLunesInc = dates[0];
+                                    FMartesInc = dates[1];
+                                    FMiercolesInc = dates[2];
+                                    FJuevesInc = dates[3];
+                                    FViernesInc = dates[4];
+                                    FSabadoInc = dates[5];
+                                    FDomingoInc = dates[6];
+                                    FLunesInc = FLunesInc.replaceAll(" ", "");
+                                    FMartesInc = FMartesInc.replaceAll(" ", "");
+                                    FMiercolesInc = FMiercolesInc.replaceAll(" ", "");
+                                    FJuevesInc = FJuevesInc.replaceAll(" ", "");
+                                    FViernesInc = FViernesInc.replaceAll(" ", "");
+                                    FSabadoInc = FSabadoInc.replaceAll(" ", "");
+                                    FDomingoInc = FDomingoInc.replaceAll(" ", "");
 
 //                            ¿
-                        //lunes
-                        if (FLunesInc.equalsIgnoreCase("L")) {
-                            LunesInc = days[0];
+                                    //lunes
+                                    if (FLunesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[0];
 
-                        } else if (FLunesInc.equalsIgnoreCase("Ma")) {
-                            MartesInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[0];
 
-                        } else if (FLunesInc.equalsIgnoreCase("Mi")) {
-                            MiercolesInc = days[0];
-                        } else if (FLunesInc.equalsIgnoreCase("J")) {
-                            JuevesInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[0];
 
-                        } else if (FLunesInc.equalsIgnoreCase("V")) {
-                            ViernesInc = days[0];
-                        } else if (FLunesInc.equalsIgnoreCase("S")) {
-                            SabadoInc = days[0];
-                        } else if (FLunesInc.equalsIgnoreCase("D")) {
-                            DomingoInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[0];
+                                    }
+                                    //martes        
+                                    if (FMartesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[1];
+
+                                    } else if (FMartesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[1];
+
+                                    } else if (FMartesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[1];
+                                    } else if (FMartesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[1];
+
+                                    } else if (FMartesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[1];
+                                    } else if (FMartesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[1];
+                                    } else if (FMartesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[1];
+                                    }
+
+                                    //miercoles 
+                                    if (FMiercolesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[2];
+
+                                    } else if (FMiercolesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[2];
+
+                                    } else if (FMiercolesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[2];
+                                    } else if (FMiercolesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[2];
+
+                                    } else if (FMiercolesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[2];
+                                    } else if (FMiercolesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[2];
+                                    } else if (FMiercolesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[2];
+                                    }
+
+                                    //jueves
+                                    if (FJuevesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[3];
+
+                                    } else if (FJuevesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[3];
+
+                                    } else if (FJuevesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[3];
+                                    } else if (FJuevesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[3];
+
+                                    } else if (FJuevesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[3];
+                                    } else if (FJuevesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[3];
+                                    } else if (FJuevesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[3];
+                                    }
+
+                                    //viernes 
+                                    if (FViernesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[4];
+
+                                    } else if (FViernesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[4];
+
+                                    } else if (FViernesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[4];
+                                    } else if (FViernesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[4];
+
+                                    } else if (FViernesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[4];
+                                    } else if (FViernesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[4];
+                                    } else if (FViernesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[4];
+                                    }
+
+                                    //sabado
+                                    if (FSabadoInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[5];
+                                    } else if (FSabadoInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[5];
+
+                                    } else if (FSabadoInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[5];
+                                    } else if (FSabadoInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[5];
+
+                                    } else if (FSabadoInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[5];
+                                    } else if (FSabadoInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[5];
+                                    } else if (FSabadoInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[5];
+                                    }
+
+                                    //domingo
+                                    if (FDomingoInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[6];
+
+                                    } else if (FDomingoInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[6];
+
+                                    } else if (FDomingoInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[6];
+                                    } else if (FDomingoInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[6];
+
+                                    } else if (FDomingoInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[6];
+                                    } else if (FDomingoInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[6];
+                                    } else if (FDomingoInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[6];
+                                    }
+
+                              } else {
+
+                                    String[] days = Dias.split(",");
+                                    String[] dates = Fechas.split(",");
+
+                                    if (0 == days.length && 0 == dates.length) {
+                                          Dias += ", , , , , , , ,";
+                                          Fechas += ", , , , , , , ,";
+                                    }
+                                    if (1 == days.length && 1 == dates.length) {
+                                          Dias += " , , , , , , ,";
+                                          Fechas += " , , , , , , ,";
+                                    }
+                                    if (2 == days.length && 2 == dates.length) {
+                                          Dias += " , , , , , ,";
+                                          Fechas += " , , , , , ,";
+
+                                    }
+                                    if (3 == days.length && 3 == dates.length) {
+                                          Dias += " , , , , ,";
+                                          Fechas += " , , , , ,";
+
+                                    }
+                                    if (4 == days.length && 4 == dates.length) {
+                                          Dias += " , , , ,";
+                                          Fechas += " , , , ,";
+
+                                    }
+                                    if (5 == days.length && 5 == dates.length) {
+                                          Dias += " , , ,";
+                                          Fechas += " , , ,";
+
+                                    }
+                                    if (6 == days.length && 6 == dates.length) {
+                                          Dias += " , ,";
+                                          Fechas += " , ,";
+
+                                    }
+
+                                    days = Dias.split(",");
+                                    dates = Fechas.split(",");
+                                    FLunesInc = dates[0];
+                                    FMartesInc = dates[1];
+                                    FMiercolesInc = dates[2];
+                                    FJuevesInc = dates[3];
+                                    FViernesInc = dates[4];
+                                    FSabadoInc = dates[5];
+                                    FDomingoInc = dates[6];
+                                    FLunesInc = FLunesInc.replaceAll(" ", "");
+                                    FMartesInc = FMartesInc.replaceAll(" ", "");
+                                    FMiercolesInc = FMiercolesInc.replaceAll(" ", "");
+                                    FJuevesInc = FJuevesInc.replaceAll(" ", "");
+                                    FViernesInc = FViernesInc.replaceAll(" ", "");
+                                    FSabadoInc = FSabadoInc.replaceAll(" ", "");
+                                    FDomingoInc = FDomingoInc.replaceAll(" ", "");
+
+//                            ¿
+                                    //lunes
+                                    if (FLunesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[0];
+
+                                    } else if (FLunesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[0];
+
+                                    } else if (FLunesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[0];
+
+                                    } else if (FLunesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[0];
+                                    } else if (FLunesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[0];
+                                    }
+                                    //martes        
+                                    if (FMartesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[1];
+
+                                    } else if (FMartesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[1];
+
+                                    } else if (FMartesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[1];
+                                    } else if (FLunesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[1];
+
+                                    } else if (FMartesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[1];
+                                    } else if (FMartesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[1];
+                                    } else if (FMartesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[1];
+                                    }
+
+                                    //miercoles 
+                                    if (FMiercolesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[2];
+
+                                    } else if (FMiercolesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[2];
+
+                                    } else if (FMiercolesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[2];
+                                    } else if (FLunesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[2];
+
+                                    } else if (FMiercolesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[2];
+                                    } else if (FMiercolesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[2];
+                                    } else if (FMiercolesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[2];
+                                    }
+
+                                    //jueves
+                                    if (FJuevesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[3];
+
+                                    } else if (FJuevesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[3];
+
+                                    } else if (FJuevesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[3];
+                                    } else if (FJuevesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[3];
+
+                                    } else if (FJuevesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[3];
+                                    } else if (FJuevesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[3];
+                                    } else if (FJuevesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[3];
+                                    }
+
+                                    //viernes 
+                                    if (FViernesInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[4];
+
+                                    } else if (FViernesInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[4];
+
+                                    } else if (FViernesInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[4];
+                                    } else if (FViernesInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[4];
+
+                                    } else if (FViernesInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[4];
+                                    } else if (FViernesInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[4];
+                                    } else if (FViernesInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[4];
+                                    }
+
+                                    //sabado
+                                    if (FSabadoInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[5];
+                                    } else if (FSabadoInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[5];
+
+                                    } else if (FSabadoInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[5];
+                                    } else if (FSabadoInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[5];
+
+                                    } else if (FSabadoInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[5];
+                                    } else if (FSabadoInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[5];
+                                    } else if (FSabadoInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[5];
+                                    }
+
+                                    //domingo
+                                    if (FDomingoInc.equalsIgnoreCase("L")) {
+                                          LunesInc = days[6];
+
+                                    } else if (FDomingoInc.equalsIgnoreCase("Ma")) {
+                                          MartesInc = days[6];
+
+                                    } else if (FDomingoInc.equalsIgnoreCase("Mi")) {
+                                          MiercolesInc = days[6];
+                                    } else if (FDomingoInc.equalsIgnoreCase("J")) {
+                                          JuevesInc = days[6];
+
+                                    } else if (FDomingoInc.equalsIgnoreCase("V")) {
+                                          ViernesInc = days[6];
+                                    } else if (FDomingoInc.equalsIgnoreCase("S")) {
+                                          SabadoInc = days[6];
+                                    } else if (FDomingoInc.equalsIgnoreCase("D")) {
+                                          DomingoInc = days[6];
+                                    }
+
+                              }
+
                         }
-                        //martes        
-                        if (FMartesInc.equalsIgnoreCase("L")) {
-                            LunesInc = days[1];
 
-                        } else if (FMartesInc.equalsIgnoreCase("Ma")) {
-                            MartesInc = days[1];
+                        datos[1] = rs.getString("empleadoId");
+                        datos[2] = rs.getString("nombre");
+                        datos[3] = LunesInc;
+                        datos[4] = MartesInc;
+                        datos[5] = MiercolesInc;
+                        datos[6] = JuevesInc;
+                        datos[7] = ViernesInc;
+                        datos[8] = SabadoInc;
+                        datos[9] = DomingoInc;
 
-                        } else if (FMartesInc.equalsIgnoreCase("Mi")) {
-                            MiercolesInc = days[1];
-                        } else if (FMartesInc.equalsIgnoreCase("J")) {
-                            JuevesInc = days[1];
-
-                        } else if (FMartesInc.equalsIgnoreCase("V")) {
-                            ViernesInc = days[1];
-                        } else if (FMartesInc.equalsIgnoreCase("S")) {
-                            SabadoInc = days[1];
-                        } else if (FMartesInc.equalsIgnoreCase("D")) {
-                            DomingoInc = days[1];
-                        }
-
-                        //miercoles 
-                        if (FMiercolesInc.equalsIgnoreCase("L")) {
-                            LunesInc = days[2];
-
-                        } else if (FMiercolesInc.equalsIgnoreCase("Ma")) {
-                            MartesInc = days[2];
-
-                        } else if (FMiercolesInc.equalsIgnoreCase("Mi")) {
-                            MiercolesInc = days[2];
-                        } else if (FMiercolesInc.equalsIgnoreCase("J")) {
-                            JuevesInc = days[2];
-
-                        } else if (FMiercolesInc.equalsIgnoreCase("V")) {
-                            ViernesInc = days[2];
-                        } else if (FMiercolesInc.equalsIgnoreCase("S")) {
-                            SabadoInc = days[2];
-                        } else if (FMiercolesInc.equalsIgnoreCase("D")) {
-                            DomingoInc = days[2];
-                        }
-
-                        //jueves
-                        if (FJuevesInc.equalsIgnoreCase("L")) {
-                            LunesInc = days[3];
-
-                        } else if (FJuevesInc.equalsIgnoreCase("Ma")) {
-                            MartesInc = days[3];
-
-                        } else if (FJuevesInc.equalsIgnoreCase("Mi")) {
-                            MiercolesInc = days[3];
-                        } else if (FJuevesInc.equalsIgnoreCase("J")) {
-                            JuevesInc = days[3];
-
-                        } else if (FJuevesInc.equalsIgnoreCase("V")) {
-                            ViernesInc = days[3];
-                        } else if (FJuevesInc.equalsIgnoreCase("S")) {
-                            SabadoInc = days[3];
-                        } else if (FJuevesInc.equalsIgnoreCase("D")) {
-                            DomingoInc = days[3];
-                        }
-
-                        //viernes 
-                        if (FViernesInc.equalsIgnoreCase("L")) {
-                            LunesInc = days[4];
-
-                        } else if (FViernesInc.equalsIgnoreCase("Ma")) {
-                            MartesInc = days[4];
-
-                        } else if (FViernesInc.equalsIgnoreCase("Mi")) {
-                            MiercolesInc = days[4];
-                        } else if (FViernesInc.equalsIgnoreCase("J")) {
-                            JuevesInc = days[4];
-
-                        } else if (FViernesInc.equalsIgnoreCase("V")) {
-                            ViernesInc = days[4];
-                        } else if (FViernesInc.equalsIgnoreCase("S")) {
-                            SabadoInc = days[4];
-                        } else if (FViernesInc.equalsIgnoreCase("D")) {
-                            DomingoInc = days[4];
-                        }
-
-                        //sabado
-                        if (FSabadoInc.equalsIgnoreCase("L")) {
-                            LunesInc = days[5];
-                        } else if (FSabadoInc.equalsIgnoreCase("Ma")) {
-                            MartesInc = days[5];
-
-                        } else if (FSabadoInc.equalsIgnoreCase("Mi")) {
-                            MiercolesInc = days[5];
-                        } else if (FSabadoInc.equalsIgnoreCase("J")) {
-                            JuevesInc = days[5];
-
-                        } else if (FSabadoInc.equalsIgnoreCase("V")) {
-                            ViernesInc = days[5];
-                        } else if (FSabadoInc.equalsIgnoreCase("S")) {
-                            SabadoInc = days[5];
-                        } else if (FSabadoInc.equalsIgnoreCase("D")) {
-                            DomingoInc = days[5];
-                        }
-
-                        //domingo
-                        if (FDomingoInc.equalsIgnoreCase("L")) {
-                            LunesInc = days[6];
-
-                        } else if (FDomingoInc.equalsIgnoreCase("Ma")) {
-                            MartesInc = days[6];
-
-                        } else if (FDomingoInc.equalsIgnoreCase("Mi")) {
-                            MiercolesInc = days[6];
-                        } else if (FDomingoInc.equalsIgnoreCase("J")) {
-                            JuevesInc = days[6];
-
-                        } else if (FDomingoInc.equalsIgnoreCase("V")) {
-                            ViernesInc = days[6];
-                        } else if (FDomingoInc.equalsIgnoreCase("S")) {
-                            SabadoInc = days[6];
-                        } else if (FDomingoInc.equalsIgnoreCase("D")) {
-                            DomingoInc = days[6];
-                        }
-
-                    }
-
-                }
-
-                datos[1] = rs.getString("empleadoId");
-                datos[2] = rs.getString("nombre");
-                datos[3] = LunesInc;
-                datos[4] = MartesInc;
-                datos[5] = MiercolesInc;
-                datos[6] = JuevesInc;
-                datos[7] = ViernesInc;
-                datos[8] = SabadoInc;
-                datos[9] = DomingoInc;
-
-                modeloincidenciasjefe.addRow(datos);
-            }
+                        modeloincidenciasjefe.addRow(datos);
+                  }
 
 //                        tabla1.addRow(datos);
-        } catch (Exception e) {
-            System.out.println("" + e);
-        } finally {
-            Conexion.close(rs);
-            Conexion.close(stmt);
-        }
-
-    }
-
-    public void limpiar(DefaultTableModel tabla) {
-        for (int i = 0; i < tabla.getRowCount(); i++) {
-            tabla.removeRow(i);
-            i -= 1;
-        }
+            } catch (Exception e) {
+                  System.out.println("" + e);
+            } finally {
+                  Conexion.close(rs);
+                  Conexion.close(stmt);
+            }
 
       }
 
+      public void limpiar(DefaultTableModel tabla) {
+            for (int i = 0; i < tabla.getRowCount(); i++) {
+                  tabla.removeRow(i);
+                  i -= 1;
+            }
+
+      }
+      
       /**
        * This method is called from within the constructor to initialize the
        * form. WARNING: Do NOT modify this code. The content of this method is

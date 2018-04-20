@@ -9,6 +9,7 @@ import Conexion.Conexion;
 import Conexion.Conexion1;
 import Controller.EJefes;
 import Controller.autorizacionRH;
+import Controller.estilosreporte;
 import Controller.exportReporte;
 import static View.RH_Inicio.lblcargo;
 import static View.RH_Inicio.lblnombrerh;
@@ -18,6 +19,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,6 +41,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  *
@@ -719,15 +724,28 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 //                        ex.printStackTrace();
 //                  }
 //            }
+ try {
+     int idsemana = 1;
 
-          try {
-              exportReporte exp = new exportReporte();
-              int semana = 1;
-              exp.cargardatosFiltroSemana(semana);
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e);
+        HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana);
+JFileChooser guardar = new JFileChooser();
+            guardar.setApproveButtonText("Guardar");
+            guardar.showSaveDialog(null);
 
-          }
+            
+                 
+       
+            OutputStream out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
+            workbook.write(out);
+            workbook.close();
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            System.err.println("Error at file writing");
+            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
       }//GEN-LAST:event_btnBuscar5ActionPerformed
