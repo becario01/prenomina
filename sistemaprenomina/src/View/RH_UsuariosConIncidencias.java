@@ -371,6 +371,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    public void enviarfechas(String fechainicio,String fechafin){
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -584,6 +588,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         btnBuscar3.setBorderPainted(false);
         btnBuscar3.setContentAreaFilled(false);
         btnBuscar3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calfaltasOO.png"))); // NOI18N
+        btnBuscar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnBuscar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 73, -1));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
@@ -850,6 +859,10 @@ JFileChooser guardar = new JFileChooser();
         }
         
     }//GEN-LAST:event_btnBuscar4ActionPerformed
+
+    private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed
+        
+    }//GEN-LAST:event_btnBuscar3ActionPerformed
 
     /**
      * @param args the command line arguments

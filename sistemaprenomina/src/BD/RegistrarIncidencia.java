@@ -389,4 +389,12 @@ public class RegistrarIncidencia {
     }
     
   
+      public void calculoFaltas(){
+          
+          String sql = "";
+      }
+      
+      
+      
+      
 }
