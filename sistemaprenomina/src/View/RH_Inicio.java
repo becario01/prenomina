@@ -137,6 +137,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 255));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1100, 500));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
@@ -156,7 +157,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 32, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 32, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
         jButton3.setBorderPainted(false);
@@ -166,7 +167,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 32, 30));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 0, 32, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
         jButton4.setBorderPainted(false);
@@ -176,7 +177,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 0, 32, 30));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
@@ -192,17 +193,17 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
 
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel5MousePressed(evt);
-            }
-        });
         jLabel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jLabel5MouseDragged(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 50));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel5MousePressed(evt);
+            }
+        });
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 52));
 
@@ -210,48 +211,45 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton10.setBackground(new java.awt.Color(192, 179, 179));
-        jButton10.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButton10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton10.setForeground(new java.awt.Color(51, 102, 255));
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/form.png"))); // NOI18N
-        jButton10.setText("Persepciones Deducciones");
-        jButton10.setBorder(null);
+        jButton10.setText("Percepciones Deducciones");
         jButton10.setBorderPainted(false);
-        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 240, 100));
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 250, 100));
 
         jButton11.setBackground(new java.awt.Color(242, 182, 146));
-        jButton11.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButton11.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton11.setForeground(new java.awt.Color(51, 102, 255));
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/team.png"))); // NOI18N
         jButton11.setText("Usuarios sin Incidencias ");
         jButton11.setBorder(null);
         jButton11.setBorderPainted(false);
-        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 240, 100));
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 250, 100));
 
         jButton13.setBackground(new java.awt.Color(243, 162, 194));
-        jButton13.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButton13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton13.setForeground(new java.awt.Color(51, 102, 255));
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendario.png"))); // NOI18N
-        jButton13.setText("  Semanas                               ");
-        jButton13.setBorder(null);
+        jButton13.setText("  Semanas                 ");
         jButton13.setBorderPainted(false);
-        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 240, 100));
+        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 250, 100));
 
         jButton17.setBackground(new java.awt.Color(177, 224, 234));
-        jButton17.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButton17.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton17.setForeground(new java.awt.Color(51, 102, 255));
         jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/problem.png"))); // NOI18N
-        jButton17.setText("Usuario con Incidencias         ");
-        jButton17.setBorder(null);
+        jButton17.setText("Usuario con Incidencias");
         jButton17.setBorderPainted(false);
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton17ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 240, 100));
+        jPanel2.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 250, 100));
 
         jButton16.setBackground(new java.awt.Color(183, 212, 62));
-        jButton16.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButton16.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton16.setForeground(new java.awt.Color(51, 102, 255));
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/lecture.png"))); // NOI18N
         jButton16.setText("Listado Personal               ");
@@ -262,19 +260,18 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton16ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 100));
+        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 100));
 
         jButton14.setBackground(new java.awt.Color(97, 209, 182));
-        jButton14.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButton14.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton14.setForeground(new java.awt.Color(51, 102, 255));
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/usuarios.png"))); // NOI18N
-        jButton14.setText("Usuarios                             ");
-        jButton14.setBorder(null);
+        jButton14.setText("Usuarios                      ");
         jButton14.setBorderPainted(false);
-        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 240, 100));
+        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 250, 100));
 
         btnIncidencias.setBackground(new java.awt.Color(247, 203, 111));
-        btnIncidencias.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnIncidencias.setForeground(new java.awt.Color(51, 102, 255));
         btnIncidencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/test.png"))); // NOI18N
         btnIncidencias.setText("      Incidencias");
@@ -285,35 +282,36 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 btnIncidenciasActionPerformed(evt);
             }
         });
-        jPanel2.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 260, 100));
+        jPanel2.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 250, 100));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 470, 430));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 530, 430));
 
+        lbldia.setBackground(new java.awt.Color(255, 255, 255));
         lbldia.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
-        lbldia.setForeground(new java.awt.Color(231, 242, 225));
-        getContentPane().add(lbldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 70, 70));
+        lbldia.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lbldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 170, 100, 70));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("de");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 210, 30, 30));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 210, 30, 30));
 
         lblmes.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         lblmes.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblmes, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, 80, 30));
+        getContentPane().add(lblmes, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 230, 80, 30));
 
         lblaño.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
         lblaño.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, 150, 60));
+        getContentPane().add(lblaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 270, 190, 60));
 
         lblhoradiaria.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
         lblhoradiaria.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblhoradiaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 360, 200, 50));
+        getContentPane().add(lblhoradiaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 360, 280, 50));
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(229, 230, 234));
         jLabel3.setText("Bienvenido");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, -1, 50));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, -1, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
