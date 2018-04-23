@@ -7,6 +7,7 @@ package BD;
 
 import Conexion.Conexion;
 import Controller.EIncidencia;
+import View.RH_Calculofaltas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -389,12 +390,70 @@ public class RegistrarIncidencia {
     }
     
   
-      public void calculoFaltas(){
+      public void calculoFaltas(String fechaini,String fechafin,String inid){
           
-          String sql = "";
-      }
+           Connection conn = null;
+                 PreparedStatement stmt = null;
+                 ResultSet rs = null;
+            try {
+                String sql = "SELECT registros.*,DATENAME(dw, registros.fecha) as inidias,semanas.idSemana FROM 	registros\n"
+                        + "LEFT JOIN incidencias ON registros.empleadoId <> incidencias.idIncidencia\n"
+                        + "AND registros.fecha = incidencias.fecha\n"
+                        + "LEFT JOIN semanas ON semanas.fechaL = registros.fecha\n"
+                        + "OR semanas.fechaMa = registros.fecha\n"
+                        + "OR semanas.fechaMi = registros.fecha\n"
+                        + "OR semanas.fechaJ = registros.fecha\n"
+                        + "OR semanas.fechaV = registros.fecha\n"
+                        + "OR semanas.fechaS = registros.fecha\n"
+                        + "OR semanas.fechaD = registros.fecha\n"
+                        + "WHERE\n"
+                        + "	incidencias.empleadoId IS NULL\n"
+                        + "AND incidencias.fecha IS NULL\n"
+                        + "AND registros.fecha BETWEEN '" + fechaini + "'\n"
+                        + "AND '" + fechafin + "'\n"
+                        + "OR registros.fecha = '1111-11-11'";
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    int id = rs.getInt(1);
+                    int empleadoId = rs.getInt(2);
+                    String entrada = rs.getString(3);
+                    String salida = rs.getString(4);
+                    String fecha = rs.getString(6);
+                    String nomdfecha = rs.getString(7);
+                    int idSemana = rs.getInt(8);
+                    if (nomdfecha.equalsIgnoreCase(inid)) {
+                     RH_Calculofaltas calf = new RH_Calculofaltas() ;
+                  String  fechas =   RH_Calculofaltas.obtenerDiaSemana(fecha);
+                        System.out.println(id + "\t "+empleadoId +"\t "+entrada+"\t"+salida+"\t"+fecha+"\t"+fechas+"\t"+idSemana);
+                        
+                        
+                         if (entrada.equals("00:00:00") ||  salida.equals("00:00:00")) {
+                     String comentario = "Falta  AT";                             
+                     int nomincidencia =100;
+                             this.insert(empleadoId,fechas,fecha,10, comentario, idSemana,nomincidencia,"5");
+                             JOptionPane.showMessageDialog(null,"Registro Exitoso");
+                             
+                             
+                    }else{
+                        System.out.println("cuentan con entrada");
+                    }
+                        
+                    }
+                   
+                   
+
+                } 
+        
+             } catch (Exception e) {
+                System.out.println(""+e);
+             }finally{
+                 Conexion.close(rs);
+                  Conexion.close(stmt);
+             }
       
       
-      
-      
+}
 }

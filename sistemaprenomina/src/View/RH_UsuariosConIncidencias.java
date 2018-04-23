@@ -374,6 +374,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     
     public void enviarfechas(String fechainicio,String fechafin){
         
+        
+        
     }
 
     /**

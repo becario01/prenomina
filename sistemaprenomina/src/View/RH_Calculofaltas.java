@@ -5,6 +5,12 @@
  */
 package View;
 
+import BD.RegistrarIncidencia;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author Becarios
@@ -18,6 +24,52 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
         initComponents();
     }
 
+    
+    public void calcular(String inicialD){
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+          //fecha inicio
+            String formato = jDateChooser2.getDateFormatString();
+            Date dates = jDateChooser2.getDate();
+            String fechainicio = String.valueOf(sdf.format(dates));
+            //fecha fin
+            String formatofin = jDateChooser1.getDateFormatString();
+            Date datefin = jDateChooser1.getDate();
+            String fechafin = String.valueOf(sdf.format(datefin));
+            String india = inicialD;
+            fechainicio = fechainicio.replace("-", "");
+            fechafin = fechafin.replace("-", "");
+            
+  
+       RegistrarIncidencia  rgsi = new RegistrarIncidencia();
+       rgsi.calculoFaltas(fechainicio, fechafin,india);
+   
+    }
+      public static String obtenerDiaSemana(String fechaP) throws ParseException{
+      String[] dias={"D","L","Ma","Mi","J","V","S"};
+      String aux ="";
+      fechaP = fechaP.replaceAll(" ", "");
+       SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+             if (fechaP.equalsIgnoreCase("")) {
+                 
+             }else{
+        String dateInString = fechaP;
+         String[] dates = dateInString.split("-");
+         String año = dates[0];
+         String mes = dates[1];  
+         String dia = dates[2];
+         String fecha = dia+"-"+mes+"-"+año;
+        fecha = fecha.replaceAll(" ", "");
+        
+          java.util.Date date = formatter.parse(fecha);
+      int numeroDia=0;
+      Calendar cal= Calendar.getInstance();
+      cal.setTime(date);
+      numeroDia=cal.get(Calendar.DAY_OF_WEEK);
+    
+       aux = dias[numeroDia - 1];
+             }
+      return aux;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,20 +89,13 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
         btnMartes = new javax.swing.JButton();
         btnViernes = new javax.swing.JButton();
         btnSabado = new javax.swing.JButton();
-        lblfechal = new javax.swing.JLabel();
-        lblfecham = new javax.swing.JLabel();
-        lblfechami = new javax.swing.JLabel();
-        lblfechaj = new javax.swing.JLabel();
-        lblfechav = new javax.swing.JLabel();
-        lblfechas = new javax.swing.JLabel();
-        lblfechad = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        lbllunes = new javax.swing.JLabel();
+        lblviernes = new javax.swing.JLabel();
+        lblmartes = new javax.swing.JLabel();
+        lblsabado = new javax.swing.JLabel();
+        lblmiercoles = new javax.swing.JLabel();
+        lbldomingo = new javax.swing.JLabel();
+        lbljueves = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,54 +164,33 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
             }
         });
 
-        lblfechal.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblfechal.setForeground(new java.awt.Color(255, 255, 255));
+        lbllunes.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lbllunes.setForeground(new java.awt.Color(255, 255, 255));
+        lbllunes.setText("Lunes");
 
-        lblfecham.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblfecham.setForeground(new java.awt.Color(255, 255, 255));
+        lblviernes.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblviernes.setForeground(new java.awt.Color(255, 255, 255));
+        lblviernes.setText("Viernes");
 
-        lblfechami.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblfechami.setForeground(new java.awt.Color(255, 255, 255));
+        lblmartes.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblmartes.setForeground(new java.awt.Color(255, 255, 255));
+        lblmartes.setText("Martes");
 
-        lblfechaj.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblfechaj.setForeground(new java.awt.Color(255, 255, 255));
+        lblsabado.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblsabado.setForeground(new java.awt.Color(255, 255, 255));
+        lblsabado.setText("Sábado");
 
-        lblfechav.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblfechav.setForeground(new java.awt.Color(255, 255, 255));
+        lblmiercoles.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblmiercoles.setForeground(new java.awt.Color(255, 255, 255));
+        lblmiercoles.setText("Miércoles");
 
-        lblfechas.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblfechas.setForeground(new java.awt.Color(255, 255, 255));
+        lbldomingo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lbldomingo.setForeground(new java.awt.Color(255, 255, 255));
+        lbldomingo.setText("Domingo");
 
-        lblfechad.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblfechad.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Lunes");
-
-        jLabel22.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("Viernes");
-
-        jLabel15.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Martes");
-
-        jLabel23.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Sabado");
-
-        jLabel17.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Miercoles");
-
-        jLabel24.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("Domingo");
-
-        jLabel25.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setText("Jueves");
+        lbljueves.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lbljueves.setForeground(new java.awt.Color(255, 255, 255));
+        lbljueves.setText("Jueves");
 
         javax.swing.GroupLayout pnDiaLayout = new javax.swing.GroupLayout(pnDia);
         pnDia.setLayout(pnDiaLayout);
@@ -178,50 +202,36 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(btnLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblfechal, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)))
+                        .addComponent(lbllunes))
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(btnViernes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblfechav, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(215, 215, 215)
+                        .addComponent(lblviernes, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(226, 226, 226)
                         .addComponent(btnSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblfechas, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23)))
+                        .addComponent(lblsabado))
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addGap(291, 291, 291)
                         .addComponent(btnMartes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblfecham, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblmartes, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(121, 121, 121)
                         .addComponent(btnMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblfechami, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17))))
+                        .addComponent(lblmiercoles)))
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblfechaj, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25))
-                        .addGap(36, 36, 36))
+                        .addComponent(lbljueves)
+                        .addGap(50, 50, 50))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDiaLayout.createSequentialGroup()
                         .addComponent(btnDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblfechad, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24))
+                        .addComponent(lbldomingo)
                         .addGap(133, 133, 133))))
         );
         pnDiaLayout.setVerticalGroup(
@@ -236,9 +246,7 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
                         .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDiaLayout.createSequentialGroup()
                                 .addGap(39, 39, 39)
-                                .addComponent(jLabel23)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblfechas, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblsabado))
                             .addGroup(pnDiaLayout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addComponent(btnSabado))))
@@ -246,46 +254,32 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
                         .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDiaLayout.createSequentialGroup()
                                 .addGap(19, 19, 19)
-                                .addComponent(jLabel25)
-                                .addGap(12, 12, 12)
-                                .addComponent(lblfechaj, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbljueves))
                             .addGroup(pnDiaLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(50, 50, 50)
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblfechad, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbldomingo))
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addGap(77, 77, 77)
                         .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblfechami, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblfecham, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblmiercoles)
+                            .addComponent(lblmartes))
+                        .addGap(28, 28, 28)
                         .addComponent(btnDomingo)))
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(pnDiaLayout.createSequentialGroup()
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblfechal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbllunes))
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(jLabel22)
-                        .addGap(5, 5, 5)
-                        .addComponent(lblfechav, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblviernes))
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(btnViernes)))
@@ -323,32 +317,46 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
-      
+ if(evt.getSource().equals(btnLunes)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+    calcular(lbllunes.getText());
+   }
     }//GEN-LAST:event_btnLunesActionPerformed
 
     private void btnDomingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomingoActionPerformed
-
+ if(evt.getSource().equals(btnDomingo)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+    calcular(lbldomingo.getText());
+   }
       
     }//GEN-LAST:event_btnDomingoActionPerformed
 
     private void btnJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuevesActionPerformed
-       
+        if(evt.getSource().equals(btnJueves)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+    calcular(lbljueves.getText());
+   }
     }//GEN-LAST:event_btnJuevesActionPerformed
 
     private void btnMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiercolesActionPerformed
-     
+     if(evt.getSource().equals(btnMiercoles)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+    calcular(lblmiercoles.getText());
+   } 
     }//GEN-LAST:event_btnMiercolesActionPerformed
 
     private void btnMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMartesActionPerformed
-
+ if(evt.getSource().equals(btnMartes)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+    calcular(lblmartes.getText());
+   }
     }//GEN-LAST:event_btnMartesActionPerformed
 
     private void btnViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViernesActionPerformed
-       
+        if(evt.getSource().equals(btnViernes)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+    calcular(lblviernes.getText());
+   }
     }//GEN-LAST:event_btnViernesActionPerformed
 
     private void btnSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSabadoActionPerformed
-  
+   if(evt.getSource().equals(btnSabado)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+    calcular(lblsabado.getText());
+   }
     }//GEN-LAST:event_btnSabadoActionPerformed
 
     /**
@@ -396,20 +404,13 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
     private javax.swing.JButton btnViernes;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel lblfechad;
-    private javax.swing.JLabel lblfechaj;
-    private javax.swing.JLabel lblfechal;
-    private javax.swing.JLabel lblfecham;
-    private javax.swing.JLabel lblfechami;
-    private javax.swing.JLabel lblfechas;
-    private javax.swing.JLabel lblfechav;
+    private javax.swing.JLabel lbldomingo;
+    private javax.swing.JLabel lbljueves;
+    private javax.swing.JLabel lbllunes;
+    private javax.swing.JLabel lblmartes;
+    private javax.swing.JLabel lblmiercoles;
+    private javax.swing.JLabel lblsabado;
+    private javax.swing.JLabel lblviernes;
     private javax.swing.JPanel pnDia;
     // End of variables declaration//GEN-END:variables
 }
