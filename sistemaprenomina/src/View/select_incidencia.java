@@ -342,8 +342,11 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_cmbincidenciaActionPerformed
 
     private void btnincidenciaLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnincidenciaLActionPerformed
-
-        Rincidencia incidencia = (Rincidencia)cmbincidencia.getSelectedItem();
+ if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
+      Rincidencia incidencia = (Rincidencia)cmbincidencia.getSelectedItem();
         int codigoemp =Integer.parseInt(codi);
         String fecha = lblFecha.getText();
         String comentario = txtcomentario.getText();
@@ -356,7 +359,9 @@ System.exit(0);        // TODO add your handling code here:
         } catch (ParseException ex) {
             Logger.getLogger(select_incidencia.class.getName()).log(Level.SEVERE, null, ex);
         } 
-  verfechas(codigoemp,dia,fecha,horaextra,comentario,incidencia.getIdNomIncidencia(),horastrab);
+       
+        verfechas(codigoemp,dia,fecha,horaextra,comentario,incidencia.getIdNomIncidencia(),horastrab);
+        }
     }//GEN-LAST:event_btnincidenciaLActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
