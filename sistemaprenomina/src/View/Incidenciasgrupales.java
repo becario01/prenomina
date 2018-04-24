@@ -133,33 +133,52 @@ public int registrargrupos(int empleadoId,String dia,String fecha,int horasextra
 
 public  String guardar(String fechas) throws SQLException{
           
-    select_incidencia sin = new select_incidencia();
+     select_incidencia sin = new select_incidencia();
 
         String dia;
-          try {
-       dia = select_incidencia.obtenerDiaSemana(fechas);
-         EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-        Rincidencia incidencia = (Rincidencia)cmbincidencia.getSelectedItem();
+     try {
+        dia = select_incidencia.obtenerDiaSemana(fechas);
+        EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
+        Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
         String fecha = fechas;
         String comentario = txtcomentario.getText();
         int horaextra = 1;
-        String horastrab= "10";
-         int idsemana = semana.getIdSemana();
-        int tabla =  jtbdatosgrupos.getRowCount();
-     
-       
-            
-               for (int i = 0; i <tabla ; i++) {
-                 String codigos = jtbdatosgrupos.getValueAt(i, 0).toString();
-         int codigo = Integer.parseInt(codigos);
-                   System.out.println(codigos);
-             registrargrupos(codigo,dia, fecha, horaextra, comentario,semana.getIdSemana(),incidencia.getIdNomIncidencia(),horastrab);
+        String horastrab = "10";
+        int idsemana = semana.getIdSemana();
+        int tabla = jtbdatosgrupos.getRowCount();
+
+        for (int i = 0; i < tabla; i++) {
+            String codigos = jtbdatosgrupos.getValueAt(i, 0).toString();
+            int codigo = Integer.parseInt(codigos);
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+
+            int id = semana.getIdSemana();
+            try {
+                String sql = "select  * from incidencias where  empleadoId='" + codigos + "' and fecha='" + fecha + "' and idSemana='" + semana.getIdSemana() + "'  and dia='" + dia + "'";
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+                if (!rs.next()) {
+                    registrargrupos(codigo, dia, fecha, horaextra, comentario, semana.getIdSemana(), incidencia.getIdNomIncidencia(), horastrab);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Está persona cuenta con incidencia en este dia!!", "Warning",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (Exception e) {
+                System.out.println("" + e);
+            } finally {
+                Conexion.close(rs);
+                Conexion.close(stmt);
+            }
         }
-          } catch (ParseException ex) {
-              Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
-          }
-       
-         
+
+    } catch (ParseException ex) {
+        Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+    }
+     
+     
     return fechas;
     
 }
@@ -490,7 +509,6 @@ public  String guardar(String fechas) throws SQLException{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblfechad, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDiaLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDomingo)
                                 .addGap(44, 44, 44)))))
                 .addContainerGap(38, Short.MAX_VALUE))
