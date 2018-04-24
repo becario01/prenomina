@@ -9,6 +9,7 @@ import BD.Rjefes;
 import BD.Nomincidencia;
 import BD.RegistrarIncidencia;
 import Conexion.Conexion;
+import Controller.EJefes;
 import Controller.Rincidencia;
 import java.sql.*;
 import java.text.ParseException;
@@ -18,6 +19,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class select_incidencia extends javax.swing.JFrame{
       Nomincidencia rin;
@@ -85,30 +87,35 @@ private void cargarModeloSem(){
       return aux;
     }//metodo obtenerDia
   
-public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,String comentario,int idNominci,String horastrab ,String Semana){
-                 Connection conn = null;
-                 PreparedStatement stmt = null;
-                 ResultSet rs = null;
-            try {
-                 String sql = "SELECT *  from semanas WHERE semana = '"+Semana+"'";
-                  conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                  stmt = conn.prepareStatement(sql);
-                  rs = stmt.executeQuery();
-                while (rs.next()) {
-                   int id=rs.getInt(1);
-              RegistrarIncidencia regin = new RegistrarIncidencia ();
-                regin.insert(codigoemp, dia,fecha, horaextra, comentario, id,idNominci, horastrab);            
-               } 
-        
-             } catch (Exception e) {
-                System.out.println(""+e);
-             }finally{
-                 Conexion.close(rs);
-                  Conexion.close(stmt);
-             }
-    
-    
-    
+public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,String comentario,int idNominci,String horastrab){
+          Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
+    int id = semana.getIdSemana();
+    try {
+        String sql = "select  * from incidencias where  empleadoId='" + codigoemp + "' and fecha='" + fecha + "' and idSemana='" + id + "'  and dia='" + dia + "'";
+        conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+        stmt = conn.prepareStatement(sql);
+        rs = stmt.executeQuery();
+
+        if (!rs.next()) {
+            RegistrarIncidencia regin = new RegistrarIncidencia();
+            regin.insert(codigoemp, dia, fecha, horaextra, comentario, id, idNominci, horastrab);
+        } else {
+
+            JOptionPane.showMessageDialog(rootPane, "Está persona cuenta con incidencia en este dia!!", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+
+    } catch (Exception e) {
+        System.out.println("" + e);
+    } finally {
+        Conexion.close(rs);
+        Conexion.close(stmt);
+    }
+
+
 }
 
     
@@ -348,9 +355,8 @@ System.exit(0);        // TODO add your handling code here:
 
         } catch (ParseException ex) {
             Logger.getLogger(select_incidencia.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        verfechas(codigoemp,dia,fecha,horaextra,comentario,incidencia.getIdNomIncidencia(),horastrab,lblsem.getText());
-
+        } 
+  verfechas(codigoemp,dia,fecha,horaextra,comentario,incidencia.getIdNomIncidencia(),horastrab);
     }//GEN-LAST:event_btnincidenciaLActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
