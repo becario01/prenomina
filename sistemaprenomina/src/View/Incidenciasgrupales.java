@@ -51,7 +51,7 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         cargarModeloSem();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
+        this.getContentPane().setBackground(new java.awt.Color(229, 230, 234));
     }
     private void cargarModeloSem(){
             ArrayList<Rincidencia> listaSemanas;
@@ -230,11 +230,11 @@ public  String guardar(String fechas) throws SQLException{
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 300, 134));
 
+        Semna.setBackground(new java.awt.Color(0, 0, 0));
         Semna.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        Semna.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(Semna, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 135, 20));
 
-        jPanel1.setBackground(new java.awt.Color(229, 230, 234));
+        jPanel1.setBackground(new java.awt.Color(138, 229, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
@@ -281,10 +281,11 @@ public  String guardar(String fechas) throws SQLException{
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 52));
 
+        cmbincidencia.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cmbincidencia.setModel(modeloselincidencia);
         getContentPane().add(cmbincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 170, 30));
 
-        pnDia.setBackground(new java.awt.Color(51, 102, 255));
+        pnDia.setBackground(new java.awt.Color(229, 230, 234));
 
         btnLunes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendarL.png"))); // NOI18N
         btnLunes.setBorder(null);
@@ -355,53 +356,40 @@ public  String guardar(String fechas) throws SQLException{
         });
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Lunes");
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Martes");
 
         jLabel16.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Miercoles");
 
         jLabel18.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Jueves");
 
         jLabel19.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Viernes");
 
         jLabel20.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Sabado");
 
         jLabel21.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Domingo");
 
         lblfechal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblfechal.setForeground(new java.awt.Color(255, 255, 255));
 
         lblfecham.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblfecham.setForeground(new java.awt.Color(255, 255, 255));
 
         lblfechami.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblfechami.setForeground(new java.awt.Color(255, 255, 255));
 
         lblfechaj.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblfechaj.setForeground(new java.awt.Color(255, 255, 255));
 
         lblfechav.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblfechav.setForeground(new java.awt.Color(255, 255, 255));
 
         lblfechas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblfechas.setForeground(new java.awt.Color(255, 255, 255));
 
         lblfechad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblfechad.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnDiaLayout = new javax.swing.GroupLayout(pnDia);
         pnDia.setLayout(pnDiaLayout);
@@ -446,21 +434,20 @@ public  String guardar(String fechas) throws SQLException{
                                     .addComponent(lblfechas, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblfechaj, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18))
-                        .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDiaLayout.createSequentialGroup()
                         .addComponent(btnDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21)
                             .addComponent(lblfechad, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(133, 133, 133))))
+                        .addGap(188, 188, 188))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDiaLayout.createSequentialGroup()
+                        .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblfechaj, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
+                        .addGap(101, 101, 101))))
         );
         pnDiaLayout.setVerticalGroup(
             pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -494,18 +481,10 @@ public  String guardar(String fechas) throws SQLException{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblfechas, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnDiaLayout.createSequentialGroup()
+                        .addGap(82, 82, 82)
                         .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblfechaj, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addGap(50, 50, 50)
+                                .addGap(41, 41, 41)
                                 .addComponent(jLabel21)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblfechad, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -523,7 +502,14 @@ public  String guardar(String fechas) throws SQLException{
                         .addComponent(lblfechal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnDiaLayout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblfechaj, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDiaLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
@@ -539,12 +525,10 @@ public  String guardar(String fechas) throws SQLException{
         getContentPane().add(pnDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 940, -1));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Personas Seleccionadas");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 190, 20));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Incidencia para Asignar");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 150, 30));
 
@@ -555,7 +539,6 @@ public  String guardar(String fechas) throws SQLException{
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 300, -1));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Comentario");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 124, 90, 20));
 

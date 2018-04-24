@@ -216,7 +216,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/form.png"))); // NOI18N
         jButton10.setText("Percepciones Deducciones");
         jButton10.setBorderPainted(false);
-        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 250, 100));
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 270, 100));
 
         jButton11.setBackground(new java.awt.Color(242, 182, 146));
         jButton11.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -225,7 +225,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton11.setText("Usuarios sin Incidencias ");
         jButton11.setBorder(null);
         jButton11.setBorderPainted(false);
-        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 250, 100));
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 270, 100));
 
         jButton13.setBackground(new java.awt.Color(243, 162, 194));
         jButton13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -233,7 +233,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendario.png"))); // NOI18N
         jButton13.setText("  Semanas                 ");
         jButton13.setBorderPainted(false);
-        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 250, 100));
+        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 270, 100));
 
         jButton17.setBackground(new java.awt.Color(177, 224, 234));
         jButton17.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -246,7 +246,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton17ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 250, 100));
+        jPanel2.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 270, 100));
 
         jButton16.setBackground(new java.awt.Color(183, 212, 62));
         jButton16.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -260,7 +260,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton16ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 100));
+        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 100));
 
         jButton14.setBackground(new java.awt.Color(97, 209, 182));
         jButton14.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -268,7 +268,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/usuarios.png"))); // NOI18N
         jButton14.setText("Usuarios                      ");
         jButton14.setBorderPainted(false);
-        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 250, 100));
+        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 270, 100));
 
         btnIncidencias.setBackground(new java.awt.Color(247, 203, 111));
         btnIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -282,7 +282,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 btnIncidenciasActionPerformed(evt);
             }
         });
-        jPanel2.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 250, 100));
+        jPanel2.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 270, 100));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 530, 430));
 
