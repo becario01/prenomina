@@ -522,7 +522,7 @@ public  String guardar(String fechas) throws SQLException{
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 940, -1));
+        getContentPane().add(pnDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 960, -1));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel1.setText("Personas Seleccionadas");
