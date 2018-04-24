@@ -51,7 +51,7 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         cargarModeloSem();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(new java.awt.Color(229, 230, 234));
+        this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
     }
     private void cargarModeloSem(){
             ArrayList<Rincidencia> listaSemanas;
@@ -389,6 +389,7 @@ public  String guardar(String fechas) throws SQLException{
 
         lblfechas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        lblfechad.setBackground(new java.awt.Color(0, 0, 0));
         lblfechad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout pnDiaLayout = new javax.swing.GroupLayout(pnDia);
@@ -533,10 +534,11 @@ public  String guardar(String fechas) throws SQLException{
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 150, 30));
 
         txtcomentario.setColumns(20);
+        txtcomentario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtcomentario.setRows(5);
         jScrollPane1.setViewportView(txtcomentario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 300, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 300, -1));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel4.setText("Comentario");

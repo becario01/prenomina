@@ -39,6 +39,7 @@ public class select_fechas extends javax.swing.JFrame {
     Nomincidencia rin;
     select_incidencia slin;
     DefaultComboBoxModel<Rincidencia> modeloselincidencia;
+      int x, y;
       
       public select_fechas() {
            modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
@@ -48,7 +49,7 @@ public class select_fechas extends javax.swing.JFrame {
           cargarModeloSem();
           this.setResizable(false);
           this.setLocationRelativeTo(null);
-          this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
+          this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
       }
       
       private void cargarModeloSem(){
@@ -167,6 +168,7 @@ public class select_fechas extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cmbincidencia = new javax.swing.JComboBox();
@@ -190,8 +192,8 @@ public class select_fechas extends javax.swing.JFrame {
         getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 170, -1));
         getContentPane().add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 170, -1));
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Incidencia por Rango de fechas");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, -1, 20));
 
@@ -202,12 +204,12 @@ public class select_fechas extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 239, -1));
 
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Comentario");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 90, 30));
 
-        jPanel1.setBackground(new java.awt.Color(229, 230, 234));
+        jPanel1.setBackground(new java.awt.Color(138, 229, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
@@ -240,15 +242,27 @@ public class select_fechas extends javax.swing.JFrame {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 32, 30));
 
+        jLabel7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jLabel7MouseDragged(evt);
+            }
+        });
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel7MousePressed(evt);
+            }
+        });
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 50));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 52));
 
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Selecciona incidencia");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 160, -1));
 
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Fecha Inicio");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 90, -1));
 
@@ -256,22 +270,21 @@ public class select_fechas extends javax.swing.JFrame {
         cmbincidencia.setModel(modeloselincidencia);
         getContentPane().add(cmbincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 170, 30));
 
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Fecha Fin");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 80, -1));
 
+        lblsemana.setBackground(new java.awt.Color(0, 0, 0));
         lblsemana.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblsemana.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 80, 30));
+        getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 130, 30));
 
+        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
         jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("EmpeleadoID:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 90, 30));
 
-        idempleado.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        idempleado.setForeground(new java.awt.Color(255, 255, 255));
+        idempleado.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         getContentPane().add(idempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 90, 30));
 
         pack();
@@ -313,6 +326,15 @@ public class select_fechas extends javax.swing.JFrame {
         }
      
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
+        x = evt.getX();
+        y = evt.getY();
+    }//GEN-LAST:event_jLabel7MousePressed
+
+    private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
+       this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
+    }//GEN-LAST:event_jLabel7MouseDragged
 
       /**
        * @param args the command line arguments
@@ -367,6 +389,7 @@ public class select_fechas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblsemana;

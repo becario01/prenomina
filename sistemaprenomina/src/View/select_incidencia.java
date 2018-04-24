@@ -31,6 +31,7 @@ public class select_incidencia extends javax.swing.JFrame{
       Conexion con = new Conexion();
       Connection conn;
       PreparedStatement stmt;
+          int x, y;
    
     public select_incidencia() {
         modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
@@ -40,7 +41,7 @@ public class select_incidencia extends javax.swing.JFrame{
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
+        this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
 
     }
 public void mostrardatosse(String nombre,String cod){
@@ -130,6 +131,7 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         cmbincidencia = new javax.swing.JComboBox();
         btnincidenciaL = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
@@ -170,7 +172,7 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
         setBackground(new java.awt.Color(51, 102, 255));
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(229, 230, 234));
+        jPanel1.setBackground(new java.awt.Color(138, 229, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
@@ -203,7 +205,19 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 32, 30));
 
-        cmbincidencia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jLabel3MouseDragged(evt);
+            }
+        });
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 30));
+
+        cmbincidencia.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbincidencia.setModel(modeloselincidencia);
         cmbincidencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +236,6 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
         });
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("REGISTRO DE INCIDENCIAS");
         jLabel13.setToolTipText("");
 
@@ -232,17 +245,13 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
         jScrollPane3.setViewportView(txtcomentario);
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Fecha :");
 
         lblFecha.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblFecha.setForeground(new java.awt.Color(255, 255, 255));
 
         lblsem.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblsem.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Comentario:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -255,21 +264,22 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(cmbincidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnincidenciaL, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(91, 91, 91))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(80, 80, 80)))
+                        .addGap(80, 80, 80))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbincidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnincidenciaL, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(145, 145, 145)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -343,6 +353,15 @@ System.exit(0);        // TODO add your handling code here:
 
     }//GEN-LAST:event_btnincidenciaLActionPerformed
 
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+          x = evt.getX();
+         y = evt.getY();
+    }//GEN-LAST:event_jLabel3MousePressed
+
+    private void jLabel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseDragged
+       this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
+    }//GEN-LAST:event_jLabel3MouseDragged
+
     /**
      * @param args the command line arguments
      */
@@ -390,6 +409,7 @@ System.exit(0);        // TODO add your handling code here:
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

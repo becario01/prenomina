@@ -10,22 +10,32 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Becarios
  */
 public class RH_Calculofaltas extends javax.swing.JFrame {
-
-    /**
-     * Creates new form RH_Calculofaltas
-     */
+int x,y;
     public RH_Calculofaltas() {
         initComponents();
+          this.setResizable(false);
+          this.setLocationRelativeTo(null);
+          this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
     }
 
     
     public void calcular(String inicialD){
+        
+         if(jDateChooser2.getDate()==null && jDateChooser1.getDate()==null){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+  JOptionPane.showMessageDialog(null,"Ambos campos estas vacios");
+  }else if(jDateChooser1.getDate()==null){
+       JOptionPane.showMessageDialog(null,"El campo Fecha fin esta vacio");
+    }else if(jDateChooser2.getDate()==null){
+                JOptionPane.showMessageDialog(null,"El campo Fecha inicio esta vacio");
+        }else{          
+    
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
           //fecha inicio
             String formato = jDateChooser2.getDateFormatString();
@@ -42,33 +52,34 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
   
        RegistrarIncidencia  rgsi = new RegistrarIncidencia();
        rgsi.calculoFaltas(fechainicio, fechafin,india);
+    }
    
     }
       public static String obtenerDiaSemana(String fechaP) throws ParseException{
-      String[] dias={"D","L","Ma","Mi","J","V","S"};
-      String aux ="";
-      fechaP = fechaP.replaceAll(" ", "");
-       SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-             if (fechaP.equalsIgnoreCase("")) {
-                 
-             }else{
-        String dateInString = fechaP;
-         String[] dates = dateInString.split("-");
-         String año = dates[0];
-         String mes = dates[1];  
-         String dia = dates[2];
-         String fecha = dia+"-"+mes+"-"+año;
-        fecha = fecha.replaceAll(" ", "");
-        
-          java.util.Date date = formatter.parse(fecha);
-      int numeroDia=0;
-      Calendar cal= Calendar.getInstance();
-      cal.setTime(date);
-      numeroDia=cal.get(Calendar.DAY_OF_WEEK);
-    
-       aux = dias[numeroDia - 1];
-             }
-      return aux;
+          String[] dias = {"D", "L", "Ma", "Mi", "J", "V", "S"};
+          String aux = "";
+          fechaP = fechaP.replaceAll(" ", "");
+          SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+          if (fechaP.equalsIgnoreCase("")) {
+
+          } else {
+              String dateInString = fechaP;
+              String[] dates = dateInString.split("-");
+              String año = dates[0];
+              String mes = dates[1];
+              String dia = dates[2];
+              String fecha = dia + "-" + mes + "-" + año;
+              fecha = fecha.replaceAll(" ", "");
+
+              java.util.Date date = formatter.parse(fecha);
+              int numeroDia = 0;
+              Calendar cal = Calendar.getInstance();
+              cal.setTime(date);
+              numeroDia = cal.get(Calendar.DAY_OF_WEEK);
+
+              aux = dias[numeroDia - 1];
+          }
+          return aux;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,10 +107,21 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
         lblmiercoles = new javax.swing.JLabel();
         lbldomingo = new javax.swing.JLabel();
         lbljueves = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 249, -1));
+        getContentPane().add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 249, -1));
 
-        pnDia.setBackground(new java.awt.Color(51, 102, 255));
+        pnDia.setBackground(new java.awt.Color(233, 236, 241));
 
         btnLunes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendarL.png"))); // NOI18N
         btnLunes.setContentAreaFilled(false);
@@ -165,31 +187,24 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
         });
 
         lbllunes.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lbllunes.setForeground(new java.awt.Color(255, 255, 255));
         lbllunes.setText("Lunes");
 
         lblviernes.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblviernes.setForeground(new java.awt.Color(255, 255, 255));
         lblviernes.setText("Viernes");
 
         lblmartes.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblmartes.setForeground(new java.awt.Color(255, 255, 255));
         lblmartes.setText("Martes");
 
         lblsabado.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblsabado.setForeground(new java.awt.Color(255, 255, 255));
         lblsabado.setText("Sábado");
 
         lblmiercoles.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblmiercoles.setForeground(new java.awt.Color(255, 255, 255));
         lblmiercoles.setText("Miércoles");
 
         lbldomingo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lbldomingo.setForeground(new java.awt.Color(255, 255, 255));
         lbldomingo.setText("Domingo");
 
         lbljueves.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lbljueves.setForeground(new java.awt.Color(255, 255, 255));
         lbljueves.setText("Jueves");
 
         javax.swing.GroupLayout pnDiaLayout = new javax.swing.GroupLayout(pnDia);
@@ -286,40 +301,70 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(pnDia, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(258, 258, 258))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
-                .addComponent(pnDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
+        getContentPane().add(pnDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 1020, -1));
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel1.setText("Fecha inicio");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, 20));
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel2.setText("Fecha fin");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(138, 229, 239));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
+        jButton3.setBorderPainted(false);
+        jButton3.setContentAreaFilled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 0, 32, 30));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
+        jButton4.setBorderPainted(false);
+        jButton4.setContentAreaFilled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 32, 30));
+
+        jLabel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jLabel3MouseDragged(evt);
+            }
+        });
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 50));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 52));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
- if(evt.getSource().equals(btnLunes)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+ if(evt.getSource().equals(btnLunes)){
     calcular(lbllunes.getText());
-   }
+ }
     }//GEN-LAST:event_btnLunesActionPerformed
 
     private void btnDomingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomingoActionPerformed
@@ -358,6 +403,27 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
     calcular(lblsabado.getText());
    }
     }//GEN-LAST:event_btnSabadoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jLabel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseDragged
+        this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
+    }//GEN-LAST:event_jLabel3MouseDragged
+
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        x = evt.getX();
+        y = evt.getY();
+    }//GEN-LAST:event_jLabel3MousePressed
 
     /**
      * @param args the command line arguments
@@ -402,8 +468,15 @@ public class RH_Calculofaltas extends javax.swing.JFrame {
     private javax.swing.JButton btnMiercoles;
     private javax.swing.JButton btnSabado;
     private javax.swing.JButton btnViernes;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbldomingo;
     private javax.swing.JLabel lbljueves;
     private javax.swing.JLabel lbllunes;
