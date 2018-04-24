@@ -719,16 +719,11 @@ fechad.setText(semana.getFechaD());
         lblnombrejefe.setCaretColor(new java.awt.Color(51, 102, 255));
         jPanel1.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
 
-        lblcargojefe.setEditable(false);
         lblcargojefe.setBackground(new java.awt.Color(229, 230, 234));
         lblcargojefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblcargojefe.setForeground(new java.awt.Color(229, 230, 234));
-        lblcargojefe.setToolTipText("");
-        lblcargojefe.setAutoscrolls(false);
+        lblcargojefe.setForeground(new java.awt.Color(51, 102, 255));
         lblcargojefe.setBorder(null);
         lblcargojefe.setCaretColor(new java.awt.Color(51, 102, 255));
-        lblcargojefe.setEnabled(false);
-        lblcargojefe.setOpaque(false);
         jPanel1.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 230, 20));
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
