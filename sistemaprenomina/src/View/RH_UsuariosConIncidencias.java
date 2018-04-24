@@ -863,7 +863,8 @@ JFileChooser guardar = new JFileChooser();
     }//GEN-LAST:event_btnBuscar4ActionPerformed
 
     private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed
-        
+RH_Calculofaltas clf = new RH_Calculofaltas();
+clf.setVisible(true);
     }//GEN-LAST:event_btnBuscar3ActionPerformed
 
     /**
