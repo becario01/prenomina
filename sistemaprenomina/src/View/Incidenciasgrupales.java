@@ -380,8 +380,8 @@ public  String guardar(String fechas) throws SQLException{
 
         lblfecham.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        lblfechami.setBackground(new java.awt.Color(0, 0, 0));
         lblfechami.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblfechami.setForeground(new java.awt.Color(255, 255, 255));
 
         lblfechaj.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 

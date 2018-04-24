@@ -106,7 +106,7 @@ public class select_fechas extends javax.swing.JFrame {
               insertarrangos(codigoem,indi, fe,1,comentario,idsemana , idincidencia, "10");
           }
        
-           JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+      JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
           
       }
       
@@ -202,12 +202,12 @@ public class select_fechas extends javax.swing.JFrame {
         tctcomentario.setRows(5);
         jScrollPane1.setViewportView(tctcomentario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 239, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 239, -1));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel3.setText("Comentario");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 90, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 90, 30));
 
         jPanel1.setBackground(new java.awt.Color(138, 229, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -259,12 +259,12 @@ public class select_fechas extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setText("Selecciona incidencia");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 160, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 160, -1));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel4.setText("Fecha Inicio");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 90, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 90, -1));
 
         cmbincidencia.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         cmbincidencia.setModel(modeloselincidencia);
@@ -273,7 +273,7 @@ public class select_fechas extends javax.swing.JFrame {
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel5.setText("Fecha Fin");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 80, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 80, -1));
 
         lblsemana.setBackground(new java.awt.Color(0, 0, 0));
         lblsemana.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -303,28 +303,35 @@ public class select_fechas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-
+   
+        
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
-          //fecha inicio
-            String formato = jDateChooser2.getDateFormatString();
-            Date dates = jDateChooser2.getDate();
-            String fechainicio = String.valueOf(sdf.format(dates));
-            //fecha fin
-            String formatofin = jDateChooser1.getDateFormatString();
-            Date datefin = jDateChooser1.getDate();
-            String fechafin = String.valueOf(sdf.format(datefin));
+            if (jDateChooser2.getDate() == null && jDateChooser1.getDate() == null) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+                JOptionPane.showMessageDialog(null, "Ambos campos estas vacios");
+            } else if (jDateChooser1.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "El campo Fecha fin esta vacio");
+            } else if (jDateChooser2.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "El campo Fecha inicio esta vacio");
+            } else if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia");
+            } else {
+                SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+                //fecha inicio
+                String formato = jDateChooser2.getDateFormatString();
+                Date dates = jDateChooser2.getDate();
+                String fechainicio = String.valueOf(sdf.format(dates));
+                //fecha fin
+                String formatofin = jDateChooser1.getDateFormatString();
+                Date datefin = jDateChooser1.getDate();
+                String fechafin = String.valueOf(sdf.format(datefin));
 
-            
-            inrtevalofechas(fechainicio,fechafin);
-           
-            
+                inrtevalofechas(fechainicio, fechafin);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Al menos elija una FECHA DE NACIMIENTO VALIDA ", "Error..!!", JOptionPane.ERROR_MESSAGE);
 
         }
-     
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed

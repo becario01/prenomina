@@ -640,7 +640,7 @@ public class JA_inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 255));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1360, 659));
+        setPreferredSize(new java.awt.Dimension(1360, 559));
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -711,12 +711,13 @@ public class JA_inicio extends javax.swing.JFrame {
         lblcargojefe.setEditable(false);
         lblcargojefe.setBackground(new java.awt.Color(229, 230, 234));
         lblcargojefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblcargojefe.setForeground(new java.awt.Color(51, 102, 255));
+        lblcargojefe.setForeground(new java.awt.Color(229, 230, 234));
         lblcargojefe.setToolTipText("");
+        lblcargojefe.setAutoscrolls(false);
         lblcargojefe.setBorder(null);
         lblcargojefe.setCaretColor(new java.awt.Color(51, 102, 255));
-        lblcargojefe.setDisabledTextColor(new java.awt.Color(51, 102, 255));
         lblcargojefe.setEnabled(false);
+        lblcargojefe.setOpaque(false);
         jPanel1.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 230, 20));
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
@@ -745,14 +746,14 @@ public class JA_inicio extends javax.swing.JFrame {
         });
         jPanel4.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 250, 20));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 730, 80));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 430, 80));
 
         tbIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tbIncidencias.setModel(modeloincidenciasjefe);
         tbIncidencias.setComponentPopupMenu(jPopupMenu1);
         jScrollPane4.setViewportView(tbIncidencias);
 
-        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 1360, 270));
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1360, 330));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));

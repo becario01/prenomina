@@ -31,7 +31,7 @@ public class select_incidencia extends javax.swing.JFrame{
       Conexion con = new Conexion();
       Connection conn;
       PreparedStatement stmt;
-          int x, y;
+      int x, y;
    
     public select_incidencia() {
         modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
@@ -215,7 +215,7 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
                 jLabel3MousePressed(evt);
             }
         });
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 50));
 
         cmbincidencia.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbincidencia.setModel(modeloselincidencia);
