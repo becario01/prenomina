@@ -57,6 +57,7 @@ public class estilosreporte {
 
     // Styles
     private HSSFCellStyle headerStyle1;
+    private HSSFCellStyle headerStyle2;
     private HSSFCellStyle headerStyle;
     private HSSFCellStyle oddRowStyle;
     private HSSFCellStyle evenRowStyle;
@@ -78,10 +79,12 @@ public class estilosreporte {
         contentFont = createFont(HSSFColor.BLACK.index, (short) 11, false);
 
         // Generate styles
-       headerStyle1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLACK.index, true, HSSFColor.BLACK.index);
-        headerStyle = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_BLUE.index, true, HSSFColor.DARK_BLUE.index);
-        oddRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.WHITE.index, true, HSSFColor.WHITE.index);
-        evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.GREY_25_PERCENT.index, true, HSSFColor.GREY_25_PERCENT.index);
+        headerStyle1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLACK.index, false , HSSFColor.BLACK.index);
+        headerStyle2 = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_BLUE.index, false, HSSFColor.WHITE.index);
+        headerStyle = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_BLUE.index, false, HSSFColor.DARK_BLUE.index);
+        oddRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.WHITE.index, false, HSSFColor.WHITE.index);
+        evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.GREY_25_PERCENT.index, false, HSSFColor.GREY_25_PERCENT.index);
+
         int fila = 3;
         // New sheet
         HSSFSheet sheet = workbook.createSheet("REPORTE");
@@ -89,35 +92,34 @@ public class estilosreporte {
         HSSFCell cell = row.createCell(0);
         row = sheet.createRow(0);
 
-        HSSFRow headerRow0 = sheet.createRow(0);
-
-        HSSFCell headerCell0 = null;
-        HSSFCell headerCell22 = null;
-        headerCell0 = headerRow0.createCell(0);
-        headerCell0.setCellStyle(headerStyle1);
-        headerCell0.setCellValue("REPORTE GENERAL          "+semana);
-        CellRangeAddress re = new CellRangeAddress(0, 0, 0, 7);
-        sheet.addMergedRegion(re);
-        for (int i = 8; i < 32; i++) {
-            headerCell22 = headerRow0.createCell(i);
-         headerCell22.setCellStyle(headerStyle1);
-        
-        }
-        
-//        row = sheet.createRow(3);
-//       setBordersToMergedCells(sheet, re);
-
         // Table header dias
-        HSSFRow headerRow2 = sheet.createRow(fila - 2);
-        List<String> headerValues2 = exportReporte.getTableHeaders2();
+        HSSFRow headerRow2 = sheet.createRow(1);
+        List<String> headerValues2 = exportReporte.getTableHeaders2(idSemana);
 
         HSSFCell headerCell2 = null;
         for (int i = 0; i < headerValues2.size(); i++) {
             headerCell2 = headerRow2.createCell(i);
-            headerCell2.setCellStyle(headerStyle);
+            headerCell2.setCellStyle(headerStyle2);
             headerCell2.setCellValue(headerValues2.get(i));
 
         }
+
+        HSSFRow headerRow0 = sheet.createRow(0);
+        HSSFCell headerCell0 = null;
+        HSSFCell headerCell22 = null;
+        headerCell0 = headerRow0.createCell(0);
+        headerCell0.setCellStyle(headerStyle1);
+        headerCell0.setCellValue("REPORTE GENERAL          " + semana);
+        CellRangeAddress re = new CellRangeAddress(0, 0, 0, 7);
+        sheet.addMergedRegion(re);
+        for (int i = 8; i < 32; i++) {
+            headerCell22 = headerRow0.createCell(i);
+            headerCell22.setCellStyle(headerStyle1);
+
+        }
+
+//        row = sheet.createRow(3);
+//       setBordersToMergedCells(sheet, re);
         // Table header
         HSSFRow headerRow = sheet.createRow(fila - 1);
         List<String> headerValues = exportReporte.getTableHeaders();
@@ -144,11 +146,13 @@ public class estilosreporte {
         sheet.addMergedRegion(region);
         region = new CellRangeAddress(fila - 2, fila - 2, 28, 31);
         sheet.addMergedRegion(region);
-         region = new CellRangeAddress(1,1, 0, 3);
+        region = new CellRangeAddress(1, 1, 0, 3);
         sheet.addMergedRegion(region);
 
         HSSFRow contentRow1 = null;
+
         HSSFRow contentRow2 = null;
+
         HSSFCell contentCell1 = null;
         HSSFCell contentCell2 = null;
         HSSFCell contentCell3 = null;
@@ -159,7 +163,7 @@ public class estilosreporte {
         HSSFCell contentCell8 = null;
         HSSFCell contentCell9 = null;
         HSSFCell contentCell10 = null;
-        HSSFCell contentCell11= null;
+        HSSFCell contentCell11 = null;
         HSSFCell contentCell12 = null;
         HSSFCell contentCell13 = null;
 
@@ -188,9 +192,10 @@ public class estilosreporte {
                 row = sheet.createRow(fila);
 
                 contentRow1 = sheet.createRow(fila);
+
                 for (int i = 4; i <= 31; i++) {
-                     contentCell9 = contentRow1.createCell(i);
-                                             contentCell9.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
+                    contentCell9 = contentRow1.createCell(i);
+                    contentCell9.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
 
                 }
                 contentCell1 = contentRow1.createCell(0);
@@ -201,15 +206,8 @@ public class estilosreporte {
                 contentCell3.setCellValue(datos[2]);
                 contentCell4 = contentRow1.createCell(3);
                 contentCell4.setCellValue(datos[3]);
-                
-                
-                
-               
-                
-                
-                
 
-                String sql1 = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha, re.entrada, re.salida, inc.horasTrab, nomin.nombre AS nombreinc, inc.comentario \n"
+                String sql1 = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha, re.entrada, re.salida, inc.horasTrab, nomin.nombre AS nombreinc, inc.comentario, inc.horasExtra \n"
                         + "from incidencias inc\n"
                         + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
                         + "INNER JOIN registros re on inc.empleadoId=re.empleadoId \n"
@@ -224,80 +222,77 @@ public class estilosreporte {
 
                     while (rs1.next()) {
                         datos[4] = rs1.getString("fecha");
-                        datos[5] = rs1.getString("horasTrab");
-                        datos[6] = rs1.getString("nombreinc");
-                        datos[7] = rs1.getString("comentario");
+                        datos[5] = rs1.getString("nombreinc");
+                        datos[6] = rs1.getString("comentario");
+                        datos[7] = rs1.getString("horasExtra");
 
                         if (dia(rs1.getString("fecha")) == 2) {
                             contentCell5 = contentRow1.createCell(4);
                             contentCell5.setCellValue(datos[4]);
-                            contentCell6 = contentRow1.createCell(5);
-                            contentCell6.setCellValue(datos[5]);
-                            contentCell7 = contentRow1.createCell(6);
-                            contentCell7.setCellValue(datos[6]);
-                            contentCell8 = contentRow1.createCell(7);
-                            contentCell8.setCellValue(datos[7]);
-                            
+                            contentCell7 = contentRow1.createCell(5);
+                            contentCell7.setCellValue(datos[5]);
+                            contentCell8 = contentRow1.createCell(6);
+                            contentCell8.setCellValue(datos[6]);
+                            contentCell6 = contentRow1.createCell(7);
+                            contentCell6.setCellValue(datos[7]);
+
                         } else if (dia(rs1.getString("fecha")) == 3) {
                             contentCell5 = contentRow1.createCell(8);
                             contentCell5.setCellValue(datos[4]);
-                            contentCell6 = contentRow1.createCell(9);
-                            contentCell6.setCellValue(datos[5]);
-                            contentCell7 = contentRow1.createCell(10);
-                            contentCell7.setCellValue(datos[6]);
-                            contentCell8 = contentRow1.createCell(11);
-                            contentCell8.setCellValue(datos[7]);
-                            
+                            contentCell7 = contentRow1.createCell(9);
+                            contentCell7.setCellValue(datos[5]);
+                            contentCell8 = contentRow1.createCell(10);
+                            contentCell8.setCellValue(datos[6]);
+                            contentCell6 = contentRow1.createCell(11);
+                            contentCell6.setCellValue(datos[7]);
 
                         } else if (dia(rs1.getString("fecha")) == 4) {
-                           contentCell5 = contentRow1.createCell(12);
+                            contentCell5 = contentRow1.createCell(12);
                             contentCell5.setCellValue(datos[4]);
-                            contentCell6 = contentRow1.createCell(13);
-                            contentCell6.setCellValue(datos[5]);
-                            contentCell7 = contentRow1.createCell(14);
-                            contentCell7.setCellValue(datos[6]);
-                            contentCell8 = contentRow1.createCell(15);
-                            contentCell8.setCellValue(datos[7]);
-
+                            contentCell7 = contentRow1.createCell(13);
+                            contentCell7.setCellValue(datos[5]);
+                            contentCell8 = contentRow1.createCell(14);
+                            contentCell8.setCellValue(datos[6]);
+                            contentCell6 = contentRow1.createCell(15);
+                            contentCell6.setCellValue(datos[7]);
                         } else if (dia(rs1.getString("fecha")) == 5) {
                             contentCell5 = contentRow1.createCell(16);
                             contentCell5.setCellValue(datos[4]);
-                            contentCell6 = contentRow1.createCell(17);
-                            contentCell6.setCellValue(datos[5]);
-                            contentCell7 = contentRow1.createCell(18);
-                            contentCell7.setCellValue(datos[6]);
-                            contentCell8 = contentRow1.createCell(19);
-                            contentCell8.setCellValue(datos[7]);
+                            contentCell7 = contentRow1.createCell(17);
+                            contentCell7.setCellValue(datos[5]);
+                            contentCell8 = contentRow1.createCell(18);
+                            contentCell8.setCellValue(datos[6]);
+                            contentCell6 = contentRow1.createCell(19);
+                            contentCell6.setCellValue(datos[7]);
 
                         } else if (dia(rs1.getString("fecha")) == 6) {
                             contentCell5 = contentRow1.createCell(20);
                             contentCell5.setCellValue(datos[4]);
-                            contentCell6 = contentRow1.createCell(21);
-                            contentCell6.setCellValue(datos[5]);
-                            contentCell7 = contentRow1.createCell(22);
-                            contentCell7.setCellValue(datos[6]);
-                            contentCell8 = contentRow1.createCell(23);
-                            contentCell8.setCellValue(datos[7]);
+                            contentCell7 = contentRow1.createCell(21);
+                            contentCell7.setCellValue(datos[5]);
+                            contentCell8 = contentRow1.createCell(22);
+                            contentCell8.setCellValue(datos[6]);
+                            contentCell6 = contentRow1.createCell(23);
+                            contentCell6.setCellValue(datos[7]);
 
                         } else if (dia(rs1.getString("fecha")) == 7) {
                             contentCell5 = contentRow1.createCell(24);
                             contentCell5.setCellValue(datos[4]);
-                            contentCell6 = contentRow1.createCell(25);
-                            contentCell6.setCellValue(datos[5]);
-                            contentCell7 = contentRow1.createCell(26);
-                            contentCell7.setCellValue(datos[6]);
-                            contentCell8 = contentRow1.createCell(27);
-                            contentCell8.setCellValue(datos[7]);
-
+                            contentCell7 = contentRow1.createCell(25);
+                            contentCell7.setCellValue(datos[5]);
+                            contentCell8 = contentRow1.createCell(26);
+                            contentCell8.setCellValue(datos[6]);
+                            contentCell6 = contentRow1.createCell(27);
+                            contentCell6.setCellValue(datos[7]);
                         } else if (dia(rs1.getString("fecha")) == 1) {
                             contentCell5 = contentRow1.createCell(28);
                             contentCell5.setCellValue(datos[4]);
-                            contentCell6 = contentRow1.createCell(29);
-                            contentCell6.setCellValue(datos[5]);
-                            contentCell7 = contentRow1.createCell(30);
-                            contentCell7.setCellValue(datos[6]);
-                            contentCell8 = contentRow1.createCell(31);
-                            contentCell8.setCellValue(datos[7]);
+                            contentCell7 = contentRow1.createCell(29);
+                            contentCell7.setCellValue(datos[5]);
+                            contentCell8 = contentRow1.createCell(30);
+                            contentCell8.setCellValue(datos[6]);
+                            contentCell6 = contentRow1.createCell(31);
+                            contentCell6.setCellValue(datos[7]);
 
                         }
                         contentCell1.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
@@ -305,15 +300,14 @@ public class estilosreporte {
                         contentCell3.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
                         contentCell4.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
                         contentCell5.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
-                        contentCell6.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
+//                        contentCell6.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
                         contentCell7.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
                         contentCell8.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
-                        
 
                     }
 
                     fila++;
-                    rowIndex=fila;
+                    rowIndex = fila;
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
                 }
@@ -334,28 +328,28 @@ public class estilosreporte {
             }
 
         }
-         HSSFRow headerRow00 = sheet.createRow(rowIndex++);
- String dato= empleado+"   "+cargo;
- String da[]= new String[5];
- da[1]="Realizado por";
- da[2]="Fecha y Hora";
- da[3]=dato;
- da[4]=fecha();
- 
-        
+
+        HSSFRow headerRow00 = sheet.createRow(rowIndex++);
+        String dato = empleado + "   " + cargo;
+        String da[] = new String[5];
+        da[1] = "Realizado por";
+        da[2] = "Fecha y Hora";
+        da[3] = dato;
+        da[4] = fecha();
+
         HSSFCell headerCell00 = null;
-        for(int i=1; i<3;i++){
-        headerCell00 = headerRow00.createCell(i);
-        headerCell00.setCellStyle(headerStyle);
-        headerCell00.setCellValue(da[i]);
+        for (int i = 1; i < 3; i++) {
+            headerCell00 = headerRow00.createCell(i);
+            headerCell00.setCellStyle(headerStyle);
+            headerCell00.setCellValue(da[i]);
         }
-         HSSFRow headerRow000 = sheet.createRow(rowIndex++);
+        HSSFRow headerRow000 = sheet.createRow(rowIndex++);
         HSSFCell headerCell000 = null;
-        for(int i=1;i<3;i++){
-       
-        headerCell000 = headerRow000.createCell(i);
-        headerCell000.setCellStyle(oddRowStyle);
-        headerCell000.setCellValue(da[i+2]);
+        for (int i = 1; i < 3; i++) {
+
+            headerCell000 = headerRow000.createCell(i);
+            headerCell000.setCellStyle(oddRowStyle);
+            headerCell000.setCellValue(da[i + 2]);
         }
         for (int i = 0; i < headerValues.size(); sheet.autoSizeColumn(i++));
 
@@ -403,15 +397,14 @@ public class estilosreporte {
         RegionUtil.setBorderRight(BorderStyle.MEDIUM, rangeAddress, sheet);
         RegionUtil.setBorderBottom(BorderStyle.MEDIUM, rangeAddress, sheet);
     }
-        public String fecha(){
 
+    public String fecha() {
 
-Date now = new Date(System.currentTimeMillis());
-SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-SimpleDateFormat hour = new SimpleDateFormat("HH:mm:ss");
+        Date now = new Date(System.currentTimeMillis());
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hour = new SimpleDateFormat("HH:mm:ss");
 
-
-String fecha=date.format(now)+"      "+hour.format(now);
-return fecha;
+        String fecha = date.format(now) + "      " + hour.format(now);
+        return fecha;
     }
 }

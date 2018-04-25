@@ -122,11 +122,11 @@ public class PercepcionesDeducciones {
                 }else{
             }
                 }   
-       public void actualizar(String id, String semana, String datos[]){
+         public void actualizar(String id, String semana, String datos[]){
             try {
                
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            String sql = "UPDATE percepciones SET per1='"+datos[0]+"' , per2='"+datos[1]+"', per3='"+datos[2]+"', per4='"+datos[3]+"', per5='"+datos[4]+"', per6='"+datos[5]+"', per7='"+datos[6]+"', per8='"+datos[7]+"', per9='"+datos[8]+"', per10='"+datos[9]+"', per11='"+datos[10]+"'"
+            String sql = "UPDATE percepciones SET per1='"+datos[0]+"' , per2='"+datos[1]+"', per3='"+datos[2]+"', per4='"+datos[3]+"', per5='"+datos[4]+"', per7='"+datos[6]+"', per8='"+datos[7]+"', per9='"+datos[8]+"', per10='"+datos[9]+"', per11='"+datos[10]+"'"
                     + " WHERE empleadoId='"+id+"' and  idSemana='"+semana+"' ";
 
         
@@ -148,5 +148,6 @@ public class PercepcionesDeducciones {
 
         }
        }
+
 
 }

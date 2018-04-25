@@ -88,10 +88,9 @@ public class RH_uci_detalles extends javax.swing.JFrame {
             columnModel.getColumn(8).setPreferredWidth(100);
 
       }
-
       public void cargardatosFiltroSemana(int idSemana, int cod) throws SQLException {
 
-            String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha, inc.horasTrab, nomin.nombre AS nombreinc, inc.comentario \n"
+            String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario \n"
                     + "from incidencias inc\n"
                     + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
                     + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
@@ -110,11 +109,11 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                         datos[3] = rs.getString("fecha");
                         datos[4] = "";
                         datos[5] = "";
-                        datos[6] = rs.getString("horasTrab");
+                        datos[6] = "";
                         datos[7] = rs.getString("nombreinc");
                         datos[8] = rs.getString("comentario");
                         
-                        String sql1="SELECT entrada, salida from registros where empleadoId='"+cod+"' and fecha='"+datos[3]+"'";
+                        String sql1="SELECT entrada, salida, horas from registros where empleadoId='"+cod+"' and fecha='"+datos[3]+"'";
                         try {
                   conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
                   stmt1 = conn1.prepareStatement(sql1);
@@ -123,6 +122,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                   while (rs1.next()) {
                       datos[4]=rs1.getString("entrada");
                       datos[5]=rs1.getString("salida");
+                      datos[6]=rs1.getString("horas");
 
                   }
             } catch (Exception e) {

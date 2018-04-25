@@ -64,6 +64,7 @@ public class exportReporte {
     boolean ju = false;
     boolean vi = false;
     boolean sa = false;
+    public static String fec[] = new String[7];
 
     public static List<String> getTableHeaders() {
         List<String> tableHeader = new ArrayList<String>();
@@ -72,76 +73,81 @@ public class exportReporte {
         tableHeader.add("DEPARTAMENTO");
         tableHeader.add("PUESTO");
         tableHeader.add("FECHA");
-        tableHeader.add("HORAS TRABAJADAS");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
+        tableHeader.add("HORAS EXTRA");
         tableHeader.add("FECHA");
-        tableHeader.add("HORAS TRABAJADAS");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
+        tableHeader.add("HORAS EXTRA");
         tableHeader.add("FECHA");
-        tableHeader.add("HORAS TRABAJADAS");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
+        tableHeader.add("HORAS EXTRA");
         tableHeader.add("FECHA");
-        tableHeader.add("HORAS TRABAJADAS");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
+        tableHeader.add("HORAS EXTRA");
         tableHeader.add("FECHA");
-        tableHeader.add("HORAS TRABAJADAS");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
+        tableHeader.add("HORAS EXTRA");
         tableHeader.add("FECHA");
-        tableHeader.add("HORAS TRABAJADAS");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
+        tableHeader.add("HORAS EXTRA");
         tableHeader.add("FECHA");
-        tableHeader.add("HORAS TRABAJADAS");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
+        tableHeader.add("HORAS EXTRA");
 
         return tableHeader;
     }
 
-    public static List<String> getTableHeaders2() {
+    public static List<String> getTableHeaders2(int idSemana) {
+//        fechas(idSemana);
         List<String> tableHeader = new ArrayList<String>();
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("LUNES");
+        tableHeader.add("LUNES    ");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("MARTES");
+
+        tableHeader.add("MARTES    ");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("MIERCOLES");
+
+        tableHeader.add("MIERCOLES    ");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("JUEVEZ");
+
+        tableHeader.add("JUEVEZ    ");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("VIERNES");
+
+        tableHeader.add("VIERNES    ");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("SABADO");
+
+        tableHeader.add("SABADO    ");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("DOMINGO");
+
+        tableHeader.add("DOMINGO    ");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
 
         return tableHeader;
     }
-
-    
 
     public static int dia(String fec) {
 
@@ -194,6 +200,37 @@ public class exportReporte {
         }
 
         return con;
+
+    }
+
+    public static String[] fechas(int idSemana) {
+
+        String sql = "SELECT * from semanas where idSemana='" + idSemana + "' ";
+
+        try {
+            conn2 = Conexion1.getConnection();
+            stmt2 = conn2.prepareStatement(sql);
+            rs2 = stmt2.executeQuery();
+            while (rs2.next()) {
+                fec[0] = rs2.getString("fechaL");
+                fec[1] = rs2.getString("fechaMa");
+                fec[2] = rs2.getString("fechaMi");
+                fec[3] = rs2.getString("fechaJ");
+                fec[4] = rs2.getString("fechaV");
+                fec[5] = rs2.getString("fechaS");
+                fec[6] = rs2.getString("fechaD");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+        } finally {
+            Conexion1.close(rs2);
+            Conexion1.close(stmt2);
+            if (userConn2 == null) {
+                Conexion1.close(conn2);
+            }
+        }
+
+        return fec;
 
     }
 
