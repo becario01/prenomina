@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class select_incidencia extends javax.swing.JFrame{
       Nomincidencia rin;
@@ -325,8 +326,11 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_cmbincidenciaActionPerformed
 
     private void btnincidenciaLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnincidenciaLActionPerformed
-
-        Rincidencia incidencia = (Rincidencia)cmbincidencia.getSelectedItem();
+ if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
+      Rincidencia incidencia = (Rincidencia)cmbincidencia.getSelectedItem();
         int codigoemp =Integer.parseInt(codi);
         String fecha = lblFecha.getText();
         String comentario = txtcomentario.getText();
@@ -338,9 +342,11 @@ System.exit(0);        // TODO add your handling code here:
 
         } catch (ParseException ex) {
             Logger.getLogger(select_incidencia.class.getName()).log(Level.SEVERE, null, ex);
+
         }
         verfechas(codigoemp,dia,fecha,horaextra,comentario,incidencia.getIdNomIncidencia(),horastrab,lblsem.getText());
 
+ }
     }//GEN-LAST:event_btnincidenciaLActionPerformed
 
     /**
