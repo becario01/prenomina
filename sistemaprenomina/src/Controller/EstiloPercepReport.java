@@ -9,6 +9,9 @@ import Conexion.Conexion1;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -53,7 +56,7 @@ public class EstiloPercepReport {
      *
      * @return
      */
-    public HSSFWorkbook generateExcel(int semana, String nomsem) {
+    public HSSFWorkbook generateExcel(int semana, String nomsem, String empleado, String cargo) {
 
         // Initialize rowIndex
         rowIndex = 0;
@@ -69,8 +72,8 @@ public class EstiloPercepReport {
         // Generate styles
         headerStyle1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLACK.index, true, HSSFColor.BLACK.index);
         headerStyle = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_BLUE.index, true, HSSFColor.DARK_BLUE.index);
-        oddRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.WHITE.index, true, HSSFColor.GREY_25_PERCENT.index);
-        evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.GREY_25_PERCENT.index, true, HSSFColor.WHITE.index);
+        oddRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.WHITE.index, true, HSSFColor.WHITE.index);
+        evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.GREY_25_PERCENT.index, true, HSSFColor.GREY_25_PERCENT.index);
 
         // New sheet
         HSSFSheet sheet = workbook.createSheet("PERCEPCIONES Y DEDUCCIONES");
@@ -81,15 +84,16 @@ public class EstiloPercepReport {
 
         headerCell1 = headerRow1.createCell(0);
         headerCell1.setCellStyle(headerStyle1);
-        headerCell1.setCellValue("PERCEPCIONES Y DEDUCCIONES" + nomsem);
+        headerCell1.setCellValue("PERCEPCIONES Y DEDUCCIONES        " + nomsem);
         CellRangeAddress re = new CellRangeAddress(0, 0, 0, 7);
         sheet.addMergedRegion(re);
-        
+
         for (int i = 8; i < 13; i++) {
             headerCell2 = headerRow1.createCell(i);
-         headerCell2.setCellStyle(headerStyle1);
-        
+            headerCell2.setCellStyle(headerStyle1);
+
         }
+       
         
         
         // Table header
@@ -121,7 +125,29 @@ public class EstiloPercepReport {
                 contentCell.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
             }
         }
-
+ HSSFRow headerRow00 = sheet.createRow(rowIndex++);
+ String datos= empleado+"   "+cargo;
+ String da[]= new String[5];
+ da[1]="Realizado por";
+ da[2]="Fecha y Hora";
+ da[3]=datos;
+ da[4]=fecha();
+ 
+        
+        HSSFCell headerCell00 = null;
+        for(int i=1; i<3;i++){
+        headerCell00 = headerRow00.createCell(i);
+        headerCell00.setCellStyle(headerStyle);
+        headerCell00.setCellValue(da[i]);
+        }
+         HSSFRow headerRow000 = sheet.createRow(rowIndex++);
+        HSSFCell headerCell000 = null;
+        for(int i=1;i<3;i++){
+       
+        headerCell000 = headerRow000.createCell(i);
+        headerCell000.setCellStyle(oddRowStyle);
+        headerCell000.setCellValue(da[i+2]);
+        }
         // Autosize columns
         for (int i = 0; i < headerValues.size(); sheet.autoSizeColumn(i++));
 
@@ -212,6 +238,17 @@ public class EstiloPercepReport {
 
         return con;
 
+    }
+    public String fecha(){
+
+
+Date now = new Date(System.currentTimeMillis());
+SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+SimpleDateFormat hour = new SimpleDateFormat("HH:mm:ss");
+
+
+String fecha=date.format(now)+"      "+hour.format(now);
+return fecha;
     }
 
 }

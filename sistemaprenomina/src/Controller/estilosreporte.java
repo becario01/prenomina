@@ -17,6 +17,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -62,7 +64,7 @@ public class estilosreporte {
     // Integer to store the index of the next row
     private int rowIndex;
 
-    public HSSFWorkbook generateExcel(int idSemana, String semana) throws SQLException {
+    public HSSFWorkbook generateExcel(int idSemana, String semana, String empleado, String cargo) throws SQLException {
 
         // Initialize rowIndex
         rowIndex = 0;
@@ -71,15 +73,15 @@ public class estilosreporte {
         workbook = new HSSFWorkbook();
 
         // Generate fonts
-        headerFont1 = createFont(HSSFColor.BLACK.index, (short) 19, true);
         headerFont = createFont(HSSFColor.WHITE.index, (short) 12, true);
-        contentFont = createFont(HSSFColor.BLACK.index, (short) 10, false);
+        headerFont1 = createFont(HSSFColor.WHITE.index, (short) 19, true);
+        contentFont = createFont(HSSFColor.BLACK.index, (short) 11, false);
 
         // Generate styles
-        headerStyle1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLUE.index, true, HSSFColor.WHITE.index);
+       headerStyle1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLACK.index, true, HSSFColor.BLACK.index);
         headerStyle = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_BLUE.index, true, HSSFColor.DARK_BLUE.index);
-        oddRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.GREY_25_PERCENT.index, true, HSSFColor.WHITE.index);
-        evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.GREY_40_PERCENT.index, true, HSSFColor.GREY_80_PERCENT.index);
+        oddRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.WHITE.index, true, HSSFColor.WHITE.index);
+        evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.GREY_25_PERCENT.index, true, HSSFColor.GREY_25_PERCENT.index);
         int fila = 3;
         // New sheet
         HSSFSheet sheet = workbook.createSheet("REPORTE");
@@ -90,11 +92,18 @@ public class estilosreporte {
         HSSFRow headerRow0 = sheet.createRow(0);
 
         HSSFCell headerCell0 = null;
+        HSSFCell headerCell22 = null;
         headerCell0 = headerRow0.createCell(0);
-        headerCell0.setCellStyle(headerStyle);
+        headerCell0.setCellStyle(headerStyle1);
         headerCell0.setCellValue("REPORTE GENERAL          "+semana);
         CellRangeAddress re = new CellRangeAddress(0, 0, 0, 7);
         sheet.addMergedRegion(re);
+        for (int i = 8; i < 32; i++) {
+            headerCell22 = headerRow0.createCell(i);
+         headerCell22.setCellStyle(headerStyle1);
+        
+        }
+        
 //        row = sheet.createRow(3);
 //       setBordersToMergedCells(sheet, re);
 
@@ -304,6 +313,7 @@ public class estilosreporte {
                     }
 
                     fila++;
+                    rowIndex=fila;
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
                 }
@@ -323,6 +333,29 @@ public class estilosreporte {
                 Conexion1.close(conn1);
             }
 
+        }
+         HSSFRow headerRow00 = sheet.createRow(rowIndex++);
+ String dato= empleado+"   "+cargo;
+ String da[]= new String[5];
+ da[1]="Realizado por";
+ da[2]="Fecha y Hora";
+ da[3]=dato;
+ da[4]=fecha();
+ 
+        
+        HSSFCell headerCell00 = null;
+        for(int i=1; i<3;i++){
+        headerCell00 = headerRow00.createCell(i);
+        headerCell00.setCellStyle(headerStyle);
+        headerCell00.setCellValue(da[i]);
+        }
+         HSSFRow headerRow000 = sheet.createRow(rowIndex++);
+        HSSFCell headerCell000 = null;
+        for(int i=1;i<3;i++){
+       
+        headerCell000 = headerRow000.createCell(i);
+        headerCell000.setCellStyle(oddRowStyle);
+        headerCell000.setCellValue(da[i+2]);
         }
         for (int i = 0; i < headerValues.size(); sheet.autoSizeColumn(i++));
 
@@ -369,5 +402,16 @@ public class estilosreporte {
         RegionUtil.setBorderLeft(BorderStyle.MEDIUM, rangeAddress, sheet);
         RegionUtil.setBorderRight(BorderStyle.MEDIUM, rangeAddress, sheet);
         RegionUtil.setBorderBottom(BorderStyle.MEDIUM, rangeAddress, sheet);
+    }
+        public String fecha(){
+
+
+Date now = new Date(System.currentTimeMillis());
+SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+SimpleDateFormat hour = new SimpleDateFormat("HH:mm:ss");
+
+
+String fecha=date.format(now)+"      "+hour.format(now);
+return fecha;
     }
 }

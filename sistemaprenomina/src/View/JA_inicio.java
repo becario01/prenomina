@@ -70,20 +70,17 @@ public class JA_inicio extends javax.swing.JFrame {
         tbIncidencias.getColumnModel().getColumn(9).setMaxWidth(150);
       
     }
-public void modificarculumnas(){
-EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-  
-     
-      
-fechaL.setText(semana.getFechaL());
-fecham.setText(semana.getFechaM());
-fechami.setText(semana.getFechaMi());
-fechaj.setText(semana.getFechaJ());
-fechav.setText(semana.getFechaV());
-fechas.setText(semana.getFechaS());
-fechad.setText(semana.getFechaD());
+//public void modificarculumnas(String fechaL,String fechaM,String FechaMi,String FechaJ, String FechaV,String FechaS,String fechaD ){
+//tbIncidencias.getColumn("Lunes").setHeaderValue("Lunes"+"  "+fechaL);
+//tbIncidencias.getColumn("Martes").setHeaderValue("Martes"+"  "+fechaM); 
+//tbIncidencias.getColumn("Miercoles").setHeaderValue("Miercoles"+"  "+FechaMi); 
+//tbIncidencias.getColumn("Jueves").setHeaderValue("Jueves"+"  "+FechaJ); 
+//tbIncidencias.getColumn("Viernes").setHeaderValue("Viernes"+"  "+FechaV); 
+//tbIncidencias.getColumn("Sabado").setHeaderValue("Sabado"+"  "+FechaS); 
+//tbIncidencias.getColumn("Domingo").setHeaderValue("Domingo"+"  "+fechaD);
+//}
+//    
 
-}
 
        private void cargarModeloSem(){
             ArrayList<EJefes> listaSemanas;
@@ -621,14 +618,6 @@ fechad.setText(semana.getFechaD());
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        fechad = new javax.swing.JLabel();
-        fechaL = new javax.swing.JLabel();
-        fecham = new javax.swing.JLabel();
-        fechami = new javax.swing.JLabel();
-        fechaj = new javax.swing.JLabel();
-        fechav = new javax.swing.JLabel();
-        fechas = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbIncidencias = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
@@ -651,7 +640,7 @@ fechad.setText(semana.getFechaD());
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 255));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1360, 559));
+        setPreferredSize(new java.awt.Dimension(1360, 659));
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -719,11 +708,15 @@ fechad.setText(semana.getFechaD());
         lblnombrejefe.setCaretColor(new java.awt.Color(51, 102, 255));
         jPanel1.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
 
+        lblcargojefe.setEditable(false);
         lblcargojefe.setBackground(new java.awt.Color(229, 230, 234));
         lblcargojefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargojefe.setForeground(new java.awt.Color(51, 102, 255));
+        lblcargojefe.setToolTipText("");
         lblcargojefe.setBorder(null);
         lblcargojefe.setCaretColor(new java.awt.Color(51, 102, 255));
+        lblcargojefe.setDisabledTextColor(new java.awt.Color(51, 102, 255));
+        lblcargojefe.setEnabled(false);
         jPanel1.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 230, 20));
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
@@ -752,54 +745,14 @@ fechad.setText(semana.getFechaD());
         });
         jPanel4.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 250, 20));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 430, 80));
-
-        jPanel3.setBackground(new java.awt.Color(238, 240, 245));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fechad.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fechad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fechad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(fechad, new org.netbeans.lib.awtextra.AbsoluteConstraints(1215, 0, 144, 20));
-
-        fechaL.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fechaL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fechaL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(fechaL, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 0, 141, 20));
-
-        fecham.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fecham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fecham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(fecham, new org.netbeans.lib.awtextra.AbsoluteConstraints(505, 0, 141, 20));
-
-        fechami.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fechami.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fechami.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(fechami, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 0, 147, 20));
-
-        fechaj.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fechaj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fechaj.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(fechaj, new org.netbeans.lib.awtextra.AbsoluteConstraints(791, 0, 141, 20));
-
-        fechav.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fechav.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fechav.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(fechav, new org.netbeans.lib.awtextra.AbsoluteConstraints(931, 0, 142, 20));
-
-        fechas.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        fechas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        fechas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(fechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1073, 0, 142, 20));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 730, 80));
 
         tbIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tbIncidencias.setModel(modeloincidenciasjefe);
         tbIncidencias.setComponentPopupMenu(jPopupMenu1);
         jScrollPane4.setViewportView(tbIncidencias);
 
-        jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1360, 310));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1370, 330));
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 1360, 270));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -837,7 +790,7 @@ fechad.setText(semana.getFechaD());
                         .addGap(18, 18, 18)
                         .addComponent(cmbSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3))
-                .addContainerGap(984, Short.MAX_VALUE))
+                .addContainerGap(974, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -851,7 +804,7 @@ fechad.setText(semana.getFechaD());
                     .addComponent(cmbSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(13, 13, 13)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
         );
 
         pack();
@@ -896,7 +849,7 @@ System.exit(0);        // TODO add your handling code here:
             JA_newincidencia inc = new JA_newincidencia();
             inc.selecSeman(Semana);
                EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-                modificarculumnas();
+//               modificarculumnas(semana.getFechaL(),semana.getFechaM(),semana.getFechaMi(),semana.getFechaJ(),semana.getFechaV(),semana.getFechaS(),semana.getFechaD());
                
             SetFilas();
 
@@ -1007,13 +960,6 @@ System.exit(0);        // TODO add your handling code here:
     public static javax.swing.JButton btnminimizar;
     public static javax.swing.JButton btnregresar;
     public static javax.swing.JComboBox cmbSemana;
-    private javax.swing.JLabel fechaL;
-    private javax.swing.JLabel fechad;
-    private javax.swing.JLabel fechaj;
-    private javax.swing.JLabel fecham;
-    private javax.swing.JLabel fechami;
-    private javax.swing.JLabel fechas;
-    private javax.swing.JLabel fechav;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1022,7 +968,6 @@ System.exit(0);        // TODO add your handling code here:
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane4;

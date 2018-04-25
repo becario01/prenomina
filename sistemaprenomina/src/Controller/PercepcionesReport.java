@@ -64,18 +64,18 @@ public class PercepcionesReport {
                 tableContent.add(row = new ArrayList<String>());
                row.add(rs.getString("empleadoId"));
                row.add(rs.getString("nombre"));
-               row.add(rs.getString("per1"));
-               row.add(rs.getString("per2"));
-               row.add(rs.getString("per3"));
-               row.add(rs.getString("per4"));
-               row.add(rs.getString("per5"));
-               row.add(rs.getString("per6"));
-               row.add(rs.getString("per7"));
-               row.add(rs.getString("per8"));
-               row.add(rs.getString("per9"));
-               row.add(rs.getString("per10"));
-               row.add(rs.getString("per11"));
-
+              
+                for(int i=1;i<=11;i++){
+               if(rs.getString("per"+i)==null){
+                   row.add(" ");
+               }else if (rs.getString("per"+i).equals("0")) {
+                    row.add(" ");
+               }else if(rs.getString("per"+i).equals("1")){
+                    
+                    row.add(rs.getString("per"+i));
+               }
+                }
+          
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);

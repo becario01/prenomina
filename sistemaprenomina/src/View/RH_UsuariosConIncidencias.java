@@ -9,6 +9,7 @@ import Conexion.Conexion;
 import Conexion.Conexion1;
 import Controller.EJefes;
 import Controller.EstiloPercepReport;
+import Controller.PrimaDominical;
 import Controller.autorizacionRH;
 import Controller.estilosreporte;
 import Controller.exportReporte;
@@ -552,6 +553,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         btnBuscar7.setBorderPainted(false);
         btnBuscar7.setContentAreaFilled(false);
         btnBuscar7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/pridoO.png"))); // NOI18N
+        btnBuscar7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar7ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnBuscar7, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 109, 73, -1));
 
         btnBuscar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/xperxslL.png"))); // NOI18N
@@ -732,9 +738,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
           try {
               int idsemana = cmbSemana.getSelectedIndex();
               String nomsemana = cmbSemana.getSelectedItem().toString();
+              String emp = lblnombrerh.getText();
+              String car = lblcargo.getText();
               System.out.println(nomsemana);
               OutputStream out;
-              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana, nomsemana)) {
+              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana, nomsemana,emp,car)) {
                   JFileChooser guardar = new JFileChooser();
                   guardar.setApproveButtonText("Guardar");
                   guardar.showSaveDialog(null);
@@ -743,7 +751,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
               }
               out.flush();
               out.close();
-              JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE);
           } catch (IOException e) {
               System.err.println("Error at file writing");
               e.printStackTrace();
@@ -840,9 +848,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
               int idsemana = cmbSemana.getSelectedIndex();
               String nom= cmbSemana.getSelectedItem().toString();
+              String emp = lblnombrerh.getText();
+              String car = lblcargo.getText();
         
 
-        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(idsemana,nom);
+        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(idsemana,nom,emp,car);
 JFileChooser guardar = new JFileChooser();
             guardar.setApproveButtonText("Guardar");
             guardar.showSaveDialog(null);
@@ -850,22 +860,36 @@ JFileChooser guardar = new JFileChooser();
             
                  
         try {
-            OutputStream out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
-            workbook.write(out);
-            workbook.close();
-            out.flush();
-            out.close();
+                  try (OutputStream out = new FileOutputStream(guardar.getSelectedFile() + ".xls")) {
+                      workbook.write(out);
+                      workbook.close();
+                      out.flush();
+              JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE);
+                  }
         } catch (IOException e) {
-            System.err.println("Error at file writing");
-            e.printStackTrace();
+            System.err.println("Error at file writing"+e);
         }
         
     }//GEN-LAST:event_btnBuscar4ActionPerformed
 
     private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed
-RH_Calculofaltas clf = new RH_Calculofaltas();
-clf.setVisible(true);
+        
     }//GEN-LAST:event_btnBuscar3ActionPerformed
+
+    private void btnBuscar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar7ActionPerformed
+       String semana= String.valueOf(cmbSemana.getSelectedIndex()) ;
+        try {
+            PrimaDominical pri= new PrimaDominical();
+            pri.insertar(semana);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error en:  "+ e);
+        }finally{
+             JOptionPane.showMessageDialog(null, "Prima Dominical actualizada");
+        }
+        
+        
+    }//GEN-LAST:event_btnBuscar7ActionPerformed
 
     /**
      * @param args the command line arguments
