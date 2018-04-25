@@ -544,7 +544,7 @@ public void botonesnew (){
 
         lblsemana.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lblsemana.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 50, 150, 40));
+        getContentPane().add(lblsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 190, 40));
 
         btnrango.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnrango.setText("Rango");
