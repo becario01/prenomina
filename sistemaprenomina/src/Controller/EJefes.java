@@ -5,13 +5,17 @@
  */
 package Controller;
 
+import java.awt.Component;
 import java.sql.Date;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
  * @author Becarios
  */
-public class EJefes {
+public class EJefes extends DefaultTableCellRenderer {
  
     private int idSemana;
     private String Semana;
@@ -126,6 +130,17 @@ public class EJefes {
     @Override
     public String toString() {
         return  Semana;
+    }
+    
+        
+          @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        if (value instanceof JLabel) {
+            JLabel lbl = (JLabel)value;
+            lbl.setOpaque(true);
+            return lbl;
+        }
+        return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.
     }
     
     

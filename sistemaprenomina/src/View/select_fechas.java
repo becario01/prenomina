@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -92,6 +93,7 @@ public class select_fechas extends javax.swing.JFrame {
           SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
               Date fec = listaEntreFechas.get(i);
               String fe = sdf.format(fec);
+               int  numsemanas = numsenanas(fe);
               String indi = select_incidencia.obtenerDiaSemana(fe);
               EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
               Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
@@ -103,7 +105,7 @@ public class select_fechas extends javax.swing.JFrame {
               String comentario = tctcomentario.getText();
               int idsemana = semana.getIdSemana();
               int idincidencia = incidencia.getIdNomIncidencia();
-              insertarrangos(codigoem,indi, fe,1,comentario,idsemana , idincidencia, "10");
+              insertarrangos(codigoem,indi, fe,1,comentario,numsemanas , idincidencia, "10");
           }
        
       JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
@@ -147,6 +149,20 @@ public class select_fechas extends javax.swing.JFrame {
         }
 
         return rows;
+ }
+  public static int numsenanas(String fecha) throws ParseException{
+ 
+      SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+      Calendar calendar = Calendar.getInstance();
+      calendar.setFirstDayOfWeek(Calendar.MONDAY);
+      calendar.setMinimalDaysInFirstWeek(4);
+      java.util.Date date = d.parse(fecha);
+      calendar.setTime(date);
+      int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+      System.out.println(DateFormat.getDateInstance().format(date));
+      System.out.println(numberWeekOfYear);
+
+        return numberWeekOfYear;
  }
       /**
        * This method is called from within the constructor to initialize the

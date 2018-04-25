@@ -561,7 +561,12 @@ fechad.setText(semana.getFechaD());
                     }
 
                 }
-
+                    tbIncidencias.setDefaultRenderer(Object.class, new EJefes());
+                    if (rs.getString("datos") == null || rs.getString("datos") == "") {
+                        datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
+                    } else {
+                        datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
+                    }
                 datos[1] = rs.getString("empleadoId");
                 datos[2] = rs.getString("nombre");
                 datos[3] = LunesInc;
