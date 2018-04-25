@@ -661,13 +661,13 @@ fechad.setText(semana.getFechaD());
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/portafolio.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, 40));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/user.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
 
-        btnminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/minimizar.png"))); // NOI18N
+        btnminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         btnminimizar.setBorderPainted(false);
         btnminimizar.setContentAreaFilled(false);
         btnminimizar.addActionListener(new java.awt.event.ActionListener() {
@@ -677,7 +677,7 @@ fechad.setText(semana.getFechaD());
         });
         jPanel1.add(btnminimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 0, 32, 30));
 
-        btncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/error.png"))); // NOI18N
+        btncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
         btncerrar.setBorderPainted(false);
         btncerrar.setContentAreaFilled(false);
         btncerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -687,7 +687,7 @@ fechad.setText(semana.getFechaD());
         });
         jPanel1.add(btncerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 0, 32, 30));
 
-        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/regresar.png"))); // NOI18N
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
         btnregresar.setBorderPainted(false);
         btnregresar.setContentAreaFilled(false);
         btnregresar.addActionListener(new java.awt.event.ActionListener() {
@@ -743,7 +743,7 @@ fechad.setText(semana.getFechaD());
         jSeparator1.setAlignmentY(0.8F);
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 254, 21));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/search1.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
         jLabel4.setToolTipText("");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 40, 40));
 

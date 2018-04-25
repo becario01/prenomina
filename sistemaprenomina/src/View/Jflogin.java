@@ -76,7 +76,7 @@ public class Jflogin extends javax.swing.JFrame {
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 210, 20));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/prenomina/logoZunfeld.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logoZunfeld.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 160, 90));
 
         loginfecha.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
