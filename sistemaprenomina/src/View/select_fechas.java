@@ -159,8 +159,7 @@ public class select_fechas extends javax.swing.JFrame {
       java.util.Date date = d.parse(fecha);
       calendar.setTime(date);
       int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-      System.out.println(DateFormat.getDateInstance().format(date));
-      System.out.println(numberWeekOfYear);
+    
 
         return numberWeekOfYear;
  }
