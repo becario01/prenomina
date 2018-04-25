@@ -585,9 +585,14 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
            try {
+                if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
             guardar(lblfechal.getText());
               JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-        } catch (SQLException ex) {
+                }
+                } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -597,9 +602,14 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnDomingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomingoActionPerformed
         try {
+               if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
             guardar(lblfechad.getText());
             JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
 
+               }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -607,9 +617,13 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuevesActionPerformed
         try {
+               if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
             guardar(lblfechaj.getText());
             JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-
+               }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -617,9 +631,13 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiercolesActionPerformed
         try {
+               if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
             guardar(lblfechami.getText());
             JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-
+               }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -627,9 +645,13 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMartesActionPerformed
         try {
+               if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
             guardar(lblfecham.getText());
             JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-
+               }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -637,9 +659,13 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViernesActionPerformed
         try {
+               if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
             guardar(lblfechav.getText());
             JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-
+               }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -648,9 +674,13 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSabadoActionPerformed
         try {
+               if (cmbincidencia.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
+       
+        }else{
             guardar(lblfechas.getText());
             JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-
+               }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
