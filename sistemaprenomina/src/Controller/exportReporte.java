@@ -72,31 +72,24 @@ public class exportReporte {
         tableHeader.add("NOMBRE");
         tableHeader.add("DEPARTAMENTO");
         tableHeader.add("PUESTO");
-        tableHeader.add("FECHA");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
         tableHeader.add("HORAS EXTRA");
-        tableHeader.add("FECHA");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
         tableHeader.add("HORAS EXTRA");
-        tableHeader.add("FECHA");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
         tableHeader.add("HORAS EXTRA");
-        tableHeader.add("FECHA");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
         tableHeader.add("HORAS EXTRA");
-        tableHeader.add("FECHA");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
         tableHeader.add("HORAS EXTRA");
-        tableHeader.add("FECHA");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
         tableHeader.add("HORAS EXTRA");
-        tableHeader.add("FECHA");
         tableHeader.add("INCIDENCIA");
         tableHeader.add("COMENTARIO");
         tableHeader.add("HORAS EXTRA");
@@ -105,47 +98,33 @@ public class exportReporte {
     }
 
     public static List<String> getTableHeaders2(int idSemana) {
-//        fechas(idSemana);
+        fechas(idSemana);
         List<String> tableHeader = new ArrayList<String>();
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("LUNES    ");
+        tableHeader.add("LUNES    "+fec[0]);
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("");
-
-        tableHeader.add("MARTES    ");
+        tableHeader.add("MARTES    "+fec[0]);
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("");
-
-        tableHeader.add("MIERCOLES    ");
+        tableHeader.add("MIERCOLES    "+fec[0]);
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("");
-
-        tableHeader.add("JUEVEZ    ");
+        tableHeader.add("JUEVEZ    "+fec[0]);
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("");
-
-        tableHeader.add("VIERNES    ");
+        tableHeader.add("VIERNES    "+fec[0]);
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("");
-
-        tableHeader.add("SABADO    ");
+        tableHeader.add("SABADO    "+fec[0]);
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("");
-
-        tableHeader.add("DOMINGO    ");
+        tableHeader.add("DOMINGO    "+fec[0]);
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("");
-
         return tableHeader;
     }
 

@@ -766,7 +766,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
           String dep = lblcargo.getText();
           String nomm = lblnombrerh.getText();
           int fila = tbIncidencias.getSelectedRow();
-          if (fila >= 0) {
+          if (fila != -1) {
               try {
 
                   String nom = tbIncidencias.getValueAt(fila, 1).toString();
@@ -829,7 +829,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
         try {
             int fila = tbIncidencias.getSelectedRow();
-            if (fila != 0) {
+            if (fila != -1) {
                 String nom = tbIncidencias.getValueAt(fila, 1).toString();
                 String idemp = tbIncidencias.getValueAt(fila, 0).toString();
                 RH_SelectPD per = new RH_SelectPD();
