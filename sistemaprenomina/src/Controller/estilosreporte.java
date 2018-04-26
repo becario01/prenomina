@@ -129,7 +129,7 @@ public class estilosreporte {
         headerFont1 = createFont(HSSFColor.WHITE.index, (short) 19, true);
         contentFont = createFont(HSSFColor.BLACK.index, (short) 11, false);
 
-        // Generate styles
+//         Generate styles
 //        ejem1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.AQUA.index, false, HSSFColor.BLACK.index);
 //        ejem2 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.AUTOMATIC.index, false, HSSFColor.BLACK.index);
 //        ejem3 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLACK.index, false, HSSFColor.BLACK.index);
