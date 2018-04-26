@@ -144,7 +144,7 @@ public class exportReporte {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "Errorn en: " + e);
+            JOptionPane.showMessageDialog(null, "Errorn en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
 
         }
 
@@ -169,7 +169,7 @@ public class exportReporte {
                 con = rs2.getRow();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs2);
             Conexion1.close(stmt2);
@@ -200,7 +200,7 @@ public class exportReporte {
                 fec[6] = rs2.getString("fechaD");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs2);
             Conexion1.close(stmt2);

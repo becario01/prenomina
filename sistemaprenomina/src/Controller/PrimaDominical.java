@@ -50,7 +50,7 @@ public class PrimaDominical {
                 domingo = rs.getString("fechaD");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -77,7 +77,7 @@ public class PrimaDominical {
                 System.out.println("empleado "+cont+"  "+rs1.getString("empleadoId"));
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs1);
             Conexion1.close(stmt1);
@@ -131,7 +131,7 @@ for (int j = 0; j < arrayid.size(); j++) {
                 
         }
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en:  " + e);
+            JOptionPane.showMessageDialog(null, "Error en:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
 
         } finally {
             Conexion1.close(stmt2);
@@ -186,7 +186,7 @@ for (int j = 0; j < arrayid.size(); j++) {
             conn2.close();
 
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en:  " + e);
+            JOptionPane.showMessageDialog(null, "Error en:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
 
         } finally {
             Conexion1.close(stmt2);

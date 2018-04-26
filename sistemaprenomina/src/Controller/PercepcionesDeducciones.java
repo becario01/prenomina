@@ -72,7 +72,7 @@ public class PercepcionesDeducciones {
             
 
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en:  " + e);
+            JOptionPane.showMessageDialog(null, "Error en:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
 
         } finally {
             Conexion1.close(stmt);
@@ -137,7 +137,7 @@ public class PercepcionesDeducciones {
             
 
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en:  " + e);
+            JOptionPane.showMessageDialog(null, "Error en:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
 
         } finally {
             Conexion1.close(stmt);

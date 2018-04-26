@@ -56,6 +56,57 @@ public class estilosreporte {
     private HSSFFont contentFont;
 
     // Styles
+//    private HSSFCellStyle ejem1;
+//    private HSSFCellStyle ejem2;
+//    private HSSFCellStyle ejem3;
+//    private HSSFCellStyle ejem4;
+//    private HSSFCellStyle ejem5;
+//    private HSSFCellStyle ejem6;
+//    private HSSFCellStyle ejem7;
+//    private HSSFCellStyle ejem8;
+//    private HSSFCellStyle ejem9;
+//    private HSSFCellStyle ejem10;
+//    private HSSFCellStyle ejem11;
+//    private HSSFCellStyle ejem12;
+//    private HSSFCellStyle ejem13;
+//    private HSSFCellStyle ejem14;
+//    private HSSFCellStyle ejem15;
+//    private HSSFCellStyle ejem16;
+//    private HSSFCellStyle ejem17;
+//    private HSSFCellStyle ejem18;
+//    private HSSFCellStyle ejem19;
+//    private HSSFCellStyle ejem20;
+//    private HSSFCellStyle ejem21;
+//    private HSSFCellStyle ejem22;
+//    private HSSFCellStyle ejem23;
+//    private HSSFCellStyle ejem24;
+//    private HSSFCellStyle ejem25;
+//    private HSSFCellStyle ejem26;
+//    private HSSFCellStyle ejem27;
+//    private HSSFCellStyle ejem28;
+//    private HSSFCellStyle ejem29;
+//    private HSSFCellStyle ejem30;
+//    private HSSFCellStyle ejem31;
+//    private HSSFCellStyle ejem32;
+//    private HSSFCellStyle ejem33;
+//    private HSSFCellStyle ejem34;
+//    private HSSFCellStyle ejem35;
+//    private HSSFCellStyle ejem36;
+//    private HSSFCellStyle ejem37;
+//    private HSSFCellStyle ejem38;
+//    private HSSFCellStyle ejem39;
+//    private HSSFCellStyle ejem40;
+//    private HSSFCellStyle ejem41;
+//    private HSSFCellStyle ejem42;
+//    private HSSFCellStyle ejem43;
+//    private HSSFCellStyle ejem44;
+//    private HSSFCellStyle ejem45;
+//    private HSSFCellStyle ejem46;
+//    private HSSFCellStyle ejem47;
+//    private HSSFCellStyle ejem48;
+//    private HSSFCellStyle ejem49;
+//    private HSSFCellStyle ejem50;
+//    private HSSFCellStyle ejem51;
     private HSSFCellStyle headerStyle1;
     private HSSFCellStyle headerStyle2;
     private HSSFCellStyle headerStyle;
@@ -65,7 +116,7 @@ public class estilosreporte {
     // Integer to store the index of the next row
     private int rowIndex;
 
-    public HSSFWorkbook generateExcel(int idSemana, String semana, String empleado, String cargo) throws SQLException {
+    public HSSFWorkbook generateExcel(int idSemana, String semana, String empleado, String cargo, String nomdep) throws SQLException {
 
         // Initialize rowIndex
         rowIndex = 0;
@@ -79,11 +130,62 @@ public class estilosreporte {
         contentFont = createFont(HSSFColor.BLACK.index, (short) 11, false);
 
         // Generate styles
-        headerStyle1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLACK.index, false , HSSFColor.BLACK.index);
-        headerStyle2 = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_BLUE.index, false, HSSFColor.WHITE.index);
-        headerStyle = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_BLUE.index, false, HSSFColor.DARK_BLUE.index);
+//        ejem1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.AQUA.index, false, HSSFColor.BLACK.index);
+//        ejem2 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.AUTOMATIC.index, false, HSSFColor.BLACK.index);
+//        ejem3 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLACK.index, false, HSSFColor.BLACK.index);
+//        ejem4 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLUE.index, false, HSSFColor.BLACK.index);
+//        ejem5 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLUE_GREY.index, false, HSSFColor.BLACK.index);
+//        ejem6 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BRIGHT_GREEN.index, false, HSSFColor.BLACK.index);
+//        ejem7 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BROWN.index, false, HSSFColor.BLACK.index);
+//        ejem8 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.CORAL.index, false, HSSFColor.BLACK.index);
+//        ejem9 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.CORNFLOWER_BLUE.index, false, HSSFColor.BLACK.index);
+//        ejem11 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_BLUE.index, false, HSSFColor.BLACK.index);
+//        ejem12 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_GREEN.index, false, HSSFColor.BLACK.index);
+//        ejem13 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_RED.index, false, HSSFColor.BLACK.index);
+//        ejem14 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_TEAL.index, false, HSSFColor.BLACK.index);
+//        ejem15 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.DARK_YELLOW.index, false, HSSFColor.BLACK.index);
+//        ejem16 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.GOLD.index, false, HSSFColor.BLACK.index);
+//        ejem17 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.GREEN.index, false, HSSFColor.BLACK.index);
+//        ejem18 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.GREY_25_PERCENT.index, false, HSSFColor.BLACK.index);
+//        ejem19 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.GREY_40_PERCENT.index, false, HSSFColor.BLACK.index);
+//        ejem20 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.GREY_50_PERCENT.index, false, HSSFColor.BLACK.index);
+//        ejem21 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.GREY_80_PERCENT.index, false, HSSFColor.BLACK.index);
+//        ejem22 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.INDIGO.index, false, HSSFColor.BLACK.index);
+//        ejem23 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LAVENDER.index, false, HSSFColor.BLACK.index);
+//        ejem24 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LEMON_CHIFFON.index, false, HSSFColor.BLACK.index);
+//        ejem25 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_BLUE.index, false, HSSFColor.BLACK.index);
+//        ejem26 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_CORNFLOWER_BLUE.index, false, HSSFColor.BLACK.index);
+//        ejem27 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_GREEN.index, false, HSSFColor.BLACK.index);
+//        ejem28 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_ORANGE.index, false, HSSFColor.BLACK.index);
+//        ejem29 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_TURQUOISE.index, false, HSSFColor.BLACK.index);
+//        ejem30 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_YELLOW.index, false, HSSFColor.BLACK.index);
+//        ejem31 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIME.index, false, HSSFColor.BLACK.index);
+//        ejem32 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.MAROON.index, false, HSSFColor.BLACK.index);
+//        ejem33 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.OLIVE_GREEN.index, false, HSSFColor.BLACK.index);
+//        ejem34 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.ORANGE.index, false, HSSFColor.BLACK.index);
+//        ejem35 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.ORCHID.index, false, HSSFColor.BLACK.index);
+//        ejem36 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.PALE_BLUE.index, false, HSSFColor.BLACK.index);
+//        ejem37 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.PINK.index, false, HSSFColor.BLACK.index);
+//        ejem38 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.PLUM.index, false, HSSFColor.BLACK.index);
+//        ejem39 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.RED.index, false, HSSFColor.BLACK.index);
+//        ejem40 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.ROSE.index, false, HSSFColor.BLACK.index);
+//        ejem41 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.ROYAL_BLUE.index, false, HSSFColor.BLACK.index);
+//        ejem42 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.SEA_GREEN.index, false, HSSFColor.BLACK.index);
+//        ejem43 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.SKY_BLUE.index, false, HSSFColor.BLACK.index);
+//        ejem44 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.TAN.index, false, HSSFColor.BLACK.index);
+//        ejem45 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.TEAL.index, false, HSSFColor.BLACK.index);
+//        ejem46 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.TURQUOISE.index, false, HSSFColor.BLACK.index);
+//        ejem47 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.VIOLET.index, false, HSSFColor.BLACK.index);
+//        ejem48 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.WHITE.index, false, HSSFColor.BLACK.index);
+//        ejem49 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.YELLOW.index, false, HSSFColor.BLACK.index);
+//        ejem50 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIME.index, false, HSSFColor.BLACK.index);
+//        ejem51 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIME.index, false, HSSFColor.BLACK.index);
+
+        headerStyle1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLUE.index, false, HSSFColor.BLACK.index);
+        headerStyle2 = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_BLUE.index, false, HSSFColor.WHITE.index);
+        headerStyle = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_BLUE.index, false, HSSFColor.DARK_BLUE.index);
         oddRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.WHITE.index, false, HSSFColor.GREY_25_PERCENT.index);
-        evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.GREY_25_PERCENT.index, false, HSSFColor.WHITE.index);
+        evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.LIGHT_TURQUOISE.index, false, HSSFColor.WHITE.index);
 
         int fila = 3;
         // New sheet
@@ -110,7 +212,7 @@ public class estilosreporte {
         headerCell0 = headerRow0.createCell(0);
         headerCell0.setCellStyle(headerStyle1);
         headerCell0.setCellValue("REPORTE GENERAL          " + semana);
-        CellRangeAddress re = new CellRangeAddress(0, 0, 0, 7);
+        CellRangeAddress re = new CellRangeAddress(0, 0, 0, 9);
         sheet.addMergedRegion(re);
         for (int i = 8; i < 25; i++) {
             headerCell22 = headerRow0.createCell(i);
@@ -118,6 +220,213 @@ public class estilosreporte {
 
         }
 
+//////////////////////////////////////////////////////////////////////////////////        
+//        HSSFRow headerRow7 = sheet.createRow(20);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem1);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(21);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem2);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(22);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem3);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(23);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem4);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(24);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem5);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(25);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem6);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(26);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem7);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(27);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem8);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(28);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem9);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(29);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem10);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(30);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem11);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(31);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem12);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(32);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem13);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(33);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem14);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(34);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem15);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(35);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem16);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(36);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem17);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(37);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem18);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(38);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem19);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(39);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem20);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(40);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem21);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(41);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem22);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(42);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem23);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(43);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem24);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(44);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem25);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(45);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem26);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(46);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem27);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(47);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem28);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(48);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem29);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(49);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem30);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(50);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem31);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(51);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem32);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(52);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem33);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(53);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem34);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(54);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem35);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(55);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem36);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(56);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem37);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(57);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem38);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(58);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem39);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(59);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem40);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(60);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem41);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(61);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem42);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(62);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem43);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(63);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem44);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(64);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem45);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(65);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem46);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(66);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem47);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(67);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem48);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(68);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem49);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(69);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem50);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+//        headerRow7 = sheet.createRow(70);
+//        headerCell0 = headerRow7.createCell(1);
+//        headerCell0.setCellStyle(ejem51);
+//        headerCell0.setCellValue("REPORTE GENERAL          ");
+
+//////////////////////////////////////////////////////////////////////////////////        
 //        row = sheet.createRow(3);
 //       setBordersToMergedCells(sheet, re);
         // Table header
@@ -162,12 +471,24 @@ public class estilosreporte {
         HSSFCell contentCell7 = null;
 //        HSSFCell contentCell8 = null;
         HSSFCell contentCell9 = null;
+        String sql = "";
+        if (nomdep.contains("-SELECCIONE UNA OPCION-")) {
 
-        String sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
-                + "                    from incidencias inc\n"
-                + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "                    where inc.idSemana='" + idSemana + "'";
+            sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
+                    + "                    from incidencias inc\n"
+                    + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
+                    + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
+                    + "                    where inc.idSemana='" + idSemana + "'";
+        } else {
+            sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
+                    + "                    from incidencias inc\n"
+                    + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
+                    + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
+                    + "                    where inc.idSemana='" + idSemana + "' and emp.depto='" + nomdep + "' ";
+            headerCell0 = headerRow0.createCell(0);
+            headerCell0.setCellStyle(headerStyle1);
+            headerCell0.setCellValue("REPORTE GENERAL          " + semana + "                   " + nomdep);
+        }
         String datos[] = new String[11];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -213,13 +534,13 @@ public class estilosreporte {
                     rs1 = stmt1.executeQuery();
 
                     while (rs1.next()) {
-                        
+
                         datos[5] = rs1.getString("nombreinc");
                         datos[6] = rs1.getString("comentario");
                         datos[7] = rs1.getString("horasExtra");
 
                         if (dia(rs1.getString("fecha")) == 2) {
-                            
+
                             contentCell5 = contentRow1.createCell(4);
                             contentCell5.setCellValue(datos[5]);
                             contentCell6 = contentRow1.createCell(5);
@@ -228,7 +549,7 @@ public class estilosreporte {
                             contentCell7.setCellValue(datos[7]);
 
                         } else if (dia(rs1.getString("fecha")) == 3) {
-                           
+
                             contentCell5 = contentRow1.createCell(7);
                             contentCell5.setCellValue(datos[5]);
                             contentCell6 = contentRow1.createCell(8);
@@ -237,7 +558,7 @@ public class estilosreporte {
                             contentCell7.setCellValue(datos[7]);
 
                         } else if (dia(rs1.getString("fecha")) == 4) {
-                           
+
                             contentCell5 = contentRow1.createCell(10);
                             contentCell5.setCellValue(datos[5]);
                             contentCell6 = contentRow1.createCell(11);
@@ -245,7 +566,7 @@ public class estilosreporte {
                             contentCell7 = contentRow1.createCell(12);
                             contentCell7.setCellValue(datos[7]);
                         } else if (dia(rs1.getString("fecha")) == 5) {
-                           
+
                             contentCell5 = contentRow1.createCell(13);
                             contentCell5.setCellValue(datos[5]);
                             contentCell6 = contentRow1.createCell(14);
@@ -254,7 +575,7 @@ public class estilosreporte {
                             contentCell7.setCellValue(datos[7]);
 
                         } else if (dia(rs1.getString("fecha")) == 6) {
-                            
+
                             contentCell5 = contentRow1.createCell(16);
                             contentCell5.setCellValue(datos[5]);
                             contentCell6 = contentRow1.createCell(17);
@@ -263,7 +584,7 @@ public class estilosreporte {
                             contentCell7.setCellValue(datos[7]);
 
                         } else if (dia(rs1.getString("fecha")) == 7) {
-                           
+
                             contentCell5 = contentRow1.createCell(19);
                             contentCell5.setCellValue(datos[5]);
                             contentCell6 = contentRow1.createCell(20);
@@ -271,7 +592,7 @@ public class estilosreporte {
                             contentCell7 = contentRow1.createCell(21);
                             contentCell7.setCellValue(datos[7]);
                         } else if (dia(rs1.getString("fecha")) == 1) {
-                          
+
                             contentCell5 = contentRow1.createCell(22);
                             contentCell5.setCellValue(datos[5]);
                             contentCell6 = contentRow1.createCell(23);
@@ -287,19 +608,18 @@ public class estilosreporte {
                         contentCell5.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
                         contentCell6.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
                         contentCell7.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
-                      
 
                     }
 
                     fila++;
                     rowIndex = fila;
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+                    JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);

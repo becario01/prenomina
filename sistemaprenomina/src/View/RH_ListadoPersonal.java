@@ -107,7 +107,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -136,7 +136,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -459,11 +459,11 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
                   act.desactivar(cod, nom);
 
               } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(null, "error" + ex);
+                  JOptionPane.showMessageDialog(null, "error" + ex,"ERROR",JOptionPane.ERROR_MESSAGE);
               }
 
           } else {
-              JOptionPane.showMessageDialog(null, "Selecione una fila ");
+              JOptionPane.showMessageDialog(null, "Selecione una fila ","",JOptionPane.WARNING_MESSAGE);
           }
           limpiar(tabla1);
           limpiar(tabla2);
@@ -489,11 +489,11 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
                   act.activar(cod, nom);
 
               } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(null, "error" + ex);
+                  JOptionPane.showMessageDialog(null, "error" + ex,"ERROR",JOptionPane.ERROR_MESSAGE);
               }
 
           } else {
-              JOptionPane.showMessageDialog(null, "Selecione una fila ");
+              JOptionPane.showMessageDialog(null, "Selecione una fila ","",JOptionPane.WARNING_MESSAGE);
           }
           limpiar(tabla1);
           limpiar(tabla2);

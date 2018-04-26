@@ -16,6 +16,7 @@ import Controller.exportReporte;
 import static View.RH_Inicio.lblcargo;
 import static View.RH_Inicio.lblnombrerh;
 import static View.RH_ListadoPersonal.rs;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -34,6 +35,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -115,7 +117,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -141,7 +143,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -170,7 +172,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 tabla1.addRow(datos);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -199,7 +201,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 tabla1.addRow(datos);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -228,7 +230,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         } else {
             cmbSemana.setSelectedIndex(0);
-            JOptionPane.showMessageDialog(null, "Seleccione antes una semana");
+            JOptionPane.showMessageDialog(null, "Seleccione antes una semana","",JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -684,7 +686,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
               }
 
           } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Error en: " + e);
+              JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
 
 
@@ -723,40 +725,45 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                       }
                   } else {
                       cmbDepto.setSelectedIndex(0);
-                      JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
+                      JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
                   }
               } else {
                   cmbDepto.setSelectedIndex(0);
-                  JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
+                  JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
               }
           } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Error en: " + e);
+              JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
       }//GEN-LAST:event_cmbDeptoActionPerformed
 
       private void btnBuscar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar5ActionPerformed
+  
+ 
+          int idsemana = cmbSemana.getSelectedIndex();
+          String nomsemana = cmbSemana.getSelectedItem().toString();
+          String nomdep = cmbDepto.getSelectedItem().toString();
+          String emp = lblnombrerh.getText();
+          String car = lblcargo.getText();
+          System.out.println(nomdep);
+
           try {
-              int idsemana = cmbSemana.getSelectedIndex();
-              String nomsemana = cmbSemana.getSelectedItem().toString();
-              String emp = lblnombrerh.getText();
-              String car = lblcargo.getText();
-              System.out.println(nomsemana);
               OutputStream out;
-              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana, nomsemana,emp,car)) {
+              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana, nomsemana, emp, car, nomdep)) {
                   JFileChooser guardar = new JFileChooser();
                   guardar.setApproveButtonText("Guardar");
                   guardar.showSaveDialog(null);
                   out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
                   workbook.write(out);
+                  out.flush();
+                  out.close();
+                  JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE);
+                  
               }
-              out.flush();
-              out.close();
-              JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE);
+
           } catch (IOException e) {
-              System.err.println("Error at file writing");
-              e.printStackTrace();
+              JOptionPane.showMessageDialog(null, "Error:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
           } catch (SQLException ex) {
-              System.err.println("Error at file writing " + ex);
+              JOptionPane.showMessageDialog(null, "Error:   " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
 
 
@@ -780,10 +787,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                   RH_uci_detalles.txtid.setText(codid);
                   RH_uci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
               } catch (Exception e) {
-                  JOptionPane.showMessageDialog(null, "Error en: " + e);
+                  JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
               }
           } else {
-              JOptionPane.showMessageDialog(null, "Seleccione una fila ");
+              JOptionPane.showMessageDialog(null, "Seleccione una fila ","",JOptionPane.WARNING_MESSAGE);
           }
 
       }//GEN-LAST:event_itemDetallesActionPerformed
@@ -807,7 +814,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             RH_Inicio.lblnombrerh.setText(nom);
             this.setVisible(false);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -837,11 +844,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 RH_SelectPD.lblcod.setText(idemp);
                 RH_SelectPD.lblnombre.setText(nom);
             } else {
-                JOptionPane.showMessageDialog(null, "Selecciona una fila");
+                JOptionPane.showMessageDialog(null, "Selecciona una fila","",JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR EN: " + e);
+            JOptionPane.showMessageDialog(null, "ERROR EN: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_itemPercepcionesActionPerformed
 
@@ -884,7 +891,7 @@ clf.setVisible(true);
             pri.insertar(semana);
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Error en:  "+ e);
+            JOptionPane.showMessageDialog(null,"Error en:  "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }finally{
              JOptionPane.showMessageDialog(null, "Prima Dominical actualizada");
         }

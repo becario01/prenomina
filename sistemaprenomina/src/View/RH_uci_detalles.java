@@ -29,132 +29,126 @@ import javax.swing.table.TableColumnModel;
  */
 public class RH_uci_detalles extends javax.swing.JFrame {
 
-      Connection conn;
-      PreparedStatement stmt;
-      public static ResultSet rs;
-      private Connection userConn;
-      Connection conn1;
-      PreparedStatement stmt1;
-      public static ResultSet rs1;
-      private Connection userConn1;
+    Connection conn;
+    PreparedStatement stmt;
+    public static ResultSet rs;
+    private Connection userConn;
+    Connection conn1;
+    PreparedStatement stmt1;
+    public static ResultSet rs1;
+    private Connection userConn1;
 
-      /**
-       * Creates new form RH_uci_detalles
-       */
-      public RH_uci_detalles() throws SQLException {
-            initComponents();
-            this.setResizable(false);
-            this.setLocationRelativeTo(null);
-            this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
-            cargartitulos();
-            int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
-            int idemp = Integer.parseInt(RH_UsuariosConIncidencias.codid);
-            limpiar(tabla1);
-            cargardatosFiltroSemana(sem, idemp);
-            
+    /**
+     * Creates new form RH_uci_detalles
+     */
+    public RH_uci_detalles() throws SQLException {
+        initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
+        cargartitulos();
+        int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
+        int idemp = Integer.parseInt(RH_UsuariosConIncidencias.codid);
+        limpiar(tabla1);
+        cargardatosFiltroSemana(sem, idemp);
 
-      }
-      DefaultTableModel tabla1 = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int Fila, int Colum) {
-                  return false;
-            }
-      };
+    }
+    DefaultTableModel tabla1 = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int Fila, int Colum) {
+            return false;
+        }
+    };
 
-      public void cargartitulos() throws SQLException {
+    public void cargartitulos() throws SQLException {
 
-            tabla1.addColumn("Dia");
-            tabla1.addColumn("ACTUALOZADO JA");
-            tabla1.addColumn("ACTUALIZADO RH");
-            tabla1.addColumn("FECHA");
-            tabla1.addColumn("ENTRADA");
-            tabla1.addColumn("SALIDA");
-            tabla1.addColumn("HORAS");
-            tabla1.addColumn("INCIDENCIA");
-            tabla1.addColumn("COMENTARIO");
-            this.tbdetalles.setModel(tabla1);
+        tabla1.addColumn("Dia");
+        tabla1.addColumn("ACTUALOZADO JA");
+        tabla1.addColumn("ACTUALIZADO RH");
+        tabla1.addColumn("FECHA");
+        tabla1.addColumn("ENTRADA");
+        tabla1.addColumn("SALIDA");
+        tabla1.addColumn("HORAS");
+        tabla1.addColumn("INCIDENCIA");
+        tabla1.addColumn("COMENTARIO");
+        this.tbdetalles.setModel(tabla1);
 //            tabla1.addColumn(0, "");
 
-            TableColumnModel columnModel = tbdetalles.getColumnModel();
+        TableColumnModel columnModel = tbdetalles.getColumnModel();
 
-            columnModel.getColumn(0).setPreferredWidth(70);
-            columnModel.getColumn(1).setPreferredWidth(75);
-            columnModel.getColumn(2).setPreferredWidth(75);
-            columnModel.getColumn(3).setPreferredWidth(50);
-            columnModel.getColumn(4).setPreferredWidth(30);
-            columnModel.getColumn(5).setPreferredWidth(30);
-            columnModel.getColumn(6).setPreferredWidth(30);
-            columnModel.getColumn(7).setPreferredWidth(100);
-            columnModel.getColumn(8).setPreferredWidth(100);
+        columnModel.getColumn(0).setPreferredWidth(70);
+        columnModel.getColumn(1).setPreferredWidth(75);
+        columnModel.getColumn(2).setPreferredWidth(75);
+        columnModel.getColumn(3).setPreferredWidth(50);
+        columnModel.getColumn(4).setPreferredWidth(30);
+        columnModel.getColumn(5).setPreferredWidth(30);
+        columnModel.getColumn(6).setPreferredWidth(30);
+        columnModel.getColumn(7).setPreferredWidth(100);
+        columnModel.getColumn(8).setPreferredWidth(100);
 
-      }
-      public void cargardatosFiltroSemana(int idSemana, int cod) throws SQLException {
+    }
 
-            String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario \n"
-                    + "from incidencias inc\n"
-                    + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                    + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
-                    + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                    + "where inc.idSemana='" + idSemana + "' and inc.empleadoId='" + cod + "' ";
-            String datos[] = new String[10];
-            try {
-                  conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-                  stmt = conn.prepareStatement(sql);
-                  rs = stmt.executeQuery();
+    public void cargardatosFiltroSemana(int idSemana, int cod) throws SQLException {
 
-                  while (rs.next()) {
+        String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario \n"
+                + "from incidencias inc\n"
+                + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
+                + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
+                + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
+                + "where inc.idSemana='" + idSemana + "' and inc.empleadoId='" + cod + "' ";
+        String datos[] = new String[10];
+        try {
+            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
 //                       
-                        datos[1] = rs.getString("actualizadoJA");
-                        datos[2] = rs.getString("actualizadoRH");
-                        datos[3] = rs.getString("fecha");
-                        datos[4] = "";
-                        datos[5] = "";
-                        datos[6] = "";
-                        datos[7] = rs.getString("nombreinc");
-                        datos[8] = rs.getString("comentario");
-                        
-                        String sql1="SELECT entrada, salida, horas from registros where empleadoId='"+cod+"' and fecha='"+datos[3]+"'";
-                        try {
-                  conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
-                  stmt1 = conn1.prepareStatement(sql1);
-                  rs1 = stmt1.executeQuery();
+                datos[1] = rs.getString("actualizadoJA");
+                datos[2] = rs.getString("actualizadoRH");
+                datos[3] = rs.getString("fecha");
+                datos[4] = "";
+                datos[5] = "";
+                datos[6] = "";
+                datos[7] = rs.getString("nombreinc");
+                datos[8] = rs.getString("comentario");
 
-                  while (rs1.next()) {
-                      datos[4]=rs1.getString("entrada");
-                      datos[5]=rs1.getString("salida");
-                      datos[6]=rs1.getString("horas");
+                String sql1 = "SELECT entrada, salida, horas from registros where empleadoId='" + cod + "' and fecha='" + datos[3] + "'";
+                try {
+                    conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
+                    stmt1 = conn1.prepareStatement(sql1);
+                    rs1 = stmt1.executeQuery();
 
-                  }
-            } catch (Exception e) {
-                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-            } finally {
-                  Conexion1.close(rs1);
-                  Conexion1.close(stmt1);
-                  if (this.userConn1 == null) {
+                    while (rs1.next()) {
+                        datos[4] = rs1.getString("entrada");
+                        datos[5] = rs1.getString("salida");
+                        datos[6] = rs1.getString("horas");
+
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    Conexion1.close(rs1);
+                    Conexion1.close(stmt1);
+                    if (this.userConn1 == null) {
                         Conexion1.close(conn1);
-                  }
-            }
+                    }
+                }
 
-                        
-                        
-                        
-                        
-                        
-                        
-                        tabla1.addRow(datos);
-                  }
-            } catch (Exception e) {
-                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-            } finally {
-                  Conexion1.close(rs);
-                  Conexion1.close(stmt);
-                  if (this.userConn == null) {
-                        Conexion1.close(conn);
-                  }
+                tabla1.addRow(datos);
             }
-            dia();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (this.userConn == null) {
+                Conexion1.close(conn);
+            }
+        }
+        dia();
 
-      }
+    }
 
 //      public void cargarfaltas(int cod) {
 //            String sql = "SELECT  emp.empleadoId, emp.nombre, re.fecha, re.entrada, re.salida, re.horas\n"
@@ -191,58 +185,57 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 //            }
 //            dia();
 //      }
+    public void dia() {
+        GregorianCalendar cal = new GregorianCalendar();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
-      public void dia() {
-            GregorianCalendar cal = new GregorianCalendar();
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            for (int i = 0; i < tbdetalles.getRowCount(); i++) {
+                String fec = tbdetalles.getValueAt(i, 3).toString();
+                Date fecha = formato.parse(fec);
+                cal.setTime(fecha);
+                int dia = cal.get(Calendar.DAY_OF_WEEK);
 
-            try {
-                  for (int i = 0; i < tbdetalles.getRowCount(); i++) {
-                        String fec = tbdetalles.getValueAt(i, 3).toString();
-                        Date fecha = formato.parse(fec);
-                        cal.setTime(fecha);
-                        int dia = cal.get(Calendar.DAY_OF_WEEK);
-
-                        if (dia == 1) {
-                              tbdetalles.setValueAt("DOMINGO", i, 0);
-                        } else if (dia == 2) {
-                              tbdetalles.setValueAt("LUNES", i, 0);
-                        } else if (dia == 3) {
-                              tbdetalles.setValueAt("MARTES", i, 0);
-                        } else if (dia == 4) {
-                              tbdetalles.setValueAt("MIERCOLES", i, 0);
-                        } else if (dia == 5) {
-                              tbdetalles.setValueAt("JUEVEZ", i, 0);
-                        } else if (dia == 6) {
-                              tbdetalles.setValueAt("VIERNES", i, 0);
-                        } else if (dia == 7) {
-                              tbdetalles.setValueAt("SABADO", i, 0);
-                        }
-
-                  }
-
-            } catch (Exception e) {
-
-                  JOptionPane.showMessageDialog(null, "Errorn en: " + e);
+                if (dia == 1) {
+                    tbdetalles.setValueAt("DOMINGO", i, 0);
+                } else if (dia == 2) {
+                    tbdetalles.setValueAt("LUNES", i, 0);
+                } else if (dia == 3) {
+                    tbdetalles.setValueAt("MARTES", i, 0);
+                } else if (dia == 4) {
+                    tbdetalles.setValueAt("MIERCOLES", i, 0);
+                } else if (dia == 5) {
+                    tbdetalles.setValueAt("JUEVEZ", i, 0);
+                } else if (dia == 6) {
+                    tbdetalles.setValueAt("VIERNES", i, 0);
+                } else if (dia == 7) {
+                    tbdetalles.setValueAt("SABADO", i, 0);
+                }
 
             }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Errorn en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+
+        }
 
 //   
-      }
+    }
 
-      public void limpiar(DefaultTableModel tabla) {
-            for (int i = 0; i < tabla.getRowCount(); i++) {
-                  tabla.removeRow(i);
-                  i -= 1;
-            }
-      }
+    public void limpiar(DefaultTableModel tabla) {
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            tabla.removeRow(i);
+            i -= 1;
+        }
+    }
 
-      /**
-       * This method is called from within the constructor to initialize the
-       * form. WARNING: Do NOT modify this code. The content of this method is
-       * always regenerated by the Form Editor.
-       */
-      @SuppressWarnings("unchecked")
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -427,114 +420,145 @@ public class RH_uci_detalles extends javax.swing.JFrame {
       }//GEN-LAST:event_tbdetallesMouseMoved
 
       private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-            try {
+          try {
 
-            } catch (Exception e) {
-                  JOptionPane.showMessageDialog(null, "Erro en: " + e);
-            }
+          } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, "Erro en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+          }
       }//GEN-LAST:event_formMouseEntered
 
       private void itemAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAutorizarActionPerformed
-            int fila = tbdetalles.getSelectedRow();
-            if (fila >= 0) {
-                  String cod = txtid.getText();
+          int fila = tbdetalles.getSelectedRow();
+          String cod = txtid.getText();
+          int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
+          int id = Integer.parseInt(cod);
+          autorizacionRH au = new autorizacionRH();
+          if (fila != -1) {
+              int contador = tbdetalles.getSelectedRowCount();
+              if (contador == 1) {
                   String fec = tbdetalles.getValueAt(fila, 3).toString();
-                  int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
-                  int id = Integer.parseInt(cod);
-                  autorizacionRH au = new autorizacionRH();
                   try {
-                        au.autorizar(cod, fec);
-                        limpiar(tabla1);
-                        cargardatosFiltroSemana(sem, id);
+                      au.autorizar(cod, fec);
+                      limpiar(tabla1);
+                      cargardatosFiltroSemana(sem, id);
                   } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Error en: " + e);
+                      JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
                   }
-            } else {
-                  JOptionPane.showMessageDialog(null, "Selecione una fila");
-            }
+              } else {
+                  try {
+                      int codi[] = tbdetalles.getSelectedRows();
+                      String empfecha[] = new String[codi.length];
+                      for (int i = 0; i < codi.length; i++) {
+                          empfecha[i] = tbdetalles.getValueAt(codi[i], 3).toString();
+                          String fec = empfecha[i];
+                          au.autorizar(cod, fec);
+                      }
+                      limpiar(tabla1);
+                      cargardatosFiltroSemana(sem, id);
+                  } catch (Exception e) {
+                      JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                  }
+              }
 
+          } else if (fila == -1) {
+              JOptionPane.showMessageDialog(null, "Selecione una fila","",JOptionPane.WARNING_MESSAGE);
+          }
       }//GEN-LAST:event_itemAutorizarActionPerformed
 
       private void itemNegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNegarActionPerformed
 
-            int fila = tbdetalles.getSelectedRow();
-            if (fila >= 0) {
-                  String cod = txtid.getText();
+          int fila = tbdetalles.getSelectedRow();
+          String cod = txtid.getText();
+          int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
+          int id = Integer.parseInt(cod);
+          autorizacionRH au = new autorizacionRH();
+          if (fila != -1) {
+              int contador = tbdetalles.getSelectedRowCount();
+              if (contador == 1) {
                   String fec = tbdetalles.getValueAt(fila, 3).toString();
-                  int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
-                  int id = Integer.parseInt(cod);
-                  autorizacionRH au = new autorizacionRH();
                   try {
-                        au.negar(cod, fec);
-                        limpiar(tabla1);
-                        cargardatosFiltroSemana(sem, id);
-                        
-                        
-
+                      au.negar(cod, fec);
+                      limpiar(tabla1);
+                      cargardatosFiltroSemana(sem, id);
                   } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Error en: " + e);
+                      JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
                   }
-            } else {
-                  JOptionPane.showMessageDialog(null, "Selecione una fila");
-            }
+              } else {
+                  try {
+                      int codi[] = tbdetalles.getSelectedRows();
+                      String empfecha[] = new String[codi.length];
+                      for (int i = 0; i < codi.length; i++) {
+                          empfecha[i] = tbdetalles.getValueAt(codi[i], 3).toString();
+                          String fec = empfecha[i];
+                          au.negar(cod, fec);
+                      }
+                      limpiar(tabla1);
+                      cargardatosFiltroSemana(sem, id);
+                  } catch (Exception e) {
+                      JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                  }
+              }
 
+          } else if (fila == -1) {
+              JOptionPane.showMessageDialog(null, "Selecione una fila","",JOptionPane.WARNING_MESSAGE);
+          }
 
       }//GEN-LAST:event_itemNegarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-     
+
         try {
-            
+
             this.show(false);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Error en: "+ e);
+            JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
- 
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-      /**
-       * @param args the command line arguments
-       */
-      public static void main(String args[]) {
-            /* Set the Nimbus look and feel */
-            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
              * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
-            try {
-                  for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                        if ("Nimbus".equals(info.getName())) {
-                              javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                              break;
-                        }
-                  }
-            } catch (ClassNotFoundException ex) {
-                  java.util.logging.Logger.getLogger(RH_uci_detalles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                  java.util.logging.Logger.getLogger(RH_uci_detalles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                  java.util.logging.Logger.getLogger(RH_uci_detalles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                  java.util.logging.Logger.getLogger(RH_uci_detalles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
-            //</editor-fold>
-            //</editor-fold>
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RH_uci_detalles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RH_uci_detalles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RH_uci_detalles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RH_uci_detalles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
 
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                  public void run() {
-                        try {
-                              new RH_uci_detalles().setVisible(true);
-                        } catch (SQLException ex) {
-                              Logger.getLogger(RH_uci_detalles.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                  }
-            });
-      }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new RH_uci_detalles().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RH_uci_detalles.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu accion;

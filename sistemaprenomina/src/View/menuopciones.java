@@ -201,7 +201,7 @@ public class menuopciones extends javax.swing.JFrame {
           try {
               car.cargarempleados();
           } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Error en: " + e);
+              JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
           RH_Inicio rh = new RH_Inicio();
           rh.show(true);
@@ -217,7 +217,7 @@ public class menuopciones extends javax.swing.JFrame {
           try {
               car.cargarregistros();
           } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Error en: " + e);
+              JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
           RH_Inicio rh = new RH_Inicio();
           rh.show(true);
@@ -253,7 +253,7 @@ public class menuopciones extends javax.swing.JFrame {
               sele.setVisible(true);
               this.setVisible(false);
           } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e);
+              JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
 
       }//GEN-LAST:event_jButton4ActionPerformed

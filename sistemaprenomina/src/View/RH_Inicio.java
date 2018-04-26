@@ -364,7 +364,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
               RH_ListadoPersonal.lblnombrerh.setText(nom);
               this.show(false);
           } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e);
+              JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
 
       }//GEN-LAST:event_jButton16ActionPerformed
@@ -379,7 +379,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
               RH_UsuariosConIncidencias.lblnombrerh.setText(nom);
               this.show(false);
           } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e);
+              JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
 
       }//GEN-LAST:event_jButton17ActionPerformed

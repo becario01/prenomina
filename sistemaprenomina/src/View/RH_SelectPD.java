@@ -343,7 +343,7 @@ public class RH_SelectPD extends javax.swing.JFrame {
         try {
             this.show(false);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e);
+            JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -356,7 +356,7 @@ public class RH_SelectPD extends javax.swing.JFrame {
             per.insertar(id, sem, datos(),rootPane);
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR EN:  " + e);
+            JOptionPane.showMessageDialog(null, "ERROR EN:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
 
 
