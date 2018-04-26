@@ -46,17 +46,17 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
         rin = new Nomincidencia();
         initComponents();
-//        Color myColor = new Color(255,255,208);
-//        jtbdatosgrupos.setBackground(myColor);
         cargarModeloSem();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
+        cantidadhoras.hide();
+        lblcant.hide();
     }
     private void cargarModeloSem(){
             ArrayList<Rincidencia> listaSemanas;
         listaSemanas = rin.obtenerIncnidecnias();
-
+  modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1));
         for(Rincidencia semana : listaSemanas){
             modeloselincidencia.addElement(semana);
         }
@@ -105,7 +105,7 @@ public void selecSeman(String vsemana){
 
 
 
-public int registrargrupos(int empleadoId,String dia,String fecha,int horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
+public int registrargrupos(int empleadoId,String dia,String fecha,String horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
       Connection conn = null;
      PreparedStatement stmt = null;
         int rows = 0;
@@ -142,7 +142,18 @@ public  String guardar(String fechas) throws SQLException{
         Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
         String fecha = fechas;
         String comentario = txtcomentario.getText();
-        int horaextra = 1;
+        String cantidad = cantidadhoras.getText();
+
+            if (select_incidencia.isNumeric(cantidad)) {
+                cantidad = cantidadhoras.getText();
+                System.out.println(cantidad);
+            } else if (cantidad.equalsIgnoreCase("")) {
+                cantidad = " ";
+                System.out.println(cantidad);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Debe ingresar un numero");
+            }
+        
         String horastrab = "10";
         int idsemana = semana.getIdSemana();
         int tabla = jtbdatosgrupos.getRowCount();
@@ -161,7 +172,7 @@ public  String guardar(String fechas) throws SQLException{
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
                 if (!rs.next()) {
-                    registrargrupos(codigo, dia, fecha, horaextra, comentario, semana.getIdSemana(), incidencia.getIdNomIncidencia(), horastrab);
+                    registrargrupos(codigo, dia, fecha, cantidad, comentario, semana.getIdSemana(), incidencia.getIdNomIncidencia(), horastrab);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Está persona cuenta con incidencia en este dia!!", "Warning",
                             JOptionPane.WARNING_MESSAGE);
@@ -227,6 +238,8 @@ public  String guardar(String fechas) throws SQLException{
         jScrollPane1 = new javax.swing.JScrollPane();
         txtcomentario = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
+        cantidadhoras = new javax.swing.JTextField();
+        lblcant = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(512, 100));
@@ -302,6 +315,11 @@ public  String guardar(String fechas) throws SQLException{
 
         cmbincidencia.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cmbincidencia.setModel(modeloselincidencia);
+        cmbincidencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbincidenciaActionPerformed(evt);
+            }
+        });
         getContentPane().add(cmbincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 170, 30));
 
         pnDia.setBackground(new java.awt.Color(229, 230, 234));
@@ -561,6 +579,10 @@ public  String guardar(String fechas) throws SQLException{
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel4.setText("Comentario");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 124, 90, 20));
+        getContentPane().add(cantidadhoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 80, 50, 30));
+
+        lblcant.setText("Cantidad de horas");
+        getContentPane().add(lblcant, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, 130, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -695,6 +717,18 @@ public  String guardar(String fechas) throws SQLException{
        this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
     }//GEN-LAST:event_jLabel3MouseDragged
 
+    private void cmbincidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbincidenciaActionPerformed
+    Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+        if (incidencia.getIncidencia().equalsIgnoreCase("Horas extras")) {
+            cantidadhoras.show();
+            lblcant.show();
+
+        } else {
+            cantidadhoras.hide();
+            lblcant.hide();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbincidenciaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -740,6 +774,7 @@ public  String guardar(String fechas) throws SQLException{
     private javax.swing.JButton btnMiercoles;
     private javax.swing.JButton btnSabado;
     private javax.swing.JButton btnViernes;
+    private javax.swing.JTextField cantidadhoras;
     private javax.swing.JComboBox cmbincidencia;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -759,6 +794,7 @@ public  String guardar(String fechas) throws SQLException{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTable jtbdatosgrupos;
+    private javax.swing.JLabel lblcant;
     private javax.swing.JLabel lblfechad;
     private javax.swing.JLabel lblfechaj;
     private javax.swing.JLabel lblfechal;

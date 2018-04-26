@@ -44,7 +44,8 @@ public class select_incidencia extends javax.swing.JFrame{
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
-
+        cantidadhoras.hide();
+        lblcant.hide();
     }
 public void mostrardatosse(String nombre,String cod){
           codi = cod;
@@ -54,7 +55,7 @@ public void mostrardatosse(String nombre,String cod){
 private void cargarModeloSem(){
             ArrayList<Rincidencia> listaSemanas;
         listaSemanas = rin.obtenerIncnidecnias();
-
+  modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1));
         for(Rincidencia semana : listaSemanas){
             modeloselincidencia.addElement(semana);
         }
@@ -87,7 +88,7 @@ private void cargarModeloSem(){
       return aux;
     }//metodo obtenerDia
   
-public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,String comentario,int idNominci,String horastrab){
+public void verfechas(int codigoemp ,String dia,String fecha,String horaextra,String comentario,int idNominci,String horastrab){
           Connection conn = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
@@ -119,7 +120,14 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
 }
 
     
-  
+      public static boolean isNumeric(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,6 +156,9 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
         lblFecha = new javax.swing.JLabel();
         lblsem = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cantidadhoras = new javax.swing.JTextField();
+        lblcant = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -178,6 +189,8 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 255));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(552, 444));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(138, 229, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -224,6 +237,8 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
         });
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 50));
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 52));
+
         cmbincidencia.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbincidencia.setModel(modeloselincidencia);
         cmbincidencia.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +246,7 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
                 cmbincidenciaActionPerformed(evt);
             }
         });
+        getContentPane().add(cmbincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 280, 30));
 
         btnincidenciaL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/save1.png"))); // NOI18N
         btnincidenciaL.setBorder(null);
@@ -241,86 +257,41 @@ public void verfechas(int codigoemp ,String dia,String fecha,int horaextra,Strin
                 btnincidenciaLActionPerformed(evt);
             }
         });
+        getContentPane().add(btnincidenciaL, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, 40, -1));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("REGISTRO DE INCIDENCIAS");
         jLabel13.setToolTipText("");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, -1, -1));
 
         txtcomentario.setColumns(20);
         txtcomentario.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         txtcomentario.setRows(5);
         jScrollPane3.setViewportView(txtcomentario);
 
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 361, -1));
+
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setText("Fecha :");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 117, 77, -1));
 
         lblFecha.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        getContentPane().add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 118, 101, 18));
 
         lblsem.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        getContentPane().add(lblsem, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 110, 92, 26));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel1.setText("Comentario:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 101, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(80, 80, 80))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbincidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnincidenciaL, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(91, 91, 91))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(145, 145, 145)))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblsem, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel13)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblsem, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbincidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnincidenciaL))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel4.setText("Selecione incidencia:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 165, 30));
+        getContentPane().add(cantidadhoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 50, 30));
+
+        lblcant.setText("Cantidad de horas");
+        getContentPane().add(lblcant, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 130, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -338,29 +309,47 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void cmbincidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbincidenciaActionPerformed
-        // TODO add your handling code here:
+     Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+        if (incidencia.getIncidencia().equalsIgnoreCase("Horas extras")) {
+            cantidadhoras.show();
+            lblcant.show();
+
+        } else {
+            cantidadhoras.hide();
+            lblcant.hide();
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_cmbincidenciaActionPerformed
 
     private void btnincidenciaLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnincidenciaLActionPerformed
- if (cmbincidencia.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
-       
-        }else{
-      Rincidencia incidencia = (Rincidencia)cmbincidencia.getSelectedItem();
-        int codigoemp =Integer.parseInt(codi);
-        String fecha = lblFecha.getText();
-        String comentario = txtcomentario.getText();
-        int horaextra = 1;
-        String horastrab= "10";
-        String dia="";
-        try {
-            dia= obtenerDiaSemana(fecha);
+  if (cmbincidencia.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
 
-        } catch (ParseException ex) {
-            Logger.getLogger(select_incidencia.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-       
-        verfechas(codigoemp,dia,fecha,horaextra,comentario,incidencia.getIdNomIncidencia(),horastrab);
+        } else {
+            Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+            int codigoemp = Integer.parseInt(codi);
+            String fecha = lblFecha.getText();
+            String comentario = txtcomentario.getText();
+            String cantidad = cantidadhoras.getText();
+
+            if (isNumeric(cantidad)) {
+                cantidad = cantidadhoras.getText();
+                System.out.println(cantidad);
+            } else if (cantidad.equalsIgnoreCase("")) {
+                cantidad = " ";
+                System.out.println(cantidad);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Debe ingresar un numero");
+            }
+            String dia = "";
+            try {
+                dia = obtenerDiaSemana(fecha);
+
+            } catch (ParseException ex) {
+                Logger.getLogger(select_incidencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String horastrab="";
+
+            verfechas(codigoemp, dia, fecha, cantidad, comentario, incidencia.getIdNomIncidencia(), horastrab);
         }
     }//GEN-LAST:event_btnincidenciaLActionPerformed
 
@@ -413,6 +402,7 @@ System.exit(0);        // TODO add your handling code here:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnincidenciaL;
+    private javax.swing.JTextField cantidadhoras;
     private javax.swing.JComboBox cmbincidencia;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -421,6 +411,7 @@ System.exit(0);        // TODO add your handling code here:
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -428,6 +419,7 @@ System.exit(0);        // TODO add your handling code here:
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     public static javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblcant;
     public static javax.swing.JLabel lblsem;
     private javax.swing.JTextArea txtcomentario;
     // End of variables declaration//GEN-END:variables

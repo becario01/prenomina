@@ -34,7 +34,7 @@ public class RegistrarIncidencia {
 
     
     
-    public int insert(int empleadoId,String dia,String fecha,int horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException {
+    public int insert(int empleadoId,String dia,String fecha,String horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException {
       Connection conn = null;
      PreparedStatement stmt = null;
         int rows = 0;
@@ -433,7 +433,7 @@ public class RegistrarIncidencia {
                          if (entrada.equals("00:00:00") ||  salida.equals("00:00:00")) {
                      String comentario = "Falta  AT";                             
                      int nomincidencia =100;
-                             this.insert(empleadoId,fechas,fecha,10, comentario, idSemana,nomincidencia,"5");
+                             this.insert(empleadoId,fechas,fecha," ", comentario, idSemana,nomincidencia,"5");
                              JOptionPane.showMessageDialog(null,"Registro Exitoso");
                              
                              

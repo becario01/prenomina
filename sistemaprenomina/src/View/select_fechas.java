@@ -51,12 +51,14 @@ public class select_fechas extends javax.swing.JFrame {
           this.setResizable(false);
           this.setLocationRelativeTo(null);
           this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
+          cantidadhoras.hide();
+          lblcant.hide();
       }
       
       private void cargarModeloSem(){
             ArrayList<Rincidencia> listaSemanas;
         listaSemanas = rin.obtenerIncnidecnias();
-
+  modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1));
         for(Rincidencia semana : listaSemanas){
             modeloselincidencia.addElement(semana);
         }
@@ -94,18 +96,29 @@ public class select_fechas extends javax.swing.JFrame {
               Date fec = listaEntreFechas.get(i);
               String fe = sdf.format(fec);
                int  numsemanas = numsenanas(fe);
+                select_incidencia sin = new select_incidencia();
               String indi = select_incidencia.obtenerDiaSemana(fe);
               EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
               Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
               JA_newincidencia nein = new JA_newincidencia();
               String codigoemp =idempleado.getText();
               int codigoem = Integer.parseInt(codigoemp);
-              int horaextra = 1;
+          String cantidad = cantidadhoras.getText();
+
+            if (sin.isNumeric(cantidad)) {
+                cantidad = cantidadhoras.getText();
+                System.out.println(cantidad);
+            } else if (cantidad.equalsIgnoreCase("")) {
+                cantidad = " ";
+                System.out.println(cantidad);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Debe ingresar un numero");
+            }
               String horastrab = "10";
               String comentario = tctcomentario.getText();
               int idsemana = semana.getIdSemana();
               int idincidencia = incidencia.getIdNomIncidencia();
-              insertarrangos(codigoem,indi, fe,1,comentario,numsemanas , idincidencia, "10");
+              insertarrangos(codigoem,indi, fe,cantidad,comentario,numsemanas , idincidencia, "10");
           }
        
       JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
@@ -127,7 +140,7 @@ public class select_fechas extends javax.swing.JFrame {
      return listaFechas;
     }
 
- public int insertarrangos(int empleadoId,String dia,String fecha,int horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
+ public int insertarrangos(int empleadoId,String dia,String fecha,String horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
      Connection conn = null;
      PreparedStatement stmt = null;
         int rows = 0;
@@ -191,6 +204,8 @@ public class select_fechas extends javax.swing.JFrame {
         lblsemana = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         idempleado = new javax.swing.JLabel();
+        cantidadhoras = new javax.swing.JTextField();
+        lblcant = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -204,7 +219,7 @@ public class select_fechas extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 460, 72, 65));
-        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 170, -1));
+        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 170, -1));
         getContentPane().add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 170, -1));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -217,12 +232,12 @@ public class select_fechas extends javax.swing.JFrame {
         tctcomentario.setRows(5);
         jScrollPane1.setViewportView(tctcomentario);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 239, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 239, -1));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel3.setText("Comentario");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 90, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 90, 30));
 
         jPanel1.setBackground(new java.awt.Color(138, 229, 239));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -274,7 +289,7 @@ public class select_fechas extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setText("Selecciona incidencia");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 160, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 160, -1));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -283,7 +298,12 @@ public class select_fechas extends javax.swing.JFrame {
 
         cmbincidencia.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         cmbincidencia.setModel(modeloselincidencia);
-        getContentPane().add(cmbincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 170, 30));
+        cmbincidencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbincidenciaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbincidencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 170, 30));
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -301,6 +321,10 @@ public class select_fechas extends javax.swing.JFrame {
 
         idempleado.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         getContentPane().add(idempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 90, 30));
+        getContentPane().add(cantidadhoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 50, 30));
+
+        lblcant.setText("Cantidad de horas");
+        getContentPane().add(lblcant, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 130, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -358,6 +382,18 @@ public class select_fechas extends javax.swing.JFrame {
        this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
     }//GEN-LAST:event_jLabel7MouseDragged
 
+    private void cmbincidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbincidenciaActionPerformed
+   Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+        if (incidencia.getIncidencia().equalsIgnoreCase("Horas extras")) {
+            cantidadhoras.show();
+            lblcant.show();
+
+        } else {
+            cantidadhoras.hide();
+            lblcant.hide();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbincidenciaActionPerformed
+
       /**
        * @param args the command line arguments
        */
@@ -397,6 +433,7 @@ public class select_fechas extends javax.swing.JFrame {
       }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cantidadhoras;
     private javax.swing.JComboBox cmbincidencia;
     public static javax.swing.JLabel idempleado;
     private javax.swing.JButton jButton2;
@@ -414,6 +451,7 @@ public class select_fechas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblcant;
     public static javax.swing.JLabel lblsemana;
     private javax.swing.JTextArea tctcomentario;
     // End of variables declaration//GEN-END:variables
