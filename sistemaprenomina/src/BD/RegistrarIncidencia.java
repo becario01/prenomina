@@ -434,7 +434,7 @@ public class RegistrarIncidencia {
                      String comentario = "Falta  AT";                             
                      int nomincidencia =100;
                              this.insert(empleadoId,fechas,fecha," ", comentario, idSemana,nomincidencia,"5");
-                             JOptionPane.showMessageDialog(null,"Registro Exitoso");
+                             
                              
                              
                     }else{
@@ -442,7 +442,7 @@ public class RegistrarIncidencia {
                     }
                         
                     }
-                   
+                   JOptionPane.showMessageDialog(null,"Registro Exitoso");
                    
 
                 } 
