@@ -134,7 +134,7 @@ fechad.setText(semana.getFechaD());
                      "               FOR XML PATH('')\n" +
                      "             ) , 1, 1, '' )as dias\n" +
                      "\n" +
-                     "  FROM  	empleados emp";
+                     "  FROM  	empleados emp where emp.estatus=1";
                   conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                   stmt = conn.prepareStatement(sql);
                   rs = stmt.executeQuery();
