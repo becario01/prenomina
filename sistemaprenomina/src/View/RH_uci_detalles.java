@@ -54,7 +54,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         int idemp = Integer.parseInt(RH_UsuariosConIncidencias.codid);
         limpiar(tabla1);
         cargardatosFiltroSemana(sem, idemp);
-
+tbdetalles.setDefaultRenderer(Object.class, new EJefes());
     }
     DefaultTableModel tabla1 = new DefaultTableModel() {
         @Override
@@ -110,7 +110,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
             while (rs.next()) {
 //                       
-                tbdetalles.setDefaultRenderer(Object.class, new EJefes());
+                
                 if (rs.getString("actualizadoJA") == null || "".equals(rs.getString("actualizadoJA")) || rs.getString("actualizadoJA").equalsIgnoreCase("NEGADO")) {
                     datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
                 } else {

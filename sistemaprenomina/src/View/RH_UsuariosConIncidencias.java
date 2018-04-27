@@ -73,6 +73,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         combodepartamento();
         cargarTitulos1();
         panelincidencias.setVisible(false);
+        tbIncidencias.setDefaultRenderer(Object.class, new EJefes());
 
     }
 
@@ -757,7 +758,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                   workbook.write(out);
                   out.flush();
                   out.close();
-                  JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE);
+                  JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/View/img/ok3.png")));
                   
                   }
                   
@@ -859,11 +860,12 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
        try {        
         int idsemana = cmbSemana.getSelectedIndex();
               String nom= cmbSemana.getSelectedItem().toString();
+              String nomdep= cmbDepto.getSelectedItem().toString();
               String emp = lblnombrerh.getText();
               String car = lblcargo.getText();
         
 
-        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(idsemana,nom,emp,car);
+        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(idsemana,nom,emp,car,nomdep);
 JFileChooser guardar = new JFileChooser();
             guardar.setApproveButtonText("Guardar");
             if( guardar.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
@@ -872,7 +874,7 @@ JFileChooser guardar = new JFileChooser();
                       workbook.write(out);
                       workbook.close();
                       out.flush();
-              JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/View/img/ok3.png")));
                   }
             }
           

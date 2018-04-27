@@ -45,15 +45,22 @@ public class PercepcionesReport {
 
     }
 
-    public static List<List<String>> getContent(int numRow, int semana) {
+    public static List<List<String>> getContent(int numRow, int semana,String nomdep) {
       List<List<String>> tableContent = new ArrayList<List<String>>();
         List<String> row = null;
-
-        
-        String sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
+String sql="";
+        if (nomdep.contains("-SELECCIONE UNA OPCION-")) {
+            sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
                 + "FROM percepciones per \n"
                 + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
                 + "where per.idSemana='" + semana + "'";
+        } else {
+            sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
+                + "FROM percepciones per \n"
+                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                + "where per.idSemana='" + semana + "'and em.depto='"+nomdep+"'";
+        }
+         
 
         try {
             conn = Conexion1.getConnection();

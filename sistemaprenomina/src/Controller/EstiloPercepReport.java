@@ -56,7 +56,7 @@ public class EstiloPercepReport {
      *
      * @return
      */
-    public HSSFWorkbook generateExcel(int semana, String nomsem, String empleado, String cargo) {
+    public HSSFWorkbook generateExcel(int semana, String nomsem, String empleado, String cargo,String nomdep) {
 
         // Initialize rowIndex
         rowIndex = 0;
@@ -82,9 +82,18 @@ public class EstiloPercepReport {
         HSSFCell headerCell1 = null;
         HSSFCell headerCell2 = null;
 
-        headerCell1 = headerRow1.createCell(0);
+        if(nomdep.contains("-SELECCIONE UNA OPCION-")){
+            headerCell1 = headerRow1.createCell(0);
         headerCell1.setCellStyle(headerStyle1);
         headerCell1.setCellValue("PERCEPCIONES Y DEDUCCIONES        " + nomsem);
+        }else{
+            headerCell1 = headerRow1.createCell(0);
+        headerCell1.setCellStyle(headerStyle1);
+        headerCell1.setCellValue("PERCEPCIONES Y DEDUCCIONES        " + nomsem+ "           "+nomdep);
+        }
+        
+        
+        
         CellRangeAddress re = new CellRangeAddress(0, 0, 0, 7);
         sheet.addMergedRegion(re);
 
@@ -112,7 +121,7 @@ public class EstiloPercepReport {
         HSSFCell contentCell = null;
 
         // Obtain table content values
-        List<List<String>> contentRowValues = PercepcionesReport.getContent(contador(semana), semana);
+        List<List<String>> contentRowValues = PercepcionesReport.getContent(contador(semana,nomdep), semana, nomdep);
         for (List<String> rowValues : contentRowValues) {
 
             // At each row creation, rowIndex must grow one unit
@@ -211,14 +220,20 @@ public class EstiloPercepReport {
         return style;
     }
 
-    public static int contador(int semana) {
-
+    public static int contador(int semana,String nomdep) {
+ String sql="";
         int con = 0;
-        String sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
+        if(nomdep.contains("-SELECCIONE UNA OPCION-")){
+        sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
                 + "FROM percepciones per \n"
                 + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
                 + "where per.idSemana='" + semana + "'";
-
+        }else{
+            sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
+                + "FROM percepciones per \n"
+                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                + "where per.idSemana='" + semana + "' and em.depto='"+nomdep+"'";
+        }
         try {
             conn = Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -239,6 +254,7 @@ public class EstiloPercepReport {
         return con;
 
     }
+
     public String fecha(){
 
 
