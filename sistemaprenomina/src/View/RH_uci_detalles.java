@@ -6,6 +6,7 @@
 package View;
 
 import Conexion.Conexion1;
+import Controller.EJefes;
 import Controller.autorizacionRH;
 import static View.RH_UsuariosConIncidencias.rs;
 import static View.RH_UsuariosConIncidencias.tbIncidencias;
@@ -19,6 +20,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -62,41 +65,44 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
     public void cargartitulos() throws SQLException {
 
-        tabla1.addColumn("Dia");
         tabla1.addColumn("ACTUALOZADO JA");
         tabla1.addColumn("ACTUALIZADO RH");
+        tabla1.addColumn("Dia");
         tabla1.addColumn("FECHA");
         tabla1.addColumn("ENTRADA");
         tabla1.addColumn("SALIDA");
         tabla1.addColumn("HORAS");
+        tabla1.addColumn("EXTRA");
         tabla1.addColumn("INCIDENCIA");
         tabla1.addColumn("COMENTARIO");
+
         this.tbdetalles.setModel(tabla1);
 //            tabla1.addColumn(0, "");
 
         TableColumnModel columnModel = tbdetalles.getColumnModel();
 
-        columnModel.getColumn(0).setPreferredWidth(70);
+        columnModel.getColumn(0).setPreferredWidth(75);
         columnModel.getColumn(1).setPreferredWidth(75);
-        columnModel.getColumn(2).setPreferredWidth(75);
+        columnModel.getColumn(2).setPreferredWidth(40);
         columnModel.getColumn(3).setPreferredWidth(50);
         columnModel.getColumn(4).setPreferredWidth(30);
         columnModel.getColumn(5).setPreferredWidth(30);
         columnModel.getColumn(6).setPreferredWidth(30);
-        columnModel.getColumn(7).setPreferredWidth(100);
+        columnModel.getColumn(7).setPreferredWidth(30);
         columnModel.getColumn(8).setPreferredWidth(100);
+        columnModel.getColumn(9).setPreferredWidth(200);
 
     }
 
     public void cargardatosFiltroSemana(int idSemana, int cod) throws SQLException {
 
-        String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario \n"
+        String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario, inc.horasExtra \n"
                 + "from incidencias inc\n"
                 + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
                 + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
                 + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
                 + "where inc.idSemana='" + idSemana + "' and inc.empleadoId='" + cod + "' ";
-        String datos[] = new String[10];
+        Object datos[] = new Object[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -104,14 +110,26 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
             while (rs.next()) {
 //                       
-                datos[1] = rs.getString("actualizadoJA");
-                datos[2] = rs.getString("actualizadoRH");
+                tbdetalles.setDefaultRenderer(Object.class, new EJefes());
+                if (rs.getString("actualizadoJA") == null || "".equals(rs.getString("actualizadoJA")) || rs.getString("actualizadoJA").equalsIgnoreCase("NEGADO")) {
+                    datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
+                } else {
+                    datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
+                }
+                if (rs.getString("actualizadoRH") == null || "".equals(rs.getString("actualizadoRH")) || rs.getString("actualizadoRH").equalsIgnoreCase("NEGADO")) {
+                    datos[1] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
+                } else {
+                    datos[1] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
+                }
+//                datos[1] = rs.getString("actualizadoJA");
+//                datos[2] = rs.getString("actualizadoRH");
                 datos[3] = rs.getString("fecha");
                 datos[4] = "";
                 datos[5] = "";
                 datos[6] = "";
-                datos[7] = rs.getString("nombreinc");
-                datos[8] = rs.getString("comentario");
+                datos[7] = rs.getString("horasExtra");
+                datos[8] = rs.getString("nombreinc");
+                datos[9] = rs.getString("comentario");
 
                 String sql1 = "SELECT entrada, salida, horas from registros where empleadoId='" + cod + "' and fecha='" + datos[3] + "'";
                 try {
@@ -126,7 +144,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
                     }
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                 } finally {
                     Conexion1.close(rs1);
                     Conexion1.close(stmt1);
@@ -138,7 +156,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                 tabla1.addRow(datos);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -197,26 +215,26 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                 int dia = cal.get(Calendar.DAY_OF_WEEK);
 
                 if (dia == 1) {
-                    tbdetalles.setValueAt("DOMINGO", i, 0);
+                    tbdetalles.setValueAt("DOMINGO", i, 2);
                 } else if (dia == 2) {
-                    tbdetalles.setValueAt("LUNES", i, 0);
+                    tbdetalles.setValueAt("LUNES", i, 2);
                 } else if (dia == 3) {
-                    tbdetalles.setValueAt("MARTES", i, 0);
+                    tbdetalles.setValueAt("MARTES", i, 2);
                 } else if (dia == 4) {
-                    tbdetalles.setValueAt("MIERCOLES", i, 0);
+                    tbdetalles.setValueAt("MIERCOLES", i, 2);
                 } else if (dia == 5) {
-                    tbdetalles.setValueAt("JUEVEZ", i, 0);
+                    tbdetalles.setValueAt("JUEVEZ", i, 2);
                 } else if (dia == 6) {
-                    tbdetalles.setValueAt("VIERNES", i, 0);
+                    tbdetalles.setValueAt("VIERNES", i, 2);
                 } else if (dia == 7) {
-                    tbdetalles.setValueAt("SABADO", i, 0);
+                    tbdetalles.setValueAt("SABADO", i, 2);
                 }
 
             }
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "Errorn en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Errorn en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
         }
 
@@ -341,7 +359,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 0, 32, 30));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 0, 32, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
         jButton4.setBorderPainted(false);
@@ -351,7 +369,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 32, 30));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
@@ -423,7 +441,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
           try {
 
           } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Erro en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Erro en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
       }//GEN-LAST:event_formMouseEntered
 
@@ -442,7 +460,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                       limpiar(tabla1);
                       cargardatosFiltroSemana(sem, id);
                   } catch (Exception e) {
-                      JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                      JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               } else {
                   try {
@@ -456,12 +474,12 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                       limpiar(tabla1);
                       cargardatosFiltroSemana(sem, id);
                   } catch (Exception e) {
-                      JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                      JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               }
 
           } else if (fila == -1) {
-              JOptionPane.showMessageDialog(null, "Selecione una fila","",JOptionPane.WARNING_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Selecione una fila", "", JOptionPane.WARNING_MESSAGE);
           }
       }//GEN-LAST:event_itemAutorizarActionPerformed
 
@@ -481,7 +499,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                       limpiar(tabla1);
                       cargardatosFiltroSemana(sem, id);
                   } catch (Exception e) {
-                      JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                      JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               } else {
                   try {
@@ -495,12 +513,12 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                       limpiar(tabla1);
                       cargardatosFiltroSemana(sem, id);
                   } catch (Exception e) {
-                      JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                      JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               }
 
           } else if (fila == -1) {
-              JOptionPane.showMessageDialog(null, "Selecione una fila","",JOptionPane.WARNING_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Selecione una fila", "", JOptionPane.WARNING_MESSAGE);
           }
 
       }//GEN-LAST:event_itemNegarActionPerformed
@@ -511,7 +529,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
             this.show(false);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed

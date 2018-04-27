@@ -94,7 +94,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         TableColumnModel columnModel = tbIncidencias.getColumnModel();
 
-        columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(0).setPreferredWidth(10);
         columnModel.getColumn(1).setPreferredWidth(200);
         columnModel.getColumn(2).setPreferredWidth(150);
         columnModel.getColumn(3).setPreferredWidth(150);
@@ -535,9 +535,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 jLabel11MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 50));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1053, 52));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 52));
 
         panelincidencias.setBackground(new java.awt.Color(51, 102, 255));
         panelincidencias.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -617,7 +617,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Perceciones y Deducciones");
+        jLabel4.setText("Percepciones y Deducciones");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(747, 21, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
@@ -668,9 +668,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         tbIncidencias.setComponentPopupMenu(pmAutorizar);
         jScrollPane2.setViewportView(tbIncidencias);
 
-        panelincidencias.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, 1053, 184));
+        panelincidencias.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, 1060, 190));
 
-        getContentPane().add(panelincidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 142, 1053, -1));
+        getContentPane().add(panelincidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 142, 1060, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -751,12 +751,15 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
               try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana, nomsemana, emp, car, nomdep)) {
                   JFileChooser guardar = new JFileChooser();
                   guardar.setApproveButtonText("Guardar");
-                  guardar.showSaveDialog(null);
+                  if(guardar.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
+                      
                   out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
                   workbook.write(out);
                   out.flush();
                   out.close();
                   JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE);
+                  
+                  }
                   
               }
 
@@ -853,7 +856,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_itemPercepcionesActionPerformed
 
     private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
-              int idsemana = cmbSemana.getSelectedIndex();
+       try {        
+        int idsemana = cmbSemana.getSelectedIndex();
               String nom= cmbSemana.getSelectedItem().toString();
               String emp = lblnombrerh.getText();
               String car = lblcargo.getText();
@@ -862,17 +866,16 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(idsemana,nom,emp,car);
 JFileChooser guardar = new JFileChooser();
             guardar.setApproveButtonText("Guardar");
-            guardar.showSaveDialog(null);
-
-            
+            if( guardar.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
                  
-        try {
                   try (OutputStream out = new FileOutputStream(guardar.getSelectedFile() + ".xls")) {
                       workbook.write(out);
                       workbook.close();
                       out.flush();
               JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE);
                   }
+            }
+          
         } catch (IOException e) {
             System.err.println("Error at file writing"+e);
         }
