@@ -19,7 +19,7 @@ public class RH_SelectPD extends javax.swing.JFrame {
      */
     public RH_SelectPD() {
         initComponents();
-        this.setResizable(false);
+            this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
     }

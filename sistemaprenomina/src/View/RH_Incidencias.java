@@ -23,6 +23,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class RH_Incidencias extends javax.swing.JFrame {
+   public static String nombre="";
+   public static String cargo="";
 
    DefaultTableModel modeloincidencias = new DefaultTableModel(null,getColums());
       public static ResultSet rs;
@@ -295,6 +297,8 @@ System.exit(0);        // TODO add your handling code here:
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
   RH_Inicio rh_i=new RH_Inicio();
         rh_i.setVisible(true);
+        RH_Inicio.lblcargo.setText(cargo);
+        RH_Inicio.lblnombrerh.setText(nombre);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 

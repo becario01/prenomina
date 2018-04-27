@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,7 +30,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
      */
     public RH_Inicio() {
         initComponents();
-        this.setResizable(false);
+            this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         fecha();
@@ -216,6 +217,11 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/form.png"))); // NOI18N
         jButton10.setText("Percepciones Deducciones");
         jButton10.setBorderPainted(false);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 270, 100));
 
         jButton11.setBackground(new java.awt.Color(242, 182, 146));
@@ -340,6 +346,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     private void btnIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciasActionPerformed
         RH_Incidencias inc = new RH_Incidencias();
         inc.setVisible(true);
+        RH_Incidencias.nombre=lblnombrerh.getText();
+        RH_Incidencias.cargo=lblcargo.getText();
         this.setVisible(false);
     }//GEN-LAST:event_btnIncidenciasActionPerformed
 
@@ -383,6 +391,18 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
           }
 
       }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        try {
+            RH_PercepcionesDeducciones per= new RH_PercepcionesDeducciones();
+            per.show();
+            RH_PercepcionesDeducciones.lblcargo.setText(lblcargo.getText());
+            RH_PercepcionesDeducciones.lblnombrerh.setText(lblnombrerh.getText());
+            this.show(false);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments

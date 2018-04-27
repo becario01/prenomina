@@ -16,6 +16,7 @@ import Controller.exportReporte;
 import static View.RH_Inicio.lblcargo;
 import static View.RH_Inicio.lblnombrerh;
 import static View.RH_ListadoPersonal.rs;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -683,7 +684,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
               if (sem != 0) {
                   panelincidencias.setVisible(true);
                   cargardatosFiltroSemana(sem);
-
+ 
+              }else{
+                   panelincidencias.setVisible(false);
               }
 
           } catch (Exception e) {
@@ -730,7 +733,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                   }
               } else {
                   cmbDepto.setSelectedIndex(0);
-                  JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
+//                  JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
               }
           } catch (Exception e) {
               JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
@@ -784,13 +787,13 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                   codid = tbIncidencias.getValueAt(fila, 0).toString();
 
                   RH_uci_detalles deta = new RH_uci_detalles();
-                  deta.show();
+                  deta.show(true);
                   RH_uci_detalles.lblcargo.setText(dep);
                   RH_uci_detalles.lblnombrerh.setText(nomm);
                   RH_uci_detalles.txtnombre.setText(nom);
                   RH_uci_detalles.txtid.setText(codid);
                   RH_uci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
-              } catch (Exception e) {
+              } catch (SQLException e) {
                   JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
               }
           } else {
@@ -851,7 +854,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila","",JOptionPane.WARNING_MESSAGE);
             }
 
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "ERROR EN: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_itemPercepcionesActionPerformed
