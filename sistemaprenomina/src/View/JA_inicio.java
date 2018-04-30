@@ -926,6 +926,7 @@ System.exit(0);        // TODO add your handling code here:
             inc.setVisible(true);
             inc.mostrardatos(empid, nombre, Semana,nombrejefe,cargojefe);
             inc.botonesnew();
+            inc.blocquear(fechaL.getText(),fecham.getText(),fechami.getText(),fechaj.getText(),fechav.getText(),fechas.getText(),fechad.getText());
             this.setVisible(false);
 
         } else {

@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -109,6 +110,28 @@ public void botonesnew (){
 
     }
 
+      public void blocquear(String fechal,String fechama,String fechami,String fechaj,String fechav,String fechas,String fechad) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date fechaInicial = dateFormat.parse("2018-04-26");
+            java.util.Date fecha = new java.util.Date();
+            java.util.Date fechaFinal = new java.util.Date();
+            String date1 =dateFormat.format(fechaInicial);
+            String date2 = dateFormat.format(fechaFinal);
+        
+            if ( fechal.equals(date2) || fechama.equals(date2)|| fechami.equals(date2)|| fechaj.equals(date2)|| fechav.equals(date2)|| fechas.equals(date2)|| fechad.equals(date2)) {
+                
+            } else {
+                btnrango.setEnabled(false);
+                btnDia.setEnabled(false);
+                JOptionPane.showMessageDialog(rootPane,"Por motivos de seguridad el sistema esta "
+                        + "inabilitado para semanas anteriores");
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(JA_newincidencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

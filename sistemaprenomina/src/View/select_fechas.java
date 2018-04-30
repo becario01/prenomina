@@ -67,7 +67,11 @@ public class select_fechas extends javax.swing.JFrame {
       
       public void inrtevalofechas(String Fechainicio,String Fechafin) throws SQLException, ParseException {
            String dias="";
-   
+       Connection conn = null;
+        PreparedStatement stmt = null;
+        PreparedStatement stmt1 = null;
+        ResultSet rs = null;
+        ResultSet rs1 = null;
           String Finicio = Fechainicio;
           String[] parts = Finicio.split("-");
           int añoi = Integer.parseInt(parts[0]);
@@ -86,25 +90,28 @@ public class select_fechas extends javax.swing.JFrame {
           c1.set(añoi, mesi-1, diai);
           Calendar c2 = Calendar.getInstance();
           c2.set(añof, mesf-1, diaf);
-          
+             String mensaje = "";
           java.util.List<Date> listaEntreFechas = getListaEntreFechas(c1.getTime(), c2.getTime());
         
 
-          for (int i=0 ; i < listaEntreFechas.size() ; i++ ) {
-            
-          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-              Date fec = listaEntreFechas.get(i);
-              String fe = sdf.format(fec);
-               int  numsemanas = numsenanas(fe);
-                select_incidencia sin = new select_incidencia();
-              String indi = select_incidencia.obtenerDiaSemana(fe);
-              EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-              Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
-              JA_newincidencia nein = new JA_newincidencia();
-              String codigoemp =idempleado.getText();
-              int codigoem = Integer.parseInt(codigoemp);
-          String cantidad = cantidadhoras.getText();
+         for (int i = 0; i < listaEntreFechas.size(); i++) {
 
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date fec = listaEntreFechas.get(i);
+            String fe = sdf.format(fec);
+            int numsemanas = numsenanas(fe);
+            select_incidencia sin = new select_incidencia();
+            String indi = select_incidencia.obtenerDiaSemana(fe);
+            EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
+            Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+            JA_newincidencia nein = new JA_newincidencia();
+            String codigoemp = idempleado.getText();
+            int codigoem = Integer.parseInt(codigoemp);
+            String cantidad = cantidadhoras.getText();
+            String horastrab = "10";
+            String comentario = tctcomentario.getText();
+            int idsemana = semana.getIdSemana();
+            int idincidencia = incidencia.getIdNomIncidencia();
             if (sin.isNumeric(cantidad)) {
                 cantidad = cantidadhoras.getText();
                 System.out.println(cantidad);
@@ -114,16 +121,40 @@ public class select_fechas extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Debe ingresar un numero");
             }
-              String horastrab = "10";
-              String comentario = tctcomentario.getText();
-              int idsemana = semana.getIdSemana();
-              int idincidencia = incidencia.getIdNomIncidencia();
-              insertarrangos(codigoem,indi, fe,cantidad,comentario,numsemanas , idincidencia, "10");
-          }
-       
-      JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-          
-      }
+            String slq1 = "Select * from semanas where idSemana='" + idsemana + "'";
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt1 = conn.prepareStatement(slq1);
+            rs1 = stmt1.executeQuery();
+            while (rs1.next()) {
+                String fechaLunes = rs1.getString(3);
+                SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+                Date fechaActual = new Date();
+                String fechaSistema = formateador.format(fechaActual);
+
+                Date fechaDate1 = formateador.parse(fechaLunes);
+                Date fechaDate2 = formateador.parse(fechaSistema);
+
+                if (fechaDate1.before(fechaDate2)) {
+                   mensaje = "No puedes insertar Fechas anteriores";
+                } else {
+
+                    String sql = "select  * from incidencias where  empleadoId='"+ codigoemp + "' and fecha='" + fe + "' and idSemana='" + numsemanas + "'  and dia='" + indi + "'";
+
+                    stmt = conn.prepareStatement(sql);
+                    rs = stmt.executeQuery();
+                    if (!rs.next()) {
+                        insertarrangos(codigoem, indi, fe, cantidad, comentario, numsemanas, idincidencia, "10");
+                        mensaje = "Incidencia Registrada!!";
+                    } else {
+                        mensaje = "Esta persona ya cuenta con incidencia en algun  dia!!";
+                              
+                    }
+                }
+            }
+        }
+      
+        JOptionPane.showMessageDialog(rootPane, mensaje);
+    }
       
       
  public java.util.List<Date> getListaEntreFechas(Date fechaInicio, Date fechaFin) {
@@ -363,8 +394,13 @@ public class select_fechas extends javax.swing.JFrame {
                 String formatofin = jDateChooser1.getDateFormatString();
                 Date datefin = jDateChooser1.getDate();
                 String fechafin = String.valueOf(sdf.format(datefin));
+                if (datefin.before(dates)) {
+                    String resultado = "La Fecha Inicio no puede ser  Mayor ";
+                    JOptionPane.showMessageDialog(rootPane, resultado);
+                } else {
 
-                inrtevalofechas(fechainicio, fechafin);
+                    inrtevalofechas(fechainicio, fechafin);
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Al menos elija una FECHA DE NACIMIENTO VALIDA ", "Error..!!", JOptionPane.ERROR_MESSAGE);
