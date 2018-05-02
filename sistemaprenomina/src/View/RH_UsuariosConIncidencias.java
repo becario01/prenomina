@@ -761,7 +761,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                   workbook.write(out);
                   out.flush();
                   out.close();
-                  JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/View/img/ok3.png")));
+                  JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/View/img/correct.png")));
                   
                   }
                   
