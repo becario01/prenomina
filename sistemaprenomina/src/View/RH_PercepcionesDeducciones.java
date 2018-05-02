@@ -26,31 +26,34 @@ import javax.swing.table.TableRowSorter;
  * @author Programacion 2
  */
 public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
+
     Connection conn;
     PreparedStatement stmt;
     public static ResultSet rs;
     private Connection userConn;
- int x, y;
- private TableRowSorter trsFiltro;
-      /**
-       * Creates new form RH_PercepcionesDeducciones
-       */
-      public RH_PercepcionesDeducciones() throws SQLException {
-            initComponents();
-            this.setResizable(false);
+    int x, y;
+    private TableRowSorter trsFiltro;
+
+    /**
+     * Creates new form RH_PercepcionesDeducciones
+     */
+    public RH_PercepcionesDeducciones() throws SQLException {
+        initComponents();
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         cargarTitulos1();
-         combosemana();
+        combosemana();
         combodepartamento();
         panel.setVisible(false);
-      }
+    }
     DefaultTableModel tabla1 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int Fila, int Colum) {
             return false;
         }
     };
+
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }
@@ -61,7 +64,8 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             i -= 1;
         }
     }
-       public void cargarTitulos1() throws SQLException {
+
+    public void cargarTitulos1() throws SQLException {
 
         tabla1.addColumn("ID");
         tabla1.addColumn("NOMBRE");
@@ -96,8 +100,8 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         columnModel.getColumn(12).setPreferredWidth(40);
 
     }
-       
-        public void combosemana() {
+
+    public void combosemana() {
 
         String sql = "select semana from semanas where estatus=1";
         String datos[] = new String[10];
@@ -113,7 +117,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -139,7 +143,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -148,12 +152,23 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             }
         }
     }
-       public void cargardatosdatos(int idSemana) throws SQLException {
-        String sql = "select per.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 "
-                + "from percepciones per "
-                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                + "where " ;
-        String datos[] = new String[10];
+
+    public void cargardatosdatos(int idSemana, String depto) throws SQLException {
+        String sql = "";
+        int dep = cmbDepto.getSelectedIndex();
+        if (dep == 0) {
+            sql = "select per.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 "
+                    + "from percepciones per "
+                    + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                    + "where  per.idSemana = '"+idSemana+"'";
+        } else {
+            sql = "SELECT per.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
+                    + "FROM dbo.percepciones AS per\n"
+                    + "INNER JOIN dbo.empleados AS em ON per.empleadoId = em.empleadoId \n"
+                    + "WHERE per.idSemana = '"+idSemana+"' AND em.depto = '"+depto+"'";
+        }
+
+        String datos[] = new String[13];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -161,12 +176,21 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             while (rs.next()) {
                 datos[0] = rs.getString("empleadoId");
                 datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("depto");
-                datos[3] = rs.getString("puesto");
+                datos[2] = rs.getString("per1");
+                datos[3] = rs.getString("per2");
+                datos[4] = rs.getString("per3");
+                datos[5] = rs.getString("per4");
+                datos[6] = rs.getString("per5");
+                datos[7] = rs.getString("per6");
+                datos[8] = rs.getString("per7");
+                datos[9] = rs.getString("per8");
+                datos[10] = rs.getString("per9");
+                datos[11] = rs.getString("per10");
+                datos[12] = rs.getString("per11");
                 tabla1.addRow(datos);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -175,12 +199,13 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             }
         }
     }
-      /**
-       * This method is called from within the constructor to initialize the
-       * form. WARNING: Do NOT modify this code. The content of this method is
-       * always regenerated by the Form Editor.
-       */
-      @SuppressWarnings("unchecked")
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -414,20 +439,20 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         try {
             if (sem != 0) {
                 panel.setVisible(true);
-//                cargardatosFiltroSemana(sem);
+                cargardatosdatos(sem, cmbDepto.getSelectedItem().toString());
 
-            }else{
+            } else {
                 panel.setVisible(false);
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_cmbSemanaActionPerformed
 
     private void cmbDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDeptoActionPerformed
-        try {
+        try {String depp = cmbDepto.getSelectedItem().toString();
             int index = cmbSemana.getSelectedIndex();
             if (index != 0) {
                 int sem = cmbSemana.getSelectedIndex();
@@ -435,23 +460,23 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                     limpiar(tabla1);
                     int dep = cmbDepto.getSelectedIndex();
                     if (dep == 0) {
-//                        cargardatosFiltroSemana(sem);
+                        cargardatosdatos(sem, depp);
 
                     } else {
-                        String depp = cmbDepto.getSelectedItem().toString();
-//                        cargardatosFiltroDepto(sem, depp);
+                        
+                        cargardatosdatos(sem, depp);
 
                     }
                 } else {
                     cmbDepto.setSelectedIndex(0);
-                    JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA", "", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
                 cmbDepto.setSelectedIndex(0);
 //                JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cmbDeptoActionPerformed
 
@@ -474,7 +499,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             RH_Inicio.lblnombrerh.setText(nom);
             this.setVisible(false);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -501,45 +526,45 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         tbpercepciones.setRowSorter(trsFiltro);
     }//GEN-LAST:event_txtBuscarKeyTyped
 
-      /**
-       * @param args the command line arguments
-       */
-      public static void main(String args[]) {
-            /* Set the Nimbus look and feel */
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
              * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
-            try {
-                  for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                        if ("Nimbus".equals(info.getName())) {
-                              javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                              break;
-                        }
-                  }
-            } catch (ClassNotFoundException ex) {
-                  java.util.logging.Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                  java.util.logging.Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                  java.util.logging.Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                  java.util.logging.Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         //</editor-fold>
         //</editor-fold>
 
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                  public void run() {
-                      try {
-                          new RH_PercepcionesDeducciones().setVisible(true);
-                      } catch (SQLException ex) {
-                          Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(Level.SEVERE, null, ex);
-                      }
-                  }
-            });
-      }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new RH_PercepcionesDeducciones().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbDepto;
