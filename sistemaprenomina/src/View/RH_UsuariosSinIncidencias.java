@@ -601,11 +601,11 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
                       }
                   } else {
                       cmbDepto.setSelectedIndex(0);
-                      JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
+                  // JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
                   }
               } else {
                   cmbDepto.setSelectedIndex(0);
-                  JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
+                 // JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
               }
           } catch (Exception e) {
               JOptionPane.showMessageDialog(null, "Error en: " + e);

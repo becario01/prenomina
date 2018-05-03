@@ -231,6 +231,11 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton11.setText("Usuarios sin Incidencias ");
         jButton11.setBorder(null);
         jButton11.setBorderPainted(false);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 270, 100));
 
         jButton13.setBackground(new java.awt.Color(243, 162, 194));
@@ -403,6 +408,20 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
             JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+ String dep = lblcargo.getText();
+          String nom = lblnombrerh.getText();
+          try {
+              RH_UsuariosSinIncidencias usu = new RH_UsuariosSinIncidencias();
+              usu.show();
+               RH_UsuariosSinIncidencias.lblcargo.setText(dep);
+              RH_UsuariosSinIncidencias.lblnombrerh.setText(nom);
+              this.show(false);
+          } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, e);
+          }        // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments

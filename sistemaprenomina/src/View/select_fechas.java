@@ -25,12 +25,12 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Programacion 2
  */
 public class select_fechas extends javax.swing.JFrame {
+
     public static ResultSet rs;
     private Connection userConn;
     private PreparedStatement st;
@@ -40,66 +40,66 @@ public class select_fechas extends javax.swing.JFrame {
     Nomincidencia rin;
     select_incidencia slin;
     DefaultComboBoxModel<Rincidencia> modeloselincidencia;
-      int x, y;
-      
-      public select_fechas() {
-           modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
-          initComponents();
-          rin = new Nomincidencia();
-          slin = new select_incidencia();
-          cargarModeloSem();
-          this.setResizable(false);
-          this.setLocationRelativeTo(null);
-          this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
-          cantidadhoras.hide();
-          lblcant.hide();
-      }
-      
-      private void cargarModeloSem(){
-            ArrayList<Rincidencia> listaSemanas;
+    int x, y;
+
+    public select_fechas() {
+        modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
+        initComponents();
+        rin = new Nomincidencia();
+        slin = new select_incidencia();
+        cargarModeloSem();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
+        cantidadhoras.hide();
+        lblcant.hide();
+    }
+
+    private void cargarModeloSem() {
+        ArrayList<Rincidencia> listaSemanas;
         listaSemanas = rin.obtenerIncnidecnias();
-  modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1));
-        for(Rincidencia semana : listaSemanas){
+        modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1));
+        for (Rincidencia semana : listaSemanas) {
             modeloselincidencia.addElement(semana);
         }
     }
-      
-      
-      public void inrtevalofechas(String Fechainicio,String Fechafin) throws SQLException, ParseException {
-           String dias="";
-       Connection conn = null;
+
+    public void inrtevalofechas(String Fechainicio, String Fechafin) throws SQLException, ParseException {
+        String dias = "";
+        Connection conn = null;
         PreparedStatement stmt = null;
         PreparedStatement stmt1 = null;
         ResultSet rs = null;
         ResultSet rs1 = null;
-          String Finicio = Fechainicio;
-          String[] parts = Finicio.split("-");
-          int añoi = Integer.parseInt(parts[0]);
-          int mesi = Integer.parseInt(parts[1]);
-          int diai = Integer.parseInt(parts[2]);
-          
-          
-             String fecharango ="";
-          String[] part = Fechafin.split("-");
-          int añof = Integer.parseInt(part[0]);
-          int mesf = Integer.parseInt(part[1]);
-          int diaf = Integer.parseInt(part[2]);
-     
-          
-          Calendar c1 = Calendar.getInstance();
-          c1.set(añoi, mesi-1, diai);
-          Calendar c2 = Calendar.getInstance();
-          c2.set(añof, mesf-1, diaf);
-             String mensaje = "";
-          java.util.List<Date> listaEntreFechas = getListaEntreFechas(c1.getTime(), c2.getTime());
-        
+        String Finicio = Fechainicio;
+        String[] parts = Finicio.split("-");
+        int añoi = Integer.parseInt(parts[0]);
+        int mesi = Integer.parseInt(parts[1]);
+        int diai = Integer.parseInt(parts[2]);
 
-         for (int i = 0; i < listaEntreFechas.size(); i++) {
+        String fecharango = "";
+        String[] part = Fechafin.split("-");
+        int añof = Integer.parseInt(part[0]);
+        int mesf = Integer.parseInt(part[1]);
+        int diaf = Integer.parseInt(part[2]);
+
+        Calendar c1 = Calendar.getInstance();
+        c1.set(añoi, mesi - 1, diai);
+        Calendar c2 = Calendar.getInstance();
+        c2.set(añof, mesf - 1, diaf);
+        String mensaje = "";
+        java.util.List<Date> listaEntreFechas = getListaEntreFechas(c1.getTime(), c2.getTime());
+
+        for (int i = 0; i < listaEntreFechas.size(); i++) {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date fec = listaEntreFechas.get(i);
             String fe = sdf.format(fec);
             int numsemanas = numsenanas(fe);
+            SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaActual = new Date();
+            String fechaSistema = formateador.format(fechaActual);
+            int numsem = numsenanas(fechaSistema);
             select_incidencia sin = new select_incidencia();
             String indi = select_incidencia.obtenerDiaSemana(fe);
             EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
@@ -121,62 +121,50 @@ public class select_fechas extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Debe ingresar un numero");
             }
-            String slq1 = "Select * from semanas where idSemana='" + idsemana + "'";
+
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-            stmt1 = conn.prepareStatement(slq1);
-            rs1 = stmt1.executeQuery();
-            while (rs1.next()) {
-                String fechaLunes = rs1.getString(3);
-                SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
-                Date fechaActual = new Date();
-                String fechaSistema = formateador.format(fechaActual);
 
-                Date fechaDate1 = formateador.parse(fechaLunes);
-                Date fechaDate2 = formateador.parse(fechaSistema);
+            if (numsemanas >= numsem) {
+                String sql = "select  * from incidencias where  empleadoId='" + codigoemp + "' and fecha='" + fe + "' and idSemana='" + numsemanas + "'  and dia='" + indi + "'";
 
-                if (fechaDate1.before(fechaDate2)) {
-                   mensaje = "No puedes insertar Fechas anteriores";
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+                if (!rs.next()) {
+                    insertarrangos(codigoem, indi, fe, cantidad, comentario, numsemanas, idincidencia, "10");
+                    mensaje = "Incidencia Registrada!!";
                 } else {
+                    mensaje = "Esta persona ya cuenta con incidencia en algun  dia!!";
 
-                    String sql = "select  * from incidencias where  empleadoId='"+ codigoemp + "' and fecha='" + fe + "' and idSemana='" + numsemanas + "'  and dia='" + indi + "'";
-
-                    stmt = conn.prepareStatement(sql);
-                    rs = stmt.executeQuery();
-                    if (!rs.next()) {
-                        insertarrangos(codigoem, indi, fe, cantidad, comentario, numsemanas, idincidencia, "10");
-                        mensaje = "Incidencia Registrada!!";
-                    } else {
-                        mensaje = "Esta persona ya cuenta con incidencia en algun  dia!!";
-                              
-                    }
                 }
+            } else {
+                mensaje = "No puedes insertar Fechas anteriores";
+
             }
         }
-      
+
         JOptionPane.showMessageDialog(rootPane, mensaje);
     }
-      
-      
- public java.util.List<Date> getListaEntreFechas(Date fechaInicio, Date fechaFin) {
-       
-     Calendar c1 = Calendar.getInstance();
-     c1.setTime(fechaInicio);
-     Calendar c2 = Calendar.getInstance();
-     c2.setTime(fechaFin);
-     java.util.List<Date> listaFechas = new java.util.ArrayList<Date>();
-     while (!c1.after(c2)) {
-         listaFechas.add(c1.getTime());
-         c1.add(Calendar.DAY_OF_MONTH, 1);
-     }
-     return listaFechas;
+
+    public java.util.List<Date> getListaEntreFechas(Date fechaInicio, Date fechaFin) {
+
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(fechaInicio);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(fechaFin);
+        java.util.List<Date> listaFechas = new java.util.ArrayList<Date>();
+        while (!c1.after(c2)) {
+            listaFechas.add(c1.getTime());
+            c1.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        return listaFechas;
     }
 
- public int insertarrangos(int empleadoId,String dia,String fecha,String horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
-     Connection conn = null;
-     PreparedStatement stmt = null;
+    public int insertarrangos(int empleadoId, String dia, String fecha, String horasextra, String comentario, int idSemana, int idNomIncidencias, String horasTrab) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
         int rows = 0;
         try {
-            String SQL_INSERT = "INSERT INTO incidencias (empleadoId ,dia,fecha ,horasExtra ,comentario ,idSemana ,idNomIncidencia,horasTrab,actualizadoJA) VALUES ('"+empleadoId+"','"+dia+"' ,'"+fecha+"','"+horasextra+"','"+comentario+"','"+idSemana+"','"+idNomIncidencias+"','"+horasTrab+"','AUTORIZADO')";
+            String SQL_INSERT = "INSERT INTO incidencias (empleadoId ,dia,fecha ,horasExtra ,comentario ,idSemana ,idNomIncidencia,horasTrab,actualizadoJA) VALUES ('" + empleadoId + "','" + dia + "' ,'" + fecha + "','" + horasextra + "','" + comentario + "','" + idSemana + "','" + idNomIncidencias + "','" + horasTrab + "','AUTORIZADO')";
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             int index = 1;
@@ -184,7 +172,7 @@ public class select_fechas extends javax.swing.JFrame {
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
-            
+
         } finally {
             Conexion.close(stmt);
             if (this.userConn == null) {
@@ -193,26 +181,47 @@ public class select_fechas extends javax.swing.JFrame {
         }
 
         return rows;
- }
-  public static int numsenanas(String fecha) throws ParseException{
- 
-      SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
-      Calendar calendar = Calendar.getInstance();
-      calendar.setFirstDayOfWeek(Calendar.MONDAY);
-      calendar.setMinimalDaysInFirstWeek(4);
-      java.util.Date date = d.parse(fecha);
-      calendar.setTime(date);
-      int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-    
+    }
 
-        return numberWeekOfYear;
- }
-      /**
-       * This method is called from within the constructor to initialize the
-       * form. WARNING: Do NOT modify this code. The content of this method is
-       * always regenerated by the Form Editor.
-       */
-      @SuppressWarnings("unchecked")
+    public  int numsenanas(String fecha) throws ParseException, SQLException  {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setMinimalDaysInFirstWeek(4);
+        java.util.Date date = d.parse(fecha);
+        calendar.setTime(date);
+        int  numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+        int year= calendar.get(Calendar.YEAR);
+        String numbstring  = String.valueOf(numberWeekOfYear);
+        String strinyear = String.valueOf(year);
+        String sSubCadena = strinyear.substring(2,4);
+        String nomsemana = "SEMANA"+" "+numbstring +"_"+ sSubCadena;   
+     
+         String sql = "select  * from  semanas   where semana= '"+nomsemana+"' ";
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            String idsemp="";
+             if (!rs.next()) {
+                 JOptionPane.showMessageDialog(rootPane,"La semana no existe, debe existir para registrar incidencias.","Inane warning",JOptionPane.WARNING_MESSAGE);
+                }else{
+                idsemp = rs.getString("idSemana");
+                }
+             int idsemanada= Integer.valueOf(idsemp);
+             
+            
+        return idsemanada;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -373,8 +382,7 @@ public class select_fechas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-   
-        
+
         try {
             if (jDateChooser2.getDate() == null && jDateChooser1.getDate() == null) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
                 JOptionPane.showMessageDialog(null, "Ambos campos estas vacios");
@@ -415,11 +423,11 @@ public class select_fechas extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-       this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
+        this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void cmbincidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbincidenciaActionPerformed
-   Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+        Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
         if (incidencia.getIncidencia().equalsIgnoreCase("Horas extras")) {
             cantidadhoras.show();
             lblcant.show();
@@ -430,43 +438,43 @@ public class select_fechas extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_cmbincidenciaActionPerformed
 
-      /**
-       * @param args the command line arguments
-       */
-      public static void main(String args[]) {
-            /* Set the Nimbus look and feel */
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
-            try {
-                  for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                        if ("Nimbus".equals(info.getName())) {
-                              javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                              break;
-                        }
-                  }
-            } catch (ClassNotFoundException ex) {
-                  java.util.logging.Logger.getLogger(select_fechas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                  java.util.logging.Logger.getLogger(select_fechas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                  java.util.logging.Logger.getLogger(select_fechas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                  java.util.logging.Logger.getLogger(select_fechas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(select_fechas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(select_fechas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(select_fechas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(select_fechas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                  public void run() {
-                        new select_fechas().setVisible(true);
-                  }
-            });
-      }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new select_fechas().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cantidadhoras;
