@@ -352,6 +352,7 @@ public class RH_SelectPD extends javax.swing.JFrame {
         try {
             String id = lblcod.getText();
             String sem = String.valueOf(RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex());
+            
             PercepcionesDeducciones per= new PercepcionesDeducciones();
             per.insertar(id, sem, datos(),rootPane);
             
