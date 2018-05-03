@@ -157,8 +157,19 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
     }
 
     public void cargardatosFiltroSemana(int idSemana) throws SQLException {
+        String nombresem = (String) cmbSemana.getSelectedItem();
+        String idsem = "";
+        String sql1="Select * from semanas  where  semana= '"+nombresem+"'";
+         conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql1);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                idsem = rs.getString("idSemana");
+            }
+     
+        
         String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp \n"
-                + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idSemana+"'\n"
+                + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idsem+"'\n"
                 + "WHERE  inc.empleadoId  IS NULL ";
         String datos[] = new String[10];
         try {
@@ -616,6 +627,7 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
  
   
 
+        try {
             String dep = lblcargo.getText();
             String nomm = lblnombrerh.getText();
             int fila = tbsinIncidencias.getSelectedRow();
@@ -628,6 +640,9 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
             RH_snci_detalles.txtnombre.setText(nom);
             RH_snci_detalles.txtid.setText(codid);
             RH_snci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(RH_UsuariosSinIncidencias.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
              
             

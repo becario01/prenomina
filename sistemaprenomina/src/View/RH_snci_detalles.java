@@ -11,10 +11,13 @@ import static View.RH_Incidencias.rs;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -39,7 +42,7 @@ public class RH_snci_detalles extends javax.swing.JFrame {
     /**
      * Creates new form RH_uci_detalles
      */
-    public RH_snci_detalles()  {
+    public RH_snci_detalles() throws SQLException  {
      detallessin=   new DefaultTableModel(null,getColums());
 
         initComponents();
@@ -48,7 +51,7 @@ public class RH_snci_detalles extends javax.swing.JFrame {
         this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
         int sem = RH_UsuariosSinIncidencias.cmbSemana.getSelectedIndex();
         int idemp = Integer.parseInt(RH_UsuariosSinIncidencias.codid);
-        SetFilas(sem,idemp);
+        SetFilas(idemp);
     }
     
 private String[] getColums(){
@@ -58,8 +61,18 @@ private String[] getColums(){
         
     }
         
-public  void SetFilas(int  idsem , int idemp){
+public  void SetFilas(int idemp) throws SQLException{
    
+            String sem = (String) RH_UsuariosSinIncidencias.cmbSemana.getSelectedItem();
+      String idsem = "";
+        String sql1="Select * from semanas  where  semana= '"+sem+"'";
+         conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt = conn.prepareStatement(sql1);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                idsem = rs.getString("idSemana");
+            }
+            
             try {
                  String sql = "SELECT  reg.Entrada , reg.Salida, reg.horas,reg.fecha FROM registros reg   \n" +
 "LEFT JOIN semanas sem  on reg.fecha = sem.fechaL or reg.fecha= sem.fechaMa or reg.fecha=sem.fechaMi\n" +
@@ -364,7 +377,11 @@ this.hide();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
              
+                try {
                     new RH_snci_detalles().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RH_snci_detalles.class.getName()).log(Level.SEVERE, null, ex);
+                }
              
                 
             }
