@@ -40,6 +40,9 @@ public class RH_uci_detalles extends javax.swing.JFrame {
     PreparedStatement stmt1;
     public static ResultSet rs1;
     private Connection userConn1;
+    int idemp = Integer.parseInt(RH_UsuariosConIncidencias.codid);
+    String nomsem = RH_UsuariosConIncidencias.cmbSemana.getSelectedItem().toString();
+RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
 
     /**
      * Creates new form RH_uci_detalles
@@ -50,11 +53,11 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
         cargartitulos();
-        int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
-        int idemp = Integer.parseInt(RH_UsuariosConIncidencias.codid);
+        
+
         limpiar(tabla1);
-        cargardatosFiltroSemana(sem, idemp);
-tbdetalles.setDefaultRenderer(Object.class, new EJefes());
+        cargardatosFiltroSemana(inci.semana(nomsem), idemp);
+        tbdetalles.setDefaultRenderer(Object.class, new EJefes());
     }
     DefaultTableModel tabla1 = new DefaultTableModel() {
         @Override
@@ -110,7 +113,7 @@ tbdetalles.setDefaultRenderer(Object.class, new EJefes());
 
             while (rs.next()) {
 //                       
-                
+
                 if (rs.getString("actualizadoJA") == null || "".equals(rs.getString("actualizadoJA")) || rs.getString("actualizadoJA").equalsIgnoreCase("NEGADO")) {
                     datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
                 } else {
@@ -458,7 +461,7 @@ tbdetalles.setDefaultRenderer(Object.class, new EJefes());
                   try {
                       au.autorizar(cod, fec);
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(sem, id);
+                      cargardatosFiltroSemana(inci.semana(nomsem), id);
                   } catch (Exception e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
@@ -472,7 +475,7 @@ tbdetalles.setDefaultRenderer(Object.class, new EJefes());
                           au.autorizar(cod, fec);
                       }
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(sem, id);
+                      cargardatosFiltroSemana(inci.semana(nomsem), id);
                   } catch (Exception e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }

@@ -199,7 +199,29 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             }
         }
     }
-
+public int semana( String nomsem){
+    String sql = "select * from semanas where semana='"+nomsem+"' ";
+     
+int codigo=0;
+        try {
+            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+              codigo=Integer.valueOf(rs.getString("idSemana"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (this.userConn == null) {
+                Conexion1.close(conn);
+            }
+        }
+        return codigo;
+    
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -436,10 +458,11 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     private void cmbSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSemanaActionPerformed
         limpiar(tabla1);
         int sem = cmbSemana.getSelectedIndex();
+        String sema = cmbSemana.getSelectedItem().toString();
         try {
             if (sem != 0) {
                 panel.setVisible(true);
-                cargardatosdatos(sem, cmbDepto.getSelectedItem().toString());
+                cargardatosdatos(semana(sema), cmbDepto.getSelectedItem().toString());
 
             } else {
                 panel.setVisible(false);
