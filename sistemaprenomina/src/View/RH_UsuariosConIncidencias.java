@@ -378,11 +378,29 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         }
     }
     
-    public void enviarfechas(String fechainicio,String fechafin){
-        
-        
-        
-    }
+    public int semana( String nomsem){
+    String sql = "select * from semanas where semana='"+nomsem+"' ";
+     
+int codigo=0;
+        try {
+            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+              codigo=Integer.valueOf(rs.getString("idSemana"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (this.userConn == null) {
+                Conexion1.close(conn);
+            }
+        }
+        return codigo;
+    
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -743,16 +761,15 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
       private void btnBuscar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar5ActionPerformed
   
-          int idsemana = cmbSemana.getSelectedIndex();
-          String nomsemana = cmbSemana.getSelectedItem().toString();
+        String nomsemana = cmbSemana.getSelectedItem().toString();
           String nomdep = cmbDepto.getSelectedItem().toString();
           String emp = lblnombrerh.getText();
           String car = lblcargo.getText();
           System.out.println(nomdep);
-
+          System.out.println(semana(nomdep));
           try {
               OutputStream out;
-              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana, nomsemana, emp, car, nomdep)) {
+              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(semana(nomsemana), nomsemana, emp, car, nomdep)) {
                   if(estilosreporte.resultado){
                        JFileChooser guardar = new JFileChooser();
                   guardar.setApproveButtonText("Guardar");
@@ -775,7 +792,6 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
           } catch (SQLException ex) {
               JOptionPane.showMessageDialog(null, "Error:   " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
-
       }//GEN-LAST:event_btnBuscar5ActionPerformed
 
       private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
@@ -862,15 +878,15 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_itemPercepcionesActionPerformed
 
     private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
-       try {        
-        int idsemana = cmbSemana.getSelectedIndex();
+ try {        
+        
               String nom= cmbSemana.getSelectedItem().toString();
               String nomdep= cmbDepto.getSelectedItem().toString();
               String emp = lblnombrerh.getText();
               String car = lblcargo.getText();
     JFileChooser guardar = new JFileChooser();    
 
-        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(idsemana,nom,emp,car,nomdep);
+        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(semana(nom),nom,emp,car,nomdep);
 if(PercepcionesReport.datos){
             guardar.setApproveButtonText("Guardar");
             if( guardar.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
@@ -894,7 +910,9 @@ clf.setVisible(true);
     }//GEN-LAST:event_btnBuscar3ActionPerformed
 
     private void btnBuscar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar7ActionPerformed
-       String semana= String.valueOf(cmbSemana.getSelectedIndex()) ;
+       
+       String nomsem=cmbSemana.getSelectedItem().toString();
+       String semana = String.valueOf(semana(nomsem));
         try {
             PrimaDominical pri= new PrimaDominical();
             pri.insertar(semana);

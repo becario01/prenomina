@@ -6,6 +6,7 @@
 package View;
 
 import Conexion.Conexion1;
+import Controller.EJefes;
 
 import Controller.controllerBD;
 import Data.UsuariosAcIn;
@@ -20,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -55,7 +58,9 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         cargarTitulos1();
-
+        cargarTitulos2();
+        tbListadoAct.setDefaultRenderer(Object.class, new EJefes());
+        tbListadoIna.setDefaultRenderer(Object.class, new EJefes());
     }
 
     DefaultTableModel tabla1 = new DefaultTableModel() {
@@ -72,6 +77,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
     };
 
     public void cargarTitulos1() throws SQLException {
+        tabla1.addColumn("ESTATUS");
         tabla1.addColumn("ID EMPLEADO");
         tabla1.addColumn("NOMBRE");
         tabla1.addColumn("DEPARTAMENTO");
@@ -79,35 +85,36 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         this.tbListadoAct.setModel(tabla1);
 
         TableColumnModel columnModel = tbListadoAct.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(55);
-        columnModel.getColumn(1).setPreferredWidth(200);
-        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(0).setPreferredWidth(10);
+        columnModel.getColumn(1).setPreferredWidth(55);
+        columnModel.getColumn(2).setPreferredWidth(200);
         columnModel.getColumn(3).setPreferredWidth(150);
+        columnModel.getColumn(4).setPreferredWidth(150);
 
         cargardatos1();
-        cargarTitulos2();
 
     }
 
     public void cargardatos1() throws SQLException {
         String sql = "select empleadoId, nombre, depto, puesto from empleados where  estatus=1 ";
-        String datos[] = new String[4];
+        Object datos[] = new Object[5];
 
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
+          
             while (rs.next()) {
-                datos[0] = rs.getString("empleadoId");
-                datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("depto");
-                datos[3] = rs.getString("puesto");
-
+                datos[0]=  new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
+                datos[1] = rs.getString("empleadoId");
+                datos[2] = rs.getString("nombre");
+                datos[3] = rs.getString("depto");
+                datos[4] = rs.getString("puesto");
                 tabla1.addRow(datos);
-
+               
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -117,26 +124,28 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         }
 
     }
-//      
+
+
+
 
     public void cargardatos2() throws SQLException {
         String sql = "select empleadoId, nombre, depto, puesto from empleados where estatus=0 ";
-        String datos[] = new String[4];
+        Object datos[] = new Object[5];
 
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                datos[0] = rs.getString("empleadoId");
-                datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("depto");
-                datos[3] = rs.getString("puesto");
+               datos[0]=  new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
+                datos[1] = rs.getString("empleadoId");
+                datos[2] = rs.getString("nombre");
+                datos[3] = rs.getString("depto");
+                datos[4] = rs.getString("puesto");
                 tabla2.addRow(datos);
-
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -160,16 +169,18 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
     }
 
     public void cargarTitulos2() throws SQLException {
+        tabla2.addColumn("ESTATUS");
         tabla2.addColumn("ID EMPLEADO");
         tabla2.addColumn("NOMBRE");
         tabla2.addColumn("DEPARTAMENTO");
         tabla2.addColumn("PUESTO");
         this.tbListadoIna.setModel(tabla2);
         TableColumnModel columnModel = tbListadoIna.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(55);
-        columnModel.getColumn(1).setPreferredWidth(200);
-        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(0).setPreferredWidth(10);
+        columnModel.getColumn(1).setPreferredWidth(55);
+        columnModel.getColumn(2).setPreferredWidth(200);
         columnModel.getColumn(3).setPreferredWidth(150);
+        columnModel.getColumn(4).setPreferredWidth(150);
         cargardatos2();
     }
 
@@ -427,9 +438,9 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -450,8 +461,8 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
       private void miDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDesactivarActionPerformed
           int fila = tbListadoAct.getSelectedRow();
           if (fila >= 0) {
-              String cod = tbListadoAct.getValueAt(fila, 0).toString();
-              String nom = tbListadoAct.getValueAt(fila, 1).toString();
+              String cod = tbListadoAct.getValueAt(fila, 1).toString();
+              String nom = tbListadoAct.getValueAt(fila, 2).toString();
 
               controllerBD act = new controllerBD();
 
@@ -459,11 +470,11 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
                   act.desactivar(cod, nom);
 
               } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(null, "error" + ex,"ERROR",JOptionPane.ERROR_MESSAGE);
+                  JOptionPane.showMessageDialog(null, "error" + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
               }
 
           } else {
-              JOptionPane.showMessageDialog(null, "Selecione una fila ","",JOptionPane.WARNING_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Selecione una fila ", "", JOptionPane.WARNING_MESSAGE);
           }
           limpiar(tabla1);
           limpiar(tabla2);
@@ -481,19 +492,19 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
 
           int fila = tbListadoIna.getSelectedRow();
           if (fila >= 0) {
-              String cod = tbListadoIna.getValueAt(fila, 0).toString();
-              String nom = tbListadoIna.getValueAt(fila, 1).toString();
+              String cod = tbListadoIna.getValueAt(fila, 1).toString();
+              String nom = tbListadoIna.getValueAt(fila, 2).toString();
 
               controllerBD act = new controllerBD();
               try {
                   act.activar(cod, nom);
 
               } catch (SQLException ex) {
-                  JOptionPane.showMessageDialog(null, "error" + ex,"ERROR",JOptionPane.ERROR_MESSAGE);
+                  JOptionPane.showMessageDialog(null, "error" + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
               }
 
           } else {
-              JOptionPane.showMessageDialog(null, "Selecione una fila ","",JOptionPane.WARNING_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Selecione una fila ", "", JOptionPane.WARNING_MESSAGE);
           }
           limpiar(tabla1);
           limpiar(tabla2);
