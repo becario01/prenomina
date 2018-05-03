@@ -39,6 +39,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -156,12 +157,12 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         }
     }
 
-    public void cargardatosFiltroSemana(int idSemana) throws SQLException {
+    public void cargardatosFiltroSemana(String idSemana) throws SQLException {
         String sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
                 + "                    from incidencias inc\n"
                 + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
                 + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "                    where inc.idSemana='" + idSemana + "'";
+                + "                    where se.semana='" + idSemana + "'";
         String datos[] = new String[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -185,12 +186,12 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         }
     }
 
-    public void cargardatosFiltroDepto(int idSemana, String depto) throws SQLException {
+    public void cargardatosFiltroDepto(String idSemana, String depto) throws SQLException {
         String sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
                 + "                    from incidencias inc\n"
                 + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
                 + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "                    where inc.idSemana='" + idSemana + "' and emp.depto='" + depto + "'";
+                + "                    where se.semana='" + idSemana + "' and emp.depto='" + depto + "'";
         String datos[] = new String[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -216,18 +217,19 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
     public void prueba() throws SQLException {
         int sem = cmbSemana.getSelectedIndex();
+        String nomsem=cmbSemana.getSelectedItem().toString();
         if (sem != 0) {
             limpiar(tabla1);
 
             int dep = cmbSemana.getSelectedIndex();
 
             if (dep == 0) {
-                cargardatosFiltroSemana(sem);
+                cargardatosFiltroSemana(nomsem);
 
             } else {
                 String depp = cmbSemana.getSelectedItem().toString();
 
-                cargardatosFiltroDepto(sem, depp);
+                cargardatosFiltroDepto(nomsem, depp);
 
             }
 
@@ -378,29 +380,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         }
     }
     
-    public int semana( String nomsem){
-    String sql = "select * from semanas where semana='"+nomsem+"' ";
-     
-int codigo=0;
-        try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-              codigo=Integer.valueOf(rs.getString("idSemana"));
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (this.userConn == null) {
-                Conexion1.close(conn);
-            }
-        }
-        return codigo;
-    
-}
+    public void enviarfechas(String fechainicio,String fechafin){
+        
+        
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -698,11 +682,12 @@ int codigo=0;
 
       private void cmbSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSemanaActionPerformed
           limpiar(tabla1);
+          String nomsem=cmbSemana.getSelectedItem().toString();
           int sem = cmbSemana.getSelectedIndex();
           try {
               if (sem != 0) {
                   panelincidencias.setVisible(true);
-                  cargardatosFiltroSemana(sem);
+                  cargardatosFiltroSemana(nomsem);
  
               }else{
                    panelincidencias.setVisible(false);
@@ -732,6 +717,7 @@ int codigo=0;
 
       private void cmbDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDeptoActionPerformed
           try {
+              String nomsem=cmbSemana.getSelectedItem().toString();
               int index = cmbSemana.getSelectedIndex();
               if (index != 0) {
                   int sem = cmbSemana.getSelectedIndex();
@@ -739,11 +725,11 @@ int codigo=0;
                       limpiar(tabla1);
                       int dep = cmbDepto.getSelectedIndex();
                       if (dep == 0) {
-                          cargardatosFiltroSemana(sem);
+                          cargardatosFiltroSemana(nomsem);
 
                       } else {
                           String depp = cmbDepto.getSelectedItem().toString();
-                          cargardatosFiltroDepto(sem, depp);
+                          cargardatosFiltroDepto(nomsem, depp);
 
                       }
                   } else {
@@ -760,8 +746,8 @@ int codigo=0;
       }//GEN-LAST:event_cmbDeptoActionPerformed
 
       private void btnBuscar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar5ActionPerformed
-  
-        String nomsemana = cmbSemana.getSelectedItem().toString();
+
+          String nomsemana = cmbSemana.getSelectedItem().toString();
           String nomdep = cmbDepto.getSelectedItem().toString();
           String emp = lblnombrerh.getText();
           String car = lblcargo.getText();
@@ -792,6 +778,7 @@ int codigo=0;
           } catch (SQLException ex) {
               JOptionPane.showMessageDialog(null, "Error:   " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
+
       }//GEN-LAST:event_btnBuscar5ActionPerformed
 
       private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
@@ -878,7 +865,7 @@ int codigo=0;
     }//GEN-LAST:event_itemPercepcionesActionPerformed
 
     private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
- try {        
+       try {        
         
               String nom= cmbSemana.getSelectedItem().toString();
               String nomdep= cmbDepto.getSelectedItem().toString();
@@ -910,7 +897,7 @@ clf.setVisible(true);
     }//GEN-LAST:event_btnBuscar3ActionPerformed
 
     private void btnBuscar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar7ActionPerformed
-       
+     
        String nomsem=cmbSemana.getSelectedItem().toString();
        String semana = String.valueOf(semana(nomsem));
         try {
@@ -925,7 +912,29 @@ clf.setVisible(true);
         
         
     }//GEN-LAST:event_btnBuscar7ActionPerformed
-
+public int semana( String nomsem){
+    String sql = "select * from semanas where semana='"+nomsem+"' ";
+     
+int codigo=0;
+        try {
+            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+              codigo=Integer.valueOf(rs.getString("idSemana"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (this.userConn == null) {
+                Conexion1.close(conn);
+            }
+        }
+        return codigo;
+    
+}
     /**
      * @param args the command line arguments
      */
