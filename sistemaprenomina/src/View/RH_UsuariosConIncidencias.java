@@ -9,6 +9,7 @@ import Conexion.Conexion;
 import Conexion.Conexion1;
 import Controller.EJefes;
 import Controller.EstiloPercepReport;
+import Controller.PercepcionesReport;
 import Controller.PrimaDominical;
 import Controller.autorizacionRH;
 import Controller.estilosreporte;
@@ -742,7 +743,6 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
       private void btnBuscar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar5ActionPerformed
   
- 
           int idsemana = cmbSemana.getSelectedIndex();
           String nomsemana = cmbSemana.getSelectedItem().toString();
           String nomdep = cmbDepto.getSelectedItem().toString();
@@ -753,7 +753,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
           try {
               OutputStream out;
               try (HSSFWorkbook workbook = new estilosreporte().generateExcel(idsemana, nomsemana, emp, car, nomdep)) {
-                  JFileChooser guardar = new JFileChooser();
+                  if(estilosreporte.resultado){
+                       JFileChooser guardar = new JFileChooser();
                   guardar.setApproveButtonText("Guardar");
                   if(guardar.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
                       
@@ -761,9 +762,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                   workbook.write(out);
                   out.flush();
                   out.close();
-                  JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/View/img/correct.png")));
+                  JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/View/img/ok3.png")));
                   
                   }
+                  }
+                 
                   
               }
 
@@ -772,7 +775,6 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
           } catch (SQLException ex) {
               JOptionPane.showMessageDialog(null, "Error:   " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
-
 
       }//GEN-LAST:event_btnBuscar5ActionPerformed
 
@@ -866,10 +868,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
               String nomdep= cmbDepto.getSelectedItem().toString();
               String emp = lblnombrerh.getText();
               String car = lblcargo.getText();
-        
+    JFileChooser guardar = new JFileChooser();    
 
         HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(idsemana,nom,emp,car,nomdep);
-JFileChooser guardar = new JFileChooser();
+if(PercepcionesReport.datos){
             guardar.setApproveButtonText("Guardar");
             if( guardar.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
                  
@@ -880,11 +882,10 @@ JFileChooser guardar = new JFileChooser();
               JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/View/img/ok3.png")));
                   }
             }
-          
+}
         } catch (IOException e) {
             System.err.println("Error at file writing"+e);
         }
-        
     }//GEN-LAST:event_btnBuscar4ActionPerformed
 
     private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed

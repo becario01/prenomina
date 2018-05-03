@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +25,7 @@ public class PercepcionesReport {
     static PreparedStatement stmt;
     public static ResultSet rs;
     private static Connection userConn;
+    public static boolean datos=false;
 
     public static List<String> getHeaders() {
         List<String> tableHeader = new ArrayList<>();
@@ -45,7 +47,7 @@ public class PercepcionesReport {
 
     }
 
-    public static List<List<String>> getContent(int numRow, int semana,String nomdep) {
+    public static List<List<String>> getContent(int numRow, int semana,String nomdep ) {
       List<List<String>> tableContent = new ArrayList<List<String>>();
         List<String> row = null;
 String sql="";
@@ -66,24 +68,35 @@ String sql="";
             conn = Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-            int fila = 4;
-            while (rs.next()) {
-                tableContent.add(row = new ArrayList<String>());
-               row.add(rs.getString("empleadoId"));
-               row.add(rs.getString("nombre"));
-              
-                for(int i=1;i<=11;i++){
-               if(rs.getString("per"+i)==null){
-                   row.add(" ");
-               }else if (rs.getString("per"+i).equals("0")) {
-                    row.add(" ");
-               }else if(rs.getString("per"+i).equals("1")){
+         
+                
+            if (!rs.isBeforeFirst() ) {
+                datos=false;
+                JOptionPane.showMessageDialog(null, "Esta semana no tiene registros","",JOptionPane.WARNING_MESSAGE);
+            }else{
+                datos=true;
+                int fila = 4;
+                while (rs.next()) {
+                    tableContent.add(row = new ArrayList<String>());
+                    row.add(rs.getString("empleadoId"));
+                    row.add(rs.getString("nombre"));
                     
-                    row.add(rs.getString("per"+i));
-               }
+                    for(int i=1;i<=11;i++){
+                        if(rs.getString("per"+i)==null){
+                            row.add(" ");
+                        }else if (rs.getString("per"+i).equals("0")) {
+                            row.add(" ");
+                        }else if(rs.getString("per"+i).equals("1")){
+                            
+                            row.add(rs.getString("per"+i));
+                        }
+                    }
+                    
                 }
-          
+                
+                
             }
+           
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {

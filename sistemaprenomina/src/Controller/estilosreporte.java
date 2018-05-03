@@ -49,6 +49,7 @@ public class estilosreporte {
     private static Connection userConn2;
     private static Connection userConn1;
     private HSSFWorkbook workbook;
+    public static boolean resultado=false;
 
     // Fonts
     private HSSFFont headerFont;
@@ -495,7 +496,12 @@ public class estilosreporte {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
+    if(!rs.isBeforeFirst()){
+    resultado=false ;
+    JOptionPane.showMessageDialog(null, "Esta semana no tiene registros","",JOptionPane.WARNING_MESSAGE);
+}else{
+    resultado=true;
+     while (rs.next()) {
 
                 datos[0] = rs.getString("empleadoId");
                 datos[1] = rs.getString("nombre");
@@ -617,6 +623,8 @@ public class estilosreporte {
                     JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
+}
+           
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
