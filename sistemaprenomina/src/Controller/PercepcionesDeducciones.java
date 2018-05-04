@@ -30,7 +30,7 @@ public class PercepcionesDeducciones {
     public static Vector<String> arrayid = new Vector<>();
     public static Vector<String> arraysemana = new Vector<>();
 
-    public void insertar(String id, String semana, String datos[], JRootPane rootPane) throws SQLException {
+    public void insertar(String id, int semana, String datos[], JRootPane rootPane) throws SQLException {
         listar();
         Boolean com = false;
         Boolean fin = false;
@@ -52,7 +52,7 @@ public class PercepcionesDeducciones {
             stmt.setString(10, datos[9]);
             stmt.setString(11, datos[10]);
             stmt.setString(12, id);
-            stmt.setString(13, semana);
+            stmt.setString(13,String.valueOf(semana));
 
             for (int j = 0; j < arrayid.size(); j++) {
                 com = arrayid.elementAt(j).equals(String.valueOf(id)) && arraysemana.elementAt(j).equals(semana);
@@ -111,7 +111,7 @@ public class PercepcionesDeducciones {
         return arrayid;
 
     }
-        public void duplicado(String id, String semana, String datos[],JRootPane rootPane){   
+        public void duplicado(String id, int semana, String datos[],JRootPane rootPane){   
         Object [] opciones ={"Aceptar","Cancelar"};
         int eleccion = JOptionPane.showOptionDialog(rootPane,"Usted ya ha ingresado percepciones desea actualizarlas","Mensaje de Confirmacion",
         JOptionPane.YES_NO_OPTION,
@@ -122,7 +122,7 @@ public class PercepcionesDeducciones {
                 }else{
             }
                 }   
-         public void actualizar(String id, String semana, String datos[]){
+         public void actualizar(String id, int semana, String datos[]){
             try {
                
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();

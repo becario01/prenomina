@@ -6,6 +6,7 @@
 package View;
 
 import Conexion.Conexion1;
+import java.awt.HeadlessException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -153,21 +154,49 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         }
     }
 
-    public void cargardatosdatos(int idSemana, String depto) throws SQLException {
-        String sql = "";
-        int dep = cmbDepto.getSelectedIndex();
-        if (dep == 0) {
-            sql = "select per.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 "
+    public void cargardatosdatossemana(int idSemana) throws SQLException {
+        String sql = "select per.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 "
                     + "from percepciones per "
                     + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
                     + "where  per.idSemana = '"+idSemana+"'";
-        } else {
-            sql = "SELECT per.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
-                    + "FROM dbo.percepciones AS per\n"
-                    + "INNER JOIN dbo.empleados AS em ON per.empleadoId = em.empleadoId \n"
-                    + "WHERE per.idSemana = '"+idSemana+"' AND em.depto = '"+depto+"'";
+      
+        String datos[] = new String[13];
+        try {
+            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                datos[0] = rs.getString("empleadoId");
+                datos[1] = rs.getString("nombre");
+                datos[2] = rs.getString("per1");
+                datos[3] = rs.getString("per2");
+                datos[4] = rs.getString("per3");
+                datos[5] = rs.getString("per4");
+                datos[6] = rs.getString("per5");
+                datos[7] = rs.getString("per6");
+                datos[8] = rs.getString("per7");
+                datos[9] = rs.getString("per8");
+                datos[10] = rs.getString("per9");
+                datos[11] = rs.getString("per10");
+                datos[12] = rs.getString("per11");
+                tabla1.addRow(datos);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (this.userConn == null) {
+                Conexion1.close(conn);
+            }
         }
-
+    }
+     public void cargardatosdatosdepto(int idSemana, String depto) throws SQLException {
+        String sql = "select per.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 "
+                    + "from percepciones per "
+                    + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                    + "where  per.idSemana = '"+idSemana+"' and em.depto='"+depto+"'";
+      
         String datos[] = new String[13];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -462,45 +491,47 @@ int codigo=0;
         try {
             if (sem != 0) {
                 panel.setVisible(true);
-                cargardatosdatos(semana(sema), cmbDepto.getSelectedItem().toString());
+                cargardatosdatossemana(semana(sema));
 
             } else {
                 panel.setVisible(false);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_cmbSemanaActionPerformed
 
     private void cmbDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDeptoActionPerformed
-        try {String depp = cmbDepto.getSelectedItem().toString();
-            int index = cmbSemana.getSelectedIndex();
-            if (index != 0) {
-                int sem = cmbSemana.getSelectedIndex();
-                if (sem != 0) {
-                    limpiar(tabla1);
-                    int dep = cmbDepto.getSelectedIndex();
-                    if (dep == 0) {
-                        cargardatosdatos(sem, depp);
+          try {
+             
+              
+              int index = cmbSemana.getSelectedIndex();
+              if (index != 0) {
+                  int sem = cmbSemana.getSelectedIndex();
+                  if (sem != 0) {
+                      limpiar(tabla1);
+                      String dep=cmbDepto.getSelectedItem().toString();
+                      if (dep.equalsIgnoreCase("-SELECCIONE UNA OPCION-")) {
+                          cargardatosdatossemana(index);
 
-                    } else {
-                        
-                        cargardatosdatos(sem, depp);
+                      } else {
+                          
+                          cargardatosdatosdepto(index, dep);
 
-                    }
-                } else {
-                    cmbDepto.setSelectedIndex(0);
-                    JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA", "", JOptionPane.WARNING_MESSAGE);
-                }
-            } else {
-                cmbDepto.setSelectedIndex(0);
-//                JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+                      }
+                  } else {
+                      cmbDepto.setSelectedIndex(0);
+                      JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
+                  }
+              } else {
+                  cmbDepto.setSelectedIndex(0);
+//                  JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
+              }
+          } catch (HeadlessException | SQLException e) {
+              JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+          }
     }//GEN-LAST:event_cmbDeptoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -5,7 +5,12 @@
  */
 package View;
 
+import Conexion.Conexion1;
 import Controller.PercepcionesDeducciones;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,10 +18,10 @@ import javax.swing.JOptionPane;
  * @author Programacion 2
  */
 public class RH_SelectPD extends javax.swing.JFrame {
-
-    /**
-     * Creates new form RH_SelectPD
-     */
+Connection conn;
+    PreparedStatement stmt;
+    public static ResultSet rs;
+    private Connection userConn;
     public RH_SelectPD() {
         initComponents();
             this.setResizable(false);
@@ -351,10 +356,10 @@ public class RH_SelectPD extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             String id = lblcod.getText();
-            String sem = String.valueOf(RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex());
+            String sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedItem().toString();
             
             PercepcionesDeducciones per= new PercepcionesDeducciones();
-            per.insertar(id, sem, datos(),rootPane);
+            per.insertar(id, semana(sem), datos(),rootPane);
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR EN:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
@@ -362,7 +367,29 @@ public class RH_SelectPD extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton3ActionPerformed
-
+public int semana( String nomsem){
+    String sql = "select * from semanas where semana='"+nomsem+"' ";
+     
+int codigo=0;
+        try {
+            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+              codigo=Integer.valueOf(rs.getString("idSemana"));
+            }
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (this.userConn == null) {
+                Conexion1.close(conn);
+            }
+        }
+        return codigo;
+    
+}
     /**
      * @param args the command line arguments
      */
