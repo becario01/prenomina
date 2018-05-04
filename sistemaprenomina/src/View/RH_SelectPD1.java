@@ -11,8 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -356,17 +354,17 @@ Connection conn;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      
-         try {
+     try {
             String id = lblcod.getText();
-            String sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedItem().toString();
-            
+            String sem = RH_UsuariosSinIncidencias.cmbSemana.getSelectedItem().toString();
+            String idsem= String.valueOf(semana(sem));
             PercepcionesDeducciones per= new PercepcionesDeducciones();
-            per.insertar(id, semana(sem), datos(),rootPane);
+            per.insertar(id, idsem, datos(),rootPane);
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR EN:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
+
 
     }//GEN-LAST:event_jButton3ActionPerformed
 public int semana( String nomsem){

@@ -847,6 +847,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btntxtreporteActionPerformed
 
     private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
+        System.out.println("percepciones ");
         try {
             int fila = tbIncidencias.getSelectedRow();
             if (fila != -1) {

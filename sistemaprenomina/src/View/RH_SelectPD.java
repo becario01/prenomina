@@ -357,11 +357,11 @@ Connection conn;
         try {
             String id = lblcod.getText();
             String sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedItem().toString();
-            
+            String idsem= String.valueOf(semana(sem));
             PercepcionesDeducciones per= new PercepcionesDeducciones();
-            per.insertar(id, semana(sem), datos(),rootPane);
+            per.insertar(id, idsem, datos(),rootPane);
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR EN:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
 

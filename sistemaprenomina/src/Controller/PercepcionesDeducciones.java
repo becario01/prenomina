@@ -30,8 +30,10 @@ public class PercepcionesDeducciones {
     public static Vector<String> arrayid = new Vector<>();
     public static Vector<String> arraysemana = new Vector<>();
 
-    public void insertar(String id, int semana, String datos[], JRootPane rootPane) throws SQLException {
+    public void insertar(String id, String semana, String datos[], JRootPane rootPane) throws SQLException {
         listar();
+        System.out.println("°°°°"+arrayid);
+        System.out.println("°°°°"+arraysemana);
         Boolean com = false;
         Boolean fin = false;
         try {
@@ -52,7 +54,7 @@ public class PercepcionesDeducciones {
             stmt.setString(10, datos[9]);
             stmt.setString(11, datos[10]);
             stmt.setString(12, id);
-            stmt.setString(13,String.valueOf(semana));
+            stmt.setString(13,semana);
 
             for (int j = 0; j < arrayid.size(); j++) {
                 com = arrayid.elementAt(j).equals(String.valueOf(id)) && arraysemana.elementAt(j).equals(semana);
@@ -88,6 +90,8 @@ public class PercepcionesDeducciones {
     public Vector<String> listar() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt1 = null;
+        arrayid.clear();
+        arraysemana.clear();
 
         conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
         String sql1 = "select * from percepciones";
@@ -111,7 +115,7 @@ public class PercepcionesDeducciones {
         return arrayid;
 
     }
-        public void duplicado(String id, int semana, String datos[],JRootPane rootPane){   
+        public void duplicado(String id, String semana, String datos[],JRootPane rootPane){   
         Object [] opciones ={"Aceptar","Cancelar"};
         int eleccion = JOptionPane.showOptionDialog(rootPane,"Usted ya ha ingresado percepciones desea actualizarlas","Mensaje de Confirmacion",
         JOptionPane.YES_NO_OPTION,
@@ -122,11 +126,11 @@ public class PercepcionesDeducciones {
                 }else{
             }
                 }   
-         public void actualizar(String id, int semana, String datos[]){
+         public void actualizar(String id, String semana, String datos[]){
             try {
                
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            String sql = "UPDATE percepciones SET per1='"+datos[0]+"' , per2='"+datos[1]+"', per3='"+datos[2]+"', per4='"+datos[3]+"', per5='"+datos[4]+"', per7='"+datos[6]+"', per8='"+datos[7]+"', per9='"+datos[8]+"', per10='"+datos[9]+"', per11='"+datos[10]+"'"
+            String sql = "UPDATE percepciones SET per1='"+datos[0]+"' , per2='"+datos[1]+"', per3='"+datos[2]+"', per4='"+datos[3]+"', per5='"+datos[4]+"',  per7='"+datos[6]+"', per8='"+datos[7]+"', per9='"+datos[8]+"', per10='"+datos[9]+"', per11='"+datos[10]+"'"
                     + " WHERE empleadoId='"+id+"' and  idSemana='"+semana+"' ";
 
         
