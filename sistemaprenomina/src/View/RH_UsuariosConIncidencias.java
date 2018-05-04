@@ -61,8 +61,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     public static ResultSet rs;
     private Connection userConn;
     private TableRowSorter trsFiltro;
-    public static String codid;
     int x, y;
+    public static String codid;
+    
 
     /**
      * Creates new form RH_UsuariosConIncidencias
