@@ -77,7 +77,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         combodepartamento();
         cargarTitulos1();
         panelincidencias.setVisible(false);
-        tbIncidencias.setDefaultRenderer(Object.class, new EJefes());
+        tbincidencias.setDefaultRenderer(Object.class, new EJefes());
 
     }
 
@@ -95,9 +95,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         tabla1.addColumn("DEPARTAMENTO");
         tabla1.addColumn("PUESTO");
 
-        this.tbIncidencias.setModel(tabla1);
+        this.tbincidencias.setModel(tabla1);
 
-        TableColumnModel columnModel = tbIncidencias.getColumnModel();
+        TableColumnModel columnModel = tbincidencias.getColumnModel();
 
         columnModel.getColumn(0).setPreferredWidth(10);
         columnModel.getColumn(1).setPreferredWidth(200);
@@ -109,7 +109,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     public void combosemana() {
 
         String sql = "select semana from semanas where estatus=1";
-        String datos[] = new String[10];
+
 
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -430,7 +430,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbIncidencias = new javax.swing.JTable();
+        tbincidencias = new javax.swing.JTable();
 
         itemDetalles.setText("Detalles");
         itemDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -650,8 +650,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         });
         panelincidencias.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 243, 254, 35));
 
-        tbIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tbIncidencias.setModel(new javax.swing.table.DefaultTableModel(
+        tbincidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbincidencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -671,8 +671,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
             }
         ));
-        tbIncidencias.setComponentPopupMenu(pmAutorizar);
-        jScrollPane2.setViewportView(tbIncidencias);
+        tbincidencias.setComponentPopupMenu(pmAutorizar);
+        jScrollPane2.setViewportView(tbincidencias);
 
         panelincidencias.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, 1060, 190));
 
@@ -710,8 +710,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                   filtroBusqueda(txtBuscar);
               }
           });
-          trsFiltro = new TableRowSorter(tbIncidencias.getModel());
-          tbIncidencias.setRowSorter(trsFiltro);
+          trsFiltro = new TableRowSorter(tbincidencias.getModel());
+          tbincidencias.setRowSorter(trsFiltro);
 
 
       }//GEN-LAST:event_txtBuscarKeyTyped
@@ -785,12 +785,14 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
       private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
           String dep = lblcargo.getText();
           String nomm = lblnombrerh.getText();
-          int fila = tbIncidencias.getSelectedRow();
-          if (fila != -1) {
+          int fila = tbincidencias.getSelectedRow();
+          int numfila = tbincidencias.getSelectedRowCount();
+          System.out.println(fila);
+          if (numfila==1) {
               try {
 
-                  String nom = tbIncidencias.getValueAt(fila, 1).toString();
-                  codid = tbIncidencias.getValueAt(fila, 0).toString();
+                  String nom = tbincidencias.getValueAt(fila, 1).toString();
+                  codid = tbincidencias.getValueAt(fila, 0).toString();
 
                   RH_uci_detalles deta = new RH_uci_detalles();
                   deta.show(true);
@@ -849,10 +851,12 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
         System.out.println("percepciones ");
         try {
-            int fila = tbIncidencias.getSelectedRow();
-            if (fila != -1) {
-                String nom = tbIncidencias.getValueAt(fila, 1).toString();
-                String idemp = tbIncidencias.getValueAt(fila, 0).toString();
+            int fila = tbincidencias.getSelectedRow();
+            int numfila = tbincidencias.getSelectedRowCount();
+            System.out.println(fila);
+            if (numfila==1) {
+                String nom = tbincidencias.getValueAt(fila, 1).toString();
+                String idemp = tbincidencias.getValueAt(fila, 0).toString();
                 RH_SelectPD per = new RH_SelectPD();
                 per.show(true);
                 RH_SelectPD.lblcod.setText(idemp);
@@ -1011,7 +1015,7 @@ int codigo=0;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JPanel panelincidencias;
     private javax.swing.JPopupMenu pmAutorizar;
-    public static javax.swing.JTable tbIncidencias;
+    public static javax.swing.JTable tbincidencias;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 

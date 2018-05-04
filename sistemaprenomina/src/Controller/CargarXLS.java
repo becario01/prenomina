@@ -71,19 +71,7 @@ public class CargarXLS {
 //analizamos la respuesta
             switch (seleccion) {
                   case JFileChooser.APPROVE_OPTION:
-                        //seleccionó abrir
-                        break;
-
-                  case JFileChooser.CANCEL_OPTION:
-                        System.out.println("Se cancelo la operacion");
-                        break;
-
-                  case JFileChooser.ERROR_OPTION:
-                        //llega aqui si sucede un error
-                        break;
-            }
-
-            File archivo = explorador.getSelectedFile();
+                          File archivo = explorador.getSelectedFile();
 
 //y guardar una ruta
             String ruta = archivo.getPath();
@@ -157,6 +145,18 @@ public class CargarXLS {
 
             }
 
+                        break;
+
+                  case JFileChooser.CANCEL_OPTION:
+                        JOptionPane.showMessageDialog(null, "OPERACION CANCELADA");
+                        break;
+
+                  case JFileChooser.ERROR_OPTION:
+                        //llega aqui si sucede un error
+                        break;
+            }
+
+          
       }
 
       public void cargarregistros() throws IOException, SQLException, ParseException, BiffException {
@@ -178,19 +178,7 @@ public class CargarXLS {
 //analizamos la respuesta
             switch (seleccion) {
                   case JFileChooser.APPROVE_OPTION:
-                        //seleccionó abrir
-                        break;
-
-                  case JFileChooser.CANCEL_OPTION:
-                        System.out.println("Se cancelo la operacion");
-                        break;
-
-                  case JFileChooser.ERROR_OPTION:
-                        //llega aqui si sucede un error
-                        break;
-            }
-
-            File archivo = explorador.getSelectedFile();
+                         File archivo = explorador.getSelectedFile();
 
 //y guardar una ruta
             String ruta = archivo.getPath();
@@ -271,6 +259,19 @@ public class CargarXLS {
                   }
 
             }
+                      
+                        break;
+
+                  case JFileChooser.CANCEL_OPTION:
+                        JOptionPane.showMessageDialog(null, "OPERACION CANCELADA");
+                        break;
+
+                  case JFileChooser.ERROR_OPTION:
+                        //llega aqui si sucede un error
+                        break;
+            }
+
+           
 
       }
 

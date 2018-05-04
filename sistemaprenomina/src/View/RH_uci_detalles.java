@@ -9,7 +9,6 @@ import Conexion.Conexion1;
 import Controller.EJefes;
 import Controller.autorizacionRH;
 import static View.RH_UsuariosConIncidencias.rs;
-import static View.RH_UsuariosConIncidencias.tbIncidencias;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import static View.RH_UsuariosConIncidencias.tbincidencias;
 
 /**
  *

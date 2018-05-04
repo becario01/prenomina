@@ -20,7 +20,6 @@ import static View.RH_UsuariosConIncidencias.cmbSemana;
 import static View.RH_UsuariosConIncidencias.codid;
 import static View.RH_UsuariosConIncidencias.lblcargo;
 import static View.RH_UsuariosConIncidencias.lblnombrerh;
-import static View.RH_UsuariosConIncidencias.tbIncidencias;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -49,6 +48,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import static View.RH_UsuariosConIncidencias.tbincidencias;
 
 /**
  *
