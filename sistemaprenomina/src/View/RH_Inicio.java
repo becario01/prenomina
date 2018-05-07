@@ -279,6 +279,11 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/usuarios.png"))); // NOI18N
         jButton14.setText("Usuarios                      ");
         jButton14.setBorderPainted(false);
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 270, 100));
 
         btnIncidencias.setBackground(new java.awt.Color(247, 203, 111));
@@ -422,6 +427,12 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
               JOptionPane.showMessageDialog(null, e);
           }        // TODO add your handling code here:        // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+ RH_registrarusrs usur = new RH_registrarusrs();
+        usur.show();
+        this.show(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      * @param args the command line arguments
