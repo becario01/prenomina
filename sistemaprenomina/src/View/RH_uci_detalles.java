@@ -104,7 +104,7 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
                 + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
                 + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
                 + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "where inc.idSemana='" + idSemana + "' and inc.empleadoId='" + cod + "' ";
+                + "where inc.idSemana='" + idSemana + "' and inc.empleadoId='" + cod + "'   ORDER BY inc.fecha ASC";
         Object datos[] = new Object[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();

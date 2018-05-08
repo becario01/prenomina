@@ -782,34 +782,6 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
       }//GEN-LAST:event_btnBuscar5ActionPerformed
 
-      private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
-          String dep = lblcargo.getText();
-          String nomm = lblnombrerh.getText();
-          int fila = tbincidencias.getSelectedRow();
-          int numfila = tbincidencias.getSelectedRowCount();
-          System.out.println(fila);
-          if (numfila==1) {
-              try {
-
-                  String nom = tbincidencias.getValueAt(fila, 1).toString();
-                  codid = tbincidencias.getValueAt(fila, 0).toString();
-
-                  RH_uci_detalles deta = new RH_uci_detalles();
-                  deta.show(true);
-                  RH_uci_detalles.lblcargo.setText(dep);
-                  RH_uci_detalles.lblnombrerh.setText(nomm);
-                  RH_uci_detalles.txtnombre.setText(nom);
-                  RH_uci_detalles.txtid.setText(codid);
-                  RH_uci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
-              } catch (SQLException e) {
-                  JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-              }
-          } else {
-              JOptionPane.showMessageDialog(null, "Seleccione una fila ","",JOptionPane.WARNING_MESSAGE);
-          }
-
-      }//GEN-LAST:event_itemDetallesActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         this.setExtendedState(ICONIFIED);
@@ -847,28 +819,6 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         int sem = cmbSemana.getSelectedIndex();
         reportetxt(sem);
     }//GEN-LAST:event_btntxtreporteActionPerformed
-
-    private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
-        System.out.println("percepciones ");
-        try {
-            int fila = tbincidencias.getSelectedRow();
-            int numfila = tbincidencias.getSelectedRowCount();
-            System.out.println(fila);
-            if (numfila==1) {
-                String nom = tbincidencias.getValueAt(fila, 1).toString();
-                String idemp = tbincidencias.getValueAt(fila, 0).toString();
-                RH_SelectPD per = new RH_SelectPD();
-                per.show(true);
-                RH_SelectPD.lblcod.setText(idemp);
-                RH_SelectPD.lblnombre.setText(nom);
-            } else {
-                JOptionPane.showMessageDialog(null, "Selecciona una fila","",JOptionPane.WARNING_MESSAGE);
-            }
-
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(null, "ERROR EN: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_itemPercepcionesActionPerformed
 
     private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
        try {        
@@ -918,6 +868,55 @@ clf.setVisible(true);
         
         
     }//GEN-LAST:event_btnBuscar7ActionPerformed
+
+    private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
+        System.out.println("percepciones ");
+        try {
+            int fila = tbincidencias.getSelectedRow();
+            int numfila = tbincidencias.getSelectedRowCount();
+            System.out.println(fila);
+            if (numfila==1) {
+                String nom = tbincidencias.getValueAt(fila, 1).toString();
+                String idemp = tbincidencias.getValueAt(fila, 0).toString();
+                RH_SelectPD per = new RH_SelectPD();
+                per.show(true);
+                RH_SelectPD.lblcod.setText(idemp);
+                RH_SelectPD.lblnombre.setText(nom);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila","",JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "ERROR EN: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_itemPercepcionesActionPerformed
+
+    private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
+        String dep = lblcargo.getText();
+        String nomm = lblnombrerh.getText();
+        int fila = tbincidencias.getSelectedRow();
+        int numfila = tbincidencias.getSelectedRowCount();
+        System.out.println(fila);
+        if (numfila==1) {
+            try {
+
+                String nom = tbincidencias.getValueAt(fila, 1).toString();
+                codid = tbincidencias.getValueAt(fila, 0).toString();
+
+                RH_uci_detalles deta = new RH_uci_detalles();
+                deta.show(true);
+                RH_uci_detalles.lblcargo.setText(dep);
+                RH_uci_detalles.lblnombrerh.setText(nomm);
+                RH_uci_detalles.txtnombre.setText(nom);
+                RH_uci_detalles.txtid.setText(codid);
+                RH_uci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila ","",JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_itemDetallesActionPerformed
 public int semana( String nomsem){
     String sql = "select * from semanas where semana='"+nomsem+"' ";
      

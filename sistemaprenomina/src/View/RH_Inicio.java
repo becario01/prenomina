@@ -6,11 +6,14 @@
 package View;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -440,7 +443,18 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
+        try {
+            RH_SEMANA sema = new RH_SEMANA();
+        sema.show();
+        this.show(false);
+        RH_SEMANA.lblcargo.setText(lblcargo.getText());
+        RH_SEMANA.lblnombrerh.setText(lblnombrerh.getText());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error en: "+e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException ex) {
+            Logger.getLogger(RH_Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
