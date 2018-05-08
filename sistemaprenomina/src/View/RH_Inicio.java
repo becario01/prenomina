@@ -30,7 +30,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
      */
     public RH_Inicio() {
         initComponents();
-            this.setResizable(false);
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         fecha();
@@ -244,6 +244,11 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendario.png"))); // NOI18N
         jButton13.setText("  Semanas                 ");
         jButton13.setBorderPainted(false);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 270, 100));
 
         jButton17.setBackground(new java.awt.Color(177, 224, 234));
@@ -433,6 +438,10 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         usur.show();
         this.show(false);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments
