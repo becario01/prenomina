@@ -49,7 +49,7 @@ int x,y;
             fechainicio = fechainicio.replace("-", "");
             fechafin = fechafin.replace("-", "");
             
-  
+             System.out.println(india);
        RegistrarIncidencia  rgsi = new RegistrarIncidencia();
        rgsi.calculoFaltas(fechainicio, fechafin,india);
     }

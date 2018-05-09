@@ -47,12 +47,17 @@ public class RegistrarIncidencia {
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
-            JOptionPane.showMessageDialog(null,"Incidencia registrada");
+           
         } finally {
             Conexion.close(stmt);
             if (this.userConn == null) {
                 Conexion.close(conn);
             }
+        }
+         if(rows > 0 ){
+            JOptionPane.showMessageDialog(null,"Registro Exitoso");
+        }else{
+            System.out.println("No se registro nada");
         }
 
         return rows;
@@ -396,7 +401,7 @@ public class RegistrarIncidencia {
                  PreparedStatement stmt = null;
                  ResultSet rs = null;
             try {
-                String sql = "SELECT registros.*,DATENAME(dw, registros.fecha) as inidias,semanas.idSemana FROM 	registros\n"
+                String sql = "SELECT registros.*,DATENAME(dw, registros.fecha) as inidias,semanas.idSemana FROM registros\n"
                         + "LEFT JOIN incidencias ON registros.empleadoId <> incidencias.idIncidencia\n"
                         + "AND registros.fecha = incidencias.fecha\n"
                         + "LEFT JOIN semanas ON semanas.fechaL = registros.fecha\n"
@@ -410,12 +415,11 @@ public class RegistrarIncidencia {
                         + "	incidencias.empleadoId IS NULL\n"
                         + "AND incidencias.fecha IS NULL\n"
                         + "AND registros.fecha BETWEEN '" + fechaini + "'\n"
-                        + "AND '" + fechafin + "'\n"
-                        + "OR registros.fecha = '1111-11-11'";
+                        + "AND '" + fechafin + "'\n";
                 conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
-
+              
                 while (rs.next()) {
                     int id = rs.getInt(1);
                     int empleadoId = rs.getInt(2);
@@ -433,20 +437,16 @@ public class RegistrarIncidencia {
                          if (entrada.equals("00:00:00") ||  salida.equals("00:00:00")) {
                      String comentario = "Falta  AT";                             
                      int nomincidencia =100;
-                             this.insert(empleadoId,fechas,fecha," ", comentario, idSemana,nomincidencia,"5");
-                             
-                             
-                             
+                     this.insert(empleadoId,fechas,fecha," ", comentario, idSemana,nomincidencia,"5");
+                
                     }else{
                         System.out.println("cuentan con entrada");
                     }
-                        
-                    }
-                   JOptionPane.showMessageDialog(null,"Registro Exitoso");
-                   
-
+//                        
+                   }
+              
                 } 
-        
+       
              } catch (Exception e) {
                 System.out.println(""+e);
              }finally{
@@ -454,6 +454,6 @@ public class RegistrarIncidencia {
                   Conexion.close(stmt);
              }
       
-      
+       
 }
 }
