@@ -436,9 +436,13 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
- RH_registrarusrs usur = new RH_registrarusrs();
+  String dep = lblcargo.getText();
+        String nom = lblnombrerh.getText();
+        RH_registrarusrs usur = new RH_registrarusrs();
+        RH_registrarusrs.lblnombrejefe.setText(dep);
+        RH_registrarusrs.lblcargojefe.setText(nom);
         usur.show();
-        this.show(false);        // TODO add your handling code here:
+        this.show(false);    // TODO add your handling code here:
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
