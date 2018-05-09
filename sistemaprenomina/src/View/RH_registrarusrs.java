@@ -264,7 +264,21 @@ public class RH_registrarusrs extends javax.swing.JFrame {
         jLabel10.setText("No asignados");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 220, -1));
 
+        tblnoasignados= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tblnoasignados.setAutoCreateRowSorter(true);
+        tblnoasignados.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        tblnoasignados.setForeground(new java.awt.Color(51, 51, 51));
         tblnoasignados.setModel(modelonoasiganados);
+        tblnoasignados.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tblnoasignados.setFillsViewportHeight(true);
+        tblnoasignados.setGridColor(new java.awt.Color(255, 255, 255));
+        tblnoasignados.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tblnoasignados.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tblnoasignados.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tblnoasignados);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, 430, 170));
@@ -273,7 +287,21 @@ public class RH_registrarusrs extends javax.swing.JFrame {
         jSeparator3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 420, 15));
 
+        tblasignados= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tblasignados.setAutoCreateRowSorter(true);
+        tblasignados.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tblasignados.setModel(modeloasignados);
+        tblasignados.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tblasignados.setFillsViewportHeight(true);
+        tblasignados.setGridColor(new java.awt.Color(255, 255, 255));
+        tblasignados.setInheritsPopupMenu(true);
+        tblasignados.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tblasignados.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tblasignados.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tblasignados);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 430, 170));

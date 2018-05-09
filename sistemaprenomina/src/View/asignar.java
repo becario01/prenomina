@@ -179,19 +179,46 @@ public class asignar extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusableWindowState(false);
         setMinimumSize(new java.awt.Dimension(340, 350));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblasignados= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tblasignados.setAutoCreateRowSorter(true);
+        tblasignados.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        tblasignados.setForeground(new java.awt.Color(51, 51, 51));
         tblasignados.setModel(usrasignados);
+        tblasignados.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tblasignados.setFillsViewportHeight(true);
+        tblasignados.setGridColor(new java.awt.Color(255, 255, 255));
+        tblasignados.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tblasignados.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tblasignados.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tblasignados);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 340, 190));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 340, 190));
 
+        tblnoasignados= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tblnoasignados.setAutoCreateRowSorter(true);
+        tblnoasignados.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tblnoasignados.setModel(modelonoasiganados);
+        tblnoasignados.setFillsViewportHeight(true);
+        tblnoasignados.setGridColor(new java.awt.Color(255, 255, 255));
+        tblnoasignados.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tblnoasignados.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tblnoasignados.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tblnoasignados);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 370, 190));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 370, 190));
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 234));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -240,6 +267,10 @@ public class asignar extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre: ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, -1));
+
+        txtnomasg.setEditable(false);
+        txtnomasg.setBackground(new java.awt.Color(51, 102, 255));
+        txtnomasg.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         getContentPane().add(txtnomasg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 200, 30));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/right-arrow.png"))); // NOI18N
@@ -250,12 +281,17 @@ public class asignar extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 90, 80));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 90, 80));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ID user:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 90, 20));
+
+        idusers.setEditable(false);
+        idusers.setBackground(new java.awt.Color(51, 102, 255));
+        idusers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        idusers.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         getContentPane().add(idusers, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 200, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/left-arrow.png"))); // NOI18N
@@ -266,7 +302,7 @@ public class asignar extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 90, 80));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 90, 80));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

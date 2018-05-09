@@ -97,10 +97,25 @@ public class Asignacion extends javax.swing.JFrame {
         lblcargojefe = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(790, 350));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblasig= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tblasig.setAutoCreateRowSorter(true);
+        tblasig.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        tblasig.setForeground(new java.awt.Color(51, 51, 51));
         tblasig.setModel(modelousuarios);
+        tblasig.setFillsViewportHeight(true);
+        tblasig.setGridColor(new java.awt.Color(255, 255, 255));
+        tblasig.setInheritsPopupMenu(true);
+        tblasig.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tblasig.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tblasig.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tblasig.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblasigMouseClicked(evt);
