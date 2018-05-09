@@ -47,6 +47,7 @@ if (rs.next() == false) {
      
    
 } else{
+    int idusremp = rs.getInt(1);
     nombre = rs.getString(2);
     depto = rs.getString(7);
     int tipousuario= rs.getInt(5);
@@ -57,8 +58,7 @@ if (rs.next() == false) {
          JA_inicio ini=new JA_inicio();
          JA_inicio.lblcargojefe.setText(depto);
          JA_inicio.lblnombrejefe.setText(nombre);
-
-  
+         JA_inicio.iduser = idusremp;
             ini.show(true);
     }else if(tipousuario == 1){
         JOptionPane.showMessageDialog(null,  "Bienvenido Usuario RH","",JOptionPane.INFORMATION_MESSAGE);

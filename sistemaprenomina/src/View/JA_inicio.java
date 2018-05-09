@@ -35,6 +35,7 @@ public class JA_inicio extends javax.swing.JFrame {
 
     private TableRowSorter trsFiltro;
     int x, y;
+    public  static int iduser;
     Rjefes rjf;
     RegistrarIncidencia ric;
     Incidenciasgrupales ing;
@@ -107,7 +108,7 @@ public class JA_inicio extends javax.swing.JFrame {
     }
 
     public void SetFilas() {
-
+      
         EJefes idsem = (EJefes) cmbSemana.getSelectedItem();
 
         try {
@@ -136,7 +137,7 @@ public class JA_inicio extends javax.swing.JFrame {
                     + "             ) , 1, 1, '' )as dias\n"
                     + "\n"
                     + "  FROM  	empleados emp inner JOIN asignacion asg  on emp.empleadoId = asg.empleadoId\n"
-                    + "where emp.estatus=1 AND  asg.idUser = 1"
+                    + "where emp.estatus=1 AND  asg.idUser = '"+iduser+"'"
                     + "";
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
