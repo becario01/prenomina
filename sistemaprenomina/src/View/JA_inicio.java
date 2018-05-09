@@ -25,27 +25,30 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import View.Incidenciasgrupales;
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author Vertsequer
  */
 public class JA_inicio extends javax.swing.JFrame {
-  private TableRowSorter trsFiltro;  
-   int x , y;
-      Rjefes rjf;
-      RegistrarIncidencia ric;
-      Incidenciasgrupales ing;
-      JA_newincidencia inc;
-      int ultimoIndiceSeleccionado = 0;
-      DefaultComboBoxModel <EJefes> modelosemanas;
-      public static ResultSet rs;
-      private Connection userConn;
-      private PreparedStatement st;
-      Conexion con = new Conexion();
-      Connection conn;
-      PreparedStatement stmt;
-     DefaultTableModel modeloincidenciasjefe = new DefaultTableModel(null,getColumas());
-  
+
+    private TableRowSorter trsFiltro;
+    int x, y;
+    Rjefes rjf;
+    RegistrarIncidencia ric;
+    Incidenciasgrupales ing;
+    JA_newincidencia inc;
+    int ultimoIndiceSeleccionado = 0;
+    DefaultComboBoxModel<EJefes> modelosemanas;
+    public static ResultSet rs;
+    private Connection userConn;
+    private PreparedStatement st;
+    Conexion con = new Conexion();
+    Connection conn;
+    PreparedStatement stmt;
+    DefaultTableModel modeloincidenciasjefe = new DefaultTableModel(null, getColumas());
+
     public JA_inicio() {
         ing = new Incidenciasgrupales();
         inc = new JA_newincidencia();
@@ -57,312 +60,311 @@ public class JA_inicio extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
-         
-    tbIncidencias.getColumnModel().getColumn(0).setMaxWidth(80);
-    tbIncidencias.getColumnModel().getColumn(1).setMaxWidth(60);
-    tbIncidencias.getColumnModel().getColumn(2).setMaxWidth(240);
-     tbIncidencias.getColumnModel().getColumn(3).setMaxWidth(150);
-      tbIncidencias.getColumnModel().getColumn(4).setMaxWidth(150);
-       tbIncidencias.getColumnModel().getColumn(5).setMaxWidth(150);
-        tbIncidencias.getColumnModel().getColumn(6).setMaxWidth(150); 
+        JTableHeader anHeader = tbIncidencias.getTableHeader();
+        anHeader.setFont(new java.awt.Font("Segoe UI", 0, 12));
+        tbIncidencias.getColumnModel().getColumn(0).setMaxWidth(80);
+        tbIncidencias.getColumnModel().getColumn(1).setMaxWidth(60);
+        tbIncidencias.getColumnModel().getColumn(2).setMaxWidth(240);
+        tbIncidencias.getColumnModel().getColumn(3).setMaxWidth(150);
+        tbIncidencias.getColumnModel().getColumn(4).setMaxWidth(150);
+        tbIncidencias.getColumnModel().getColumn(5).setMaxWidth(150);
+        tbIncidencias.getColumnModel().getColumn(6).setMaxWidth(150);
         tbIncidencias.getColumnModel().getColumn(7).setMaxWidth(150);
-              tbIncidencias.getColumnModel().getColumn(8).setMaxWidth(150); 
+        tbIncidencias.getColumnModel().getColumn(8).setMaxWidth(150);
         tbIncidencias.getColumnModel().getColumn(9).setMaxWidth(150);
-      
+
     }
-public void modificarculumnas(){
-EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-  
-     
-      
-fechaL.setText(semana.getFechaL());
-fecham.setText(semana.getFechaM());
-fechami.setText(semana.getFechaMi());
-fechaj.setText(semana.getFechaJ());
-fechav.setText(semana.getFechaV());
-fechas.setText(semana.getFechaS());
-fechad.setText(semana.getFechaD());
 
-}
+    public void modificarculumnas() {
+        EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
 
-       private void cargarModeloSem(){
-            ArrayList<EJefes> listaSemanas;
+        fechaL.setText(semana.getFechaL());
+        fecham.setText(semana.getFechaM());
+        fechami.setText(semana.getFechaMi());
+        fechaj.setText(semana.getFechaJ());
+        fechav.setText(semana.getFechaV());
+        fechas.setText(semana.getFechaS());
+        fechad.setText(semana.getFechaD());
+
+    }
+
+    private void cargarModeloSem() {
+        ArrayList<EJefes> listaSemanas;
         listaSemanas = rjf.obtenerSemanas();
 
-        for(EJefes semana : listaSemanas){
+        for (EJefes semana : listaSemanas) {
             modelosemanas.addElement(semana);
         }
     }
-    
-      private String[] getColumas(){
-        String columna[]={"Actualizado","ID","Nombre","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"};
+
+    private String[] getColumas() {
+        String columna[] = {"Actualizado", "ID", "Nombre", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
         return columna;
     }
-      
-      
-      
-      
-       public void filtroBusqueda(JTextField txt) {
-            trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
-      }
-    public void SetFilas(){
-            
-         EJefes idsem = (EJefes)cmbSemana.getSelectedItem();
-        
-            try {
-                 String sql;
-             sql = "SELECT emp.empleadoId ,\n" +
-                     "emp.nombre, \n" +
-                     "       STUFF(( SELECT ','+nomin.nombre \n" +
-                     "               FROM  incidencias inc\n" +
-                     "        INNER JOIN NomIncidencia nomin\n" +
-                     "ON nomin.idNomIncidencia = inc.idNomIncidencia\n" +
-                     "               WHERE\n" +
-                     "                 emp.empleadoId = inc.empleadoId\n" +
-                     "and  	inc.idSemana = '"+idsem.getIdSemana()+"'\n" +
-                     "               order by fecha \n" +
-                     "               FOR XML PATH('')\n" +
-                     "             ) , 1, 1, '' )as datos,\n" +
-                     "\n" +
-                     "               STUFF(( SELECT ','+inc.dia\n" +
-                     "               FROM  incidencias inc\n" +
-                     "        INNER JOIN NomIncidencia nomin\n" +
-                     "ON nomin.idNomIncidencia = inc.idNomIncidencia\n" +
-                     "and  	inc.idSemana = '"+idsem.getIdSemana()+"'   WHERE\n" +
-                     "                 emp.empleadoId = inc.empleadoId\n" +
-                     "               order by fecha \n" +
-                     "               FOR XML PATH('')\n" +
-                     "             ) , 1, 1, '' )as dias\n" +
-                     "\n" +
-                     "  FROM  	empleados emp where emp.estatus=1";
-                  conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                  stmt = conn.prepareStatement(sql);
-                  rs = stmt.executeQuery();
-                  Object datos[] = new Object[10];
-                while (rs.next()) {
-      
-                    String FLunesInc = "";
-                    String FMartesInc = "";
-                    String FMiercolesInc = "";
-                    String FJuevesInc = "";
-                    String FViernesInc = "";
-                    String FSabadoInc = "";
-                    String FDomingoInc = "";
 
-                    String DL = "", DMA = "", DMI = "", DJ = "", DV = "", DS = "", DD = "";
-                    String LunesInc = "";
-                    String MartesInc = "";
-                    String MiercolesInc = "";
-                    String JuevesInc = "";
-                    String ViernesInc = "";
-                    String SabadoInc = "";
-                    String DomingoInc = "";
+    public void filtroBusqueda(JTextField txt) {
+        trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
+    }
 
-                    if (rs.getString("datos") == null || rs.getString("datos") == "") {
-                        String empid = rs.getString("empleadoId");
-                        String nom = rs.getString("nombre");
+    public void SetFilas() {
 
-                    } else {
-                        String empid = rs.getString("empleadoId");
-                        String nom = rs.getString("nombre");
-                        String Dias = rs.getString("datos");
-                        String Fechas = rs.getString("dias");
-                        if (Dias.contains(",") || Fechas.contains(",")) {
+        EJefes idsem = (EJefes) cmbSemana.getSelectedItem();
 
-                            String[] days = Dias.split(",");
-                            String[] dates = Fechas.split(",");
-                       
-                                                    if (0 == days.length && 0 == dates.length) {
-                                Dias += ", , , , , , , ,";
-                                Fechas += ", , , , , , , ,";
-                            }
-                            if (1 == days.length && 1 == dates.length) {
-                                Dias += " , , , , , , ,";
-                                Fechas += " , , , , , , ,";
-                            }
-                            if (2 == days.length && 2 == dates.length) {
-                                Dias += " , , , , , ,";
-                                Fechas += " , , , , , ,";
+        try {
+            String sql;
+            sql = "SELECT emp.empleadoId ,\n"
+                    + "emp.nombre, \n"
+                    + "       STUFF(( SELECT ','+nomin.nombre \n"
+                    + "               FROM  incidencias inc\n"
+                    + "        INNER JOIN NomIncidencia nomin\n"
+                    + "ON nomin.idNomIncidencia = inc.idNomIncidencia\n"
+                    + "               WHERE\n"
+                    + "                 emp.empleadoId = inc.empleadoId\n"
+                    + "and  	inc.idSemana = '" + idsem.getIdSemana() + "'\n"
+                    + "               order by fecha \n"
+                    + "               FOR XML PATH('')\n"
+                    + "             ) , 1, 1, '' )as datos,\n"
+                    + "\n"
+                    + "               STUFF(( SELECT ','+inc.dia\n"
+                    + "               FROM  incidencias inc\n"
+                    + "        INNER JOIN NomIncidencia nomin\n"
+                    + "ON nomin.idNomIncidencia = inc.idNomIncidencia\n"
+                    + "and  	inc.idSemana = '" + idsem.getIdSemana() + "'   WHERE\n"
+                    + "                 emp.empleadoId = inc.empleadoId\n"
+                    + "               order by fecha \n"
+                    + "               FOR XML PATH('')\n"
+                    + "             ) , 1, 1, '' )as dias\n"
+                    + "\n"
+                    + "  FROM  	empleados emp inner JOIN asignacion asg  on emp.empleadoId = asg.empleadoId\n"
+                    + "where emp.estatus=1 AND  asg.idUser = 1"
+                    + "";
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            Object datos[] = new Object[10];
+            while (rs.next()) {
 
-                            }
-                            if (3 == days.length && 3 == dates.length) {
-                                Dias += " , , , , ,";
-                                Fechas += " , , , , ,";
+                String FLunesInc = "";
+                String FMartesInc = "";
+                String FMiercolesInc = "";
+                String FJuevesInc = "";
+                String FViernesInc = "";
+                String FSabadoInc = "";
+                String FDomingoInc = "";
 
-                            }
-                            if (4 == days.length && 4 == dates.length) {
-                                Dias += " , , , ,";
-                                Fechas += " , , , ,";
+                String DL = "", DMA = "", DMI = "", DJ = "", DV = "", DS = "", DD = "";
+                String LunesInc = "";
+                String MartesInc = "";
+                String MiercolesInc = "";
+                String JuevesInc = "";
+                String ViernesInc = "";
+                String SabadoInc = "";
+                String DomingoInc = "";
 
-                            }
-                            if (5 == days.length && 5 == dates.length) {
-                                Dias += " , , ,";
-                                Fechas += " , , ,";
+                if (rs.getString("datos") == null || rs.getString("datos") == "") {
+                    String empid = rs.getString("empleadoId");
+                    String nom = rs.getString("nombre");
 
-                            }
-                            if (6 == days.length && 6 == dates.length) {
-                                Dias += " , ,";
-                                Fechas += " , ,";
+                } else {
+                    String empid = rs.getString("empleadoId");
+                    String nom = rs.getString("nombre");
+                    String Dias = rs.getString("datos");
+                    String Fechas = rs.getString("dias");
+                    if (Dias.contains(",") || Fechas.contains(",")) {
 
-                            }
+                        String[] days = Dias.split(",");
+                        String[] dates = Fechas.split(",");
 
-                            days = Dias.split(",");
-                            dates = Fechas.split(",");
-                            FLunesInc = dates[0];
-                            FMartesInc = dates[1];
-                            FMiercolesInc = dates[2];
-                            FJuevesInc = dates[3];
-                            FViernesInc = dates[4];
-                            FSabadoInc = dates[5];
-                            FDomingoInc = dates[6];
-                            FLunesInc = FLunesInc.replaceAll(" ", "");
-                            FMartesInc = FMartesInc.replaceAll(" ", "");
-                            FMiercolesInc = FMiercolesInc.replaceAll(" ", "");
-                            FJuevesInc = FJuevesInc.replaceAll(" ", "");
-                            FViernesInc = FViernesInc.replaceAll(" ", "");
-                            FSabadoInc = FSabadoInc.replaceAll(" ", "");
-                            FDomingoInc = FDomingoInc.replaceAll(" ", "");
+                        if (0 == days.length && 0 == dates.length) {
+                            Dias += ", , , , , , , ,";
+                            Fechas += ", , , , , , , ,";
+                        }
+                        if (1 == days.length && 1 == dates.length) {
+                            Dias += " , , , , , , ,";
+                            Fechas += " , , , , , , ,";
+                        }
+                        if (2 == days.length && 2 == dates.length) {
+                            Dias += " , , , , , ,";
+                            Fechas += " , , , , , ,";
+
+                        }
+                        if (3 == days.length && 3 == dates.length) {
+                            Dias += " , , , , ,";
+                            Fechas += " , , , , ,";
+
+                        }
+                        if (4 == days.length && 4 == dates.length) {
+                            Dias += " , , , ,";
+                            Fechas += " , , , ,";
+
+                        }
+                        if (5 == days.length && 5 == dates.length) {
+                            Dias += " , , ,";
+                            Fechas += " , , ,";
+
+                        }
+                        if (6 == days.length && 6 == dates.length) {
+                            Dias += " , ,";
+                            Fechas += " , ,";
+
+                        }
+
+                        days = Dias.split(",");
+                        dates = Fechas.split(",");
+                        FLunesInc = dates[0];
+                        FMartesInc = dates[1];
+                        FMiercolesInc = dates[2];
+                        FJuevesInc = dates[3];
+                        FViernesInc = dates[4];
+                        FSabadoInc = dates[5];
+                        FDomingoInc = dates[6];
+                        FLunesInc = FLunesInc.replaceAll(" ", "");
+                        FMartesInc = FMartesInc.replaceAll(" ", "");
+                        FMiercolesInc = FMiercolesInc.replaceAll(" ", "");
+                        FJuevesInc = FJuevesInc.replaceAll(" ", "");
+                        FViernesInc = FViernesInc.replaceAll(" ", "");
+                        FSabadoInc = FSabadoInc.replaceAll(" ", "");
+                        FDomingoInc = FDomingoInc.replaceAll(" ", "");
 
 //                            ¿
-          //lunes
-                            if (FLunesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[0];
+                        //lunes
+                        if (FLunesInc.equalsIgnoreCase("L")) {
+                            LunesInc = days[0];
 
-                            } else if (FLunesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[0];
+                        } else if (FLunesInc.equalsIgnoreCase("Ma")) {
+                            MartesInc = days[0];
 
-                            } else if (FLunesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[0];
-                            } else if (FLunesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[0];
+                        } else if (FLunesInc.equalsIgnoreCase("Mi")) {
+                            MiercolesInc = days[0];
+                        } else if (FLunesInc.equalsIgnoreCase("J")) {
+                            JuevesInc = days[0];
 
-                            } else if (FLunesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[0];
-                            } else if (FLunesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[0];
-                            } else if (FLunesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[0];
-                            }
-                            //martes        
-                            if (FMartesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[1];
+                        } else if (FLunesInc.equalsIgnoreCase("V")) {
+                            ViernesInc = days[0];
+                        } else if (FLunesInc.equalsIgnoreCase("S")) {
+                            SabadoInc = days[0];
+                        } else if (FLunesInc.equalsIgnoreCase("D")) {
+                            DomingoInc = days[0];
+                        }
+                        //martes        
+                        if (FMartesInc.equalsIgnoreCase("L")) {
+                            LunesInc = days[1];
 
-                            } else if (FMartesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[1];
+                        } else if (FMartesInc.equalsIgnoreCase("Ma")) {
+                            MartesInc = days[1];
 
-                            } else if (FMartesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[1];
-                            } else if (FMartesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[1];
+                        } else if (FMartesInc.equalsIgnoreCase("Mi")) {
+                            MiercolesInc = days[1];
+                        } else if (FMartesInc.equalsIgnoreCase("J")) {
+                            JuevesInc = days[1];
 
-                            } else if (FMartesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[1];
-                            } else if (FMartesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[1];
-                            } else if (FMartesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[1];
-                            }
+                        } else if (FMartesInc.equalsIgnoreCase("V")) {
+                            ViernesInc = days[1];
+                        } else if (FMartesInc.equalsIgnoreCase("S")) {
+                            SabadoInc = days[1];
+                        } else if (FMartesInc.equalsIgnoreCase("D")) {
+                            DomingoInc = days[1];
+                        }
 
-                            //miercoles 
-                            if (FMiercolesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[2];
+                        //miercoles 
+                        if (FMiercolesInc.equalsIgnoreCase("L")) {
+                            LunesInc = days[2];
 
-                            } else if (FMiercolesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[2];
+                        } else if (FMiercolesInc.equalsIgnoreCase("Ma")) {
+                            MartesInc = days[2];
 
-                            } else if (FMiercolesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[2];
-                            } else if (FMiercolesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[2];
+                        } else if (FMiercolesInc.equalsIgnoreCase("Mi")) {
+                            MiercolesInc = days[2];
+                        } else if (FMiercolesInc.equalsIgnoreCase("J")) {
+                            JuevesInc = days[2];
 
-                            } else if (FMiercolesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[2];
-                            } else if (FMiercolesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[2];
-                            } else if (FMiercolesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[2];
-                            }
+                        } else if (FMiercolesInc.equalsIgnoreCase("V")) {
+                            ViernesInc = days[2];
+                        } else if (FMiercolesInc.equalsIgnoreCase("S")) {
+                            SabadoInc = days[2];
+                        } else if (FMiercolesInc.equalsIgnoreCase("D")) {
+                            DomingoInc = days[2];
+                        }
 
-                            //jueves
-                            if (FJuevesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[3];
+                        //jueves
+                        if (FJuevesInc.equalsIgnoreCase("L")) {
+                            LunesInc = days[3];
 
-                            } else if (FJuevesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[3];
+                        } else if (FJuevesInc.equalsIgnoreCase("Ma")) {
+                            MartesInc = days[3];
 
-                            } else if (FJuevesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[3];
-                            } else if (FJuevesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[3];
+                        } else if (FJuevesInc.equalsIgnoreCase("Mi")) {
+                            MiercolesInc = days[3];
+                        } else if (FJuevesInc.equalsIgnoreCase("J")) {
+                            JuevesInc = days[3];
 
-                            } else if (FJuevesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[3];
-                            } else if (FJuevesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[3];
-                            } else if (FJuevesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[3];
-                            }
+                        } else if (FJuevesInc.equalsIgnoreCase("V")) {
+                            ViernesInc = days[3];
+                        } else if (FJuevesInc.equalsIgnoreCase("S")) {
+                            SabadoInc = days[3];
+                        } else if (FJuevesInc.equalsIgnoreCase("D")) {
+                            DomingoInc = days[3];
+                        }
 
-                            //viernes 
-                            if (FViernesInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[4];
+                        //viernes 
+                        if (FViernesInc.equalsIgnoreCase("L")) {
+                            LunesInc = days[4];
 
-                            } else if (FViernesInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[4];
+                        } else if (FViernesInc.equalsIgnoreCase("Ma")) {
+                            MartesInc = days[4];
 
-                            } else if (FViernesInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[4];
-                            } else if (FViernesInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[4];
+                        } else if (FViernesInc.equalsIgnoreCase("Mi")) {
+                            MiercolesInc = days[4];
+                        } else if (FViernesInc.equalsIgnoreCase("J")) {
+                            JuevesInc = days[4];
 
-                            } else if (FViernesInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[4];
-                            } else if (FViernesInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[4];
-                            } else if (FViernesInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[4];
-                            }
+                        } else if (FViernesInc.equalsIgnoreCase("V")) {
+                            ViernesInc = days[4];
+                        } else if (FViernesInc.equalsIgnoreCase("S")) {
+                            SabadoInc = days[4];
+                        } else if (FViernesInc.equalsIgnoreCase("D")) {
+                            DomingoInc = days[4];
+                        }
 
-                            //sabado
-                            if (FSabadoInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[5];
-                            } else if (FSabadoInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[5];
+                        //sabado
+                        if (FSabadoInc.equalsIgnoreCase("L")) {
+                            LunesInc = days[5];
+                        } else if (FSabadoInc.equalsIgnoreCase("Ma")) {
+                            MartesInc = days[5];
 
-                            } else if (FSabadoInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[5];
-                            } else if (FSabadoInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[5];
+                        } else if (FSabadoInc.equalsIgnoreCase("Mi")) {
+                            MiercolesInc = days[5];
+                        } else if (FSabadoInc.equalsIgnoreCase("J")) {
+                            JuevesInc = days[5];
 
-                            } else if (FSabadoInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[5];
-                            } else if (FSabadoInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[5];
-                            } else if (FSabadoInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[5];
-                            }
+                        } else if (FSabadoInc.equalsIgnoreCase("V")) {
+                            ViernesInc = days[5];
+                        } else if (FSabadoInc.equalsIgnoreCase("S")) {
+                            SabadoInc = days[5];
+                        } else if (FSabadoInc.equalsIgnoreCase("D")) {
+                            DomingoInc = days[5];
+                        }
 
-                            //domingo
-                            if (FDomingoInc.equalsIgnoreCase("L")) {
-                                LunesInc = days[6];
+                        //domingo
+                        if (FDomingoInc.equalsIgnoreCase("L")) {
+                            LunesInc = days[6];
 
-                            } else if (FDomingoInc.equalsIgnoreCase("Ma")) {
-                                MartesInc = days[6];
+                        } else if (FDomingoInc.equalsIgnoreCase("Ma")) {
+                            MartesInc = days[6];
 
-                            } else if (FDomingoInc.equalsIgnoreCase("Mi")) {
-                                MiercolesInc = days[6];
-                            } else if (FDomingoInc.equalsIgnoreCase("J")) {
-                                JuevesInc = days[6];
+                        } else if (FDomingoInc.equalsIgnoreCase("Mi")) {
+                            MiercolesInc = days[6];
+                        } else if (FDomingoInc.equalsIgnoreCase("J")) {
+                            JuevesInc = days[6];
 
-                            } else if (FDomingoInc.equalsIgnoreCase("V")) {
-                                ViernesInc = days[6];
-                            } else if (FDomingoInc.equalsIgnoreCase("S")) {
-                                SabadoInc = days[6];
-                            } else if (FDomingoInc.equalsIgnoreCase("D")) {
-                                DomingoInc = days[6];
-                            }
+                        } else if (FDomingoInc.equalsIgnoreCase("V")) {
+                            ViernesInc = days[6];
+                        } else if (FDomingoInc.equalsIgnoreCase("S")) {
+                            SabadoInc = days[6];
+                        } else if (FDomingoInc.equalsIgnoreCase("D")) {
+                            DomingoInc = days[6];
+                        }
 
-                          
                     } else {
 
                         String[] days = Dias.split(",");
@@ -561,12 +563,12 @@ fechad.setText(semana.getFechaD());
                     }
 
                 }
-                    tbIncidencias.setDefaultRenderer(Object.class, new EJefes());
-                    if (rs.getString("datos") == null || rs.getString("datos") == "") {
-                        datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
-                    } else {
-                        datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
-                    }
+                tbIncidencias.setDefaultRenderer(Object.class, new EJefes());
+                if (rs.getString("datos") == null || rs.getString("datos") == "") {
+                    datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
+                } else {
+                    datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
+                }
                 datos[1] = rs.getString("empleadoId");
                 datos[2] = rs.getString("nombre");
                 datos[3] = LunesInc;
@@ -596,9 +598,8 @@ fechad.setText(semana.getFechaD());
             i -= 1;
         }
 
-      }
- 
-   
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -616,14 +617,11 @@ fechad.setText(semana.getFechaD());
         btnminimizar = new javax.swing.JButton();
         btncerrar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         lblnombrejefe = new javax.swing.JTextField();
         lblcargojefe = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -662,10 +660,10 @@ fechad.setText(semana.getFechaD());
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, 40));
 
         btnminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         btnminimizar.setBorderPainted(false);
@@ -697,12 +695,6 @@ fechad.setText(semana.getFechaD());
         });
         jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 0, 32, 30));
 
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 230, 10));
-
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
         jLabel6.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jLabel6MouseDragged(evt);
@@ -720,16 +712,16 @@ fechad.setText(semana.getFechaD());
         lblnombrejefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrejefe.setForeground(new java.awt.Color(51, 102, 255));
         lblnombrejefe.setAutoscrolls(false);
-        lblnombrejefe.setBorder(null);
+        lblnombrejefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
         lblnombrejefe.setCaretColor(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        jPanel1.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 230, 20));
 
         lblcargojefe.setBackground(new java.awt.Color(229, 230, 234));
         lblcargojefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargojefe.setForeground(new java.awt.Color(51, 102, 255));
-        lblcargojefe.setBorder(null);
+        lblcargojefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
         lblcargojefe.setCaretColor(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 230, 20));
+        jPanel1.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 230, 20));
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(910, 610));
@@ -738,18 +730,13 @@ fechad.setText(semana.getFechaD());
         jPanel4.setBackground(new java.awt.Color(51, 102, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jSeparator1.setAlignmentX(0.7F);
-        jSeparator1.setAlignmentY(0.8F);
-        jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 254, 21));
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
         jLabel4.setToolTipText("");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 40, 40));
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 40, 40));
 
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        txtBuscar.setBorder(null);
+        txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
@@ -797,9 +784,23 @@ fechad.setText(semana.getFechaD());
         fechas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel3.add(fechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1073, 0, 142, 20));
 
-        tbIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tbIncidencias= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tbIncidencias.setAutoCreateRowSorter(true);
+        tbIncidencias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tbIncidencias.setForeground(new java.awt.Color(51, 51, 51));
         tbIncidencias.setModel(modeloincidenciasjefe);
         tbIncidencias.setComponentPopupMenu(jPopupMenu1);
+        tbIncidencias.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tbIncidencias.setFillsViewportHeight(true);
+        tbIncidencias.setGridColor(new java.awt.Color(255, 255, 255));
+        tbIncidencias.setInheritsPopupMenu(true);
+        tbIncidencias.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tbIncidencias.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tbIncidencias.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane4.setViewportView(tbIncidencias);
 
         jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1360, 310));
@@ -863,11 +864,11 @@ fechad.setText(semana.getFechaD());
     }// </editor-fold>//GEN-END:initComponents
 
     private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
-System.exit(0);        // TODO add your handling code here:
+        System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_btncerrarActionPerformed
 
     private void btnminimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminimizarActionPerformed
-  this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
     }//GEN-LAST:event_btnminimizarActionPerformed
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
@@ -877,7 +878,7 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_btnregresarActionPerformed
 
     private void jLabel6MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseDragged
-        this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
+        this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel6MouseDragged
 
     private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
@@ -900,9 +901,9 @@ System.exit(0);        // TODO add your handling code here:
             String Semana = cmbSemana.getSelectedItem().toString();
             JA_newincidencia inc = new JA_newincidencia();
             inc.selecSeman(Semana);
-               EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-                modificarculumnas();
-               
+            EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
+            modificarculumnas();
+
             SetFilas();
 
         }
@@ -914,8 +915,7 @@ System.exit(0);        // TODO add your handling code here:
 
     private void pmiRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmiRegistrarActionPerformed
 
-
-         int cuentaFilasSeleccionadas = tbIncidencias.getSelectedRowCount();   
+        int cuentaFilasSeleccionadas = tbIncidencias.getSelectedRowCount();
         if (cuentaFilasSeleccionadas == 1) {
             int fila = tbIncidencias.getSelectedRow();
             String empid = tbIncidencias.getValueAt(fila, 1).toString();
@@ -924,9 +924,9 @@ System.exit(0);        // TODO add your handling code here:
             String nombrejefe = lblnombrejefe.getText();
             String cargojefe = lblcargojefe.getText();
             inc.setVisible(true);
-            inc.mostrardatos(empid, nombre, Semana,nombrejefe,cargojefe);
+            inc.mostrardatos(empid, nombre, Semana, nombrejefe, cargojefe);
             inc.botonesnew();
-            inc.blocquear(fechaL.getText(),fecham.getText(),fechami.getText(),fechaj.getText(),fechav.getText(),fechas.getText(),fechad.getText());
+            inc.blocquear(fechaL.getText(), fecham.getText(), fechami.getText(), fechaj.getText(), fechav.getText(), fechas.getText(), fechad.getText());
             this.setVisible(false);
 
         } else {
@@ -945,16 +945,16 @@ System.exit(0);        // TODO add your handling code here:
 
                 model2.addRow(row);
             }
-
+            ing.blocquear(fechaL.getText(), fecham.getText(), fechami.getText(), fechaj.getText(), fechav.getText(), fechas.getText(), fechad.getText());
             ing.selecSeman(Semana);
             ing.setVisible(true);
 
         }
-        
+
     }//GEN-LAST:event_pmiRegistrarActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-         txtBuscar.addKeyListener(new KeyAdapter() {
+        txtBuscar.addKeyListener(new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
                 String cadena = (txtBuscar.getText()).toUpperCase();
                 txtBuscar.setText(cadena);
@@ -1032,9 +1032,6 @@ System.exit(0);        // TODO add your handling code here:
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JTextField lblcargojefe;
     public static javax.swing.JTextField lblnombrejefe;
     private javax.swing.JMenuItem pmiRegistrar;

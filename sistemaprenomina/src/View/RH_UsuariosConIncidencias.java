@@ -650,7 +650,14 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         });
         panelincidencias.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 243, 254, 35));
 
+        tbincidencias= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tbincidencias.setAutoCreateRowSorter(true);
         tbincidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbincidencias.setForeground(new java.awt.Color(51, 51, 51));
         tbincidencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -672,6 +679,13 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             }
         ));
         tbincidencias.setComponentPopupMenu(pmAutorizar);
+        tbincidencias.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tbincidencias.setFillsViewportHeight(true);
+        tbincidencias.setGridColor(new java.awt.Color(255, 255, 255));
+        tbincidencias.setInheritsPopupMenu(true);
+        tbincidencias.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tbincidencias.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tbincidencias.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tbincidencias);
 
         panelincidencias.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, 1060, 190));

@@ -305,7 +305,14 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
             }
         });
 
+        tbdetalles= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tbdetalles.setAutoCreateRowSorter(true);
         tbdetalles.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbdetalles.setForeground(new java.awt.Color(51, 51, 51));
         tbdetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -318,6 +325,13 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
             }
         ));
         tbdetalles.setComponentPopupMenu(accion);
+        tbdetalles.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tbdetalles.setFillsViewportHeight(true);
+        tbdetalles.setGridColor(new java.awt.Color(255, 255, 255));
+        tbdetalles.setInheritsPopupMenu(true);
+        tbdetalles.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tbdetalles.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tbdetalles.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tbdetalles.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 tbdetallesMouseMoved(evt);

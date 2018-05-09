@@ -170,7 +170,7 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         
         String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp \n"
                 + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idsem+"'\n"
-                + "WHERE  inc.empleadoId  IS NULL ";
+                + "WHERE  inc.empleadoId  IS NULL AND emp.estatus = 1 ";
         String datos[] = new String[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -546,7 +546,14 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         });
         panelincidencias.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 254, 35));
 
+        tbsinIncidencias= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tbsinIncidencias.setAutoCreateRowSorter(true);
         tbsinIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbsinIncidencias.setForeground(new java.awt.Color(51, 51, 51));
         tbsinIncidencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -568,6 +575,12 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
             }
         ));
         tbsinIncidencias.setComponentPopupMenu(pmAutorizar);
+        tbsinIncidencias.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tbsinIncidencias.setGridColor(new java.awt.Color(255, 255, 255));
+        tbsinIncidencias.setInheritsPopupMenu(true);
+        tbsinIncidencias.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tbsinIncidencias.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tbsinIncidencias.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tbsinIncidencias);
 
         panelincidencias.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1053, 410));
@@ -790,7 +803,7 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JPanel panelincidencias;
     private javax.swing.JPopupMenu pmAutorizar;
-    private javax.swing.JTable tbsinIncidencias;
+    public static javax.swing.JTable tbsinIncidencias;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 

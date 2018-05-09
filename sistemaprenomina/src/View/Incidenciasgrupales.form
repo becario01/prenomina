@@ -76,6 +76,7 @@
             </Property>
           </Properties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jtbdatosgrupos= new javax.swing.JTable(){&#xa;public boolean  isCellEditable(int rowIndex,int conlIndex ){&#xa;return false;&#xa;}&#xa;};"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>

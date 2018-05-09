@@ -40,9 +40,9 @@ public class Jflogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jSeparator3 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         loginfecha = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -50,8 +50,6 @@ public class Jflogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
         txtPass = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
@@ -65,6 +63,9 @@ public class Jflogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(56, 116, 214));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 210, 20));
+
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bienvenido");
@@ -72,9 +73,6 @@ public class Jflogin extends javax.swing.JFrame {
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 160, 20));
-
-        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 210, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logoZunfeld.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 160, 90));
@@ -111,7 +109,7 @@ public class Jflogin extends javax.swing.JFrame {
         txtUsuario.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtUsuario.setText("Ingresar Usuario");
         txtUsuario.setToolTipText("");
-        txtUsuario.setBorder(null);
+        txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
         txtUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtUsuarioMouseClicked(evt);
@@ -124,15 +122,9 @@ public class Jflogin extends javax.swing.JFrame {
         jLabel1.setText("Contraseña:");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 120, 30));
 
-        jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 200, 20));
-
-        jSeparator5.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 200, 20));
-
         txtPass.setBackground(new java.awt.Color(229, 230, 234));
         txtPass.setText("jPasswordField1");
-        txtPass.setBorder(null);
+        txtPass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
         txtPass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtPassMouseClicked(evt);
@@ -266,8 +258,6 @@ lo.validar_ingreso(txtUsuario.getText(),txtPass.getText());
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel loginfecha;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUsuario;

@@ -362,7 +362,14 @@ public class RH_SEMANA extends javax.swing.JFrame {
 
         jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
 
+        tbsemanas= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tbsemanas.setAutoCreateRowSorter(true);
         tbsemanas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbsemanas.setForeground(new java.awt.Color(51, 51, 51));
         tbsemanas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -375,6 +382,12 @@ public class RH_SEMANA extends javax.swing.JFrame {
             }
         ));
         tbsemanas.setComponentPopupMenu(accion);
+        tbsemanas.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tbsemanas.setFillsViewportHeight(true);
+        tbsemanas.setGridColor(new java.awt.Color(255, 255, 255));
+        tbsemanas.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tbsemanas.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tbsemanas.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tbsemanas);
 
         jSeparator6.setBackground(new java.awt.Color(51, 102, 255));

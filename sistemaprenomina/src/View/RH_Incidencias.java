@@ -183,8 +183,22 @@ public class RH_Incidencias extends javax.swing.JFrame {
         jLabel2.setText("Registro Incidencias");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 186, 30));
 
+        tblincidencias= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tblincidencias.setAutoCreateRowSorter(true);
+        tblincidencias.setForeground(new java.awt.Color(51, 51, 51));
         tblincidencias.setModel(modeloincidencias);
         tblincidencias.setComponentPopupMenu(asci);
+        tblincidencias.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tblincidencias.setFillsViewportHeight(true);
+        tblincidencias.setGridColor(new java.awt.Color(255, 255, 255));
+        tblincidencias.setInheritsPopupMenu(true);
+        tblincidencias.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tblincidencias.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tblincidencias.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane3.setViewportView(tblincidencias);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 650, 230));

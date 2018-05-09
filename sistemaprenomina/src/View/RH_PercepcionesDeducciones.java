@@ -246,7 +246,14 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
         panel.setBackground(new java.awt.Color(51, 102, 255));
 
+        tbpercepciones= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tbpercepciones.setAutoCreateRowSorter(true);
         tbpercepciones.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbpercepciones.setForeground(new java.awt.Color(51, 51, 51));
         tbpercepciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -258,6 +265,12 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
             }
         ));
+        tbpercepciones.setFillsViewportHeight(true);
+        tbpercepciones.setGridColor(new java.awt.Color(255, 255, 255));
+        tbpercepciones.setInheritsPopupMenu(true);
+        tbpercepciones.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tbpercepciones.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tbpercepciones.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tbpercepciones);
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));

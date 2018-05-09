@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,7 +103,39 @@ public void selecSeman(String vsemana){
              
             }
 
+ public void blocquear(String fechal,String fechama,String fechami,String fechaj,String fechav,String fechas,String fechad) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date fechaInicial = dateFormat.parse("2018-04-26");
+            java.util.Date fecha = new java.util.Date();
+            java.util.Date fechaFinal = new java.util.Date();
+            String date1 =dateFormat.format(fechaInicial);
+            String date2 = dateFormat.format(fechaFinal);
+        
+            if ( fechal.equals(date2) || fechama.equals(date2)|| fechami.equals(date2)|| fechaj.equals(date2)|| fechav.equals(date2)|| fechas.equals(date2)|| fechad.equals(date2)) {
+                
+            } else {
+                cmbincidencia.setEnabled(false);
+                txtcomentario.setEnabled(false);
+                pnDia.setEnabled(false);
+                btnLunes.setEnabled(false);
+                btnMartes.setEnabled(false);
+                btnMiercoles.setEnabled(false);
+                btnJueves.setEnabled(false);
+                btnViernes.setEnabled(false);
+                btnSabado.setEnabled(false);
+                btnDomingo.setEnabled(false);
 
+
+                
+                JOptionPane.showMessageDialog(rootPane,"Por motivos de seguridad el sistema esta "
+                        + "inabilitado para semanas anteriores");
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(JA_newincidencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
 
 public int registrargrupos(int empleadoId,String dia,String fecha,String horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
@@ -246,6 +279,11 @@ public  String guardar(String fechas) throws SQLException{
         setPreferredSize(new java.awt.Dimension(1000, 560));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jtbdatosgrupos= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
         jtbdatosgrupos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jtbdatosgrupos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

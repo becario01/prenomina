@@ -255,7 +255,14 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
             }
         });
 
-        tbListadoIna.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbListadoIna= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tbListadoIna.setAutoCreateRowSorter(true);
+        tbListadoIna.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tbListadoIna.setForeground(new java.awt.Color(51, 51, 51));
         tbListadoIna.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -277,6 +284,12 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
             }
         ));
         tbListadoIna.setComponentPopupMenu(pmActivar);
+        tbListadoIna.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tbListadoIna.setFillsViewportHeight(true);
+        tbListadoIna.setGridColor(new java.awt.Color(255, 255, 255));
+        tbListadoIna.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tbListadoIna.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tbListadoIna.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tbListadoIna);
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
@@ -364,7 +377,14 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         jSeparator1.setAlignmentX(0.7F);
         jSeparator1.setAlignmentY(0.8F);
 
-        tbListadoAct.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbListadoAct= new javax.swing.JTable(){
+            public boolean  isCellEditable(int rowIndex,int conlIndex ){
+                return false;
+            }
+        };
+        tbListadoAct.setAutoCreateRowSorter(true);
+        tbListadoAct.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tbListadoAct.setForeground(new java.awt.Color(51, 51, 51));
         tbListadoAct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -386,6 +406,13 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
             }
         ));
         tbListadoAct.setComponentPopupMenu(pmDesactivar);
+        tbListadoAct.setDropMode(javax.swing.DropMode.INSERT_ROWS);
+        tbListadoAct.setFillsViewportHeight(true);
+        tbListadoAct.setGridColor(new java.awt.Color(255, 255, 255));
+        tbListadoAct.setInheritsPopupMenu(true);
+        tbListadoAct.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        tbListadoAct.setSelectionBackground(new java.awt.Color(108, 180, 221));
+        tbListadoAct.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tbListadoAct);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
