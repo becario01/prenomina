@@ -736,6 +736,7 @@ public class JA_inicio extends javax.swing.JFrame {
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 40, 40));
 
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        txtBuscar.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -957,8 +958,7 @@ public class JA_inicio extends javax.swing.JFrame {
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
         txtBuscar.addKeyListener(new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
-                String cadena = (txtBuscar.getText()).toUpperCase();
-                txtBuscar.setText(cadena);
+       
                 repaint();
                 filtroBusqueda(txtBuscar);
             }
