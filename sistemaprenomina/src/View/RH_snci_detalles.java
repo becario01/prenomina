@@ -63,7 +63,7 @@ private String[] getColums(){
         
 public  void SetFilas(int idemp) throws SQLException{
    
-            String sem = RH_UsuariosConIncidencias.comboSemana.getSelectedItem().toString();
+              String sem = (String) RH_UsuariosSinIncidencias.cmbSemana.getSelectedItem();
       String idsem = "";
         String sql1="Select * from semanas  where  semana= '"+sem+"'";
          conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
