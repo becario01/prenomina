@@ -279,7 +279,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
 
         getContentPane().add(pnlrelog, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Becarios\\Desktop\\fondo.jpg")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/fondo.jpg"))); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
 
         menupanle.setBackground(new java.awt.Color(0, 24, 96));
@@ -444,7 +444,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
 
         getContentPane().add(menupanle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 650, 490));
 
-        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\Becarios\\Desktop\\background-1634817_960_720.jpg")); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/background-1634817_960_720.jpg"))); // NOI18N
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 650, 490));
 
         pack();
