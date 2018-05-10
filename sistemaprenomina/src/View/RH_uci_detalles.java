@@ -41,7 +41,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
     public static ResultSet rs1;
     private Connection userConn1;
     int idemp = Integer.parseInt(RH_UsuariosConIncidencias.codid);
-    String nomsem = RH_UsuariosConIncidencias.cmbSemana.getSelectedItem().toString();
+    String nomsem = RH_UsuariosConIncidencias.comboSemana.getSelectedItem().toString();
 RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
 
     /**
@@ -56,7 +56,7 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
         
 
         limpiar(tabla1);
-        cargardatosFiltroSemana(inci.semana(nomsem), idemp);
+        cargardatosFiltroSemana(nomsem, idemp);
         tbdetalles.setDefaultRenderer(Object.class, new EJefes());
     }
     DefaultTableModel tabla1 = new DefaultTableModel() {
@@ -97,14 +97,14 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
 
     }
 
-    public void cargardatosFiltroSemana(int idSemana, int cod) throws SQLException {
+    public void cargardatosFiltroSemana(String idSemana, int cod) throws SQLException {
 
         String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario, inc.horasExtra \n"
                 + "from incidencias inc\n"
                 + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
                 + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
                 + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "where inc.idSemana='" + idSemana + "' and inc.empleadoId='" + cod + "'   ORDER BY inc.fecha ASC";
+                + "where se.semana='" + idSemana + "' and inc.empleadoId='" + cod + "'   ORDER BY inc.fecha ASC";
         Object datos[] = new Object[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -465,7 +465,7 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
       private void itemAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAutorizarActionPerformed
           int fila = tbdetalles.getSelectedRow();
           String cod = txtid.getText();
-          int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
+          
           int id = Integer.parseInt(cod);
           autorizacionRH au = new autorizacionRH();
           if (fila != -1) {
@@ -475,7 +475,7 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
                   try {
                       au.autorizar(cod, fec);
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(inci.semana(nomsem), id);
+                      cargardatosFiltroSemana(nomsem, id);
                   } catch (Exception e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
@@ -489,7 +489,7 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
                           au.autorizar(cod, fec);
                       }
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(inci.semana(nomsem), id);
+                      cargardatosFiltroSemana(nomsem, id);
                   } catch (Exception e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
@@ -504,7 +504,7 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
 
           int fila = tbdetalles.getSelectedRow();
           String cod = txtid.getText();
-          int sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedIndex();
+          String sem = RH_UsuariosConIncidencias.comboSemana.getSelectedItem().toString();
           int id = Integer.parseInt(cod);
           autorizacionRH au = new autorizacionRH();
           if (fila != -1) {

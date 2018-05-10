@@ -9,6 +9,7 @@ import Conexion.Conexion;
 import Conexion.Conexion1;
 import Controller.EJefes;
 import Controller.EstatusSemanas;
+import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -49,7 +50,10 @@ public class RH_SEMANA extends javax.swing.JFrame {
     PreparedStatement stmt;
     Date dateultima;
     Date datepriemra;
-    String dias []=new String[7];
+    String dias[] = new String[7];
+    Calendar calendar1 = Calendar.getInstance();
+    Calendar calendar2 = Calendar.getInstance();
+    int clicCale = 0;
 
     public RH_SEMANA() throws SQLException, ParseException {
         initComponents();
@@ -59,7 +63,6 @@ public class RH_SEMANA extends javax.swing.JFrame {
         cargartitulos();
         nomsenanas(obtenerUltimaSemana());
         asignarfechas();
-       
         tbsemanas.setDefaultRenderer(Object.class, new EJefes());
 
     }
@@ -73,21 +76,19 @@ public class RH_SEMANA extends javax.swing.JFrame {
 
     public void cargartitulos() throws SQLException {
         tabla.addColumn("SEMANA");
-        tabla.addColumn("LUNES");
-        tabla.addColumn("DOMINGO");
+        tabla.addColumn("INICIO");
+        tabla.addColumn("FIN");
         tabla.addColumn("ESTATUS");
         this.tbsemanas.setModel(tabla);
 
         TableColumnModel columnModel = tbsemanas.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(150);
-        columnModel.getColumn(1).setPreferredWidth(100);
-        columnModel.getColumn(2).setPreferredWidth(100);
-        columnModel.getColumn(3).setPreferredWidth(20);
+       
+        columnModel.getColumn(3).setPreferredWidth(5);
         cargardatos();
     }
 
     public void cargardatos() throws SQLException {
-        String sql = "select * from semanas order by estatus desc ";
+        String sql = "select * from semanas order by estatus desc, fechaL ASC ";
         Object datos[] = new Object[5];
 
         try {
@@ -169,7 +170,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
             if (this.userConn == null) {
                 Conexion1.close(conn);
             }
-        }
+        } 
 
         Calendar cale = Calendar.getInstance();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -178,19 +179,23 @@ public class RH_SEMANA extends javax.swing.JFrame {
         cale.add(Calendar.DAY_OF_YEAR, 1);
         dateultima = cale.getTime();
         ultima = formato.format(cale.getTime());
+
         return ultima;
     }
 
     public void asignarfechas() {
-        jdate1.setDate(dateultima);
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String fech1 = formato.format(dateultima);
         Calendar cale2 = Calendar.getInstance();
         cale2.setTime(dateultima);
         cale2.add(Calendar.DAY_OF_YEAR, 6);
-        jdate2.setDate(cale2.getTime());
         datepriemra = cale2.getTime();
+        String fech2 = formato.format(datepriemra);
+        jdate1.setText(fech1);
+        jdate2.setText(fech2);
     }
 
-    public void listarfechas(){
+    public void listarfechas() {
         Vector<Date> listaFechas = new Vector<>();
         listaFechas.clear();
         Date fechaInicio = dateultima;
@@ -204,7 +209,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
             listaFechas.add(c1.getTime());
             c1.add(Calendar.DAY_OF_MONTH, 1);
         }
-        
+
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         dias[0] = formato.format(listaFechas.elementAt(0));
         dias[1] = formato.format(listaFechas.elementAt(1));
@@ -213,15 +218,10 @@ public class RH_SEMANA extends javax.swing.JFrame {
         dias[4] = formato.format(listaFechas.elementAt(4));
         dias[5] = formato.format(listaFechas.elementAt(5));
         dias[6] = formato.format(listaFechas.elementAt(6));
-        
         for (int i = 0; i < 7; i++) {
             System.out.println(dias[i]);
         }
-
-        
     }
-
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -248,10 +248,8 @@ public class RH_SEMANA extends javax.swing.JFrame {
         lblcargo = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbsemanas = new javax.swing.JTable();
-        jSeparator6 = new javax.swing.JSeparator();
         jButton5 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -260,8 +258,10 @@ public class RH_SEMANA extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         txtsemana = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
-        jdate1 = new com.toedter.calendar.JDateChooser();
-        jdate2 = new com.toedter.calendar.JDateChooser();
+        jSeparator8 = new javax.swing.JSeparator();
+        jdate1 = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jdate2 = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -299,7 +299,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, -1, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
@@ -312,7 +312,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 0, 32, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 32, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
         jButton3.setBorderPainted(false);
@@ -322,7 +322,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, 32, 30));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 32, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
         jButton4.setBorderPainted(false);
@@ -332,21 +332,21 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 32, 30));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 230, 20));
+        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 170, 20));
 
         jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 230, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 160, 10));
 
         lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 230, 20));
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 170, 20));
 
         jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 230, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 170, 10));
 
         jLabel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -358,18 +358,9 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jLabel5MousePressed(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 50));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
 
-        jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
-
-        tbsemanas= new javax.swing.JTable(){
-            public boolean  isCellEditable(int rowIndex,int conlIndex ){
-                return false;
-            }
-        };
-        tbsemanas.setAutoCreateRowSorter(true);
         tbsemanas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tbsemanas.setForeground(new java.awt.Color(51, 51, 51));
         tbsemanas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -382,15 +373,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
             }
         ));
         tbsemanas.setComponentPopupMenu(accion);
-        tbsemanas.setDropMode(javax.swing.DropMode.INSERT_ROWS);
-        tbsemanas.setFillsViewportHeight(true);
-        tbsemanas.setGridColor(new java.awt.Color(255, 255, 255));
-        tbsemanas.setIntercellSpacing(new java.awt.Dimension(2, 2));
-        tbsemanas.setSelectionBackground(new java.awt.Color(108, 180, 221));
-        tbsemanas.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tbsemanas);
-
-        jSeparator6.setBackground(new java.awt.Color(51, 102, 255));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/save1.png"))); // NOI18N
         jButton5.setContentAreaFilled(false);
@@ -429,95 +412,118 @@ public class RH_SEMANA extends javax.swing.JFrame {
         txtsemana.setForeground(new java.awt.Color(255, 255, 255));
         txtsemana.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtsemana.setBorder(null);
+        txtsemana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtsemanaActionPerformed(evt);
+            }
+        });
 
         jSeparator7.setBackground(new java.awt.Color(51, 102, 255));
 
-        jdate1.setBackground(new java.awt.Color(51, 102, 255));
-        jdate1.setForeground(new java.awt.Color(51, 102, 255));
-        jdate1.setAutoscrolls(true);
-        jdate1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jSeparator8.setBackground(new java.awt.Color(51, 102, 255));
 
+        jdate1.setEditable(false);
+        jdate1.setBackground(new java.awt.Color(51, 102, 255));
+        jdate1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        jdate1.setForeground(new java.awt.Color(255, 255, 255));
+        jdate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jdate1.setBorder(null);
+        jdate1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jdate1MouseClicked(evt);
+            }
+        });
+        jdate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jdate1ActionPerformed(evt);
+            }
+        });
+
+        jSeparator9.setBackground(new java.awt.Color(51, 102, 255));
+
+        jdate2.setEditable(false);
         jdate2.setBackground(new java.awt.Color(51, 102, 255));
+        jdate2.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jdate2.setForeground(new java.awt.Color(255, 255, 255));
-        jdate2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jdate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jdate2.setBorder(null);
+        jdate2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jdate2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtBuscar)
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel4)
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                            .addComponent(jdate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel6)
-                        .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                            .addComponent(jdate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(60, 60, 60)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(209, 209, 209)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtsemana)
-                            .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtBuscar)
+                                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel4)
+                                .addGap(51, 51, 51)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator8, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                                    .addComponent(jdate1))
+                                .addGap(45, 45, 45)
+                                .addComponent(jLabel6)
+                                .addGap(47, 47, 47)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator9)
+                                    .addComponent(jdate2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(62, 62, 62)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(45, 45, 45)))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(193, 193, 193)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtsemana, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addComponent(txtsemana, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(jLabel4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel6)
-                                .addGap(7, 7, 7))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel4)
+                            .addComponent(jdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)
+                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(9, 9, 9)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jdate2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addComponent(jLabel6))
+                            .addGap(0, 0, 0)
+                            .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -562,15 +568,15 @@ public class RH_SEMANA extends javax.swing.JFrame {
             EstatusSemanas esta = new EstatusSemanas();
             esta.agregar(dias, nombreSemana);
             cargardatos();
-        nomsenanas(obtenerUltimaSemana());
-        asignarfechas();
-            
+            nomsenanas(obtenerUltimaSemana());
+            asignarfechas();
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error en: "+ e,"",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
             Logger.getLogger(RH_SEMANA.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
@@ -589,18 +595,34 @@ public class RH_SEMANA extends javax.swing.JFrame {
 
     private void ItemActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemActivarActionPerformed
         try {
+            EstatusSemanas sema = new EstatusSemanas();
             int numfila = tbsemanas.getSelectedRowCount();
+            int fila = tbsemanas.getSelectedRow();
+           
             if (numfila == 1) {
-                int fila = tbsemanas.getSelectedRow();
+                 System.out.println(numfila);
                 String semana = tbsemanas.getValueAt(fila, 0).toString();
                 System.out.println(semana);
-                EstatusSemanas sema = new EstatusSemanas();
                 sema.activar(semana);
                 limpiar(tabla);
                 cargardatos();
-            } else {
+            } else if(numfila==0){
+                 System.out.println(numfila);
                 JOptionPane.showMessageDialog(null, "Seleccione una fila ", "", JOptionPane.WARNING_MESSAGE);
 
+            }else if (numfila > 1){
+                int codi[] = tbsemanas.getSelectedRows();
+                 System.out.println(numfila);
+                String semana[]= new String[numfila];
+                for (int i = 0; i < numfila; i++) {
+                    semana[i]=tbsemanas.getValueAt(codi[i], 0).toString();
+                    String sem=semana[i];
+                    sema.activar(sem);
+                    
+                }
+                limpiar(tabla);
+                cargardatos();
+                
             }
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -613,16 +635,28 @@ public class RH_SEMANA extends javax.swing.JFrame {
     private void ItemDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemDesactivarActionPerformed
         try {
             int numfila = tbsemanas.getSelectedRowCount();
+            int fila = tbsemanas.getSelectedRow();
+            EstatusSemanas sema = new EstatusSemanas();
             if (numfila == 1) {
-                int fila = tbsemanas.getSelectedRow();
                 String semana = tbsemanas.getValueAt(fila, 0).toString();
-                EstatusSemanas sema = new EstatusSemanas();
                 sema.desactivar(semana);
                 limpiar(tabla);
                 cargardatos();
-
-            } else {
+            } else if(numfila==0){
                 JOptionPane.showMessageDialog(null, "", "", JOptionPane.WARNING_MESSAGE);
+            }else if (numfila > 1){
+                int codi[] = tbsemanas.getSelectedRows();
+                 System.out.println(numfila);
+                String semana[]= new String[numfila];
+                for (int i = 0; i < numfila; i++) {
+                    semana[i]=tbsemanas.getValueAt(codi[i], 0).toString();
+                    String sem=semana[i];
+                    sema.desactivar(sem);
+                    
+                }
+                limpiar(tabla);
+                cargardatos();
+                
             }
 
         } catch (Exception e) {
@@ -630,6 +664,43 @@ public class RH_SEMANA extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_ItemDesactivarActionPerformed
+
+    private void jdate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jdate1MouseClicked
+        try {
+             clicCale = 1;
+        RH_Calendario cale = new RH_Calendario(clicCale, dateultima);
+        if (evt.getClickCount() == 2) {
+            cale.setVisible(true);
+        }
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null,"Error en: "+ e);
+        }
+       
+
+
+    }//GEN-LAST:event_jdate1MouseClicked
+
+    private void txtsemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsemanaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtsemanaActionPerformed
+
+    private void jdate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jdate2MouseClicked
+        try {
+             clicCale = 2;
+        RH_Calendario cale = new RH_Calendario(clicCale, datepriemra);
+        if (evt.getClickCount() == 2) {
+            cale.setVisible(true);
+        }
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null,"Error en:"+ e);
+        }
+       
+
+    }//GEN-LAST:event_jdate2MouseClicked
+
+    private void jdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdate1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jdate1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -692,13 +763,13 @@ public class RH_SEMANA extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTable1;
-    private com.toedter.calendar.JDateChooser jdate1;
-    private com.toedter.calendar.JDateChooser jdate2;
+    public static javax.swing.JTextField jdate1;
+    public static javax.swing.JTextField jdate2;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JTable tbsemanas;

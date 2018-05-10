@@ -16,7 +16,6 @@ import Controller.exportReporte;
 import static View.RH_Inicio.lblcargo;
 import static View.RH_Inicio.lblnombrerh;
 import static View.RH_ListadoPersonal.rs;
-import static View.RH_UsuariosConIncidencias.cmbSemana;
 import static View.RH_UsuariosConIncidencias.codid;
 import static View.RH_UsuariosConIncidencias.lblcargo;
 import static View.RH_UsuariosConIncidencias.lblnombrerh;
@@ -49,6 +48,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import static View.RH_UsuariosConIncidencias.tbincidencias;
+
 
 /**
  *

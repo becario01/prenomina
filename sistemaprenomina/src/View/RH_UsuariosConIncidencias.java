@@ -64,6 +64,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     int x, y;
     public static String codid;
     
+  
 
     /**
      * Creates new form RH_UsuariosConIncidencias
@@ -115,10 +116,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-            cmbSemana.addItem("-SELECCIONE UNA OPCION-");
+            comboSemana.addItem("-SELECCIONE UNA OPCION-");
             while (rs.next()) {
                 String nombre = rs.getString("semana");
-                cmbSemana.addItem(nombre);
+                comboSemana.addItem(nombre);
 
             }
         } catch (Exception e) {
@@ -141,10 +142,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-            cmbDepto.addItem("-SELECCIONE UNA OPCION-");
+            comboDepto.addItem("-SELECCIONE UNA OPCION-");
             while (rs.next()) {
                 String nombre = rs.getString("depto");
-                cmbDepto.addItem(nombre);
+                comboDepto.addItem(nombre);
 
             }
         } catch (Exception e) {
@@ -216,29 +217,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         }
     }
 
-    public void prueba() throws SQLException {
-        int sem = cmbSemana.getSelectedIndex();
-        String nomsem=cmbSemana.getSelectedItem().toString();
-        if (sem != 0) {
-            limpiar(tabla1);
-
-            int dep = cmbSemana.getSelectedIndex();
-
-            if (dep == 0) {
-                cargardatosFiltroSemana(nomsem);
-
-            } else {
-                String depp = cmbSemana.getSelectedItem().toString();
-
-                cargardatosFiltroDepto(nomsem, depp);
-
-            }
-
-        } else {
-            cmbSemana.setSelectedIndex(0);
-            JOptionPane.showMessageDialog(null, "Seleccione antes una semana","",JOptionPane.WARNING_MESSAGE);
-        }
-    }
+  
 
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
@@ -400,9 +379,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         itemDetalles = new javax.swing.JMenuItem();
         itemPercepciones = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
-        cmbSemana = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
-        cmbDepto = new javax.swing.JComboBox();
+        comboDepto = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -431,6 +409,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbincidencias = new javax.swing.JTable();
+        comboSemana = new javax.swing.JComboBox<>();
 
         itemDetalles.setText("Detalles");
         itemDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -457,26 +436,18 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jLabel1.setText("Reportar semana");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 88, 151, 30));
 
-        cmbSemana.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        cmbSemana.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbSemanaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(cmbSemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 229, 30));
-
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Reportar area");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, 160, 30));
 
-        cmbDepto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        cmbDepto.addActionListener(new java.awt.event.ActionListener() {
+        comboDepto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        comboDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbDeptoActionPerformed(evt);
+                comboDeptoActionPerformed(evt);
             }
         });
-        getContentPane().add(cmbDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 229, 30));
+        getContentPane().add(comboDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 229, 30));
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 234));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -692,28 +663,15 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         getContentPane().add(panelincidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 142, 1060, -1));
 
+        comboSemana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSemanaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboSemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 210, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-      private void cmbSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSemanaActionPerformed
-          limpiar(tabla1);
-          String nomsem=cmbSemana.getSelectedItem().toString();
-          int sem = cmbSemana.getSelectedIndex();
-          try {
-              if (sem != 0) {
-                  panelincidencias.setVisible(true);
-                  cargardatosFiltroSemana(nomsem);
- 
-              }else{
-                   panelincidencias.setVisible(false);
-              }
-
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-          }
-
-
-      }//GEN-LAST:event_cmbSemanaActionPerformed
 
       private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
           txtBuscar.addKeyListener(new KeyAdapter() {
@@ -730,47 +688,47 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
       }//GEN-LAST:event_txtBuscarKeyTyped
 
-      private void cmbDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDeptoActionPerformed
+      private void comboDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDeptoActionPerformed
           try {
-              String nomsem=cmbSemana.getSelectedItem().toString();
-              int index = cmbSemana.getSelectedIndex();
+             String nomsem=comboSemana.getSelectedItem().toString();
+              int index = comboSemana.getSelectedIndex();
               if (index != 0) {
-                  int sem = cmbSemana.getSelectedIndex();
+                  int sem = comboSemana.getSelectedIndex();
                   if (sem != 0) {
                       limpiar(tabla1);
-                      int dep = cmbDepto.getSelectedIndex();
+                      int dep = comboDepto.getSelectedIndex();
                       if (dep == 0) {
                           cargardatosFiltroSemana(nomsem);
 
                       } else {
-                          String depp = cmbDepto.getSelectedItem().toString();
+                          String depp = comboDepto.getSelectedItem().toString();
                           cargardatosFiltroDepto(nomsem, depp);
 
                       }
                   } else {
-                      cmbDepto.setSelectedIndex(0);
+                      comboDepto.setSelectedIndex(0);
                       JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
                   }
               } else {
-                  cmbDepto.setSelectedIndex(0);
+                  comboDepto.setSelectedIndex(0);
 //                  JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
               }
           } catch (Exception e) {
               JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
-      }//GEN-LAST:event_cmbDeptoActionPerformed
+      }//GEN-LAST:event_comboDeptoActionPerformed
 
       private void btnBuscar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar5ActionPerformed
 
-          String nomsemana = cmbSemana.getSelectedItem().toString();
-          String nomdep = cmbDepto.getSelectedItem().toString();
+          String nomsem = comboSemana.getSelectedItem().toString();
+          String nomdep = comboDepto.getSelectedItem().toString();
           String emp = lblnombrerh.getText();
           String car = lblcargo.getText();
           System.out.println(nomdep);
           System.out.println(semana(nomdep));
           try {
               OutputStream out;
-              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(semana(nomsemana), nomsemana, emp, car, nomdep)) {
+              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(semana(nomsem), nomsem, emp, car, nomdep)) {
                   if(estilosreporte.resultado){
                        JFileChooser guardar = new JFileChooser();
                   guardar.setApproveButtonText("Guardar");
@@ -830,20 +788,20 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel11MouseDragged
 
     private void btntxtreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntxtreporteActionPerformed
-        int sem = cmbSemana.getSelectedIndex();
+        int sem = comboSemana.getSelectedIndex();
         reportetxt(sem);
     }//GEN-LAST:event_btntxtreporteActionPerformed
 
     private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
        try {        
         
-              String nom= cmbSemana.getSelectedItem().toString();
-              String nomdep= cmbDepto.getSelectedItem().toString();
+           String   nomsem= comboSemana.getSelectedItem().toString();
+              String nomdep= comboDepto.getSelectedItem().toString();
               String emp = lblnombrerh.getText();
               String car = lblcargo.getText();
     JFileChooser guardar = new JFileChooser();    
 
-        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(semana(nom),nom,emp,car,nomdep);
+        HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(semana(nomsem),nomsem,emp,car,nomdep);
 if(PercepcionesReport.datos){
             guardar.setApproveButtonText("Guardar");
             if( guardar.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
@@ -868,7 +826,7 @@ clf.setVisible(true);
 
     private void btnBuscar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar7ActionPerformed
      
-       String nomsem=cmbSemana.getSelectedItem().toString();
+      String  nomsem=comboSemana.getSelectedItem().toString();
        String semana = String.valueOf(semana(nomsem));
         try {
             PrimaDominical pri= new PrimaDominical();
@@ -923,7 +881,9 @@ clf.setVisible(true);
                 RH_uci_detalles.lblnombrerh.setText(nomm);
                 RH_uci_detalles.txtnombre.setText(nom);
                 RH_uci_detalles.txtid.setText(codid);
-                RH_uci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
+                RH_uci_detalles.txtsemana.setText(comboSemana.getSelectedItem().toString());
+                
+                System.out.println(" !!!!! "+comboSemana.getSelectedItem());
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
             }
@@ -931,6 +891,28 @@ clf.setVisible(true);
             JOptionPane.showMessageDialog(null, "Seleccione una fila ","",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_itemDetallesActionPerformed
+
+    private void comboSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSemanaActionPerformed
+        limpiar(tabla1);
+          String nomsem=comboSemana.getSelectedItem().toString();
+       int numsem = comboSemana.getSelectedIndex();
+        System.out.println(nomsem);
+        System.out.println(numsem);
+          try {
+              if (numsem != 0) {
+                  panelincidencias.setVisible(true);
+                  cargardatosFiltroSemana(nomsem);
+ 
+              }else{
+                   panelincidencias.setVisible(false);
+              }
+
+          } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+          }
+
+
+    }//GEN-LAST:event_comboSemanaActionPerformed
 public int semana( String nomsem){
     String sql = "select * from semanas where semana='"+nomsem+"' ";
      
@@ -1001,8 +983,8 @@ int codigo=0;
     private javax.swing.JButton btnBuscar6;
     private javax.swing.JButton btnBuscar7;
     private javax.swing.JButton btntxtreporte;
-    private javax.swing.JComboBox cmbDepto;
-    public static javax.swing.JComboBox cmbSemana;
+    private javax.swing.JComboBox comboDepto;
+    public static javax.swing.JComboBox<String> comboSemana;
     private javax.swing.JMenuItem itemDetalles;
     private javax.swing.JMenuItem itemPercepciones;
     private javax.swing.JButton jButton2;

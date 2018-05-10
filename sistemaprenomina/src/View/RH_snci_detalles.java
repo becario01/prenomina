@@ -49,7 +49,7 @@ public class RH_snci_detalles extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
-        int sem = RH_UsuariosSinIncidencias.cmbSemana.getSelectedIndex();
+        
         int idemp = Integer.parseInt(RH_UsuariosSinIncidencias.codid);
         SetFilas(idemp);
     }
@@ -63,7 +63,7 @@ private String[] getColums(){
         
 public  void SetFilas(int idemp) throws SQLException{
    
-            String sem = (String) RH_UsuariosSinIncidencias.cmbSemana.getSelectedItem();
+            String sem = RH_UsuariosConIncidencias.comboSemana.getSelectedItem().toString();
       String idsem = "";
         String sql1="Select * from semanas  where  semana= '"+sem+"'";
          conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();

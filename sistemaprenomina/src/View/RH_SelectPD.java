@@ -356,7 +356,7 @@ Connection conn;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             String id = lblcod.getText();
-            String sem = RH_UsuariosConIncidencias.cmbSemana.getSelectedItem().toString();
+            String sem = RH_UsuariosConIncidencias.comboSemana.getSelectedItem().toString();
             String idsem= String.valueOf(semana(sem));
             PercepcionesDeducciones per= new PercepcionesDeducciones();
             per.insertar(id, idsem, datos(),rootPane);
