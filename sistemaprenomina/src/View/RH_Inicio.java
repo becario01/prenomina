@@ -38,7 +38,15 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         fecha();
-        pnlrelog.setBackground(new Color(0, 0, 0, 200));
+          panellist.setBackground(new Color(0,153,255, 130));
+        panelinc.setBackground(new Color(153,255,255,130));
+        panelusin.setBackground(new Color(102,255,255,130));
+        panelusrcin.setBackground(new Color(102,204,255,130));
+        panelperc.setBackground(new Color(0,153,204,130));
+        panelsem.setBackground(new Color(102,204,255,130));
+        panelusr.setBackground(new Color(153,255,255,130));
+        menupanle.setBackground(new Color(0,0,0, 130));
+        pnlrelog.setBackground(new Color(0, 0, 0, 130));
         hilo = new Thread(this);
         hilo.start();
         setVisible(true);
@@ -72,7 +80,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         Thread current = Thread.currentThread();
         while (current == hilo) {
             hora();
-            lblhoradiaria.setText(hora + ":" + minutos + ":" + segundos);
+            txthora.setText(hora + ":" + minutos + ":" + segundos);
         }
     }
 
@@ -100,23 +108,38 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         lblcargo = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        btnIncidencias = new javax.swing.JButton();
         pnlrelog = new javax.swing.JPanel();
-        lblhoradiaria = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblaño = new javax.swing.JLabel();
         lbldia = new javax.swing.JLabel();
         lblmes = new javax.swing.JLabel();
         logozunfeld = new javax.swing.JLabel();
+        txthora = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        menupanle = new javax.swing.JPanel();
+        panellist = new javax.swing.JPanel();
+        jButton16 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        panelusin = new javax.swing.JPanel();
+        jButton11 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        panelusrcin = new javax.swing.JPanel();
+        jButton17 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        panelinc = new javax.swing.JPanel();
+        btnIncidencias = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        panelperc = new javax.swing.JPanel();
+        jButton10 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        panelusr = new javax.swing.JPanel();
+        jButton14 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        panelsem = new javax.swing.JPanel();
+        jButton13 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -216,67 +239,59 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 52));
 
-        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlrelog.setBackground(new java.awt.Color(0, 24, 96));
+        pnlrelog.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton10.setBackground(new java.awt.Color(192, 179, 179));
-        jButton10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(51, 102, 255));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/form.png"))); // NOI18N
-        jButton10.setText("Percepciones Deducciones");
-        jButton10.setBorderPainted(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 270, 100));
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Bienvenido");
+        pnlrelog.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, 50));
 
-        jButton11.setBackground(new java.awt.Color(242, 182, 146));
-        jButton11.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(51, 102, 255));
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/team.png"))); // NOI18N
-        jButton11.setText("Usuarios sin Incidencias ");
-        jButton11.setBorder(null);
-        jButton11.setBorderPainted(false);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 270, 100));
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("de");
+        pnlrelog.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 30, 30));
 
-        jButton13.setBackground(new java.awt.Color(243, 162, 194));
-        jButton13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(51, 102, 255));
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendario.png"))); // NOI18N
-        jButton13.setText("  Semanas                 ");
-        jButton13.setBorderPainted(false);
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 270, 100));
+        lblaño.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
+        lblaño.setForeground(new java.awt.Color(255, 255, 255));
+        pnlrelog.add(lblaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 140, 60));
 
-        jButton17.setBackground(new java.awt.Color(177, 224, 234));
-        jButton17.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton17.setForeground(new java.awt.Color(51, 102, 255));
-        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/problem.png"))); // NOI18N
-        jButton17.setText("Usuario con Incidencias");
-        jButton17.setBorderPainted(false);
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 270, 100));
+        lbldia.setBackground(new java.awt.Color(255, 255, 255));
+        lbldia.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
+        lbldia.setForeground(new java.awt.Color(255, 255, 255));
+        pnlrelog.add(lbldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 100, 70));
 
-        jButton16.setBackground(new java.awt.Color(169, 208, 81));
+        lblmes.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblmes.setForeground(new java.awt.Color(255, 255, 255));
+        pnlrelog.add(lblmes, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, 80, 30));
+
+        logozunfeld.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logoZunfeld.png"))); // NOI18N
+        pnlrelog.add(logozunfeld, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 80));
+
+        txthora.setEditable(false);
+        txthora.setFont(new java.awt.Font("Segoe UI Light", 0, 36)); // NOI18N
+        txthora.setAutoscrolls(false);
+        txthora.setBorder(null);
+        txthora.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txthora.setEnabled(false);
+        pnlrelog.add(txthora, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 140, 50));
+
+        getContentPane().add(pnlrelog, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Becarios\\Desktop\\fondo.jpg")); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
+
+        menupanle.setBackground(new java.awt.Color(0, 24, 96));
+        menupanle.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panellist.setBackground(new java.awt.Color(0, 153, 255));
+        panellist.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton16.setBackground(new java.awt.Color(183, 212, 62));
         jButton16.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton16.setForeground(new java.awt.Color(51, 102, 255));
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/lecture.png"))); // NOI18N
-        jButton16.setText("Listado Personal               ");
         jButton16.setBorder(null);
         jButton16.setBorderPainted(false);
         jButton16.addActionListener(new java.awt.event.ActionListener() {
@@ -284,26 +299,67 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton16ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 270, 100));
+        panellist.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
 
-        jButton14.setBackground(new java.awt.Color(97, 209, 182));
-        jButton14.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton14.setForeground(new java.awt.Color(51, 102, 255));
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/usuarios.png"))); // NOI18N
-        jButton14.setText("Usuarios                      ");
-        jButton14.setBorderPainted(false);
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Listado Personal");
+        panellist.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 130, -1));
+
+        menupanle.add(panellist, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 130));
+
+        panelusin.setBackground(new java.awt.Color(102, 255, 255));
+        panelusin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton11.setBackground(new java.awt.Color(242, 182, 146));
+        jButton11.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(51, 102, 255));
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/team.png"))); // NOI18N
+        jButton11.setBorder(null);
+        jButton11.setBorderPainted(false);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                jButton11ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 270, 100));
+        panelusin.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Usuarios sin Incidencias ");
+        panelusin.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 25));
+
+        menupanle.add(panelusin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, 130));
+
+        panelusrcin.setBackground(new java.awt.Color(102, 204, 255));
+        panelusrcin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton17.setBackground(new java.awt.Color(177, 224, 234));
+        jButton17.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton17.setForeground(new java.awt.Color(51, 102, 255));
+        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/problem.png"))); // NOI18N
+        jButton17.setBorderPainted(false);
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+        panelusrcin.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Usuario con Incidencias");
+        panelusrcin.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 25));
+
+        menupanle.add(panelusrcin, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 180, 130));
+
+        panelinc.setBackground(new java.awt.Color(102, 204, 255));
+        panelinc.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnIncidencias.setBackground(new java.awt.Color(247, 203, 111));
         btnIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnIncidencias.setForeground(new java.awt.Color(51, 102, 255));
         btnIncidencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/test.png"))); // NOI18N
-        btnIncidencias.setText("      Incidencias");
         btnIncidencias.setBorder(null);
         btnIncidencias.setBorderPainted(false);
         btnIncidencias.addActionListener(new java.awt.event.ActionListener() {
@@ -311,49 +367,75 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 btnIncidenciasActionPerformed(evt);
             }
         });
-        jPanel2.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 270, 100));
+        panelinc.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 560, 490));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText(" Incidencias");
+        panelinc.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
-        pnlrelog.setBackground(new java.awt.Color(0, 24, 96));
-        pnlrelog.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        menupanle.add(panelinc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 180, 130));
 
-        lblhoradiaria.setBackground(new java.awt.Color(255, 255, 255));
-        lblhoradiaria.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
-        lblhoradiaria.setForeground(new java.awt.Color(255, 255, 255));
-        pnlrelog.add(lblhoradiaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 210, 50));
+        panelperc.setBackground(new java.awt.Color(0, 153, 204));
+        panelperc.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Bienvenido");
-        pnlrelog.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 50));
+        jButton10.setBackground(new java.awt.Color(192, 179, 179));
+        jButton10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(51, 102, 255));
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/form.png"))); // NOI18N
+        jButton10.setBorderPainted(false);
+        panelperc.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
 
-        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("de");
-        pnlrelog.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 30, 30));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Percepciones Deducciones");
+        panelperc.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, 25));
 
-        lblaño.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
-        lblaño.setForeground(new java.awt.Color(255, 255, 255));
-        pnlrelog.add(lblaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 140, 60));
+        menupanle.add(panelperc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 180, 130));
 
-        lbldia.setBackground(new java.awt.Color(255, 255, 255));
-        lbldia.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
-        lbldia.setForeground(new java.awt.Color(255, 255, 255));
-        pnlrelog.add(lbldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 100, 70));
+        panelusr.setBackground(new java.awt.Color(153, 255, 255));
+        panelusr.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblmes.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        lblmes.setForeground(new java.awt.Color(255, 255, 255));
-        pnlrelog.add(lblmes, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 80, 30));
+        jButton14.setBackground(new java.awt.Color(97, 209, 182));
+        jButton14.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton14.setForeground(new java.awt.Color(51, 102, 255));
+        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/usuarios.png"))); // NOI18N
+        jButton14.setBorderPainted(false);
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        panelusr.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
 
-        logozunfeld.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logoZunfeld.png"))); // NOI18N
-        pnlrelog.add(logozunfeld, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 160, 80));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Usuarios ");
+        panelusr.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 80, -1));
 
-        getContentPane().add(pnlrelog, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, 550, 490));
+        menupanle.add(panelusr, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 180, 130));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Becarios\\Desktop\\fondo.jpg")); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, 550, 490));
+        panelsem.setBackground(new java.awt.Color(102, 204, 255));
+        panelsem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton13.setBackground(new java.awt.Color(243, 162, 194));
+        jButton13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(51, 102, 255));
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendario.png"))); // NOI18N
+        jButton13.setBorderPainted(false);
+        panelsem.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("  Semanas ");
+        panelsem.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
+
+        menupanle.add(panelsem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 180, 130));
+
+        getContentPane().add(menupanle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 650, 490));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\Becarios\\Desktop\\background-1634817_960_720.jpg")); // NOI18N
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 650, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -379,14 +461,6 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         this.show(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void btnIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciasActionPerformed
-        RH_Incidencias inc = new RH_Incidencias();
-        inc.setVisible(true);
-        RH_Incidencias.nombre=lblnombrerh.getText();
-        RH_Incidencias.cargo=lblcargo.getText();
-        this.setVisible(false);
-    }//GEN-LAST:event_btnIncidenciasActionPerformed
-
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
         x = evt.getX();
         y = evt.getY();
@@ -396,88 +470,64 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel5MouseDragged
 
-      private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        String dep= lblcargo.getText();
-        String nom= lblnombrerh.getText();
-        
-        
-          try {
-              RH_ListadoPersonal lis = new RH_ListadoPersonal();
-              lis.show();
-              RH_ListadoPersonal.lblcargo.setText(dep);
-              RH_ListadoPersonal.lblnombrerh.setText(nom);
-              this.show(false);
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
-          }
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        String dep = lblcargo.getText();
+        String nom = lblnombrerh.getText();
 
-      }//GEN-LAST:event_jButton16ActionPerformed
-
-      private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-          String dep = lblcargo.getText();
-          String nom = lblnombrerh.getText();
-          try {
-              RH_UsuariosConIncidencias usu = new RH_UsuariosConIncidencias();
-              usu.show();
-               RH_UsuariosConIncidencias.lblcargo.setText(dep);
-              RH_UsuariosConIncidencias.lblnombrerh.setText(nom);
-              this.show(false);
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
-          }
-
-      }//GEN-LAST:event_jButton17ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         try {
-            RH_PercepcionesDeducciones per= new RH_PercepcionesDeducciones();
-            per.show();
-            RH_PercepcionesDeducciones.lblcargo.setText(lblcargo.getText());
-            RH_PercepcionesDeducciones.lblnombrerh.setText(lblnombrerh.getText());
+            RH_ListadoPersonal lis = new RH_ListadoPersonal();
+            lis.show();
+            RH_ListadoPersonal.lblcargo.setText(dep);
+            RH_ListadoPersonal.lblnombrerh.setText(nom);
             this.show(false);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
- String dep = lblcargo.getText();
-          String nom = lblnombrerh.getText();
-          try {
-              RH_UsuariosSinIncidencias usu = new RH_UsuariosSinIncidencias();
-              usu.show();
-               RH_UsuariosSinIncidencias.lblcargo.setText(dep);
-              RH_UsuariosSinIncidencias.lblnombrerh.setText(nom);
-              this.show(false);
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e);
-          }        // TODO add your handling code here:        // TODO add your handling code here:
+        String dep = lblcargo.getText();
+        String nom = lblnombrerh.getText();
+        try {
+            RH_UsuariosSinIncidencias usu = new RH_UsuariosSinIncidencias();
+            usu.show();
+            RH_UsuariosSinIncidencias.lblcargo.setText(dep);
+            RH_UsuariosSinIncidencias.lblnombrerh.setText(nom);
+            this.show(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        String dep = lblcargo.getText();
+        String nom = lblnombrerh.getText();
+        try {
+            RH_UsuariosConIncidencias usu = new RH_UsuariosConIncidencias();
+            usu.show();
+            RH_UsuariosConIncidencias.lblcargo.setText(dep);
+            RH_UsuariosConIncidencias.lblnombrerh.setText(nom);
+            this.show(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void btnIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciasActionPerformed
+        RH_Incidencias inc = new RH_Incidencias();
+        inc.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnIncidenciasActionPerformed
+
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-  String dep = lblcargo.getText();
+        String dep = lblcargo.getText();
         String nom = lblnombrerh.getText();
         RH_registrarusrs usur = new RH_registrarusrs();
         RH_registrarusrs.lblnombrejefe.setText(dep);
         RH_registrarusrs.lblcargojefe.setText(nom);
         usur.show();
-        this.show(false);    // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        try {
-            RH_SEMANA sema = new RH_SEMANA();
-        sema.show();
         this.show(false);
-        RH_SEMANA.lblcargo.setText(lblcargo.getText());
-        RH_SEMANA.lblnombrerh.setText(lblnombrerh.getText());
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en: "+e,"ERROR",JOptionPane.ERROR_MESSAGE);
-        } catch (ParseException ex) {
-            Logger.getLogger(RH_Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -533,13 +583,20 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
@@ -549,10 +606,18 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lblaño;
     public static javax.swing.JLabel lblcargo;
     private javax.swing.JLabel lbldia;
-    private javax.swing.JLabel lblhoradiaria;
     private javax.swing.JLabel lblmes;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JLabel logozunfeld;
+    private javax.swing.JPanel menupanle;
+    private javax.swing.JPanel panelinc;
+    private javax.swing.JPanel panellist;
+    private javax.swing.JPanel panelperc;
+    private javax.swing.JPanel panelsem;
+    private javax.swing.JPanel panelusin;
+    private javax.swing.JPanel panelusr;
+    private javax.swing.JPanel panelusrcin;
     private javax.swing.JPanel pnlrelog;
+    private javax.swing.JTextField txthora;
     // End of variables declaration//GEN-END:variables
 }
