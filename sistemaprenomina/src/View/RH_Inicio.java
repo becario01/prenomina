@@ -384,6 +384,11 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton10.setForeground(new java.awt.Color(51, 102, 255));
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/form.png"))); // NOI18N
         jButton10.setBorderPainted(false);
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         panelperc.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -423,6 +428,11 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton13.setForeground(new java.awt.Color(51, 102, 255));
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendario.png"))); // NOI18N
         jButton13.setBorderPainted(false);
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
         panelsem.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -528,6 +538,32 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         usur.show();
         this.show(false);
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+     try {
+            RH_PercepcionesDeducciones per= new RH_PercepcionesDeducciones();
+            per.show();
+            RH_PercepcionesDeducciones.lblcargo.setText(lblcargo.getText());
+            RH_PercepcionesDeducciones.lblnombrerh.setText(lblnombrerh.getText());
+            this.show(false);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+ try {
+            RH_SEMANA sema = new RH_SEMANA();
+        sema.show();
+        this.show(false);
+        RH_SEMANA.lblcargo.setText(lblcargo.getText());
+        RH_SEMANA.lblnombrerh.setText(lblnombrerh.getText());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error en: "+e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException ex) {
+            Logger.getLogger(RH_Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments

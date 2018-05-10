@@ -270,6 +270,8 @@ public class asignar extends javax.swing.JFrame {
 
         txtnomasg.setEditable(false);
         txtnomasg.setBackground(new java.awt.Color(51, 102, 255));
+        txtnomasg.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtnomasg.setForeground(new java.awt.Color(255, 255, 255));
         txtnomasg.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         getContentPane().add(txtnomasg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 200, 30));
 
@@ -290,7 +292,8 @@ public class asignar extends javax.swing.JFrame {
 
         idusers.setEditable(false);
         idusers.setBackground(new java.awt.Color(51, 102, 255));
-        idusers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        idusers.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        idusers.setForeground(new java.awt.Color(255, 255, 255));
         idusers.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         getContentPane().add(idusers, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 200, 30));
 
