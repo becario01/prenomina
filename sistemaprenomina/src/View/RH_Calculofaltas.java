@@ -28,23 +28,23 @@ int x,y;
     
     public void calcular(String inicialD){
         
-         if(jDateChooser2.getDate()==null && jDateChooser1.getDate()==null){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+         if(txtInicio==null && txtFin==null){//devuelve verdadero si es ese mismo el botón que se ha pulsado
   JOptionPane.showMessageDialog(null,"Ambos campos estas vacios");
-  }else if(jDateChooser1.getDate()==null){
+  }else if(txtFin==null){
        JOptionPane.showMessageDialog(null,"El campo Fecha fin esta vacio");
-    }else if(jDateChooser2.getDate()==null){
+    }else if(txtInicio==null){
                 JOptionPane.showMessageDialog(null,"El campo Fecha inicio esta vacio");
         }else{          
     
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
           //fecha inicio
-            String formato = jDateChooser2.getDateFormatString();
-            Date dates = jDateChooser2.getDate();
-            String fechainicio = String.valueOf(sdf.format(dates));
+//            String formato = jDateChooser2.getDateFormatString();
+//            Date dates = jDateChooser2.getDate();
+            String fechainicio = txtInicio.getText();
             //fecha fin
-            String formatofin = jDateChooser1.getDateFormatString();
-            Date datefin = jDateChooser1.getDate();
-            String fechafin = String.valueOf(sdf.format(datefin));
+//            String formatofin = jDateChooser1.getDateFormatString();
+//            Date datefin = jDateChooser1.getDate();
+            String fechafin = txtFin.getText();
             String india = inicialD;
             fechainicio = fechainicio.replace("-", "");
             fechafin = fechafin.replace("-", "");
@@ -90,8 +90,6 @@ int x,y;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         pnDia = new javax.swing.JPanel();
         btnLunes = new javax.swing.JButton();
         btnDomingo = new javax.swing.JButton();
@@ -114,12 +112,14 @@ int x,y;
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        txtFin = new javax.swing.JTextField();
+        txtInicio = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 249, -1));
-        getContentPane().add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 249, -1));
 
         pnDia.setBackground(new java.awt.Color(233, 236, 241));
 
@@ -305,7 +305,7 @@ int x,y;
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel1.setText("Fecha inicio");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, -1, 20));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel2.setText("Fecha fin");
@@ -357,6 +357,33 @@ int x,y;
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 52));
+
+        txtFin.setBackground(new java.awt.Color(233, 236, 241));
+        txtFin.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
+        txtFin.setBorder(null);
+        txtFin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtFinMouseClicked(evt);
+            }
+        });
+        getContentPane().add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, 130, 20));
+
+        txtInicio.setBackground(new java.awt.Color(233, 236, 241));
+        txtInicio.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
+        txtInicio.setBorder(null);
+        txtInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtInicioMouseClicked(evt);
+            }
+        });
+        txtInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 130, 20));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 130, -1));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 130, 10));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -425,6 +452,29 @@ int x,y;
         y = evt.getY();
     }//GEN-LAST:event_jLabel3MousePressed
 
+    private void txtInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInicioActionPerformed
+     
+       
+    }//GEN-LAST:event_txtInicioActionPerformed
+
+    private void txtInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtInicioMouseClicked
+        try {
+            RH_Calendario2 cale= new RH_Calendario2(1);
+            cale.show(true);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_txtInicioMouseClicked
+
+    private void txtFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFinMouseClicked
+        try {
+            RH_Calendario2 cale= new RH_Calendario2(2);
+            cale.show(true);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_txtFinMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -471,12 +521,12 @@ int x,y;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbldomingo;
     private javax.swing.JLabel lbljueves;
     private javax.swing.JLabel lbllunes;
@@ -485,5 +535,7 @@ int x,y;
     private javax.swing.JLabel lblsabado;
     private javax.swing.JLabel lblviernes;
     private javax.swing.JPanel pnDia;
+    public static javax.swing.JTextField txtFin;
+    public static javax.swing.JTextField txtInicio;
     // End of variables declaration//GEN-END:variables
 }

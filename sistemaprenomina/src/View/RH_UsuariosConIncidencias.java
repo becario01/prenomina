@@ -11,15 +11,8 @@ import Controller.EJefes;
 import Controller.EstiloPercepReport;
 import Controller.PercepcionesReport;
 import Controller.PrimaDominical;
-import Controller.autorizacionRH;
 import Controller.estilosreporte;
-import Controller.exportReporte;
-import static View.RH_Inicio.lblcargo;
-import static View.RH_Inicio.lblnombrerh;
-import static View.RH_ListadoPersonal.rs;
 import java.awt.HeadlessException;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
@@ -33,16 +26,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -69,6 +58,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
     /**
      * Creates new form RH_UsuariosConIncidencias
+     * @throws java.sql.SQLException
      */
     public RH_UsuariosConIncidencias() throws SQLException {
         initComponents();
@@ -96,11 +86,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         tabla1.addColumn("NOMBRE");
         tabla1.addColumn("DEPARTAMENTO");
         tabla1.addColumn("PUESTO");
-
         this.tbincidencias.setModel(tabla1);
-
         TableColumnModel columnModel = tbincidencias.getColumnModel();
-
         columnModel.getColumn(0).setPreferredWidth(10);
         columnModel.getColumn(1).setPreferredWidth(200);
         columnModel.getColumn(2).setPreferredWidth(150);
@@ -109,10 +96,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }
 
     public void combosemana() {
-
         String sql = "select semana from semanas where estatus=1";
-
-
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -123,7 +107,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 comboSemana.addItem(nombre);
 
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
@@ -137,8 +121,6 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     public void combodepartamento() {
 
         String sql = "select DISTINCT depto from empleados";
-        String datos[] = new String[10];
-
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
@@ -149,7 +131,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 comboDepto.addItem(nombre);
 
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
@@ -207,7 +189,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 datos[3] = rs.getString("puesto");
                 tabla1.addRow(datos);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
@@ -231,62 +213,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         }
     }
 
-//      public void cargarfaltadepto(String depto) {
-//            String sql = "select emp.empleadoId, emp.nombre, emp.depto, emp.puesto \n"
-//                    + "from registros  reg \n"
-//                    + "INNER JOIN empleados emp on reg.empleadoId= emp.empleadoId \n"
-//                    + "WHERE ( reg.Entrada='00:00:00.0000000' or reg.Salida='00:00:00.0000000'  or reg.fecha='1111-11-11') and emp.depto='" + depto + "'";
-//            String datos[] = new String[10];
-//            try {
-//                  conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-//                  stmt = conn.prepareStatement(sql);
-//                  rs = stmt.executeQuery();
-//                  while (rs.next()) {
-//                        datos[0] = rs.getString("empleadoId");
-//                        datos[1] = rs.getString("nombre");
-//                        datos[2] = rs.getString("depto");
-//                        datos[3] = rs.getString("puesto");
-//                        tabla1.addRow(datos);
-//                  }
-//            } catch (Exception e) {
-//                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-//            } finally {
-//                  Conexion1.close(rs);
-//                  Conexion1.close(stmt);
-//                  if (this.userConn == null) {
-//                        Conexion1.close(conn);
-//                  }
-//            }
-//
-//      }
-//      public void cargarfaltasemana() {
-//            String sql = "select emp.empleadoId, emp.nombre, emp.depto, emp.puesto \n"
-//                    + "from registros  reg \n"
-//                    + "INNER JOIN empleados emp on reg.empleadoId= emp.empleadoId \n"
-//                    + "WHERE reg.Entrada='00:00:00.0000000' or reg.Salida='00:00:00.0000000'  or reg.fecha='1111-11-11' ";
-//            String datos[] = new String[10];
-//            try {
-//                  conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-//                  stmt = conn.prepareStatement(sql);
-//                  rs = stmt.executeQuery();
-//                  while (rs.next()) {
-//                        datos[0] = rs.getString("empleadoId");
-//                        datos[1] = rs.getString("nombre");
-//                        datos[2] = rs.getString("depto");
-//                        datos[3] = rs.getString("puesto");
-//                        tabla1.addRow(datos);
-//                  }
-//            } catch (Exception e) {
-//                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-//            } finally {
-//                  Conexion1.close(rs);
-//                  Conexion1.close(stmt);
-//                  if (this.userConn == null) {
-//                        Conexion1.close(conn);
-//                  }
-//            }
-//
-//      }
+
     public void reportetxt(int semana) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.txt", "txt", "TXT"));//filtro para ver solo archivos .edu
@@ -351,12 +278,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public void enviarfechas(String fechainicio,String fechafin){
-        
-        
-        
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -376,9 +298,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnMinimizar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
+        btnAtras = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JLabel();
@@ -386,12 +308,12 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         panelincidencias = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        btnBuscar6 = new javax.swing.JButton();
-        btnBuscar7 = new javax.swing.JButton();
-        btnBuscar4 = new javax.swing.JButton();
-        btnBuscar5 = new javax.swing.JButton();
+        btnSobresueldo = new javax.swing.JButton();
+        btnPrimaDominical = new javax.swing.JButton();
+        btnPercepcionesYDeducciones = new javax.swing.JButton();
+        btnReporteGeneral = new javax.swing.JButton();
         btntxtreporte = new javax.swing.JButton();
-        btnBuscar3 = new javax.swing.JButton();
+        btnCalcularFaltas = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -450,35 +372,35 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
+        btnMinimizar.setBorderPainted(false);
+        btnMinimizar.setContentAreaFilled(false);
+        btnMinimizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnMinimizarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
+        jPanel2.add(btnMinimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
+        btnCerrar.setBorderPainted(false);
+        btnCerrar.setContentAreaFilled(false);
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCerrarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 0, 32, 30));
+        jPanel2.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 0, 32, 30));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
+        btnAtras.setBorderPainted(false);
+        btnAtras.setContentAreaFilled(false);
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnAtrasActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 32, 30));
+        jPanel2.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
@@ -514,44 +436,44 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(51, 102, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnBuscar6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/sobrL.png"))); // NOI18N
-        btnBuscar6.setBorderPainted(false);
-        btnBuscar6.setContentAreaFilled(false);
-        btnBuscar6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/sobO.png"))); // NOI18N
-        jPanel1.add(btnBuscar6, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 73, -1));
+        btnSobresueldo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/sobrL.png"))); // NOI18N
+        btnSobresueldo.setBorderPainted(false);
+        btnSobresueldo.setContentAreaFilled(false);
+        btnSobresueldo.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/sobO.png"))); // NOI18N
+        jPanel1.add(btnSobresueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 73, -1));
 
-        btnBuscar7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/pridoL.png"))); // NOI18N
-        btnBuscar7.setBorderPainted(false);
-        btnBuscar7.setContentAreaFilled(false);
-        btnBuscar7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/pridoO.png"))); // NOI18N
-        btnBuscar7.addActionListener(new java.awt.event.ActionListener() {
+        btnPrimaDominical.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/pridoL.png"))); // NOI18N
+        btnPrimaDominical.setBorderPainted(false);
+        btnPrimaDominical.setContentAreaFilled(false);
+        btnPrimaDominical.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/pridoO.png"))); // NOI18N
+        btnPrimaDominical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar7ActionPerformed(evt);
+                btnPrimaDominicalActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar7, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 109, 73, -1));
+        jPanel1.add(btnPrimaDominical, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 109, 73, -1));
 
-        btnBuscar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/xperxslL.png"))); // NOI18N
-        btnBuscar4.setBorderPainted(false);
-        btnBuscar4.setContentAreaFilled(false);
-        btnBuscar4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/xperxslO.png"))); // NOI18N
-        btnBuscar4.addActionListener(new java.awt.event.ActionListener() {
+        btnPercepcionesYDeducciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/xperxslL.png"))); // NOI18N
+        btnPercepcionesYDeducciones.setBorderPainted(false);
+        btnPercepcionesYDeducciones.setContentAreaFilled(false);
+        btnPercepcionesYDeducciones.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/xperxslO.png"))); // NOI18N
+        btnPercepcionesYDeducciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar4ActionPerformed(evt);
+                btnPercepcionesYDeduccionesActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 73, -1));
+        jPanel1.add(btnPercepcionesYDeducciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 73, -1));
 
-        btnBuscar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/REPORTExlsL.png"))); // NOI18N
-        btnBuscar5.setBorderPainted(false);
-        btnBuscar5.setContentAreaFilled(false);
-        btnBuscar5.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportexlsO.png"))); // NOI18N
-        btnBuscar5.addActionListener(new java.awt.event.ActionListener() {
+        btnReporteGeneral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/REPORTExlsL.png"))); // NOI18N
+        btnReporteGeneral.setBorderPainted(false);
+        btnReporteGeneral.setContentAreaFilled(false);
+        btnReporteGeneral.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportexlsO.png"))); // NOI18N
+        btnReporteGeneral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar5ActionPerformed(evt);
+                btnReporteGeneralActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 0, 73, -1));
+        jPanel1.add(btnReporteGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(309, 0, 73, -1));
 
         btntxtreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/reportetxtL.png"))); // NOI18N
         btntxtreporte.setContentAreaFilled(false);
@@ -563,16 +485,16 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         });
         jPanel1.add(btntxtreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 73, -1));
 
-        btnBuscar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calfaltasL.png"))); // NOI18N
-        btnBuscar3.setBorderPainted(false);
-        btnBuscar3.setContentAreaFilled(false);
-        btnBuscar3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calfaltasOO.png"))); // NOI18N
-        btnBuscar3.addActionListener(new java.awt.event.ActionListener() {
+        btnCalcularFaltas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calfaltasL.png"))); // NOI18N
+        btnCalcularFaltas.setBorderPainted(false);
+        btnCalcularFaltas.setContentAreaFilled(false);
+        btnCalcularFaltas.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calfaltasOO.png"))); // NOI18N
+        btnCalcularFaltas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar3ActionPerformed(evt);
+                btnCalcularFaltasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 73, -1));
+        jPanel1.add(btnCalcularFaltas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 73, -1));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -655,6 +577,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         getContentPane().add(panelincidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 142, 1060, -1));
 
+        comboSemana.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         comboSemana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSemanaActionPerformed(evt);
@@ -667,6 +590,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
       private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
           txtBuscar.addKeyListener(new KeyAdapter() {
+              @Override
               public void keyReleased(final KeyEvent e) {
                   String cadena = (txtBuscar.getText()).toUpperCase();
                   txtBuscar.setText(cadena);
@@ -681,36 +605,29 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
       }//GEN-LAST:event_txtBuscarKeyTyped
 
       private void comboDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDeptoActionPerformed
-          try {
-             String nomsem=comboSemana.getSelectedItem().toString();
-              int index = comboSemana.getSelectedIndex();
-              if (index != 0) {
-                  int sem = comboSemana.getSelectedIndex();
-                  if (sem != 0) {
-                      limpiar(tabla1);
-                      int dep = comboDepto.getSelectedIndex();
-                      if (dep == 0) {
-                          cargardatosFiltroSemana(nomsem);
+try {
+            limpiar(tabla1);
+            String nomsema = comboSemana.getSelectedItem().toString();
+            int numsema = comboSemana.getSelectedIndex();
+            String nomdep = comboDepto.getSelectedItem().toString();
+            int numdep = comboDepto.getSelectedIndex();
+            if (numsema != 0) {
+                if (numdep == 0) {
 
-                      } else {
-                          String depp = comboDepto.getSelectedItem().toString();
-                          cargardatosFiltroDepto(nomsem, depp);
+                    cargardatosFiltroSemana(nomsema);
+                } else {
+                    cargardatosFiltroDepto(nomsema, nomdep);
+                }
+            } else {
+                comboDepto.setSelectedIndex(0);
+            }
 
-                      }
-                  } else {
-                      comboDepto.setSelectedIndex(0);
-                      JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
-                  }
-              } else {
-                  comboDepto.setSelectedIndex(0);
-//                  JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
-              }
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-          }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error en " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
       }//GEN-LAST:event_comboDeptoActionPerformed
 
-      private void btnBuscar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar5ActionPerformed
+      private void btnReporteGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteGeneralActionPerformed
 
           String nomsem = comboSemana.getSelectedItem().toString();
           String nomdep = comboDepto.getSelectedItem().toString();
@@ -725,37 +642,31 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                        JFileChooser guardar = new JFileChooser();
                   guardar.setApproveButtonText("Guardar");
                   if(guardar.showSaveDialog(null)==JFileChooser.APPROVE_OPTION){
-                      
                   out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
                   workbook.write(out);
                   out.flush();
                   out.close();
                   JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(getClass().getResource("/View/img/ok3.png")));
-                  
                   }
-                  }
-                 
-                  
+                  }  
               }
-
           } catch (IOException e) {
               JOptionPane.showMessageDialog(null, "Error:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
           } catch (SQLException ex) {
               JOptionPane.showMessageDialog(null, "Error:   " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
 
-      }//GEN-LAST:event_btnBuscar5ActionPerformed
+      }//GEN-LAST:event_btnReporteGeneralActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+    private void btnMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizarActionPerformed
         this.setExtendedState(ICONIFIED);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnMinimizarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
       
         try {
             RH_Inicio sele = new RH_Inicio();
@@ -767,7 +678,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
         x = evt.getX();
@@ -783,9 +694,8 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         reportetxt(sem);
     }//GEN-LAST:event_btntxtreporteActionPerformed
 
-    private void btnBuscar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar4ActionPerformed
-       try {        
-        
+    private void btnPercepcionesYDeduccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercepcionesYDeduccionesActionPerformed
+       try {
            String   nomsem= comboSemana.getSelectedItem().toString();
               String nomdep= comboDepto.getSelectedItem().toString();
               String emp = lblnombrerh.getText();
@@ -808,14 +718,14 @@ if(PercepcionesReport.datos){
         } catch (IOException e) {
             System.err.println("Error at file writing"+e);
         }
-    }//GEN-LAST:event_btnBuscar4ActionPerformed
+    }//GEN-LAST:event_btnPercepcionesYDeduccionesActionPerformed
 
-    private void btnBuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar3ActionPerformed
+    private void btnCalcularFaltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularFaltasActionPerformed
 RH_Calculofaltas clf = new RH_Calculofaltas();
 clf.setVisible(true);        
-    }//GEN-LAST:event_btnBuscar3ActionPerformed
+    }//GEN-LAST:event_btnCalcularFaltasActionPerformed
 
-    private void btnBuscar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar7ActionPerformed
+    private void btnPrimaDominicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimaDominicalActionPerformed
      
       String  nomsem=comboSemana.getSelectedItem().toString();
        String semana = String.valueOf(semana(nomsem));
@@ -823,14 +733,14 @@ clf.setVisible(true);
             PrimaDominical pri= new PrimaDominical();
             pri.insertar(semana);
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"Error en:  "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }finally{
              JOptionPane.showMessageDialog(null, "Prima Dominical actualizada");
         }
         
         
-    }//GEN-LAST:event_btnBuscar7ActionPerformed
+    }//GEN-LAST:event_btnPrimaDominicalActionPerformed
 
     private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
         System.out.println("percepciones ");
@@ -896,7 +806,7 @@ clf.setVisible(true);
                    panelincidencias.setVisible(false);
               }
 
-          } catch (Exception e) {
+          } catch (SQLException e) {
               JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
           }
 
@@ -912,7 +822,7 @@ int codigo=0;
             while (rs.next()) {
               codigo=Integer.valueOf(rs.getString("idSemana"));
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
@@ -939,20 +849,18 @@ int codigo=0;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new RH_UsuariosConIncidencias().setVisible(true);
@@ -964,19 +872,19 @@ int codigo=0;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar3;
-    private javax.swing.JButton btnBuscar4;
-    private javax.swing.JButton btnBuscar5;
-    private javax.swing.JButton btnBuscar6;
-    private javax.swing.JButton btnBuscar7;
+    private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnCalcularFaltas;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnMinimizar;
+    private javax.swing.JButton btnPercepcionesYDeducciones;
+    private javax.swing.JButton btnPrimaDominical;
+    private javax.swing.JButton btnReporteGeneral;
+    private javax.swing.JButton btnSobresueldo;
     private javax.swing.JButton btntxtreporte;
     private javax.swing.JComboBox comboDepto;
     private javax.swing.JComboBox<String> comboSemana;
     private javax.swing.JMenuItem itemDetalles;
     private javax.swing.JMenuItem itemPercepciones;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

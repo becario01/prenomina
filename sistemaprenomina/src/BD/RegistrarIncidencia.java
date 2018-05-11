@@ -436,7 +436,7 @@ public class RegistrarIncidencia {
                         
                          if (entrada.equals("00:00:00") ||  salida.equals("00:00:00")) {
                      String comentario = "Falta  AT";                             
-                     int nomincidencia =100;
+                     int nomincidencia =1;
                      this.insert(empleadoId,fechas,fecha," ", comentario, idSemana,nomincidencia,"5");
                 
                     }else{

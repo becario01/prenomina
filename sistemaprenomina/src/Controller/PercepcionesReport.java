@@ -6,13 +6,13 @@
 package Controller;
 
 import Conexion.Conexion1;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,7 +75,6 @@ String sql="";
                 JOptionPane.showMessageDialog(null, "Esta semana no tiene registros","",JOptionPane.WARNING_MESSAGE);
             }else{
                 datos=true;
-                int fila = 4;
                 while (rs.next()) {
                     tableContent.add(row = new ArrayList<String>());
                     row.add(rs.getString("empleadoId"));
@@ -97,7 +96,7 @@ String sql="";
                 
             }
            
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
@@ -119,19 +118,19 @@ String sql="";
                 + "where per.idSemana='" + semana + "'";
 
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (PercepcionesReport.userConn != null) ? PercepcionesReport.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             int fila = 4;
             while (rs.next()) {
 
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
-            if (this.userConn == null) {
+            if (PercepcionesReport.userConn == null) {
                 Conexion1.close(conn);
             }
 
