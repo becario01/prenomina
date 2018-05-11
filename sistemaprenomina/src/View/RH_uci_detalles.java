@@ -41,6 +41,8 @@ public class RH_uci_detalles extends javax.swing.JFrame {
     public static ResultSet rs1;
     private Connection userConn1;
     static String nombresem;
+    static String nombrecargo;
+    static String nombreusuario;
     static int idempleado;
     RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
 
@@ -49,18 +51,24 @@ public class RH_uci_detalles extends javax.swing.JFrame {
      *
      * @param nomsem
      * @param idemp
+     * @param cargo
+     * @param usuario
      * @throws java.sql.SQLException
      */
-    public RH_uci_detalles(String nomsem, int idemp) throws SQLException {
+    public RH_uci_detalles(String nomsem, int idemp, String cargo, String usuario ) throws SQLException {
         initComponents();
         nombresem = nomsem;
         idempleado = idemp;
+        nombrecargo=cargo;
+        nombreusuario=usuario;
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
         cargartitulos();
         limpiar(tabla1);
         cargardatosFiltroSemana(nomsem, idemp);
+        lblcargo.setText(cargo);
+        lblnombrerh.setText(usuario);
         tbdetalles.setDefaultRenderer(Object.class, new EJefes());
     }
     DefaultTableModel tabla1 = new DefaultTableModel() {
@@ -590,7 +598,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new RH_uci_detalles(nombresem, idempleado).setVisible(true);
+                    new RH_uci_detalles(nombresem, idempleado,nombrecargo,nombreusuario).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(RH_uci_detalles.class.getName()).log(Level.SEVERE, null, ex);
                 }

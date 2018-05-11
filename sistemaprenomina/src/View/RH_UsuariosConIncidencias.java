@@ -767,7 +767,8 @@ clf.setVisible(true);
 
     private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
       try {
-            
+            String nomcargo=lblcargo.getText();
+            String nomusuario=lblnombrerh.getText();
             int fila = tbincidencias.getSelectedRow();
             int numfila = tbincidencias.getSelectedRowCount();
             String nomsema = (String) comboSemana.getSelectedItem().toString();
@@ -775,10 +776,9 @@ clf.setVisible(true);
                 String idEmp=tbincidencias.getValueAt(fila, 0).toString();
                 String nomEmp=tbincidencias.getValueAt(fila, 1).toString();
                 int idempleado= Integer.parseInt(idEmp);
-                RH_uci_detalles deta= new RH_uci_detalles(nomsema,idempleado);
+                RH_uci_detalles deta= new RH_uci_detalles(nomsema,idempleado,nomcargo,nomusuario);
                 deta.show(true);
-                RH_uci_detalles.lblcargo.setText(lblcargo.getText());
-                RH_uci_detalles.lblnombrerh.setText(lblnombrerh.getText());
+                
                 RH_uci_detalles.txtsemana.setText(nomsema);
                 RH_uci_detalles.txtid.setText(idEmp);
                 RH_uci_detalles.txtnombre.setText(nomEmp);
