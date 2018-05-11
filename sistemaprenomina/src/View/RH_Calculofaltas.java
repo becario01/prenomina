@@ -28,11 +28,11 @@ int x,y;
     
     public void calcular(String inicialD){
         
-         if(txtInicio==null && txtFin==null){//devuelve verdadero si es ese mismo el botón que se ha pulsado
+         if(txtInicio.getText().equalsIgnoreCase("") && txtFin.getText().equalsIgnoreCase("")){//devuelve verdadero si es ese mismo el botón que se ha pulsado
   JOptionPane.showMessageDialog(null,"Ambos campos estas vacios");
-  }else if(txtFin==null){
+  }else if(txtFin.getText().equalsIgnoreCase("")){
        JOptionPane.showMessageDialog(null,"El campo Fecha fin esta vacio");
-    }else if(txtInicio==null){
+    }else if(txtInicio.getText().equalsIgnoreCase("")){
                 JOptionPane.showMessageDialog(null,"El campo Fecha inicio esta vacio");
         }else{          
     
@@ -112,8 +112,8 @@ int x,y;
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtFin = new javax.swing.JTextField();
         txtInicio = new javax.swing.JTextField();
+        txtFin = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
@@ -305,7 +305,7 @@ int x,y;
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel1.setText("Fecha inicio");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, -1, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, 20));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel2.setText("Fecha fin");
@@ -358,32 +358,29 @@ int x,y;
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 52));
 
-        txtFin.setBackground(new java.awt.Color(233, 236, 241));
-        txtFin.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
-        txtFin.setBorder(null);
-        txtFin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtFinMouseClicked(evt);
-            }
-        });
-        getContentPane().add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, 130, 20));
-
         txtInicio.setBackground(new java.awt.Color(233, 236, 241));
         txtInicio.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
+        txtInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtInicio.setBorder(null);
         txtInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtInicioMouseClicked(evt);
             }
         });
-        txtInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInicioActionPerformed(evt);
+        getContentPane().add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 160, 30));
+
+        txtFin.setBackground(new java.awt.Color(233, 236, 241));
+        txtFin.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
+        txtFin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtFin.setBorder(null);
+        txtFin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtFinMouseClicked(evt);
             }
         });
-        getContentPane().add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 130, 20));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 130, -1));
-        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 130, 10));
+        getContentPane().add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, 160, 30));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 160, 20));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 160, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -452,11 +449,6 @@ int x,y;
         y = evt.getY();
     }//GEN-LAST:event_jLabel3MousePressed
 
-    private void txtInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInicioActionPerformed
-     
-       
-    }//GEN-LAST:event_txtInicioActionPerformed
-
     private void txtInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtInicioMouseClicked
         try {
             RH_Calendario2 cale= new RH_Calendario2(1);
@@ -467,7 +459,7 @@ int x,y;
     }//GEN-LAST:event_txtInicioMouseClicked
 
     private void txtFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFinMouseClicked
-        try {
+try {
             RH_Calendario2 cale= new RH_Calendario2(2);
             cale.show(true);
         } catch (ParseException e) {
