@@ -525,6 +525,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
 
     private void btnIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciasActionPerformed
         RH_Incidencias inc = new RH_Incidencias();
+        nombre= RH_Inicio.lblnombrerh.getText();
+        depto= RH_Inicio.lblcargo.getText();
         inc.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnIncidenciasActionPerformed

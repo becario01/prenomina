@@ -309,7 +309,9 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-  RH_Inicio rh_i=new RH_Inicio();
+cargo= RH_Inicio.depto;
+nombre= RH_Inicio.nombre;
+        RH_Inicio rh_i=new RH_Inicio();
         rh_i.setVisible(true);
         RH_Inicio.lblcargo.setText(cargo);
         RH_Inicio.lblnombrerh.setText(nombre);

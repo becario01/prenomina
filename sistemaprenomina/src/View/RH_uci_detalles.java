@@ -476,7 +476,7 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
                       au.autorizar(cod, fec);
                       limpiar(tabla1);
                       cargardatosFiltroSemana(nomsem, id);
-                  } catch (Exception e) {
+                  } catch (SQLException e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               } else {
@@ -490,7 +490,7 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
                       }
                       limpiar(tabla1);
                       cargardatosFiltroSemana(nomsem, id);
-                  } catch (Exception e) {
+                  } catch (SQLException e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               }
@@ -501,10 +501,9 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
       }//GEN-LAST:event_itemAutorizarActionPerformed
 
       private void itemNegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNegarActionPerformed
-
-          int fila = tbdetalles.getSelectedRow();
+         int fila = tbdetalles.getSelectedRow();
           String cod = txtid.getText();
-          String sem = RH_UsuariosConIncidencias.comboSemana.getSelectedItem().toString();
+          
           int id = Integer.parseInt(cod);
           autorizacionRH au = new autorizacionRH();
           if (fila != -1) {
@@ -514,8 +513,8 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
                   try {
                       au.negar(cod, fec);
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(sem, id);
-                  } catch (Exception e) {
+                      cargardatosFiltroSemana(nomsem, id);
+                  } catch (SQLException e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               } else {
@@ -528,8 +527,8 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
                           au.negar(cod, fec);
                       }
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(sem, id);
-                  } catch (Exception e) {
+                      cargardatosFiltroSemana(nomsem, id);
+                  } catch (SQLException e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               }
@@ -537,13 +536,13 @@ RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
           } else if (fila == -1) {
               JOptionPane.showMessageDialog(null, "Selecione una fila", "", JOptionPane.WARNING_MESSAGE);
           }
-
       }//GEN-LAST:event_itemNegarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         try {
-
+RH_UsuariosConIncidencias.lblcargo.setText(RH_uci_detalles.lblcargo.getText());
+RH_UsuariosConIncidencias.lblnombrerh.setText(RH_uci_detalles.lblnombrerh.getText());
             this.show(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);

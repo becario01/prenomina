@@ -764,13 +764,12 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String dep = lblcargo.getText();
-        String nom = lblnombrerh.getText();
+      
         try {
             RH_Inicio sele = new RH_Inicio();
             sele.setVisible(true);
-            RH_Inicio.lblcargo.setText(dep);
-            RH_Inicio.lblnombrerh.setText(nom);
+            RH_Inicio.lblcargo.setText(RH_UsuariosConIncidencias.lblcargo.getText());
+            RH_Inicio.lblnombrerh.setText( RH_UsuariosConIncidencias.lblnombrerh.getText());
             this.setVisible(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
@@ -868,6 +867,7 @@ clf.setVisible(true);
         String nomm = lblnombrerh.getText();
         int fila = tbincidencias.getSelectedRow();
         int numfila = tbincidencias.getSelectedRowCount();
+        String seman = (String) comboSemana.getSelectedItem().toString();
         System.out.println(fila);
         if (numfila==1) {
             try {
@@ -881,7 +881,7 @@ clf.setVisible(true);
                 RH_uci_detalles.lblnombrerh.setText(nomm);
                 RH_uci_detalles.txtnombre.setText(nom);
                 RH_uci_detalles.txtid.setText(codid);
-                RH_uci_detalles.txtsemana.setText(comboSemana.getSelectedItem().toString());
+                RH_uci_detalles.txtsemana.setText(seman);
                 
                 System.out.println(" !!!!! "+comboSemana.getSelectedItem());
             } catch (SQLException e) {
