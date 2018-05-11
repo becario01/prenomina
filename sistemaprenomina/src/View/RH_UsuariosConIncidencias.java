@@ -24,6 +24,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -177,7 +178,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 datos[3] = rs.getString("puesto");
                 tabla1.addRow(datos);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
@@ -296,17 +297,13 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
                 PrintWriter printwriter = new PrintWriter(JFC);
                 BufferedWriter bw = new BufferedWriter(printwriter);
-                Connection conn = null;
-                PreparedStatement stmt = null;
                 PreparedStatement nstmt = null;
-                ResultSet rs = null;
                 ResultSet interno = null;
                 try {
                     String sql = "SELECT DISTINCT  empleadoId  from incidencias";
                     conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                     stmt = conn.prepareStatement(sql);
                     rs = stmt.executeQuery();
-
                     while (rs.next()) {
                         String idempleado = rs.getString("empleadoId");
                         bw.write("E\t" + idempleado);
@@ -334,28 +331,23 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                             bw.write(incidencia);
                             bw.write("" + fecha + "\t" + añoact);
                             bw.newLine();
-
                         }
-
                     }
                     bw.close();//cierra el archivo
                     if (!(PATH.endsWith(".txt"))) {
                         File temp = new File(PATH + ".txt");
                         JFC.renameTo(temp);//renombramos el archivo
                     }
-
                     JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
-
-                } catch (Exception e) {
+                } catch (HeadlessException | IOException | SQLException e) {
                     System.out.println("" + e);
                 } finally {
                     Conexion.close(rs);
                     Conexion.close(stmt);
                 }
-
                 //comprobamos si a la hora de guardar obtuvo la extension y si no se la asignamos
             }
-        } catch (Exception e) {//por alguna excepcion salta un mensaje de error
+        } catch (FileNotFoundException e) {//por alguna excepcion salta un mensaje de error
             JOptionPane.showMessageDialog(null, "Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -845,11 +837,12 @@ clf.setVisible(true);
         try {
             int fila = tbincidencias.getSelectedRow();
             int numfila = tbincidencias.getSelectedRowCount();
+            String nomsem=comboSemana.getSelectedItem().toString();
             System.out.println(fila);
             if (numfila==1) {
                 String nom = tbincidencias.getValueAt(fila, 1).toString();
                 String idemp = tbincidencias.getValueAt(fila, 0).toString();
-                RH_SelectPD per = new RH_SelectPD();
+                RH_SelectPD per = new RH_SelectPD(nomsem);
                 per.show(true);
                 RH_SelectPD.lblcod.setText(idemp);
                 RH_SelectPD.lblnombre.setText(nom);
@@ -863,33 +856,29 @@ clf.setVisible(true);
     }//GEN-LAST:event_itemPercepcionesActionPerformed
 
     private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
-        String dep = lblcargo.getText();
-        String nomm = lblnombrerh.getText();
-        int fila = tbincidencias.getSelectedRow();
-        int numfila = tbincidencias.getSelectedRowCount();
-        String seman = (String) comboSemana.getSelectedItem().toString();
-        System.out.println(fila);
-        if (numfila==1) {
-            try {
-
-                String nom = tbincidencias.getValueAt(fila, 1).toString();
-                codid = tbincidencias.getValueAt(fila, 0).toString();
-
-                RH_uci_detalles deta = new RH_uci_detalles();
+      try {
+            
+            int fila = tbincidencias.getSelectedRow();
+            int numfila = tbincidencias.getSelectedRowCount();
+            String nomsema = (String) comboSemana.getSelectedItem().toString();
+            if (numfila == 1) {
+                String idEmp=tbincidencias.getValueAt(fila, 0).toString();
+                String nomEmp=tbincidencias.getValueAt(fila, 1).toString();
+                int idempleado= Integer.parseInt(idEmp);
+                RH_uci_detalles deta= new RH_uci_detalles(nomsema,idempleado);
                 deta.show(true);
-                RH_uci_detalles.lblcargo.setText(dep);
-                RH_uci_detalles.lblnombrerh.setText(nomm);
-                RH_uci_detalles.txtnombre.setText(nom);
-                RH_uci_detalles.txtid.setText(codid);
-                RH_uci_detalles.txtsemana.setText(seman);
-                
-                System.out.println(" !!!!! "+comboSemana.getSelectedItem());
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+                RH_uci_detalles.lblcargo.setText(lblcargo.getText());
+                RH_uci_detalles.lblnombrerh.setText(lblnombrerh.getText());
+                RH_uci_detalles.txtsemana.setText(nomsema);
+                RH_uci_detalles.txtid.setText(idEmp);
+                RH_uci_detalles.txtnombre.setText(nomEmp);
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila ", "", JOptionPane.WARNING_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila ","",JOptionPane.WARNING_MESSAGE);
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error en " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_itemDetallesActionPerformed
 
     private void comboSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSemanaActionPerformed
@@ -914,8 +903,7 @@ clf.setVisible(true);
 
     }//GEN-LAST:event_comboSemanaActionPerformed
 public int semana( String nomsem){
-    String sql = "select * from semanas where semana='"+nomsem+"' ";
-     
+    String sql = "select * from semanas where semana='"+nomsem+"' ";  
 int codigo=0;
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -934,7 +922,6 @@ int codigo=0;
             }
         }
         return codigo;
-    
 }
     /**
      * @param args the command line arguments
@@ -984,7 +971,7 @@ int codigo=0;
     private javax.swing.JButton btnBuscar7;
     private javax.swing.JButton btntxtreporte;
     private javax.swing.JComboBox comboDepto;
-    public static javax.swing.JComboBox<String> comboSemana;
+    private javax.swing.JComboBox<String> comboSemana;
     private javax.swing.JMenuItem itemDetalles;
     private javax.swing.JMenuItem itemPercepciones;
     private javax.swing.JButton jButton2;
@@ -1010,7 +997,7 @@ int codigo=0;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JPanel panelincidencias;
     private javax.swing.JPopupMenu pmAutorizar;
-    public static javax.swing.JTable tbincidencias;
+    private javax.swing.JTable tbincidencias;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 

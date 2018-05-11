@@ -22,8 +22,10 @@ Connection conn;
     PreparedStatement stmt;
     public static ResultSet rs;
     private Connection userConn;
-    public RH_SelectPD() {
+    static String nombresem;
+    public RH_SelectPD(String nomsem) {
         initComponents();
+        nombresem=nomsem;
             this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
@@ -356,8 +358,8 @@ Connection conn;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             String id = lblcod.getText();
-            String sem = RH_UsuariosConIncidencias.comboSemana.getSelectedItem().toString();
-            String idsem= String.valueOf(semana(sem));
+            
+            String idsem= String.valueOf(semana(nombresem));
             PercepcionesDeducciones per= new PercepcionesDeducciones();
             per.insertar(id, idsem, datos(),rootPane);
             
@@ -420,7 +422,7 @@ int codigo=0;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RH_SelectPD().setVisible(true);
+                new RH_SelectPD(nombresem).setVisible(true);
             }
         });
     }
