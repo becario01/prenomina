@@ -181,8 +181,6 @@ public void botonesnew (){
         btnminimizar = new javax.swing.JButton();
         btncerrar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JTextField();
         lblnombrej = new javax.swing.JTextField();
         lblsemana = new javax.swing.JLabel();
@@ -509,7 +507,7 @@ public void botonesnew (){
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         btnminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         btnminimizar.setBorderPainted(false);
@@ -541,27 +539,21 @@ public void botonesnew (){
         });
         jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
 
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
-        jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
-
         lblcargo.setBackground(new java.awt.Color(229, 230, 234));
         lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        lblcargo.setBorder(null);
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
         lblcargo.setDisabledTextColor(new java.awt.Color(51, 102, 255));
         lblcargo.setEnabled(false);
-        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 19, 230, 20));
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 330, 20));
 
         lblnombrej.setBackground(new java.awt.Color(229, 230, 234));
         lblnombrej.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrej.setForeground(new java.awt.Color(51, 102, 255));
-        lblnombrej.setBorder(null);
+        lblnombrej.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
         lblnombrej.setDisabledTextColor(new java.awt.Color(51, 102, 255));
         lblnombrej.setEnabled(false);
-        jPanel1.add(lblnombrej, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, -1));
+        jPanel1.add(lblnombrej, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, -1));
 
@@ -748,8 +740,6 @@ public void botonesnew (){
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField lblcargo;

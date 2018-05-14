@@ -63,7 +63,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         nombreusuario=usuario;
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
+        this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
         cargartitulos();
         limpiar(tabla1);
         cargardatosFiltroSemana(nomsem, idemp);
@@ -288,9 +288,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
 
         itemAutorizar.setText("AUTORIZAR");
@@ -351,31 +349,26 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbdetalles);
 
-        txtnombre.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        txtnombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtnombre.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         txtnombre.setText("Nombre");
 
-        txtid.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        txtid.setForeground(new java.awt.Color(255, 255, 255));
+        txtid.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         txtid.setText("ID");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel1.setText("EMPLEADO: ");
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setText("ID:");
 
-        txtsemana.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        txtsemana.setForeground(new java.awt.Color(255, 255, 255));
+        txtsemana.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         txtsemana.setText("SEMANA");
 
-        jPanel2.setBackground(new java.awt.Color(229, 230, 234));
+        jPanel2.setBackground(new java.awt.Color(138, 229, 239));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, 40));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
@@ -401,29 +394,24 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        lblnombrerh.setForeground(new java.awt.Color(51, 51, 51));
+        lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 330, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
-        lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
-
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 50));
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblcargo.setForeground(new java.awt.Color(51, 51, 51));
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 290, 20));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(362, 362, 362)
-                        .addComponent(txtsemana))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -432,21 +420,22 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(144, 144, 144)
                                 .addComponent(jLabel2)))
-                        .addGap(74, 74, 74)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtid)
-                            .addComponent(txtnombre))))
+                            .addComponent(txtnombre)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtsemana)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtsemana)
-                .addGap(13, 13, 13)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtnombre))
@@ -455,7 +444,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtid))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
         );
 
         pack();
@@ -619,8 +608,6 @@ public class RH_uci_detalles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JTable tbdetalles;

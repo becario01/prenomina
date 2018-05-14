@@ -52,7 +52,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
      * Creates new form RH_ListadoPersonal
      */
     public RH_ListadoPersonal() throws SQLException {
-
+        
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -61,6 +61,10 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         cargarTitulos2();
         tbListadoAct.setDefaultRenderer(Object.class, new EJefes());
         tbListadoIna.setDefaultRenderer(Object.class, new EJefes());
+        lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
+        lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
+        lblcargo.setHorizontalAlignment(lblcargo.CENTER);
+        lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
 
     DefaultTableModel tabla1 = new DefaultTableModel() {
@@ -103,15 +107,15 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-          
+
             while (rs.next()) {
-                datos[0]=  new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
+                datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
                 datos[1] = rs.getString("empleadoId");
                 datos[2] = rs.getString("nombre");
                 datos[3] = rs.getString("depto");
                 datos[4] = rs.getString("puesto");
                 tabla1.addRow(datos);
-               
+
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -125,9 +129,6 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
 
     }
 
-
-
-
     public void cargardatos2() throws SQLException {
         String sql = "select empleadoId, nombre, depto, puesto from empleados where estatus=0 ";
         Object datos[] = new Object[5];
@@ -137,7 +138,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
-               datos[0]=  new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
+                datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
                 datos[1] = rs.getString("empleadoId");
                 datos[2] = rs.getString("nombre");
                 datos[3] = rs.getString("depto");
@@ -208,16 +209,12 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListadoAct = new javax.swing.JTable();
 
@@ -239,11 +236,12 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtBuscar1.setBackground(new java.awt.Color(51, 102, 255));
         txtBuscar1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtBuscar1.setForeground(new java.awt.Color(255, 255, 255));
-        txtBuscar1.setBorder(null);
+        txtBuscar1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtBuscar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscar1ActionPerformed(evt);
@@ -254,6 +252,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
                 txtBuscar1KeyTyped(evt);
             }
         });
+        getContentPane().add(txtBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 465, 187, 35));
 
         tbListadoIna= new javax.swing.JTable(){
             public boolean  isCellEditable(int rowIndex,int conlIndex ){
@@ -292,6 +291,8 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         tbListadoIna.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tbListadoIna);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 561, 912, 180));
+
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -299,7 +300,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         jButton2.setBorderPainted(false);
@@ -331,51 +332,46 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 0, 32, 30));
 
-        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
-        lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 330, 20));
 
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
-
-        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
-        jSeparator4.setAlignmentX(0.7F);
-        jSeparator4.setAlignmentY(0.8F);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 52));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
         jLabel6.setToolTipText("");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 40, 40));
 
-        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Listado personal inactivo");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(358, 424, 227, 30));
 
-        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Listado personal activo");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 83, 227, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
         jLabel5.setToolTipText("");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 40, 40));
 
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
         txtBuscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        txtBuscar.setBorder(null);
+        txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
             }
         });
-
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jSeparator1.setAlignmentX(0.7F);
-        jSeparator1.setAlignmentY(0.8F);
+        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 140, 187, 35));
 
         tbListadoAct= new javax.swing.JTable(){
             public boolean  isCellEditable(int rowIndex,int conlIndex ){
@@ -415,72 +411,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         tbListadoAct.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tbListadoAct);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBuscar)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator4)
-                            .addComponent(txtBuscar1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(366, 366, 366)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(358, 358, 358)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jSeparator1, jSeparator4, txtBuscar, txtBuscar1});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 912, 180));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -602,7 +533,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -648,10 +579,6 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JMenuItem miActivar;

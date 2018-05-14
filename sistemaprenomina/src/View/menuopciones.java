@@ -6,6 +6,7 @@
 package View;
 
 import Controller.CargarXLS;
+import java.awt.Color;
 
 import java.util.Properties;
 import javax.swing.JOptionPane;
@@ -29,7 +30,11 @@ public class menuopciones extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
-
+         panelmenu.setBackground(new Color(0,0,0, 130));
+          lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
+        lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
+        lblcargo.setHorizontalAlignment(lblcargo.CENTER);
+        lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
 
     /**
@@ -51,25 +56,25 @@ public class menuopciones extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        panelmenu = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(912, 536));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/cargarempleados.png"))); // NOI18N
+        btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/groupper.png"))); // NOI18N
         btnEmpleados.setBorder(null);
         btnEmpleados.setContentAreaFilled(false);
-        btnEmpleados.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/cargarempleadosO.png"))); // NOI18N
+        btnEmpleados.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/groupO.png"))); // NOI18N
         btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmpleadosActionPerformed(evt);
@@ -77,10 +82,10 @@ public class menuopciones extends javax.swing.JFrame {
         });
         getContentPane().add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 218, -1));
 
-        btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/rempleadosL.png"))); // NOI18N
+        btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regist.png"))); // NOI18N
         btnRegistros.setBorder(null);
         btnRegistros.setContentAreaFilled(false);
-        btnRegistros.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/rempleadosO.png"))); // NOI18N
+        btnRegistros.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regisO.png"))); // NOI18N
         btnRegistros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrosActionPerformed(evt);
@@ -88,10 +93,11 @@ public class menuopciones extends javax.swing.JFrame {
         });
         getContentPane().add(btnRegistros, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 218, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/continuar.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/play-button.png"))); // NOI18N
         jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/conitnuarO.png"))); // NOI18N
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/playOs.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -106,7 +112,7 @@ public class menuopciones extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         jButton2.setBorderPainted(false);
@@ -138,19 +144,15 @@ public class menuopciones extends javax.swing.JFrame {
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 0, 32, 30));
 
-        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
-        lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
-
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 290, 20));
 
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -192,6 +194,12 @@ public class menuopciones extends javax.swing.JFrame {
         jLabel8.setText("Continuar al Sistema");
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 140, 30));
+
+        panelmenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(panelmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 910, 510));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/background-1634817_960_720.jpg"))); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 920, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -302,10 +310,10 @@ public class menuopciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
+    private javax.swing.JPanel panelmenu;
     // End of variables declaration//GEN-END:variables
 }

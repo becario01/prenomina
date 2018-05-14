@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -53,6 +54,10 @@ public class RH_registrarusrs extends javax.swing.JFrame {
         tblasignados.getColumnModel().getColumn(1).setMaxWidth(380);
         tblnoasignados.getColumnModel().getColumn(0).setMaxWidth(100);
         tblnoasignados.getColumnModel().getColumn(1).setMaxWidth(380);
+        lblnomjefe.setHorizontalAlignment(lblnomjefe.CENTER);
+     
+        lbldepjefe.setHorizontalAlignment(lbldepjefe.CENTER);
+    
         try {
             setFilas();
             setFilasnoasig();
@@ -168,11 +173,9 @@ public class RH_registrarusrs extends javax.swing.JFrame {
         btnminimizar = new javax.swing.JButton();
         btncerrar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
-        lblnombrejefe = new javax.swing.JTextField();
-        lblcargojefe = new javax.swing.JTextField();
+        lblnomjefe = new javax.swing.JTextField();
+        lbldepjefe = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(760, 600));
@@ -183,38 +186,51 @@ public class RH_registrarusrs extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 92, 162, 25));
+
+        txtusuario.setBackground(new java.awt.Color(229, 230, 234));
+        txtusuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 160, 20));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        jLabel1.setText("Tipo Usuario");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 139, 82, 20));
+        jLabel1.setText("Tipo Usuario :");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 125, 82, 20));
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         jLabel3.setText("Contraseña :");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 94, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
 
         jcomtusu.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         jcomtusu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un opcion", "Jefe de area", "Recursos Humanos" }));
-        jPanel1.add(jcomtusu, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 139, 162, -1));
+        jPanel1.add(jcomtusu, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 150, 200, -1));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        jLabel4.setText("Usuario");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 91, 55, 20));
-        jPanel1.add(txtdepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 137, 162, 25));
+        jLabel4.setText("Usuario :");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 55, 20));
+
+        txtdepartamento.setBackground(new java.awt.Color(229, 230, 234));
+        txtdepartamento.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(txtdepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 162, 25));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         jLabel5.setText("Departamento :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 142, -1, -1));
-        jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 162, 25));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 125, -1, 20));
+
+        txtcontraseña.setBackground(new java.awt.Color(229, 230, 234));
+        txtcontraseña.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 160, 20));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         jLabel6.setText("Fecha");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 39, 23));
 
         txtfechauser.setEditable(false);
+        txtfechauser.setBackground(new java.awt.Color(229, 230, 234));
+        txtfechauser.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
+        txtfechauser.setDisabledTextColor(new java.awt.Color(240, 240, 240));
         jPanel1.add(txtfechauser, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 162, -1));
 
         btnguardarusers.setBackground(new java.awt.Color(51, 102, 255));
+        btnguardarusers.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnguardarusers.setForeground(new java.awt.Color(255, 255, 255));
         btnguardarusers.setText("Guardar");
         btnguardarusers.addActionListener(new java.awt.event.ActionListener() {
@@ -222,17 +238,17 @@ public class RH_registrarusrs extends javax.swing.JFrame {
                 btnguardarusersActionPerformed(evt);
             }
         });
-        jPanel1.add(btnguardarusers, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 179, 132, 42));
+        jPanel1.add(btnguardarusers, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 132, 40));
 
         cmbpersonas.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         cmbpersonas.setModel(modelocmbpersona);
-        jPanel1.add(cmbpersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 307, -1));
+        jPanel1.add(cmbpersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 307, -1));
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        jLabel8.setText("Nombre Persona ");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jLabel8.setText("Nombre Persona : ");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 600, 230));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 600, 250));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/adduser.png"))); // NOI18N
         jLabel2.setAlignmentX(0.2F);
@@ -242,11 +258,11 @@ public class RH_registrarusrs extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Nuevos Usuarios ");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 609, 15));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 609, 15));
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
@@ -307,23 +323,24 @@ public class RH_registrarusrs extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 430, 170));
 
         jButton1.setBackground(new java.awt.Color(113, 195, 134));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Asignar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 580, 160, 60));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 570, 160, 60));
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 234));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, 40));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, 40));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         btnminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         btnminimizar.setBorderPainted(false);
@@ -333,7 +350,7 @@ public class RH_registrarusrs extends javax.swing.JFrame {
                 btnminimizarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnminimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 32, 30));
+        jPanel2.add(btnminimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 0, 32, 30));
 
         btncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
         btncerrar.setBorderPainted(false);
@@ -343,7 +360,7 @@ public class RH_registrarusrs extends javax.swing.JFrame {
                 btncerrarActionPerformed(evt);
             }
         });
-        jPanel2.add(btncerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 32, 30));
+        jPanel2.add(btncerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 32, 30));
 
         btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
         btnregresar.setBorderPainted(false);
@@ -353,13 +370,7 @@ public class RH_registrarusrs extends javax.swing.JFrame {
                 btnregresarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 32, 30));
-
-        jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 230, 10));
-
-        jSeparator5.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
+        jPanel2.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 0, 32, 30));
 
         jLabel13.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -373,21 +384,21 @@ public class RH_registrarusrs extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 10));
 
-        lblnombrejefe.setEditable(false);
-        lblnombrejefe.setBackground(new java.awt.Color(229, 230, 234));
-        lblnombrejefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblnombrejefe.setForeground(new java.awt.Color(51, 102, 255));
-        lblnombrejefe.setAutoscrolls(false);
-        lblnombrejefe.setBorder(null);
-        lblnombrejefe.setCaretColor(new java.awt.Color(51, 102, 255));
-        jPanel2.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        lblnomjefe.setEditable(false);
+        lblnomjefe.setBackground(new java.awt.Color(229, 230, 234));
+        lblnomjefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblnomjefe.setForeground(new java.awt.Color(51, 102, 255));
+        lblnomjefe.setAutoscrolls(false);
+        lblnomjefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        lblnomjefe.setCaretColor(new java.awt.Color(51, 102, 255));
+        jPanel2.add(lblnomjefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
 
-        lblcargojefe.setBackground(new java.awt.Color(229, 230, 234));
-        lblcargojefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblcargojefe.setForeground(new java.awt.Color(51, 102, 255));
-        lblcargojefe.setBorder(null);
-        lblcargojefe.setCaretColor(new java.awt.Color(51, 102, 255));
-        jPanel2.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 230, 20));
+        lbldepjefe.setBackground(new java.awt.Color(229, 230, 234));
+        lbldepjefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lbldepjefe.setForeground(new java.awt.Color(51, 102, 255));
+        lbldepjefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        lbldepjefe.setCaretColor(new java.awt.Color(51, 102, 255));
+        jPanel2.add(lbldepjefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 330, 20));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, -1));
 
@@ -435,8 +446,8 @@ public class RH_registrarusrs extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      Asignacion asg = new Asignacion();
-     Asignacion.lblcargojefe.setText(lblcargojefe.getText());
-     Asignacion.lblnombrejefe.setText(lblnombrejefe.getText());
+     Asignacion.lblcargojefe.setText(lbldepjefe.getText());
+     Asignacion.lblnombrejefe.setText(lblnomjefe.getText());
              asg.setVisible(true);
              this.hide();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -452,8 +463,8 @@ public class RH_registrarusrs extends javax.swing.JFrame {
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
        RH_Inicio ini = new RH_Inicio();
        ini.setVisible(true);
-       RH_Inicio.lblcargo.setText(lblcargojefe.getText());
-        RH_Inicio.lblnombrerh.setText(lblnombrejefe.getText());
+       RH_Inicio.lblcargo.setText(lbldepjefe.getText());
+        RH_Inicio.lblnombrerh.setText(lblnomjefe.getText());
        this.hide();
     }//GEN-LAST:event_btnregresarActionPerformed
 
@@ -529,11 +540,9 @@ public class RH_registrarusrs extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JComboBox jcomtusu;
-    public static javax.swing.JTextField lblcargojefe;
-    public static javax.swing.JTextField lblnombrejefe;
+    public static javax.swing.JTextField lbldepjefe;
+    public static javax.swing.JTextField lblnomjefe;
     private javax.swing.JTable tblasignados;
     private javax.swing.JTable tblnoasignados;
     private javax.swing.JPasswordField txtcontraseña;

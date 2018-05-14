@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import View.Incidenciasgrupales;
+import java.awt.Color;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -57,6 +58,15 @@ public class JA_inicio extends javax.swing.JFrame {
         rjf = new Rjefes();
         modelosemanas = new DefaultComboBoxModel<EJefes>();
         cargarModeloSem();
+         try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+                if ("Windows".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+        }
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -635,9 +645,8 @@ public class JA_inicio extends javax.swing.JFrame {
         fechas = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbIncidencias = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         cmbSemana = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
 
         pmiRegistrar.setText("Insertar Incidencia");
         pmiRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -661,10 +670,10 @@ public class JA_inicio extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         btnminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         btnminimizar.setBorderPainted(false);
@@ -713,16 +722,17 @@ public class JA_inicio extends javax.swing.JFrame {
         lblnombrejefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrejefe.setForeground(new java.awt.Color(51, 102, 255));
         lblnombrejefe.setAutoscrolls(false);
-        lblnombrejefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
+        lblnombrejefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
         lblnombrejefe.setCaretColor(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 230, 20));
+        jPanel1.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
 
+        lblcargojefe.setEditable(false);
         lblcargojefe.setBackground(new java.awt.Color(229, 230, 234));
         lblcargojefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargojefe.setForeground(new java.awt.Color(51, 102, 255));
-        lblcargojefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
+        lblcargojefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
         lblcargojefe.setCaretColor(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 230, 20));
+        jPanel1.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 330, 20));
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(910, 610));
@@ -746,7 +756,7 @@ public class JA_inicio extends javax.swing.JFrame {
         });
         jPanel4.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 250, 20));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 430, 80));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 430, 70));
 
         jPanel3.setBackground(new java.awt.Color(238, 240, 245));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -809,15 +819,6 @@ public class JA_inicio extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1370, 330));
 
-        jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Semana:");
-
-        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Seleciona Semana:");
-
         cmbSemana.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cmbSemana.setModel(modelosemanas);
         cmbSemana.setToolTipText("");
@@ -832,34 +833,35 @@ public class JA_inicio extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Seleciona Semana:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1370, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3))
-                .addContainerGap(984, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbSemana, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(13, 13, 13)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbSemana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -978,7 +980,7 @@ public class JA_inicio extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -1025,7 +1027,6 @@ public class JA_inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -260,8 +260,8 @@ public class Asignacion extends javax.swing.JFrame {
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
         RH_registrarusrs ini = new RH_registrarusrs();
         ini.setVisible(true);
-        RH_registrarusrs.lblcargojefe.setText(lblcargojefe.getText());
-        RH_registrarusrs.lblnombrejefe.setText(lblnombrejefe.getText());
+        RH_registrarusrs.lbldepjefe.setText(lblcargojefe.getText());
+        RH_registrarusrs.lblnomjefe.setText(lblnombrejefe.getText());
         this.hide();
     }//GEN-LAST:event_btnregresarActionPerformed
 

@@ -26,10 +26,15 @@ public class Addusuarios {
     public int insert(String nombre, String usuario, String pass, int tipo, int estatus, String depto, String fecha) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
+        PreparedStatement stmt1 = null;
+        ResultSet rs = null;
         int rows = 0;
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
+            stmt1 = conn.prepareStatement("SELECT * FROM usuario where nombre='"+nombre+"'");
+              rs = stmt1.executeQuery();
+            if (!rs.next()) {
+                stmt = conn.prepareStatement(SQL_INSERT);
             int index = 1;
             stmt.setString(index++, nombre);
             stmt.setString(index++, usuario);
@@ -43,6 +48,10 @@ public class Addusuarios {
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
             JOptionPane.showMessageDialog(null, "Usuario  registrado");
+            }else{
+                JOptionPane.showMessageDialog(null,"La persona ya cuenta con usuario");
+            }
+            
         } finally {
             Conexion.close(stmt);
             if (this.userConn == null) {

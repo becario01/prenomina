@@ -244,9 +244,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbsemanas = new javax.swing.JTable();
@@ -255,12 +253,8 @@ public class RH_SEMANA extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
         txtsemana = new javax.swing.JTextField();
-        jSeparator7 = new javax.swing.JSeparator();
-        jSeparator8 = new javax.swing.JSeparator();
         jdate1 = new javax.swing.JTextField();
-        jSeparator9 = new javax.swing.JSeparator();
         jdate2 = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -294,15 +288,16 @@ public class RH_SEMANA extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, -1, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 40));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         jButton2.setBorderPainted(false);
@@ -312,7 +307,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 32, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 32, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
         jButton3.setBorderPainted(false);
@@ -332,21 +327,17 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 32, 30));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 32, 30));
 
-        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 170, 20));
+        lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 260, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 160, 10));
-
-        lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 170, 20));
-
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 170, 10));
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 170, 20));
 
         jLabel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -358,7 +349,9 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jLabel5MousePressed(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 50));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 616, 52));
 
         tbsemanas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tbsemanas.setModel(new javax.swing.table.DefaultTableModel(
@@ -375,6 +368,8 @@ public class RH_SEMANA extends javax.swing.JFrame {
         tbsemanas.setComponentPopupMenu(accion);
         jScrollPane2.setViewportView(tbsemanas);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 265, 616, 192));
+
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/save1.png"))); // NOI18N
         jButton5.setContentAreaFilled(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -382,52 +377,52 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(533, 138, 38, 38));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 3, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("DE");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 141, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 3, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("A");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 150, -1, -1));
 
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
         txtBuscar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        txtBuscar.setBorder(null);
+        txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
             }
         });
+        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 209, 217, 35));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
         jLabel7.setToolTipText("");
-
-        jSeparator5.setBackground(new java.awt.Color(51, 102, 255));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 209, 40, 40));
 
         txtsemana.setEditable(false);
         txtsemana.setBackground(new java.awt.Color(51, 102, 255));
         txtsemana.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         txtsemana.setForeground(new java.awt.Color(255, 255, 255));
         txtsemana.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtsemana.setBorder(null);
+        txtsemana.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtsemana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtsemanaActionPerformed(evt);
             }
         });
-
-        jSeparator7.setBackground(new java.awt.Color(51, 102, 255));
-
-        jSeparator8.setBackground(new java.awt.Color(51, 102, 255));
+        getContentPane().add(txtsemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 82, 194, 28));
 
         jdate1.setEditable(false);
         jdate1.setBackground(new java.awt.Color(51, 102, 255));
         jdate1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jdate1.setForeground(new java.awt.Color(255, 255, 255));
         jdate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jdate1.setBorder(null);
+        jdate1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         jdate1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jdate1MouseClicked(evt);
@@ -438,94 +433,20 @@ public class RH_SEMANA extends javax.swing.JFrame {
                 jdate1ActionPerformed(evt);
             }
         });
-
-        jSeparator9.setBackground(new java.awt.Color(51, 102, 255));
+        getContentPane().add(jdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 138, 28));
 
         jdate2.setEditable(false);
         jdate2.setBackground(new java.awt.Color(51, 102, 255));
         jdate2.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jdate2.setForeground(new java.awt.Color(255, 255, 255));
         jdate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jdate2.setBorder(null);
+        jdate2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         jdate2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jdate2MouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtBuscar)
-                                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jLabel4)
-                                .addGap(51, 51, 51)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSeparator8, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                                    .addComponent(jdate1))
-                                .addGap(45, 45, 45)
-                                .addComponent(jLabel6)
-                                .addGap(47, 47, 47)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSeparator9)
-                                    .addComponent(jdate2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(62, 62, 62)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(45, 45, 45)))
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(193, 193, 193)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtsemana, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(txtsemana, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, 0)
-                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(9, 9, 9)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jdate2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6))
-                            .addGap(0, 0, 0)
-                            .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(jdate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 147, 138, 28));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -761,12 +682,6 @@ public class RH_SEMANA extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTable1;
     public static javax.swing.JTextField jdate1;
     public static javax.swing.JTextField jdate2;

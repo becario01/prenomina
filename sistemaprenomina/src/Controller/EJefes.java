@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.sql.Date;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -138,6 +139,7 @@ public class EJefes extends DefaultTableCellRenderer {
         if (value instanceof JLabel) {
             JLabel lbl = (JLabel)value;
             lbl.setOpaque(true);
+            lbl.setBackground(UIManager.getColor("Label.background"));
             return lbl;
         }
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.

@@ -48,8 +48,6 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-
-
 /**
  *
  * @author Programacion 2
@@ -76,7 +74,10 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         combodepartamento();
         cargarTitulos1();
         panelincidencias.setVisible(false);
-
+        lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
+        lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
+        lblcargo.setHorizontalAlignment(lblcargo.CENTER);
+        lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
 
     DefaultTableModel tabla1 = new DefaultTableModel() {
@@ -159,17 +160,16 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
     public void cargardatosFiltroSemana(int idSemana) throws SQLException {
         String nombresem = (String) cmbSemana.getSelectedItem();
         String idsem = "";
-        String sql1="Select * from semanas  where  semana= '"+nombresem+"'";
-         conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql1);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                idsem = rs.getString("idSemana");
-            }
-     
-        
+        String sql1 = "Select * from semanas  where  semana= '" + nombresem + "'";
+        conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+        stmt = conn.prepareStatement(sql1);
+        rs = stmt.executeQuery();
+        while (rs.next()) {
+            idsem = rs.getString("idSemana");
+        }
+
         String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp \n"
-                + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idsem+"'\n"
+                + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='" + idsem + "'\n"
                 + "WHERE  inc.empleadoId  IS NULL AND emp.estatus = 1 ";
         String datos[] = new String[10];
         try {
@@ -414,14 +414,13 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         panelincidencias = new javax.swing.JPanel();
         txtBuscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbsinIncidencias = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         itemDetalles.setText("Detalles");
         itemDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -473,10 +472,10 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, 40));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         jButton2.setBorderPainted(false);
@@ -508,19 +507,15 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 32, 30));
 
-        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 430, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
-        lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
-
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 330, 20));
 
         jLabel11.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -544,7 +539,7 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
                 txtBuscarKeyTyped(evt);
             }
         });
-        panelincidencias.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 254, 35));
+        panelincidencias.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 254, 35));
 
         tbsinIncidencias= new javax.swing.JTable(){
             public boolean  isCellEditable(int rowIndex,int conlIndex ){
@@ -584,6 +579,9 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbsinIncidencias);
 
         panelincidencias.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1053, 410));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
+        panelincidencias.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
 
         getContentPane().add(panelincidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 142, 1053, -1));
 
@@ -625,11 +623,11 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
                       }
                   } else {
                       cmbDepto.setSelectedIndex(0);
-                  // JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
+                      // JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
                   }
               } else {
                   cmbDepto.setSelectedIndex(0);
-                 // JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
+                  // JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
               }
           } catch (Exception e) {
               JOptionPane.showMessageDialog(null, "Error en: " + e);
@@ -637,28 +635,24 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
       }//GEN-LAST:event_cmbDeptoActionPerformed
 
       private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
- 
-  
 
-        try {
-            String dep = lblcargo.getText();
-            String nomm = lblnombrerh.getText();
-            int fila = tbsinIncidencias.getSelectedRow();
-            String nom = tbsinIncidencias.getValueAt(fila, 1).toString();
-            codid = tbsinIncidencias.getValueAt(fila, 0).toString();
-            RH_snci_detalles deta = new RH_snci_detalles();
-            deta.show();
-            RH_snci_detalles.lblcargo.setText(dep);
-            RH_snci_detalles.lblnombrerh.setText(nomm);
-            RH_snci_detalles.txtnombre.setText(nom);
-            RH_snci_detalles.txtid.setText(codid);
-            RH_snci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
-        } catch (SQLException ex) {
-            Logger.getLogger(RH_UsuariosSinIncidencias.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-             
-            
+          try {
+              String dep = lblcargo.getText();
+              String nomm = lblnombrerh.getText();
+              int fila = tbsinIncidencias.getSelectedRow();
+              String nom = tbsinIncidencias.getValueAt(fila, 1).toString();
+              codid = tbsinIncidencias.getValueAt(fila, 0).toString();
+              RH_snci_detalles deta = new RH_snci_detalles();
+              deta.show();
+              RH_snci_detalles.lblcargo.setText(dep);
+              RH_snci_detalles.lblnombrerh.setText(nomm);
+              RH_snci_detalles.txtnombre.setText(nom);
+              RH_snci_detalles.txtid.setText(codid);
+              RH_snci_detalles.txtsemana.setText(cmbSemana.getSelectedItem().toString());
+          } catch (SQLException ex) {
+              Logger.getLogger(RH_UsuariosSinIncidencias.class.getName()).log(Level.SEVERE, null, ex);
+          }
+
 
       }//GEN-LAST:event_itemDetallesActionPerformed
 
@@ -793,12 +787,11 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JPanel panelincidencias;

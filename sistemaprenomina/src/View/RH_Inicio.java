@@ -50,7 +50,10 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         hilo = new Thread(this);
         hilo.start();
         setVisible(true);
-       
+           lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
+        lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
+        lblcargo.setHorizontalAlignment(lblcargo.CENTER);
+        lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
 
     public void fecha() {
@@ -104,9 +107,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         pnlrelog = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -179,7 +180,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         jButton2.setBorderPainted(false);
@@ -211,19 +212,15 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 0, 32, 30));
 
-        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
-        lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
-
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 330, 20));
 
         jLabel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -246,12 +243,12 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Bienvenido");
-        pnlrelog.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, 50));
+        pnlrelog.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, 50));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("de");
-        pnlrelog.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 30, 30));
+        pnlrelog.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 30, 30));
 
         lblaño.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
         lblaño.setForeground(new java.awt.Color(255, 255, 255));
@@ -267,7 +264,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         pnlrelog.add(lblmes, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, 80, 30));
 
         logozunfeld.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logoZunfeld.png"))); // NOI18N
-        pnlrelog.add(logozunfeld, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 80));
+        pnlrelog.add(logozunfeld, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 170, 80));
 
         txthora.setEditable(false);
         txthora.setFont(new java.awt.Font("Segoe UI Light", 0, 36)); // NOI18N
@@ -279,7 +276,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
 
         getContentPane().add(pnlrelog, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/fondo.jpg"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Becarios\\Desktop\\fondoredes.png")); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
 
         menupanle.setBackground(new java.awt.Color(0, 24, 96));
@@ -525,6 +522,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
 
     private void btnIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciasActionPerformed
         RH_Incidencias inc = new RH_Incidencias();
+        RH_Incidencias.lblnombrerh.setText(lblnombrerh.getText());
+        RH_Incidencias.lblcargo.setText(lblcargo.getText());
         nombre= RH_Inicio.lblnombrerh.getText();
         depto= RH_Inicio.lblcargo.getText();
         inc.setVisible(true);
@@ -535,8 +534,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         String dep = lblcargo.getText();
         String nom = lblnombrerh.getText();
         RH_registrarusrs usur = new RH_registrarusrs();
-        RH_registrarusrs.lblnombrejefe.setText(dep);
-        RH_registrarusrs.lblcargojefe.setText(nom);
+        RH_registrarusrs.lblnomjefe.setText(nom);
+        RH_registrarusrs.lbldepjefe.setText(dep);
         usur.show();
         this.show(false);
     }//GEN-LAST:event_jButton14ActionPerformed
@@ -637,8 +636,6 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblaño;

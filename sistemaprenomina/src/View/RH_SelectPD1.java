@@ -26,7 +26,7 @@ Connection conn;
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(new java.awt.Color(8, 50, 119));
+        this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
     }
 
     public String[] datos() {
@@ -100,84 +100,73 @@ Connection conn;
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Bono de productividad");
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Premio de asistencia");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Diferencia de sueldo");
 
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Suplencia");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Festivo");
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Prima dominical");
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Sobre sueldo");
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Falta administrativa");
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Falta sancion ");
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Daño a la producción ");
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Daño a la calidad");
 
-        cmbp1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp10.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        cmbp11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cmbp11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cmbp11.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1" }));
 
-        jPanel2.setBackground(new java.awt.Color(229, 230, 234));
+        jPanel2.setBackground(new java.awt.Color(138, 229, 239));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
@@ -199,7 +188,7 @@ Connection conn;
             }
         });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 32, 30));
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 50));
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 50));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/save1.png"))); // NOI18N
         jButton3.setContentAreaFilled(false);
@@ -210,13 +199,11 @@ Connection conn;
         });
 
         lblcod.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblcod.setForeground(new java.awt.Color(255, 255, 255));
         lblcod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jSeparator3.setBackground(new java.awt.Color(204, 204, 204));
 
         lblnombre.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblnombre.setForeground(new java.awt.Color(255, 255, 255));
         lblnombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jSeparator4.setBackground(new java.awt.Color(204, 204, 204));

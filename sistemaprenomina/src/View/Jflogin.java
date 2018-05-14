@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,16 +19,21 @@ import javax.swing.JOptionPane;
  */
 public class Jflogin extends javax.swing.JFrame {
 
-   int x , y;
+    int x, y;
+
     public Jflogin() {
+        
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-      SimpleDateFormat formateador = new SimpleDateFormat(
-   "dd 'de' MMMM 'de' yyyy", new Locale("es_ES"));
-   Date fechaDate = new Date();
-   String fecha = formateador.format(fechaDate);
+        SimpleDateFormat formateador = new SimpleDateFormat(
+                "dd 'de' MMMM 'de' yyyy", new Locale("es_ES"));
+        Date fechaDate = new Date();
+        String fecha = formateador.format(fechaDate);
         loginfecha.setText(fecha);
+        panelloginm.setBackground(new Color(51, 102, 255, 200));
+        loginfecha.setHorizontalAlignment(loginfecha.CENTER);
+        loginfecha.setVerticalAlignment(loginfecha.CENTER);
     }
 
     /**
@@ -39,7 +45,7 @@ public class Jflogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelloginm = new javax.swing.JPanel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -54,32 +60,33 @@ public class Jflogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(56, 116, 214));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelloginm.setBackground(new java.awt.Color(56, 116, 214));
+        panelloginm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 210, 20));
+        panelloginm.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 210, 20));
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bienvenido");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 100, 30));
+        panelloginm.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 100, 30));
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 160, 20));
+        panelloginm.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 160, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logoZunfeld.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 160, 90));
+        panelloginm.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 160, 90));
 
-        loginfecha.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        loginfecha.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         loginfecha.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(loginfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 120, 20));
+        panelloginm.add(loginfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 180, 20));
 
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         jLabel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -92,9 +99,9 @@ public class Jflogin extends javax.swing.JFrame {
                 jLabel5MousePressed(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 80));
+        panelloginm.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 80));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 350));
+        getContentPane().add(panelloginm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 350));
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 234));
         jPanel2.setInheritsPopupMenu(true);
@@ -160,55 +167,58 @@ public class Jflogin extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 300, 350));
 
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Becarios\\Desktop\\fondologin.png")); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 350));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
-       txtUsuario.setText(""); // TODO add your handling code here:
+        txtUsuario.setText(""); // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioMouseClicked
 
     private void txtPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPassMouseClicked
-     txtPass.setText("");   // TODO add your handling code here:
+        txtPass.setText("");   // TODO add your handling code here:
     }//GEN-LAST:event_txtPassMouseClicked
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-      x = evt.getX();
-      y = evt.getY();
+        x = evt.getX();
+        y = evt.getY();
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel5MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseDragged
-this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);        // TODO add your handling code here:
+        this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel5MouseDragged
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-cerrar();        // TODO add your handling code here:
+        cerrar();        // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-     String Usuario= txtUsuario.getText();
-String Pass= txtPass.getText();
-if(Usuario.equals("")){
-  JOptionPane.showMessageDialog(null,  "Verifique sus datos .\n Usuario Vacio","Usuario Vacio",JOptionPane.WARNING_MESSAGE);
-}else if(Pass.equals("")){
-JOptionPane.showMessageDialog(null,  "Verifique sus datos.\n Contraseña Vacia","Contraseña Vacia",JOptionPane.WARNING_MESSAGE);
-}else {             
-BD.login lo = new BD.login();
-lo.validar_ingreso(txtUsuario.getText(),txtPass.getText());  
+        String Usuario = txtUsuario.getText();
+        String Pass = txtPass.getText();
+        if (Usuario.equals("")) {
+            JOptionPane.showMessageDialog(null, "Verifique sus datos .\n Usuario Vacio", "Usuario Vacio", JOptionPane.WARNING_MESSAGE);
+        } else if (Pass.equals("")) {
+            JOptionPane.showMessageDialog(null, "Verifique sus datos.\n Contraseña Vacia", "Contraseña Vacia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            BD.login lo = new BD.login();
+            lo.validar_ingreso(txtUsuario.getText(), txtPass.getText());
 
-
- this.setVisible(false);
-}
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_btnOkActionPerformed
-    public void cerrar(){   
-        Object [] opciones ={"Aceptar","Cancelar"};
-        int eleccion = JOptionPane.showOptionDialog(rootPane,"En realidad desea realizar cerrar la aplicacion","Mensaje de Confirmacion",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
-            if (eleccion == JOptionPane.YES_OPTION){
-                System.exit(0);
-                }else{
-                    }  
-                }   
+    public void cerrar() {
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(rootPane, "En realidad desea realizar cerrar la aplicacion", "Mensaje de Confirmacion",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else {
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -254,11 +264,12 @@ lo.validar_ingreso(txtUsuario.getText(),txtPass.getText());
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel loginfecha;
+    private javax.swing.JPanel panelloginm;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

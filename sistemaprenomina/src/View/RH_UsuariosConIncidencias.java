@@ -70,7 +70,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         cargarTitulos1();
         panelincidencias.setVisible(false);
         tbincidencias.setDefaultRenderer(Object.class, new EJefes());
-
+         lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
+        lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
+        lblcargo.setHorizontalAlignment(lblcargo.CENTER);
+        lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
 
     DefaultTableModel tabla1 = new DefaultTableModel() {
@@ -302,9 +305,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         btnCerrar = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         lblcargo = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         panelincidencias = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -323,7 +324,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbincidencias = new javax.swing.JTable();
-        comboSemana = new javax.swing.JComboBox<>();
+        comboSemana = new javax.swing.JComboBox<String>();
 
         itemDetalles.setText("Detalles");
         itemDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -370,7 +371,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         btnMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
         btnMinimizar.setBorderPainted(false);
@@ -402,19 +403,15 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         });
         jPanel2.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 32, 30));
 
-        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
+        lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
-        lblcargo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
-
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
+        jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 330, 20));
 
         jLabel11.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -899,8 +896,6 @@ int codigo=0;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JPanel panelincidencias;

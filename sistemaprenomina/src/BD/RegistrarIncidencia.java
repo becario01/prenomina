@@ -401,7 +401,7 @@ public class RegistrarIncidencia {
                  PreparedStatement stmt = null;
                  ResultSet rs = null;
             try {
-                String sql = "SELECT registros.*,DATENAME(dw, registros.fecha) as inidias,semanas.idSemana FROM registros\n"
+                String sql = "SELECT DISTINCT registros.*,DATENAME(dw, registros.fecha) as inidias,semanas.idSemana FROM registros\n"
                         + "LEFT JOIN incidencias ON registros.empleadoId <> incidencias.idIncidencia\n"
                         + "AND registros.fecha = incidencias.fecha\n"
                         + "LEFT JOIN semanas ON semanas.fechaL = registros.fecha\n"
@@ -412,9 +412,7 @@ public class RegistrarIncidencia {
                         + "OR semanas.fechaS = registros.fecha\n"
                         + "OR semanas.fechaD = registros.fecha\n"
                         + "WHERE\n"
-                        + "	incidencias.empleadoId IS NULL\n"
-                        + "AND incidencias.fecha IS NULL\n"
-                        + "AND registros.fecha BETWEEN '" + fechaini + "'\n"
+                        + "registros.fecha BETWEEN '" + fechaini + "'\n"
                         + "AND '" + fechafin + "'\n";
                 conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
@@ -436,13 +434,13 @@ public class RegistrarIncidencia {
                         
                          if (entrada.equals("00:00:00") ||  salida.equals("00:00:00")) {
                      String comentario = "Falta  AT";                             
-                     int nomincidencia =100;
+                     int nomincidencia =1;
                      this.insert(empleadoId,fechas,fecha," ", comentario, idSemana,nomincidencia,"5");
                 
                     }else{
                         System.out.println("cuentan con entrada");
                     }
-//                        
+                         
                    }
               
                 } 
