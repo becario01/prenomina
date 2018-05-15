@@ -22,7 +22,7 @@ public class Rjefes {
 
    private Connection userConn;
    
-   private final String sql_select = "SELECT * FROM semanas WHERE estatus ='1'";
+   private final String sql_select = "SELECT * FROM semanas WHERE estatus ='1' ORDER BY  idSemana ASC";
   
 
 

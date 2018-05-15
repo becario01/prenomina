@@ -206,7 +206,7 @@ public class select_fechas extends javax.swing.JFrame {
             rs = stmt.executeQuery();
             String idsemp="";
              if (!rs.next()) {
-                 JOptionPane.showMessageDialog(rootPane,"La semana no existe, debe existir para registrar incidencias.","Inane warning",JOptionPane.WARNING_MESSAGE);
+                 JOptionPane.showMessageDialog(rootPane,"Las fechas  no existen en la Base de Datos, debe existir para registrar incidencias.","Inane warning",JOptionPane.WARNING_MESSAGE);
                 }else{
                 idsemp = rs.getString("idSemana");
                 }
@@ -215,7 +215,13 @@ public class select_fechas extends javax.swing.JFrame {
             
         return idsemanada;
     }
-
+  public int validarmes(String fechaini ,String fechafin) throws ParseException{
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      Date fechaInicial=dateFormat.parse(fechaini);
+     Date fechaFinal=dateFormat.parse(fechafin);
+     int dias=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/86400000);
+                return dias+1;
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -391,12 +397,19 @@ public class select_fechas extends javax.swing.JFrame {
                     String resultado = "La Fecha Inicio no puede ser  Mayor ";
                     JOptionPane.showMessageDialog(rootPane, resultado);
                 } else {
-
+                    System.out.println(fechainicio+fechafin);
+                int dias =    validarmes(fechainicio,fechafin);
+                    if (dias <= 30) {
+                          System.out.println(dias);
                     inrtevalofechas(fechainicio, fechafin);
+                    }else{
+                  System.out.println(dias);   
+                  JOptionPane.showMessageDialog(null, "Solo es posible asignar incidencias por 30 Dias ", "Dias!!", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Al menos elija una FECHA DE NACIMIENTO VALIDA ", "Error..!!", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Al menos elija una FECHA DE NACIMIENTO VALIDA ");
 
         }
 

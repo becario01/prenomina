@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Becarios
  */
 public class Incidenciasgrupales extends javax.swing.JFrame {
+
     Nomincidencia rin;
     DefaultComboBoxModel<Rincidencia> modeloselincidencia;
     public static ResultSet rs;
@@ -38,7 +39,6 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
     Connection conn;
     PreparedStatement stmt;
     int x, y;
-
 
     /**
      * Creates new form Incidenciasgrupales
@@ -54,66 +54,67 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         cantidadhoras.hide();
         lblcant.hide();
     }
-    private void cargarModeloSem(){
-            ArrayList<Rincidencia> listaSemanas;
+
+    private void cargarModeloSem() {
+        ArrayList<Rincidencia> listaSemanas;
         listaSemanas = rin.obtenerIncnidecnias();
-  modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1));
-        for(Rincidencia semana : listaSemanas){
+        modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1));
+        for (Rincidencia semana : listaSemanas) {
             modeloselincidencia.addElement(semana);
         }
     }
-public void selecSeman(String vsemana){
-                 Connection conn = null;
-                 PreparedStatement stmt = null;
-                 ResultSet rs = null;
-            try {
-                 String sql = "SELECT *  from semanas WHERE semana = '"+vsemana+"'";
-                  conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                  stmt = conn.prepareStatement(sql);
-                  rs = stmt.executeQuery();
-                  
-                while (rs.next()) {
-                   int       id     =rs.getInt(1);
-                   String    Semana =rs.getString(2);
-                   String    fechal =rs.getString(3);
-                   String    fecham =rs.getString(4);
-                   String    fechami =rs.getString(5);
-                   String    fechaj =rs.getString(6);
-                   String    fechav =rs.getString(7);
-                   String    fechas =rs.getString(8);
-                   String    fechad =rs.getString(9);
-                   String    estatus =rs.getString(10);
-                   lblfechal.setText(fechal);
-                   lblfecham.setText(fecham);
-                   lblfechami.setText(fechami);
-                   lblfechaj.setText(fechaj);
-                   lblfechav.setText(fechav);
-                   lblfechas.setText(fechas);
-                   lblfechad.setText(fechad);
 
-                   
-                } 
-        
-             } catch (Exception e) {
-                System.out.println(""+e);
-             }finally{
-                 Conexion.close(rs);
-                  Conexion.close(stmt);
-             }
-             
+    public void selecSeman(String vsemana) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT *  from semanas WHERE semana = '" + vsemana + "'";
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String Semana = rs.getString(2);
+                String fechal = rs.getString(3);
+                String fecham = rs.getString(4);
+                String fechami = rs.getString(5);
+                String fechaj = rs.getString(6);
+                String fechav = rs.getString(7);
+                String fechas = rs.getString(8);
+                String fechad = rs.getString(9);
+                String estatus = rs.getString(10);
+                lblfechal.setText(fechal);
+                lblfecham.setText(fecham);
+                lblfechami.setText(fechami);
+                lblfechaj.setText(fechaj);
+                lblfechav.setText(fechav);
+                lblfechas.setText(fechas);
+                lblfechad.setText(fechad);
+
             }
 
- public void blocquear(String fechal,String fechama,String fechami,String fechaj,String fechav,String fechas,String fechad) {
+        } catch (Exception e) {
+            System.out.println("" + e);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+        }
+
+    }
+
+    public void blocquear(String fechal, String fechama, String fechami, String fechaj, String fechav, String fechas, String fechad) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date fechaInicial = dateFormat.parse("2018-04-26");
             java.util.Date fecha = new java.util.Date();
             java.util.Date fechaFinal = new java.util.Date();
-            String date1 =dateFormat.format(fechaInicial);
+            String date1 = dateFormat.format(fechaInicial);
             String date2 = dateFormat.format(fechaFinal);
-        
-            if ( fechal.equals(date2) || fechama.equals(date2)|| fechami.equals(date2)|| fechaj.equals(date2)|| fechav.equals(date2)|| fechas.equals(date2)|| fechad.equals(date2)) {
-                
+
+            if (fechal.equals(date2) || fechama.equals(date2) || fechami.equals(date2) || fechaj.equals(date2) || fechav.equals(date2) || fechas.equals(date2) || fechad.equals(date2)) {
+
             } else {
                 cmbincidencia.setEnabled(false);
                 txtcomentario.setEnabled(false);
@@ -126,9 +127,7 @@ public void selecSeman(String vsemana){
                 btnSabado.setEnabled(false);
                 btnDomingo.setEnabled(false);
 
-
-                
-                JOptionPane.showMessageDialog(rootPane,"Por motivos de seguridad el sistema esta "
+                JOptionPane.showMessageDialog(rootPane, "Por motivos de seguridad el sistema esta "
                         + "inabilitado para semanas anteriores");
             }
         } catch (ParseException ex) {
@@ -137,13 +136,12 @@ public void selecSeman(String vsemana){
 
     }
 
-
-public int registrargrupos(int empleadoId,String dia,String fecha,String horasextra,String comentario,int idSemana,int idNomIncidencias,String horasTrab) throws SQLException{
-      Connection conn = null;
-     PreparedStatement stmt = null;
+    public int registrargrupos(int empleadoId, String dia, String fecha, String horasextra, String comentario, int idSemana, int idNomIncidencias, String horasTrab) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
         int rows = 0;
         try {
-            String SQL_INSERT = "INSERT INTO incidencias (empleadoId ,dia,fecha ,horasExtra ,comentario ,idSemana ,idNomIncidencia,horasTrab,actualizadoJA) VALUES ('"+empleadoId+"','"+dia+"' ,'"+fecha+"','"+horasextra+"','"+comentario+"','"+idSemana+"','"+idNomIncidencias+"','"+horasTrab+"','AUTORIZADO')";
+            String SQL_INSERT = "INSERT INTO incidencias (empleadoId ,dia,fecha ,horasExtra ,comentario ,idSemana ,idNomIncidencia,horasTrab,actualizadoJA) VALUES ('" + empleadoId + "','" + dia + "' ,'" + fecha + "','" + horasextra + "','" + comentario + "','" + idSemana + "','" + idNomIncidencias + "','" + horasTrab + "','AUTORIZADO')";
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             int index = 1;
@@ -151,7 +149,7 @@ public int registrargrupos(int empleadoId,String dia,String fecha,String horasex
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
-          
+
         } finally {
             Conexion.close(stmt);
             if (this.userConn == null) {
@@ -160,22 +158,21 @@ public int registrargrupos(int empleadoId,String dia,String fecha,String horasex
         }
 
         return rows;
-       
-       
-}     
 
-public  String guardar(String fechas) throws SQLException{
-          
-     select_incidencia sin = new select_incidencia();
+    }
+
+    public String guardar(String fechas) throws SQLException {
+
+        select_incidencia sin = new select_incidencia();
 
         String dia;
-     try {
-        dia = select_incidencia.obtenerDiaSemana(fechas);
-        EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-        Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
-        String fecha = fechas;
-        String comentario = txtcomentario.getText();
-        String cantidad = cantidadhoras.getText();
+        try {
+            dia = select_incidencia.obtenerDiaSemana(fechas);
+            EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
+            Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+            String fecha = fechas;
+            String comentario = txtcomentario.getText();
+            String cantidad = cantidadhoras.getText();
 
             if (select_incidencia.isNumeric(cantidad)) {
                 cantidad = cantidadhoras.getText();
@@ -186,46 +183,48 @@ public  String guardar(String fechas) throws SQLException{
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Debe ingresar un numero");
             }
-        
-        String horastrab = "10";
-        int idsemana = semana.getIdSemana();
-        int tabla = jtbdatosgrupos.getRowCount();
 
-        for (int i = 0; i < tabla; i++) {
-            String codigos = jtbdatosgrupos.getValueAt(i, 0).toString();
-            int codigo = Integer.parseInt(codigos);
-            Connection conn = null;
-            PreparedStatement stmt = null;
-            ResultSet rs = null;
+            String horastrab = "10";
+            int idsemana = semana.getIdSemana();
+            int tabla = jtbdatosgrupos.getRowCount();
 
-            int id = semana.getIdSemana();
-            try {
-                String sql = "select  * from incidencias where  empleadoId='" + codigos + "' and fecha='" + fecha + "' and idSemana='" + semana.getIdSemana() + "'  and dia='" + dia + "'";
-                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                stmt = conn.prepareStatement(sql);
-                rs = stmt.executeQuery();
-                if (!rs.next()) {
-                    registrargrupos(codigo, dia, fecha, cantidad, comentario, semana.getIdSemana(), incidencia.getIdNomIncidencia(), horastrab);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Está persona cuenta con incidencia en este dia!!", "Warning",
-                            JOptionPane.WARNING_MESSAGE);
-                }
-            } catch (Exception e) {
-                System.out.println("" + e);
-            } finally {
-                Conexion.close(rs);
-                Conexion.close(stmt);
+            for (int i = 0; i < tabla; i++) {
+
+                System.out.println(fecha);
+//            String codigos = jtbdatosgrupos.getValueAt(i, 0).toString();
+//            int codigo = Integer.parseInt(codigos);
+//            Connection conn = null;
+//            PreparedStatement stmt = null;
+//            ResultSet rs = null;
+//
+//            int id = semana.getIdSemana();
+//            try {
+//                String sql = "select  * from incidencias where  empleadoId='" + codigos + "' and fecha='" + fecha + "' and idSemana='" + semana.getIdSemana() + "'  and dia='" + dia + "'";
+//                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+//                stmt = conn.prepareStatement(sql);
+//                rs = stmt.executeQuery();
+//                if (!rs.next()) {
+//                    registrargrupos(codigo, dia, fecha, cantidad, comentario, semana.getIdSemana(), incidencia.getIdNomIncidencia(), horastrab);
+//                } else {
+//                    JOptionPane.showMessageDialog(rootPane, "Está persona cuenta con incidencia en este dia!!", "Warning",
+//                            JOptionPane.WARNING_MESSAGE);
+//                }
+//            } catch (Exception e) {
+//                System.out.println("" + e);
+//            } finally {
+//                Conexion.close(rs);
+//                Conexion.close(stmt);
+//            }
             }
+
+        } catch (ParseException ex) {
+            Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    } catch (ParseException ex) {
-        Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
+        return fechas;
+
     }
-     
-     
-    return fechas;
-    
-}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -619,42 +618,41 @@ public  String guardar(String fechas) throws SQLException{
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-     DefaultTableModel model2 = (DefaultTableModel)jtbdatosgrupos.getModel();
-     for (int i = 0; i < jtbdatosgrupos.getRowCount(); i++) {
-              model2.removeRow(i);
-                 i-=1;
-            }
+        DefaultTableModel model2 = (DefaultTableModel) jtbdatosgrupos.getModel();
+        for (int i = 0; i < jtbdatosgrupos.getRowCount(); i++) {
+            model2.removeRow(i);
+            i -= 1;
+        }
         this.setVisible(false);
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
-           try {
-                if (cmbincidencia.getSelectedIndex() == 0) {
+        try {
+            if (cmbincidencia.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
-       
-        }else{
-            guardar(lblfechal.getText());
-              JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-                }
-                } catch (SQLException ex) {
+
+            } else {
+                guardar(lblfechal.getText());
+                JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
-
 
 
     }//GEN-LAST:event_btnLunesActionPerformed
 
     private void btnDomingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomingoActionPerformed
         try {
-               if (cmbincidencia.getSelectedIndex() == 0) {
+            if (cmbincidencia.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
-       
-        }else{
-            guardar(lblfechad.getText());
-            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
 
-               }
+            } else {
+                guardar(lblfechad.getText());
+                JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -662,13 +660,13 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuevesActionPerformed
         try {
-               if (cmbincidencia.getSelectedIndex() == 0) {
+            if (cmbincidencia.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
-       
-        }else{
-            guardar(lblfechaj.getText());
-            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-               }
+
+            } else {
+                guardar(lblfechaj.getText());
+                JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -676,13 +674,13 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiercolesActionPerformed
         try {
-               if (cmbincidencia.getSelectedIndex() == 0) {
+            if (cmbincidencia.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
-       
-        }else{
-            guardar(lblfechami.getText());
-            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-               }
+
+            } else {
+                guardar(lblfechami.getText());
+                JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -690,13 +688,13 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMartesActionPerformed
         try {
-               if (cmbincidencia.getSelectedIndex() == 0) {
+            if (cmbincidencia.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
-       
-        }else{
-            guardar(lblfecham.getText());
-            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-               }
+
+            } else {
+                guardar(lblfecham.getText());
+                JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -704,44 +702,44 @@ public  String guardar(String fechas) throws SQLException{
 
     private void btnViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViernesActionPerformed
         try {
-               if (cmbincidencia.getSelectedIndex() == 0) {
+            if (cmbincidencia.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
-       
-        }else{
-            guardar(lblfechav.getText());
-            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-               }
+
+            } else {
+                guardar(lblfechav.getText());
+                JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }//GEN-LAST:event_btnViernesActionPerformed
 
     private void btnSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSabadoActionPerformed
         try {
-               if (cmbincidencia.getSelectedIndex() == 0) {
+            if (cmbincidencia.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Seleciona Incidencia por favor!");
-       
-        }else{
-            guardar(lblfechas.getText());
-            JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
-               }
+
+            } else {
+                guardar(lblfechas.getText());
+                JOptionPane.showMessageDialog(rootPane, "Registro exitoso");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSabadoActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-         x = evt.getX();
-         y = evt.getY();
+        x = evt.getX();
+        y = evt.getY();
     }//GEN-LAST:event_jLabel3MousePressed
 
     private void jLabel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseDragged
-       this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
+        this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel3MouseDragged
 
     private void cmbincidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbincidenciaActionPerformed
-    Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+        Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
         if (incidencia.getIncidencia().equalsIgnoreCase("Horas extras")) {
             cantidadhoras.show();
             lblcant.show();

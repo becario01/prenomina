@@ -58,15 +58,6 @@ public class JA_inicio extends javax.swing.JFrame {
         rjf = new Rjefes();
         modelosemanas = new DefaultComboBoxModel<EJefes>();
         cargarModeloSem();
-         try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-                if ("Windows".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception e) {
-        }
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -980,7 +971,7 @@ public class JA_inicio extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
