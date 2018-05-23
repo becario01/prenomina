@@ -10,6 +10,7 @@ import Controller.Render;
 import static Controller.exportReporte.conn;
 import static Controller.exportReporte.stmt;
 import static View.Asignacion.rs;
+import static View.RH_registrarusrs.rs;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -41,12 +41,13 @@ public class asignar extends javax.swing.JFrame {
 
     public asignar() {
         try {
-             
             initComponents();
             this.setResizable(false);
             this.setLocationRelativeTo(null);
             this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
             setFilasnoasig();
+            lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
+            lblcargo.setHorizontalAlignment(lblcargo.CENTER);
         } catch (SQLException ex) {
             Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,7 +107,7 @@ public class asignar extends javax.swing.JFrame {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
-  
+
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement("INSERT INTO asignacion(empleadoId, idUser) VALUES('" + empleadoid + "','" + iduser + "')");
@@ -114,38 +115,37 @@ public class asignar extends javax.swing.JFrame {
             System.out.println("Ejecutando query:");
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
-        
+
         } finally {
             Conexion.close(stmt);
             if (this.userConn == null) {
                 Conexion.close(conn);
             }
         }
-     return rows;
+        return rows;
     }
-    
-       public int delete(String empleadoid) throws SQLException {
+
+    public int delete(String empleadoid) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
-  
+
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-            stmt = conn.prepareStatement("DELETE FROM asignacion WHERE empleadoId = '"+empleadoid+"' ");
+            stmt = conn.prepareStatement("DELETE FROM asignacion WHERE empleadoId = '" + empleadoid + "' ");
             int index = 1;
             System.out.println("Ejecutando query:");
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
-        
+
         } finally {
             Conexion.close(stmt);
             if (this.userConn == null) {
                 Conexion.close(conn);
             }
         }
-     return rows;
+        return rows;
     }
-
 
     public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
@@ -164,8 +164,6 @@ public class asignar extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblnoasignados = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -181,7 +179,6 @@ public class asignar extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setFocusableWindowState(false);
         setMinimumSize(new java.awt.Dimension(340, 350));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -191,47 +188,23 @@ public class asignar extends javax.swing.JFrame {
                 return false;
             }
         };
-        tblasignados.setAutoCreateRowSorter(true);
-        tblasignados.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        tblasignados.setForeground(new java.awt.Color(51, 51, 51));
         tblasignados.setModel(usrasignados);
-        tblasignados.setDropMode(javax.swing.DropMode.INSERT_ROWS);
-        tblasignados.setFillsViewportHeight(true);
-        tblasignados.setGridColor(new java.awt.Color(255, 255, 255));
-        tblasignados.setIntercellSpacing(new java.awt.Dimension(2, 2));
-        tblasignados.setSelectionBackground(new java.awt.Color(108, 180, 221));
-        tblasignados.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tblasignados);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 340, 190));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 340, 190));
 
         tblnoasignados= new javax.swing.JTable(){
             public boolean  isCellEditable(int rowIndex,int conlIndex ){
                 return false;
             }
         };
-        tblnoasignados.setAutoCreateRowSorter(true);
-        tblnoasignados.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tblnoasignados.setModel(modelonoasiganados);
-        tblnoasignados.setFillsViewportHeight(true);
-        tblnoasignados.setGridColor(new java.awt.Color(255, 255, 255));
-        tblnoasignados.setIntercellSpacing(new java.awt.Dimension(2, 2));
-        tblnoasignados.setSelectionBackground(new java.awt.Color(108, 180, 221));
-        tblnoasignados.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(tblnoasignados);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 370, 190));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, 370, 190));
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 234));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jSeparator3.setBackground(new java.awt.Color(51, 102, 255));
-        jSeparator3.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
-        jSeparator2.setBackground(new java.awt.Color(51, 102, 255));
-        jSeparator2.setForeground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 230, 10));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
@@ -256,10 +229,12 @@ public class asignar extends javax.swing.JFrame {
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
+        lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
         jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
 
         lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
+        lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
         jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 230, 20));
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 50));
 
@@ -270,12 +245,11 @@ public class asignar extends javax.swing.JFrame {
         jLabel1.setText("Nombre: ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, -1));
 
-        txtnomasg.setEditable(false);
         txtnomasg.setBackground(new java.awt.Color(51, 102, 255));
-        txtnomasg.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtnomasg.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         txtnomasg.setForeground(new java.awt.Color(255, 255, 255));
-        txtnomasg.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        getContentPane().add(txtnomasg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 200, 30));
+        txtnomasg.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(229, 230, 224)));
+        getContentPane().add(txtnomasg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 270, 30));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/right-arrow.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
@@ -285,18 +259,17 @@ public class asignar extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, 90, 80));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 90, 80));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ID user:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 90, 20));
 
-        idusers.setEditable(false);
         idusers.setBackground(new java.awt.Color(51, 102, 255));
-        idusers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        idusers.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         idusers.setForeground(new java.awt.Color(255, 255, 255));
-        idusers.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        idusers.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(229, 230, 234)));
         getContentPane().add(idusers, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 200, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/left-arrow.png"))); // NOI18N
@@ -307,7 +280,7 @@ public class asignar extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 90, 80));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 90, 80));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -315,82 +288,82 @@ public class asignar extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int fila = tblasignados.getSelectedRow();
         if (fila >= 0) {
-             int cuentaFilasSeleccionadas = tblasignados.getSelectedRowCount();
-        if (cuentaFilasSeleccionadas == 1) {
-            try {
-                int indiceFilaSeleccionada = tblasignados.getSelectedRow();
-                String usrid = tblasignados.getValueAt(indiceFilaSeleccionada, 0).toString();
-                String nombre = tblasignados.getValueAt(indiceFilaSeleccionada, 1).toString();
-                delete(usrid);
-                 limpiar(modelonoasiganados);
-                limpiar(usrasignados);
-                setFilasnoasig();
-                SetFilas(idusers.getText());
-                JOptionPane.showMessageDialog(null,"Registro exitoso");
-            } catch (SQLException ex) {
-                Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
+            int cuentaFilasSeleccionadas = tblasignados.getSelectedRowCount();
+            if (cuentaFilasSeleccionadas == 1) {
+                try {
+                    int indiceFilaSeleccionada = tblasignados.getSelectedRow();
+                    String usrid = tblasignados.getValueAt(indiceFilaSeleccionada, 0).toString();
+                    String nombre = tblasignados.getValueAt(indiceFilaSeleccionada, 1).toString();
+                    delete(usrid);
+                    limpiar(modelonoasiganados);
+                    limpiar(usrasignados);
+                    setFilasnoasig();
+                    SetFilas(idusers.getText());
+                    JOptionPane.showMessageDialog(null, "Registro exitoso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                int[] indicesfilasSeleccionadas = tblasignados.getSelectedRows();
+                try {
+                    for (int indice : indicesfilasSeleccionadas) {
+                        System.out.print(indice + " ");
+                        String usrid = tblasignados.getValueAt(indice, 0).toString();
+                        String nombre = tblasignados.getValueAt(indice, 1).toString();
+                        delete(usrid);
+                    }
+                    limpiar(modelonoasiganados);
+                    limpiar(usrasignados);
+                    setFilasnoasig();
+                    SetFilas(idusers.getText());
+                    JOptionPane.showMessageDialog(null, "Registro exitoso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else {
-            int[] indicesfilasSeleccionadas = tblasignados.getSelectedRows();
-            try {
-                for (int indice : indicesfilasSeleccionadas) {
-                    System.out.print(indice + " ");
-                    String usrid = tblasignados.getValueAt(indice, 0).toString();
-                    String nombre = tblasignados.getValueAt(indice, 1).toString();
-                    delete(usrid);
-                }
-                limpiar(modelonoasiganados);
-                limpiar(usrasignados);
-                setFilasnoasig();
-                SetFilas(idusers.getText());
-               JOptionPane.showMessageDialog(null,"Registro exitoso");
-            } catch (SQLException ex) {
-                Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        }else{
-       JOptionPane.showMessageDialog(rootPane,"Seleccione uns fila !!");
+            JOptionPane.showMessageDialog(rootPane, "Seleccione uns fila !!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    int fila = tblnoasignados.getSelectedRow();
+        int fila = tblnoasignados.getSelectedRow();
         if (fila >= 0) {
-             int cuentaFilasSeleccionadas = tblnoasignados.getSelectedRowCount();
-        if (cuentaFilasSeleccionadas == 1) {
-            try {
-                int indiceFilaSeleccionada = tblnoasignados.getSelectedRow();
-                String usrid = tblnoasignados.getValueAt(indiceFilaSeleccionada, 0).toString();
-                String nombre = tblnoasignados.getValueAt(indiceFilaSeleccionada, 1).toString();
-                insert(usrid, idusers.getText());
-                 limpiar(modelonoasiganados);
-                limpiar(usrasignados);
-                setFilasnoasig();
-                SetFilas(idusers.getText());
-                JOptionPane.showMessageDialog(null,"Registro exitoso");
-            } catch (SQLException ex) {
-                Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
+            int cuentaFilasSeleccionadas = tblnoasignados.getSelectedRowCount();
+            if (cuentaFilasSeleccionadas == 1) {
+                try {
+                    int indiceFilaSeleccionada = tblnoasignados.getSelectedRow();
+                    String usrid = tblnoasignados.getValueAt(indiceFilaSeleccionada, 0).toString();
+                    String nombre = tblnoasignados.getValueAt(indiceFilaSeleccionada, 1).toString();
+                    insert(usrid, idusers.getText());
+                    limpiar(modelonoasiganados);
+                    limpiar(usrasignados);
+                    setFilasnoasig();
+                    SetFilas(idusers.getText());
+                    JOptionPane.showMessageDialog(null, "Registro exitoso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                int[] indicesfilasSeleccionadas = tblnoasignados.getSelectedRows();
+                try {
+                    for (int indice : indicesfilasSeleccionadas) {
+                        System.out.print(indice + " ");
+                        String usrid = tblnoasignados.getValueAt(indice, 0).toString();
+                        String nombre = tblnoasignados.getValueAt(indice, 1).toString();
+                        insert(usrid, idusers.getText());
+                    }
+                    limpiar(modelonoasiganados);
+                    limpiar(usrasignados);
+                    setFilasnoasig();
+                    SetFilas(idusers.getText());
+                    JOptionPane.showMessageDialog(null, "Registro exitoso");
+                } catch (SQLException ex) {
+                    Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else {
-            int[] indicesfilasSeleccionadas = tblnoasignados.getSelectedRows();
-            try {
-                for (int indice : indicesfilasSeleccionadas) {
-                    System.out.print(indice + " ");
-                    String usrid = tblnoasignados.getValueAt(indice, 0).toString();
-                    String nombre = tblnoasignados.getValueAt(indice, 1).toString();
-                    insert(usrid, idusers.getText());
-                }
-                limpiar(modelonoasiganados);
-                limpiar(usrasignados);
-                setFilasnoasig();
-                SetFilas(idusers.getText());
-               JOptionPane.showMessageDialog(null,"Registro exitoso");
-            } catch (SQLException ex) {
-                Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        }else{
-       JOptionPane.showMessageDialog(rootPane,"Seleccione uns fila !!");
+            JOptionPane.showMessageDialog(rootPane, "Seleccione uns fila !!");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -448,8 +421,6 @@ public class asignar extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JTable tblasignados;

@@ -88,7 +88,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
     }
 
     public void cargardatos() throws SQLException {
-        String sql = "select * from semanas order by estatus desc, fechaL ASC ";
+        String sql = "select * from semanas order by idSemana DESC ";
         Object datos[] = new Object[5];
 
         try {

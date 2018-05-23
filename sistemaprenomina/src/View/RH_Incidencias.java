@@ -119,12 +119,14 @@ public class RH_Incidencias extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblincidencias = new javax.swing.JTable();
-        panelreginc = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtNomIncidencia = new javax.swing.JTextField();
-        GuardarIn = new javax.swing.JButton();
         txtBuscar = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        panelreginc = new javax.swing.JPanel();
+        GuardarIn = new javax.swing.JButton();
+        txtdias = new javax.swing.JTextField();
+        txtNomIncidencia = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         actinc.setText("Activar");
         actinc.addActionListener(new java.awt.event.ActionListener() {
@@ -223,61 +225,6 @@ public class RH_Incidencias extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 650, 230));
 
-        panelreginc.setBackground(new java.awt.Color(51, 102, 255));
-        panelreginc.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nombre Incidencia");
-
-        txtNomIncidencia.setBackground(new java.awt.Color(51, 102, 255));
-        txtNomIncidencia.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtNomIncidencia.setForeground(new java.awt.Color(255, 255, 255));
-        txtNomIncidencia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        txtNomIncidencia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNomIncidenciaKeyReleased(evt);
-            }
-        });
-
-        GuardarIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/save1.png"))); // NOI18N
-        GuardarIn.setContentAreaFilled(false);
-        GuardarIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardarInActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelregincLayout = new javax.swing.GroupLayout(panelreginc);
-        panelreginc.setLayout(panelregincLayout);
-        panelregincLayout.setHorizontalGroup(
-            panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelregincLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(GuardarIn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        panelregincLayout.setVerticalGroup(
-            panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelregincLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelregincLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(txtNomIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelregincLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(GuardarIn)))
-                .addContainerGap(68, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panelreginc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 470, 140));
-
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
         txtBuscar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
@@ -291,6 +238,79 @@ public class RH_Incidencias extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 40, 40));
+
+        panelreginc.setBackground(new java.awt.Color(51, 102, 255));
+        panelreginc.setForeground(new java.awt.Color(255, 255, 255));
+
+        GuardarIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/save1.png"))); // NOI18N
+        GuardarIn.setContentAreaFilled(false);
+        GuardarIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarInActionPerformed(evt);
+            }
+        });
+
+        txtdias.setBackground(new java.awt.Color(51, 102, 255));
+        txtdias.setForeground(new java.awt.Color(255, 255, 255));
+        txtdias.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+
+        txtNomIncidencia.setBackground(new java.awt.Color(51, 102, 255));
+        txtNomIncidencia.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtNomIncidencia.setForeground(new java.awt.Color(255, 255, 255));
+        txtNomIncidencia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txtNomIncidencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomIncidenciaKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Nombre Incidencia");
+
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Dias de duracion de  incidencia");
+
+        javax.swing.GroupLayout panelregincLayout = new javax.swing.GroupLayout(panelreginc);
+        panelreginc.setLayout(panelregincLayout);
+        panelregincLayout.setHorizontalGroup(
+            panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelregincLayout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
+                .addGroup(panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelregincLayout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelregincLayout.createSequentialGroup()
+                        .addComponent(txtdias, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95)
+                        .addComponent(GuardarIn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
+        );
+        panelregincLayout.setVerticalGroup(
+            panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelregincLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelregincLayout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelregincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(GuardarIn)
+                            .addComponent(txtdias, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelregincLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNomIncidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 43, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(panelreginc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 650, 140));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -312,30 +332,6 @@ nombre= RH_Inicio.nombre;
         RH_Inicio.lblnombrerh.setText(nombre);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void txtNomIncidenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomIncidenciaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomIncidenciaKeyReleased
-
-    private void GuardarInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarInActionPerformed
-        String NomIncidencia= txtNomIncidencia.getText();
-
-        if (NomIncidencia.equals("")) {
-            JOptionPane.showMessageDialog(null,"El campo esta vacio","",JOptionPane.WARNING_MESSAGE);
-        }else{
-            try {
-
-                nom.insert(NomIncidencia);
-                txtNomIncidencia.setText("");
-                limpiar(modeloincidencias);
-                SetFilas();
-            } catch (SQLException ex) {
-                Logger.getLogger(RH_Incidencias.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-    }//GEN-LAST:event_GuardarInActionPerformed
 
     private void actincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actincActionPerformed
          int fila = tblincidencias.getSelectedRow();
@@ -409,6 +405,29 @@ nombre= RH_Inicio.nombre;
         }
     }//GEN-LAST:event_txtBuscarKeyReleased
 
+    private void GuardarInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarInActionPerformed
+        String NomIncidencia= txtNomIncidencia.getText();
+        int dias =Integer.parseInt(txtdias.getText());
+        if (NomIncidencia.equals("")) {
+            JOptionPane.showMessageDialog(null,"El campo esta vacio","",JOptionPane.WARNING_MESSAGE);
+        }else{
+            try {
+
+                nom.insert(NomIncidencia,dias);
+                txtNomIncidencia.setText("");
+                limpiar(modeloincidencias);
+                SetFilas();
+            } catch (SQLException ex) {
+                Logger.getLogger(RH_Incidencias.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_GuardarInActionPerformed
+
+    private void txtNomIncidenciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomIncidenciaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomIncidenciaKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -460,6 +479,7 @@ nombre= RH_Inicio.nombre;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     public static javax.swing.JLabel lblcargo;
@@ -468,5 +488,6 @@ nombre= RH_Inicio.nombre;
     private javax.swing.JTable tblincidencias;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtNomIncidencia;
+    private javax.swing.JTextField txtdias;
     // End of variables declaration//GEN-END:variables
 }

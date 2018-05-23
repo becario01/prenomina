@@ -13,12 +13,14 @@ public class Rincidencia {
         private int IdNomIncidencia;
         private String incidencia;
         private int estatus;
+        private int dias;
 
-    public Rincidencia(int IdNomIncidencia, String incidencia, int estatus) {
+    public Rincidencia(int IdNomIncidencia, String incidencia, int estatus,int dias) {
         this.IdNomIncidencia = IdNomIncidencia;
         this.incidencia = incidencia;
         this.estatus = estatus;
-    }
+        this.dias =dias;
+        }
 
     public int getIdNomIncidencia() {
         return IdNomIncidencia;
@@ -44,6 +46,15 @@ public class Rincidencia {
         this.estatus = estatus;
     }
 
+    public int getDias() {
+        return dias;
+    }
+
+    public void setDias(int dias) {
+        this.dias = dias;
+    }
+
+    
     @Override
     public String toString() {
         return  incidencia ;

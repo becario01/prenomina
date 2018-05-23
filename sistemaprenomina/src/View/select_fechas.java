@@ -58,7 +58,7 @@ public class select_fechas extends javax.swing.JFrame {
     private void cargarModeloSem() {
         ArrayList<Rincidencia> listaSemanas;
         listaSemanas = rin.obtenerIncnidecnias();
-        modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1));
+        modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1,0));
         for (Rincidencia semana : listaSemanas) {
             modeloselincidencia.addElement(semana);
         }

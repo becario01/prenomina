@@ -11,6 +11,9 @@ import Controller.Render;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -38,6 +41,8 @@ public class Asignacion extends javax.swing.JFrame {
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         SetFilas();
         tblasig.setRowHeight(25);
+        lblnombrejefe.setHorizontalAlignment(lblnombrejefe.CENTER);
+        lblcargojefe.setHorizontalAlignment(lblcargojefe.CENTER);
     }
 
       private String[] getColumas(){
@@ -90,8 +95,6 @@ public class Asignacion extends javax.swing.JFrame {
         btnminimizar = new javax.swing.JButton();
         btncerrar = new javax.swing.JButton();
         btnregresar = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
         lblnombrejefe = new javax.swing.JTextField();
         lblcargojefe = new javax.swing.JTextField();
@@ -174,12 +177,6 @@ public class Asignacion extends javax.swing.JFrame {
         });
         jPanel2.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 32, 30));
 
-        jSeparator4.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 230, 10));
-
-        jSeparator5.setBackground(new java.awt.Color(51, 102, 255));
-        jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 230, 10));
-
         jLabel13.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jLabel13MouseDragged(evt);
@@ -190,21 +187,21 @@ public class Asignacion extends javax.swing.JFrame {
                 jLabel13MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 10));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 50));
 
         lblnombrejefe.setEditable(false);
         lblnombrejefe.setBackground(new java.awt.Color(229, 230, 234));
         lblnombrejefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrejefe.setForeground(new java.awt.Color(51, 102, 255));
         lblnombrejefe.setAutoscrolls(false);
-        lblnombrejefe.setBorder(null);
+        lblnombrejefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
         lblnombrejefe.setCaretColor(new java.awt.Color(51, 102, 255));
         jPanel2.add(lblnombrejefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 230, 20));
 
         lblcargojefe.setBackground(new java.awt.Color(229, 230, 234));
         lblcargojefe.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargojefe.setForeground(new java.awt.Color(51, 102, 255));
-        lblcargojefe.setBorder(null);
+        lblcargojefe.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(51, 102, 255)));
         lblcargojefe.setCaretColor(new java.awt.Color(51, 102, 255));
         jPanel2.add(lblcargojefe, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 230, 20));
 
@@ -214,7 +211,7 @@ public class Asignacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblasigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblasigMouseClicked
-      int column = tblasig.getColumnModel().getColumnIndexAtX(evt.getX());
+    int column = tblasig.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY()/tblasig.getRowHeight();
         
         if(row < tblasig.getRowCount() && row >= 0 && column < tblasig.getColumnCount() && column >= 0){
@@ -246,6 +243,7 @@ public class Asignacion extends javax.swing.JFrame {
                 
             }
         }
+        
         
     }//GEN-LAST:event_tblasigMouseClicked
 
@@ -321,8 +319,6 @@ public class Asignacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     public static javax.swing.JTextField lblcargojefe;
     public static javax.swing.JTextField lblnombrejefe;
     private javax.swing.JTable tblasig;

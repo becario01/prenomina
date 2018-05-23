@@ -27,11 +27,11 @@ public class Nomincidencia {
     
    private Connection userConn;
 
-    private final String SQL_INSERT = "INSERT INTO nomIncidencia(nombre, estatus) VALUES(?,1)";
+    private final String SQL_INSERT = "INSERT INTO nomIncidencia(nombre, estatus,dias) VALUES(?,1,?)";
     private final String SQL_DESC = "UPDATE nomIncidencia SET estatus=0 WHERE idNomIncidencia=?";
     private final String SQL_ACT = "UPDATE nomIncidencia SET estatus=1 WHERE idNomIncidencia=?";
 //    private final String SQL_DELETE = "DELETE FROM persona WHERE id_persona = ?";
-     private final String SQL_SELECTIN = "SELECT idNomIncidencia,nombre,estatus FROM nomIncidencia";
+     private final String SQL_SELECTIN = "SELECT idNomIncidencia,nombre,estatus,dias FROM nomIncidencia";
 
 
     
@@ -45,7 +45,7 @@ public class Nomincidencia {
     }
 
     
-        public int insert(String incidencia) throws SQLException {
+        public int insert(String incidencia,int dias) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -54,7 +54,7 @@ public class Nomincidencia {
             stmt = conn.prepareStatement(SQL_INSERT);
             int index = 1;
             stmt.setString(index++, incidencia);
-
+            stmt.setInt(index++, dias);
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
@@ -90,9 +90,9 @@ public class Nomincidencia {
                 int id = rs.getInt("idNomIncidencia");
                 String nombre = rs.getString("nombre");
                 int estatus = rs.getInt("estatus");
-               
+                int diass  = rs.getInt("dias");
                 
-                Rincidencia producto = new Rincidencia(id,nombre,estatus);
+                Rincidencia producto = new Rincidencia(id,nombre,estatus,diass);
                 listarIncidencias.add(producto);
             }
             
@@ -171,10 +171,8 @@ public class Nomincidencia {
                 int id = rs.getInt("idNomIncidencia");
                 String nombre = rs.getString("nombre");
                 int estatus = rs.getInt("estatus");
-               
-
-             
-            Rincidencia sincidencia = new Rincidencia(id,nombre,estatus);
+             int dia = rs.getInt("dias");
+            Rincidencia sincidencia = new Rincidencia(id,nombre,estatus,dia);
             listaIncidecnias.add(sincidencia);
             }
             

@@ -598,67 +598,67 @@ public void botonesnew (){
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
         select_incidencia inci = new select_incidencia();
-        select_incidencia.lblFecha.setText(lblfechal.getText());
-        select_incidencia.lblsem.setText(lblsemana.getText());
-        inci.setVisible(true);
-
-        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
+//        select_incidencia.lblFecha.setText(lblfechal.getText());
+//        select_incidencia.lblsem.setText(lblsemana.getText());
+//        inci.setVisible(true);
+//
+//        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
     }//GEN-LAST:event_btnLunesActionPerformed
 
     private void btnDomingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomingoActionPerformed
 
         select_incidencia inci = new select_incidencia();
-        select_incidencia.lblFecha.setText(lblfechad.getText());
-        select_incidencia.lblsem.setText(lblsemana.getText());
-
-        inci.setVisible(true);
-        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
+//        select_incidencia.lblFecha.setText(lblfechad.getText());
+//        select_incidencia.lblsem.setText(lblsemana.getText());
+//
+//        inci.setVisible(true);
+//        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
     }//GEN-LAST:event_btnDomingoActionPerformed
 
     private void btnJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuevesActionPerformed
-        select_incidencia inci = new select_incidencia();
-        select_incidencia.lblFecha.setText(lblfechaj.getText());
-        select_incidencia.lblsem.setText(lblsemana.getText());
-
-        inci.setVisible(true);
-        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
+//        select_incidencia inci = new select_incidencia();
+//        select_incidencia.lblFecha.setText(lblfechaj.getText());
+//        select_incidencia.lblsem.setText(lblsemana.getText());
+//
+//        inci.setVisible(true);
+//        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
     }//GEN-LAST:event_btnJuevesActionPerformed
 
     private void btnMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiercolesActionPerformed
-        select_incidencia inci = new select_incidencia();
-        select_incidencia.lblFecha.setText(lblfechami.getText());
-        select_incidencia.lblsem.setText(lblsemana.getText());
-
-        inci.setVisible(true);
-        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
+//        select_incidencia inci = new select_incidencia();
+//        select_incidencia.lblFecha.setText(lblfechami.getText());
+//        select_incidencia.lblsem.setText(lblsemana.getText());
+//
+//        inci.setVisible(true);
+//        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
 
     }//GEN-LAST:event_btnMiercolesActionPerformed
 
     private void btnMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMartesActionPerformed
-        select_incidencia inci = new select_incidencia();
-        select_incidencia.lblFecha.setText(lblfecham.getText());
-        select_incidencia.lblsem.setText(lblsemana.getText());
-
-        inci.setVisible(true);
-        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
+//        select_incidencia inci = new select_incidencia();
+//        select_incidencia.lblFecha.setText(lblfecham.getText());
+//        select_incidencia.lblsem.setText(lblsemana.getText());
+//
+//        inci.setVisible(true);
+//        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
     }//GEN-LAST:event_btnMartesActionPerformed
 
     private void btnViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViernesActionPerformed
-        select_incidencia inci = new select_incidencia();
-        select_incidencia.lblFecha.setText(lblfechav.getText());
-        select_incidencia.lblsem.setText(lblsemana.getText());
-
-        inci.setVisible(true);
-        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
+//        select_incidencia inci = new select_incidencia();
+//        select_incidencia.lblFecha.setText(lblfechav.getText());
+//        select_incidencia.lblsem.setText(lblsemana.getText());
+//
+//        inci.setVisible(true);
+//        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
     }//GEN-LAST:event_btnViernesActionPerformed
 
     private void btnSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSabadoActionPerformed
-        select_incidencia inci = new select_incidencia();
-        select_incidencia.lblFecha.setText(lblfechas.getText());
-        select_incidencia.lblsem.setText(lblsemana.getText());
-
-        inci.setVisible(true);
-        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
+//        select_incidencia inci = new select_incidencia();
+//        select_incidencia.lblFecha.setText(lblfechas.getText());
+//        select_incidencia.lblsem.setText(lblsemana.getText());
+//
+//        inci.setVisible(true);
+//        inci.mostrardatosse(lblnombrej.getText(), lblempid.getText());
     }//GEN-LAST:event_btnSabadoActionPerformed
 
     private void btnrangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrangoActionPerformed

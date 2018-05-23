@@ -54,11 +54,7 @@ public class RegistrarIncidencia {
                 Conexion.close(conn);
             }
         }
-         if(rows > 0 ){
-            JOptionPane.showMessageDialog(null,"Registro Exitoso");
-        }else{
-            System.out.println("No se registro nada");
-        }
+      
 
         return rows;
        
