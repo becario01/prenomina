@@ -58,7 +58,6 @@ public class DatosIniciales extends javax.swing.JFrame {
             } else {
                 bandera = true;
                 flo.show();
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatosIniciales.class.getName()).log(Level.SEVERE, null, ex);
