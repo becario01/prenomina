@@ -86,12 +86,12 @@ public class Jflogin extends javax.swing.JFrame {
             public void run() {
               
 
-                ImageIcon icon = new ImageIcon(Jflogin.class.getResource("/View/img/alternativas.png"));
+                ImageIcon icon = new ImageIcon(Jflogin.class.getResource("/View/img/question.png"));
           
                 JOptionPane.showMessageDialog(
                         null,
-                        new JLabel("Este icono configura Rangos de fechas, Es necesario!!",icon, JLabel.RIGHT),
-                        "Hello", JOptionPane.INFORMATION_MESSAGE);
+                        new JLabel("Realice la configuracion inicial, Es necesario!!"),
+                        "Hello", JOptionPane.INFORMATION_MESSAGE,icon);
 
             }
         });
