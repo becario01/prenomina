@@ -451,10 +451,10 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jLabel15.setText("Nuevas percepciones");
         panelnuevo.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        btnIncidencias1.setBackground(new java.awt.Color(247, 203, 111));
+        btnIncidencias1.setBackground(new java.awt.Color(221, 65, 58));
         btnIncidencias1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnIncidencias1.setForeground(new java.awt.Color(51, 102, 255));
-        btnIncidencias1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/test.png"))); // NOI18N
+        btnIncidencias1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/persepciones.png"))); // NOI18N
         btnIncidencias1.setBorder(null);
         btnIncidencias1.setBorderPainted(false);
         btnIncidencias1.addActionListener(new java.awt.event.ActionListener() {

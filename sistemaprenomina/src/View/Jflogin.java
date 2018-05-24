@@ -5,13 +5,24 @@
  */
 package View;
 
+import Conexion.Conexion;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -19,6 +30,12 @@ import javax.swing.JOptionPane;
  */
 public class Jflogin extends javax.swing.JFrame {
 
+    public static ResultSet rs;
+    private Connection userConn;
+    private PreparedStatement st;
+    Conexion con = new Conexion();
+    Connection conn;
+    PreparedStatement stmt;
     int x, y;
 
     public Jflogin() {
@@ -34,8 +51,51 @@ public class Jflogin extends javax.swing.JFrame {
         panelloginm.setBackground(new Color(51, 102, 255, 200));
         loginfecha.setHorizontalAlignment(loginfecha.CENTER);
         loginfecha.setVerticalAlignment(loginfecha.CENTER);
+        boolean datoscon = consultar();
+        if (datoscon == true) {
+            btnconfig.setVisible(true);
+        } else {
+            btnconfig.setVisible(false);
+        }
     }
+  public boolean consultar() {
+        boolean datos = false;
+        try {
+            String sql = "SELECT * FROM DatosIniciales";
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            if (!rs.next()) {
+                System.out.println("vacio");
+                btnconfig.setToolTipText("Configuracion de rangos de Fechas");
+                 btnconfig.setBorder(new LineBorder(Color.BLACK));
+                datos = true;
+            } else {
+                datos = false;
+                System.out.println("llleno");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatosIniciales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return datos;
 
+    }
+  public void conf(){
+         EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+              
+
+                ImageIcon icon = new ImageIcon(Jflogin.class.getResource("/View/img/alternativas.png"));
+          
+                JOptionPane.showMessageDialog(
+                        null,
+                        new JLabel("Este icono configura Rangos de fechas, Es necesario!!",icon, JLabel.RIGHT),
+                        "Hello", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        });
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +120,7 @@ public class Jflogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
+        btnconfig = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -165,6 +226,17 @@ public class Jflogin extends javax.swing.JFrame {
         });
         jPanel2.add(btnOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 110, 40));
 
+        btnconfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/alternativas.png"))); // NOI18N
+        btnconfig.setBorderPainted(false);
+        btnconfig.setContentAreaFilled(false);
+        btnconfig.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/alternativasO.png"))); // NOI18N
+        btnconfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnconfigActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnconfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 30, 40));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 300, 350));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/fondologin.png"))); // NOI18N
@@ -195,7 +267,7 @@ public class Jflogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        String Usuario = txtUsuario.getText();
+      String Usuario = txtUsuario.getText();
         String Pass = txtPass.getText();
         if (Usuario.equals("")) {
             JOptionPane.showMessageDialog(null, "Verifique sus datos .\n Usuario Vacio", "Usuario Vacio", JOptionPane.WARNING_MESSAGE);
@@ -203,11 +275,23 @@ public class Jflogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Verifique sus datos.\n Contraseña Vacia", "Contraseña Vacia", JOptionPane.WARNING_MESSAGE);
         } else {
             BD.login lo = new BD.login();
-            lo.validar_ingreso(txtUsuario.getText(), txtPass.getText());
+            boolean confv = consultar();
+            if (confv == true) {
+               conf();
+                this.setVisible(true);
+            } else {
+                lo.validar_ingreso(txtUsuario.getText(), txtPass.getText());
+                this.setVisible(false);
+            }
 
-            this.setVisible(false);
         }
     }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnconfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfigActionPerformed
+    DatosIniciales dto = new DatosIniciales();
+        dto.show();
+        this.hide();
+    }//GEN-LAST:event_btnconfigActionPerformed
     public void cerrar() {
         Object[] opciones = {"Aceptar", "Cancelar"};
         int eleccion = JOptionPane.showOptionDialog(rootPane, "En realidad desea realizar cerrar la aplicacion", "Mensaje de Confirmacion",
@@ -258,6 +342,7 @@ public class Jflogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOk;
+    public static javax.swing.JButton btnconfig;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
