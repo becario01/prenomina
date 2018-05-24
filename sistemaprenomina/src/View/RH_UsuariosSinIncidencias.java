@@ -157,20 +157,11 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         }
     }
 
-    public void cargardatosFiltroSemana(int idSemana) throws SQLException {
-        String nombresem = (String) cmbSemana.getSelectedItem();
-        String idsem = "";
-        String sql1 = "Select * from semanas  where  semana= '" + nombresem + "'";
-        conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-        stmt = conn.prepareStatement(sql1);
-        rs = stmt.executeQuery();
-        while (rs.next()) {
-            idsem = rs.getString("idSemana");
-        }
-
+     
+   public void cargardatosFiltroSemana(int idSemana) throws SQLException {
         String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp \n"
-                + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='" + idsem + "'\n"
-                + "WHERE  inc.empleadoId  IS NULL AND emp.estatus = 1 ";
+                + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idSemana+"'\n"
+                + "WHERE  inc.empleadoId  IS NULL AND emp.estatus='1'";
         String datos[] = new String[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -183,8 +174,8 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
                 datos[3] = rs.getString("puesto");
                 tabla1.addRow(datos);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -195,11 +186,8 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
     }
 
     public void cargardatosFiltroDepto(int idSemana, String depto) throws SQLException {
-        String sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
-                + "                    from incidencias inc\n"
-                + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "                    where inc.idSemana='" + idSemana + "' and emp.depto='" + depto + "'";
+        String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idSemana+"' \n" +
+"WHERE  inc.empleadoId  IS NULL AND emp.estatus='1'  AND emp.depto ='"+depto+"'";
         String datos[] = new String[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -212,37 +200,14 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
                 datos[3] = rs.getString("puesto");
                 tabla1.addRow(datos);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
             if (this.userConn == null) {
                 Conexion1.close(conn);
             }
-        }
-    }
-
-    public void prueba() throws SQLException {
-        int sem = cmbSemana.getSelectedIndex();
-        if (sem != 0) {
-            limpiar(tabla1);
-
-            int dep = cmbSemana.getSelectedIndex();
-
-            if (dep == 0) {
-                cargardatosFiltroSemana(sem);
-
-            } else {
-                String depp = cmbSemana.getSelectedItem().toString();
-
-                cargardatosFiltroDepto(sem, depp);
-
-            }
-
-        } else {
-            cmbSemana.setSelectedIndex(0);
-            JOptionPane.showMessageDialog(null, "Seleccione antes una semana");
         }
     }
 
@@ -387,8 +352,27 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         }
     }
 
-    public void enviarfechas(String fechainicio, String fechafin) {
-
+  public int obteneridsem(String nombresemana) {
+       int idsemp = 0; 
+      try {
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String sql = "select  * from  semanas   where semana= '" + nombresemana + "' ";
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+           
+            if (!rs.next()) {
+               
+            } else {
+                idsemp = rs.getInt("idSemana");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RH_UsuariosSinIncidencias.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idsemp;
     }
 
     /**
@@ -534,6 +518,8 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         panelincidencias.setBackground(new java.awt.Color(51, 102, 255));
         panelincidencias.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
@@ -589,48 +575,56 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
       private void cmbSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSemanaActionPerformed
-          limpiar(tabla1);
-          int sem = cmbSemana.getSelectedIndex();
-          try {
-              if (sem != 0) {
-                  panelincidencias.setVisible(true);
-                  cargardatosFiltroSemana(sem);
-
-              }
-
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Error en: " + e);
-          }
+                                          
+            limpiar(tabla1);
+            String nomsem = cmbSemana.getSelectedItem().toString();
+            int numsem = cmbSemana.getSelectedIndex();
+            int idnomsem =obteneridsem(nomsem);
+            System.out.println(nomsem);
+            System.out.println(numsem);
+            try {
+                
+                System.out.println(idnomsem);
+                if (numsem != 0) {
+                    panelincidencias.setVisible(true);
+                    cargardatosFiltroSemana(idnomsem);
+                    
+                } else {
+                    panelincidencias.setVisible(false);
+                }
+                
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            
+      
 
 
       }//GEN-LAST:event_cmbSemanaActionPerformed
 
       private void cmbDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDeptoActionPerformed
-          try {
-              int index = cmbSemana.getSelectedIndex();
-              if (index != 0) {
-                  int sem = cmbSemana.getSelectedIndex();
-                  if (sem != 0) {
-                      limpiar(tabla1);
-                      int dep = cmbDepto.getSelectedIndex();
-                      if (dep == 0) {
-                          cargardatosFiltroSemana(sem);
+      try {
+              limpiar(tabla1);
+              String nomsema = cmbSemana.getSelectedItem().toString();
+              int numsema = cmbSemana.getSelectedIndex();
+              String nomdep = cmbDepto.getSelectedItem().toString();
+              int numdep = cmbDepto.getSelectedIndex();
+              
+        int idnomsem = obteneridsem(nomsema);
+              if (numsema != 0) {
+                  if (numdep == 0) {
 
-                      } else {
-                          String depp = cmbDepto.getSelectedItem().toString();
-                          cargardatosFiltroDepto(sem, depp);
-
-                      }
+                      cargardatosFiltroSemana(idnomsem);
                   } else {
-                      cmbDepto.setSelectedIndex(0);
-                      // JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
+                      cargardatosFiltroDepto(idnomsem, nomdep);
                   }
               } else {
                   cmbDepto.setSelectedIndex(0);
-                  // JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA");
               }
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, "Error en: " + e);
+
+          } catch (SQLException e) {
+              JOptionPane.showMessageDialog(null, "Error en " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
       }//GEN-LAST:event_cmbDeptoActionPerformed
 

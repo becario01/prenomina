@@ -280,6 +280,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbincidencias = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
         comboSemana = new javax.swing.JComboBox<String>();
 
         itemDetalles.setText("Detalles");
@@ -481,12 +482,15 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         panelincidencias.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 38, -1, -1));
 
+        txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
+        txtBuscar.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
             }
         });
-        panelincidencias.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 243, 254, 35));
+        panelincidencias.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 254, 35));
 
         tbincidencias= new javax.swing.JTable(){
             public boolean  isCellEditable(int rowIndex,int conlIndex ){
@@ -527,6 +531,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbincidencias);
 
         panelincidencias.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 296, 1060, 190));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
+        panelincidencias.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 30));
 
         getContentPane().add(panelincidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 142, 1060, -1));
 
@@ -821,6 +828,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
