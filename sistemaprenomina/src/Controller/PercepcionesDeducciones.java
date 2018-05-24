@@ -46,20 +46,20 @@ public class PercepcionesDeducciones {
         Connection conn = null;
         PreparedStatement stmt = null;
         listar();
-
         System.out.println("°°°°" + arrayidR);
         System.out.println("°°°°" + arrayfeR);
-        Boolean com = false;
-        Boolean fin = false;
+
         percep = String.valueOf(idper);
         try {
             obtenerfechas(fecha);
             System.out.println(arrayfechas + "´´´´");
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             String sql = "INSERT INTO percepciones( empleadoId, fecha, idNomPer, dia, comentario, Semana) values (?,?,?,?,?,?)";
-            System.out.println(arrayfechas.size()+"#");
+            System.out.println(arrayfechas.size() + "#");
             if (arrayfechas.size() == 1) {
-
+                Boolean comu = false;
+                Boolean comf = false;
+                Boolean fin = false;
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, empleadoid);
                 stmt.setString(2, fecha);
@@ -67,45 +67,45 @@ public class PercepcionesDeducciones {
                 stmt.setString(4, dia(fecha));
                 stmt.setString(5, coment);
                 stmt.setString(6, nomsenanas(fecha));
-
-                for (int j = 0; j < arrayidR.size(); j++) {
-                    com = arrayidR.elementAt(j).equals(String.valueOf(empleadoid)) && arrayfeR.elementAt(j).equals(fecha);
-                    if (com) {
-                        fin = true;
+                for (int j = 0; j < arrayfeR.size(); j++) {
+                    comf = arrayfeR.elementAt(j).equals(fecha);
+                    if (comf) {
+                        comu = arrayidR.elementAt(j).equals(String.valueOf(empleadoid));
+                        if (comu) {
+                            fin = true;
+                        }
                     }
                 }
                 if (fin) {
                     duplicado(empleadoid, fecha, percep, dia(fecha), coment, nomsenanas(fecha), rootPane);
                 } else {
                     stmt.execute();
-                JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+                    JOptionPane.showMessageDialog(null, "Registro Exitoso!");
                 }
-            }else if(arrayfechas.size()>1){
-                JOptionPane.showMessageDialog(null, "repetido ");
+            } else if (arrayfechas.size() > 1) {
                 repetido(empleadoid, stmt, rs, conn, sql, coment, rootPane);
             }
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-
         } catch (ParseException ex) {
             Logger.getLogger(PercepcionesDeducciones.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             Conexion1.close(stmt);
-
             if (this.userConn == null) {
                 Conexion1.close(conn);
             }
-
         }
-
     }
-public void repetido(String empleadoid,PreparedStatement stmt, ResultSet rs, Connection conn,String sql, String coment, JRootPane rootPane ){
-    try {
-        Boolean com = false;
-        Boolean fin = false;
-          for (int i = 0; i < arrayfechas.size(); i++) {
-                   String fechaFin=arrayfechas.elementAt(i);
-                    stmt = conn.prepareStatement(sql);
+
+    public void repetido(String empleadoid, PreparedStatement stmt, ResultSet rs, Connection conn, String sql, String coment, JRootPane rootPane) {
+        try {
+
+            for (int i = 0; i < arrayfechas.size(); i++) {
+                Boolean comu = false;
+                Boolean comf = false;
+                Boolean fin = false;
+                String fechaFin = arrayfechas.elementAt(i);
+                stmt = conn.prepareStatement(sql);
                 stmt.setString(1, empleadoid);
                 stmt.setString(2, fechaFin);
                 stmt.setString(3, percep);
@@ -113,13 +113,13 @@ public void repetido(String empleadoid,PreparedStatement stmt, ResultSet rs, Con
                 stmt.setString(5, coment);
                 stmt.setString(6, nomsenanas(fechaFin));
 
-                for (int j = 0; j < arrayidR.size(); j++) {
-                    com = arrayidR.elementAt(j).equals(String.valueOf(empleadoid)) && arrayfeR.elementAt(j).equals(fechaFin);
-                    System.out.println("id registrado "+ arrayidR.elementAt(j)+".........id ingresado "+ empleadoid);
-                    System.out.println("fecha registrada "+ arrayfeR.elementAt(j)+".........fecha ingresada "+ fechaFin);
-                    System.out.println("resultado......."+com);
-                    if (com) {
-                        fin = true;
+               for (int j = 0; j < arrayfeR.size(); j++) {
+                    comf = arrayfeR.elementAt(j).equals(fechaFin);
+                    if (comf) {
+                        comu = arrayidR.elementAt(j).equals(String.valueOf(empleadoid));
+                        if (comu) {
+                            fin = true;
+                        }
                     }
                 }
                 if (fin) {
@@ -127,14 +127,15 @@ public void repetido(String empleadoid,PreparedStatement stmt, ResultSet rs, Con
                 } else {
                     stmt.execute();
                 }
-                }
-    } catch (HeadlessException | SQLException | ParseException e) {
-        JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
-    } finally{
-           JOptionPane.showMessageDialog(null, "Registros Exitosos!");
-    }      
-  
-}
+            }
+        } catch (HeadlessException | SQLException | ParseException e) {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            JOptionPane.showMessageDialog(null, "Registros Exitosos!");
+        }
+
+    }
+
     public void obtenerfechas(String fecha) throws ParseException {
 
         ResultSet rs6;
@@ -227,7 +228,7 @@ public void repetido(String empleadoid,PreparedStatement stmt, ResultSet rs, Con
 
     public void duplicado(String empleadoid, String fecha, String idper, String dia, String coment, String semana, JRootPane rootPane) {
         Object[] opciones = {"Aceptar", "Cancelar"};
-        int eleccion = JOptionPane.showOptionDialog(rootPane, fecha+" cuanta ya con alguna percepcion \no deduccion desea actualizarla", "Mensaje de Confirmacion",
+        int eleccion = JOptionPane.showOptionDialog(rootPane, fecha + " cuanta ya con alguna percepcion \no deduccion desea actualizarla", "Mensaje de Confirmacion",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
         if (eleccion == JOptionPane.YES_OPTION) {
@@ -256,7 +257,7 @@ public void repetido(String empleadoid,PreparedStatement stmt, ResultSet rs, Con
 
         } finally {
             Conexion1.close(stmt2);
-            JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+            JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
             if (this.userConn2 == null) {
                 Conexion1.close(conn2);
             }

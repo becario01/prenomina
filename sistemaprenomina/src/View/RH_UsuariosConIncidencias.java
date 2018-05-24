@@ -692,7 +692,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             if (numfila == 1) {
                 String nom = tbincidencias.getValueAt(fila, 1).toString();
                 String idemp = tbincidencias.getValueAt(fila, 0).toString();
-                RH_SelectPD per = new RH_SelectPD(idemp);
+                RH_SelectPD per = new RH_SelectPD(idemp,1);
                 per.show(true);
                 RH_SelectPD.lblnombre.setText(nom);
             } else {

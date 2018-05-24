@@ -6,6 +6,7 @@
 package View;
 
 import Conexion.Conexion1;
+import java.awt.HeadlessException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -149,6 +150,8 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PopDetalle = new javax.swing.JPopupMenu();
+        ItemDetalles = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -169,6 +172,14 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         cmbdepto = new javax.swing.JComboBox();
         cmbsema = new javax.swing.JComboBox();
 
+        ItemDetalles.setText("Detalles");
+        ItemDetalles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemDetallesActionPerformed(evt);
+            }
+        });
+        PopDetalle.add(ItemDetalles);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
@@ -184,7 +195,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/portafolio.png"))); // NOI18N
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, 40));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, 40));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
@@ -197,7 +208,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 0, 32, 30));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 32, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
         jButton3.setBorderPainted(false);
@@ -207,7 +218,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 0, 32, 30));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 32, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
         jButton4.setBorderPainted(false);
@@ -217,17 +228,17 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 0, 32, 30));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
         lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
-        jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
+        jPanel2.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 240, 20));
 
         lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
         lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
-        jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 330, 20));
+        jPanel2.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 230, 20));
 
         jLabel11.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -239,7 +250,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                 jLabel11MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 50));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 50));
 
         panel.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -262,6 +273,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
             }
         ));
+        tbpercepciones.setComponentPopupMenu(PopDetalle);
         tbpercepciones.setFillsViewportHeight(true);
         tbpercepciones.setGridColor(new java.awt.Color(255, 255, 255));
         tbpercepciones.setInheritsPopupMenu(true);
@@ -331,34 +343,34 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(cmbsema, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbsema, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cmbsema, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(27, 27, 27)
+                        .addComponent(cmbsema, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -435,7 +447,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void cmbsemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbsemaActionPerformed
-           limpiar(tabla1);
+        limpiar(tabla1);
         int sem = cmbsema.getSelectedIndex();
         String sema = cmbsema.getSelectedItem().toString();
         try {
@@ -451,6 +463,32 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cmbsemaActionPerformed
+
+    private void ItemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemDetallesActionPerformed
+        try {
+             int count = tbpercepciones.getSelectedRowCount();
+        int fila = tbpercepciones.getSelectedRow();
+        String nomcargo = lblcargo.getText();
+        String nomusuario = lblnombrerh.getText();
+        String nomsema = (String) cmbsema.getSelectedItem().toString();
+        if (count == 1) {
+            String idemp= tbpercepciones.getValueAt(fila, 0).toString();
+            String nomemp= tbpercepciones.getValueAt(fila, 1).toString();
+            RH_detallePercep dper= new RH_detallePercep(nomsema,idemp,nomcargo,nomusuario);
+            dper.show();
+            RH_detallePercep.lblcargo.setText(nomcargo);
+            RH_detallePercep.lblnombrerh.setText(nomusuario);
+            RH_detallePercep.txtsemana.setText(nomsema);
+            RH_detallePercep.txtid.setText(idemp);
+            RH_detallePercep.txtnombre.setText(nomemp);
+        } else if (count == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila ", "", JOptionPane.WARNING_MESSAGE);
+        }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e,"",JOptionPane.ERROR_MESSAGE);
+        }
+       
+    }//GEN-LAST:event_ItemDetallesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -492,6 +530,8 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ItemDetalles;
+    private javax.swing.JPopupMenu PopDetalle;
     private javax.swing.JComboBox cmbdepto;
     private javax.swing.JComboBox cmbsema;
     private javax.swing.JButton jButton2;
@@ -514,11 +554,11 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargardatosFiltroSemana(String nomsem) {
-        String sql = "select per.empleadoId, em.nombre, se.semana,  per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
+        String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
                 + "from percepciones per \n"
                 + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                + "INNER JOIN semanas se on per.idSemana=se.idSemana\n"
-                + "where se.semana='" + nomsem + "'";
+                + "INNER JOIN semanas se on per.Semana=se.semana\n"
+                + "where se.semana='" + nomsem + "' ";
 
         String datos[] = new String[13];
         try {
@@ -528,17 +568,8 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             while (rs.next()) {
                 datos[0] = rs.getString("empleadoId");
                 datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("per1");
-                datos[3] = rs.getString("per2");
-                datos[4] = rs.getString("per3");
-                datos[5] = rs.getString("per4");
-                datos[6] = rs.getString("per5");
-                datos[7] = rs.getString("per6");
-                datos[8] = rs.getString("per7");
-                datos[9] = rs.getString("per8");
-                datos[10] = rs.getString("per9");
-                datos[11] = rs.getString("per10");
-                datos[12] = rs.getString("per11");
+                datos[2] = rs.getString("depto");
+                datos[3] = rs.getString("puesto");
                 tabla1.addRow(datos);
             }
         } catch (SQLException e) {
@@ -553,11 +584,11 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     }
 
     private void cargardatosFiltroDepto(String nomsem, String depp) {
-        String sql = "select per.empleadoId, em.nombre, se.semana,  per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
+        String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
                 + "from percepciones per \n"
                 + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                + "INNER JOIN semanas se on per.idSemana=se.idSemana\n"
-                + "where se.semana='"+nomsem+"' and em.depto ='"+depp+"'";
+                + "INNER JOIN semanas se on per.Semana=se.semana\n"
+                + "where se.semana='" + nomsem + "' and em.depto='" + depp + "'";
 
         String datos[] = new String[13];
         try {
@@ -567,17 +598,8 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             while (rs.next()) {
                 datos[0] = rs.getString("empleadoId");
                 datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("per1");
-                datos[3] = rs.getString("per2");
-                datos[4] = rs.getString("per3");
-                datos[5] = rs.getString("per4");
-                datos[6] = rs.getString("per5");
-                datos[7] = rs.getString("per6");
-                datos[8] = rs.getString("per7");
-                datos[9] = rs.getString("per8");
-                datos[10] = rs.getString("per9");
-                datos[11] = rs.getString("per10");
-                datos[12] = rs.getString("per11");
+                datos[2] = rs.getString("depto");
+                datos[3] = rs.getString("puesto");
                 tabla1.addRow(datos);
             }
         } catch (SQLException e) {
@@ -595,35 +617,13 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
         tabla1.addColumn("ID");
         tabla1.addColumn("NOMBRE");
-        tabla1.addColumn("Bono productividad");
-        tabla1.addColumn("Premio asistencia");
-        tabla1.addColumn("Diferencia sueldo");
-        tabla1.addColumn("Suplencia");
-        tabla1.addColumn("Festivo");
-        tabla1.addColumn("Prima dominical");
-        tabla1.addColumn("Sobre sueldo");
-        tabla1.addColumn("Falta administrativa");
-        tabla1.addColumn("Falta sancion");
-        tabla1.addColumn("Falta produccion");
-        tabla1.addColumn("Falta calidad");
-
+        tabla1.addColumn("DEPARTAMENTO");
+        tabla1.addColumn("PUESTO");
         this.tbpercepciones.setModel(tabla1);
-
         TableColumnModel columnModel = tbpercepciones.getColumnModel();
-
-        columnModel.getColumn(0).setPreferredWidth(15);
-        columnModel.getColumn(1).setPreferredWidth(150);
-        columnModel.getColumn(2).setPreferredWidth(75);
-        columnModel.getColumn(3).setPreferredWidth(69);
-        columnModel.getColumn(4).setPreferredWidth(67);
-        columnModel.getColumn(5).setPreferredWidth(25);
-        columnModel.getColumn(6).setPreferredWidth(3);
-        columnModel.getColumn(7).setPreferredWidth(60);
-        columnModel.getColumn(8).setPreferredWidth(43);
-        columnModel.getColumn(9).setPreferredWidth(79);
-        columnModel.getColumn(10).setPreferredWidth(44);
-        columnModel.getColumn(11).setPreferredWidth(62);
-        columnModel.getColumn(12).setPreferredWidth(40);
-
+        columnModel.getColumn(0).setPreferredWidth(10);
+        columnModel.getColumn(1).setPreferredWidth(200);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
     }
 }

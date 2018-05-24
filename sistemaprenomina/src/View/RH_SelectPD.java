@@ -30,9 +30,11 @@ Connection conn;
     public static ResultSet rs;
     private Connection userConn;
     static String idemp;
-    public RH_SelectPD(String nomemp) {
+    static int frame ;
+    public RH_SelectPD(String nomemp, int jframe) {
         initComponents();
         idemp=nomemp;
+        frame=jframe;
             this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
@@ -222,7 +224,7 @@ Connection conn;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try {
+       try {
              String idempleado = idemp;
         String fecha= txtFecha.getText();
         String nomper= cmbPercep.getSelectedItem().toString();
@@ -237,6 +239,7 @@ Connection conn;
         } catch (SQLException  e) {
             JOptionPane.showMessageDialog(null, e,"",JOptionPane.ERROR_MESSAGE);
         }
+       
        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -296,9 +299,9 @@ int codigo=0;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+     java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RH_SelectPD(idemp).setVisible(true);
+                new RH_SelectPD(idemp,frame).setVisible(true);
             }
         });
     }

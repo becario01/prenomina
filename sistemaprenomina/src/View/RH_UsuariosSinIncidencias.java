@@ -19,6 +19,7 @@ import static View.RH_ListadoPersonal.rs;
 import static View.RH_UsuariosConIncidencias.codid;
 import static View.RH_UsuariosConIncidencias.lblcargo;
 import static View.RH_UsuariosConIncidencias.lblnombrerh;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -686,19 +687,20 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
     private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
         try {
             int fila = tbsinIncidencias.getSelectedRow();
-            if (fila != -1) {
+            int numfila = tbsinIncidencias.getSelectedRowCount();
+
+            if (numfila == 1) {
                 String nom = tbsinIncidencias.getValueAt(fila, 1).toString();
                 String idemp = tbsinIncidencias.getValueAt(fila, 0).toString();
-                RH_SelectPD1 per = new RH_SelectPD1();
-                RH_SelectPD1.lblcod.setText(idemp);
-                RH_SelectPD1.lblnombre.setText(nom);
-                per.setVisible(true);
+                RH_SelectPD per = new RH_SelectPD(idemp,1);
+                per.show(true);
+                RH_SelectPD.lblnombre.setText(nom);
             } else {
-                JOptionPane.showMessageDialog(null, "Selecciona una fila");
+                JOptionPane.showMessageDialog(null, "Selecciona una fila", "", JOptionPane.WARNING_MESSAGE);
             }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR EN: " + e);
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "ERROR EN: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_itemPercepcionesActionPerformed
 
