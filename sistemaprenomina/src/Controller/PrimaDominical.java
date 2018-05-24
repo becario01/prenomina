@@ -11,6 +11,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
@@ -24,118 +29,139 @@ public class PrimaDominical {
     public static ResultSet rs;
     private Connection userConn;
     Connection conn;
-    PreparedStatement stmt;
-    Conexion1 con = new Conexion1();
-    public static Vector<String> arrayid = new Vector<>();
-    public static Vector<String> arraysemana = new Vector<>();
-    public static Vector<String> arrayemp = new Vector<>();
+    PreparedStatement stmt1;
     public static ResultSet rs1;
     private Connection userConn1;
     Connection conn1;
-    PreparedStatement stmt1;
+    PreparedStatement stmt2;
     public static ResultSet rs2;
     private Connection userConn2;
     Connection conn2;
-    PreparedStatement stmt2;
-    String domingo = "";
+    PreparedStatement stmt3;
+    public static ResultSet rs3;
+    private Connection userConn3;
+    Connection conn3;
+    PreparedStatement stmt4;
+    public static ResultSet rs4;
+    private Connection userConn4;
+    Connection conn4;
+    PreparedStatement stmt;
+    Conexion1 con = new Conexion1();
+    Vector<String> arrayidR = new Vector<>();
+    Vector<String> arrayfechaR = new Vector<>();
+    Vector<String> arraynomsema = new Vector<>();
+    Vector<String> arrayemp = new Vector<>();
+    Vector<String> arrayfecha = new Vector<>();
+    Vector<String> arrayDomingos = new Vector<>();
+    Vector<String> arrayDias = new Vector<>();
 
-    public String domingos(String semana) throws SQLException {
-        String sql = "select fechaD from semanas where idSemana='" + semana + "'";
-
-        try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                domingo = rs.getString("fechaD");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (this.userConn == null) {
-                Conexion1.close(conn);
-            }
-        }
-        
-        return domingo;
+    public PrimaDominical(Vector<String> dias) {
+        arrayDias.clear();
+        arrayDias = dias;
     }
 
-    public Vector<String> empleado(String semana) throws SQLException {
-        arrayemp.clear();
-        
-        String sql = "select empleadoId, fecha from registros where fecha='" + domingo + "'";
-        String id = "";
+
+    public void domingos() {
+        GregorianCalendar cal = new GregorianCalendar();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
         try {
-            conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
-            stmt1 = conn1.prepareStatement(sql);
-            rs1 = stmt1.executeQuery();
-            int cont=0;
-            while (rs1.next()) {
-                arrayemp.add(rs1.getString("empleadoId"));
-                System.out.println("empleado "+cont+"  "+rs1.getString("empleadoId"));
+            for (int i = 0; i < arrayDias.size(); i++) {
+            String fechadia = arrayDias.elementAt(i);
+                Date fecha = formato.parse(fechadia);
+                cal.setTime(fecha);
+                int dia = cal.get(Calendar.DAY_OF_WEEK);
+
+                if (dia == 1) {
+                   arrayDomingos.add(fechadia);
+                }
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs1);
-            Conexion1.close(stmt1);
-            if (this.userConn1 == null) {
-                Conexion1.close(conn1);
+        } catch (ParseException e) {
+
+            JOptionPane.showMessageDialog(null, "Errorn en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+//   
+    }
+    public Vector<String> empleado() throws SQLException, ParseException {
+        arrayemp.clear();
+        for (int j = 0; j < arrayDomingos.size(); j++) {
+            String domingo = arrayDomingos.elementAt(j);
+            String sql = "select empleadoId, fecha from registros where fecha='" + domingo + "'";
+            try {
+                conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
+                stmt1 = conn1.prepareStatement(sql);
+                rs1 = stmt1.executeQuery();
+                int cont = 0;
+                while (rs1.next()) {
+                    arrayemp.add(rs1.getString("empleadoId"));
+                    arrayfecha.add(rs1.getString("fecha"));
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                Conexion1.close(rs1);
+                Conexion1.close(stmt1);
+                if (this.userConn1 == null) {
+                    Conexion1.close(conn1);
+                }
             }
+        }
+        for (int i = 0; i < arrayfecha.size(); i++) {
+            String fechadomi=arrayfecha.elementAt(i);
+            arraynomsema.add(nomsenanas(fechadomi));
         }
         return arrayemp;
     }
 
-    public void insertar(String semana) throws SQLException {
-   
+    public void insertar() throws SQLException, ParseException {
+
         listar();
-        domingos(semana);
-        empleado(semana);
-       
-       
+        domingos();
+        empleado();
+        System.out.println(arrayDomingos+"***");
         Boolean com = false;
         Boolean fin = false;
         try {
 
-            
             for (int i = 0; i < arrayemp.size(); i++) {
                 conn2 = (this.userConn2 != null) ? this.userConn2 : Conexion1.getConnection();
-            String sql = "INSERT INTO percepciones( per6, empleadoId, idSemana) values (?,?,?)";
+                String sql = "INSERT INTO percepciones( empleadoId, fecha, idNomPer, dia, comentario, Semana) values (?,?,?,?,?,?)";
 
                 stmt2 = conn2.prepareStatement(sql);
-                stmt2.setString(1, "1");
+                stmt2.setString(1, arrayemp.elementAt(i));
+                stmt2.setString(2, arrayfecha.elementAt(i));
+                stmt2.setString(3, "1");
+                stmt2.setString(4, "DOMINGO");
+                stmt2.setString(5, "PRIMA DOMINICAL");
+                stmt2.setString(6, arraynomsema.elementAt(i));
+               
+                for (int j = 0; j < arrayidR.size(); j++) {
+                    com = arrayidR.elementAt(j).equals(String.valueOf(arrayemp.elementAt(i))) && arrayfechaR.elementAt(j).equals(arrayfecha.elementAt(i));
+                        if (com) {
+                            fin = true;
+                        }
+                    }
+                
+                if (fin) {
+                    String idem=arrayemp.elementAt(i);
+                    String fech=arrayfecha.elementAt(i);
+                    String se=arraynomsema.elementAt(i);
+                    actualizar(idem, fech, se);
 
-                stmt2.setString(2, arrayemp.elementAt(i));
-                stmt2.setString(3, semana);
-         
-for (int j = 0; j < arrayid.size(); j++) {
-    for (int k = 0; k < arrayemp.size(); k++) {
-        
-    
-                com = arrayid.elementAt(j).equals(String.valueOf(arrayemp.elementAt(k))) && arraysemana.elementAt(j).equals(semana);
-                if (com) {
-                    fin = true;
-        
+                } else {
+                    
+ stmt2.execute();
                 }
-            }}
-            if(fin){
-                actualizar(semana);
-                
-            }else{
-                stmt2.execute();
-                
+
             }
-           
-                
-        }
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } finally {
             Conexion1.close(stmt2);
- 
+
             if (this.userConn2 == null) {
                 Conexion1.close(conn2);
             }
@@ -144,62 +170,76 @@ for (int j = 0; j < arrayid.size(); j++) {
 
     }
 
-    public Vector<String> listar() throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt1 = null;
-
-        conn = (this.userConn2 != null) ? this.userConn2 : Conexion1.getConnection();
+    public Vector<String> listar()  {
+        try {
+             conn3 = (this.userConn3 != null) ? this.userConn3 : Conexion1.getConnection();
         String sql1 = "select * from percepciones";
 
-        stmt1 = conn.prepareStatement(sql1);
+        stmt3 = conn3.prepareStatement(sql1);
 
-        rs2 = stmt1.executeQuery();
+        rs3 = stmt3.executeQuery();
 
-        int con = 0;
+        int con2 = 0;
 
-        while (rs2.next()) {
+        while (rs3.next()) {
 
-            arrayid.add(con, rs2.getString("empleadoId"));
-            arraysemana.add(con, rs2.getString("idSemana"));
-
-            con++;
-//                                      
-
+            arrayidR.add(con2, rs3.getString("empleadoId"));
+            arrayfechaR.add(con2, rs3.getString("fecha"));
+            con2++;
         }
-
-        return arrayid;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexion1.close(stmt3);
+            if (this.userConn3 == null) {
+                Conexion1.close(conn3);
+            }
+        }
+        return arrayidR;
 
     }
 
-    public void actualizar(String semana) {
-        for (int i = 0; i < arrayemp.size(); i++) {
-        try {
-           
-                
-            
-            conn2 = (this.userConn2 != null) ? this.userConn2 : Conexion1.getConnection();
-            String sql = "UPDATE percepciones SET  per6='1'"
-                    + " WHERE empleadoId='" + arrayemp.elementAt(i) + "' and  idSemana='" + semana + "' ";
+    public void actualizar(String idem, String fech, String semana) {
+      
+            try {
+                conn4 = (this.userConn4 != null) ? this.userConn4 : Conexion1.getConnection();
+                String sql = "UPDATE percepciones SET  idNomPer='1', dia='DOMINGO', comentario='PRIMA DOMINICAL', Semana='"+semana+"'"
+                        + " WHERE empleadoId='" + idem + "' and  fecha='" + fech+ "' ";
 
-            PreparedStatement pst = conn2.prepareStatement(sql);
-            pst.executeUpdate();
-            conn2.close();
+                PreparedStatement pst = conn4.prepareStatement(sql);
+                pst.executeUpdate();
+                conn4.close();
 
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en:  " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
-        } finally {
-            Conexion1.close(stmt2);
-            
-            if (this.userConn2 == null) {
-                Conexion1.close(conn2);
+            } finally {
+                Conexion1.close(stmt4);
+
+                if (this.userConn4 == null) {
+                    Conexion1.close(conn4);
+                }
+
             }
 
-        }
         
-       
-    }
-       
-    }
 
+    }
+    public String nomsenanas(String fecha) throws ParseException, SQLException {
+
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setMinimalDaysInFirstWeek(4);
+        java.util.Date date = d.parse(fecha);
+        calendar.setTime(date);
+        int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+        int year = calendar.get(Calendar.YEAR);
+        String numbstring = String.valueOf(numberWeekOfYear);
+        String strinyear = String.valueOf(year);
+        String sSubCadena = strinyear.substring(2, 4);
+        String nomsemana = "SEMANA" + " " + numbstring + "_" + sSubCadena;
+        return nomsemana;
+    }
+  
 }

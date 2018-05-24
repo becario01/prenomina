@@ -27,7 +27,7 @@ public class RH_Calendario2 extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
         agregarOyente();
-       asignarfecha();
+        asignarfecha();
     }
 
     public void cerra() {
@@ -35,10 +35,24 @@ public class RH_Calendario2 extends javax.swing.JFrame {
     }
 
     public void asignarfecha() {
-        if (numcalen == 1) {
-            RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(calendario2.getDate()));
-        } else if (numcalen == 2) {
-            RH_Calculofaltas.txtFin.setText(formatoDeFecha.format(calendario2.getDate()));
+        switch (numcalen) {
+            case 1:
+                RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(calendario2.getDate()));
+                break;
+            case 2:
+                RH_Calculofaltas.txtFin.setText(formatoDeFecha.format(calendario2.getDate()));
+                break;
+            case 3:
+                RH_fechasReporte.txtDate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                break;
+            case 4:
+                RH_fechasReporte.txtDate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                break;
+            case 5:
+                RH_SelectPD.txtFecha.setText(formatoDeFecha.format(calendario2.getDate()));
+                break;
+            default:
+                break;
         }
     }
 
@@ -52,17 +66,30 @@ public class RH_Calendario2 extends javax.swing.JFrame {
 
                 cerrar = true;
 
-                if (numcalen == 1) {
-                    RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(calendario2.getDate()));
-                } else if (numcalen == 2) {
-                    RH_Calculofaltas.txtFin.setText(formatoDeFecha.format(calendario2.getDate()));
+                switch (numcalen) {
+                    case 1:
+                        RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(calendario2.getDate()));
+                        break;
+                    case 2:
+                        RH_Calculofaltas.txtFin.setText(formatoDeFecha.format(calendario2.getDate()));
+                        break;
+                    case 3:
+                        RH_fechasReporte.txtDate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                        break;
+                    case 4:
+                        RH_fechasReporte.txtDate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                        break;
+                    case 5:
+                         RH_SelectPD.txtFecha.setText(formatoDeFecha.format(calendario2.getDate()));
+                        break;
+                    default:
+                        break;
                 }
 
                 cerra();
             }
         });
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

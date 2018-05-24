@@ -646,32 +646,17 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
       private void btnReporteGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteGeneralActionPerformed
 
-          String nomsem = comboSemana.getSelectedItem().toString();
+      String nomsem = comboSemana.getSelectedItem().toString();
           String nomdep = comboDepto.getSelectedItem().toString();
           String emp = lblnombrerh.getText();
           String car = lblcargo.getText();
-          System.out.println(nomdep);
-          System.out.println(semana(nomdep));
           try {
-              OutputStream out;
-              try (HSSFWorkbook workbook = new estilosreporte().generateExcel(semana(nomsem), nomsem, emp, car, nomdep)) {
-                  if (estilosreporte.resultado) {
-                      JFileChooser guardar = new JFileChooser();
-                      guardar.setApproveButtonText("Guardar");
-                      if (guardar.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                          out = new FileOutputStream(guardar.getSelectedFile() + ".xls");
-                          workbook.write(out);
-                          out.flush();
-                          out.close();
-                          JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/View/img/ok3.png")));
-                      }
-                  }
-              }
-          } catch (IOException e) {
-              JOptionPane.showMessageDialog(null, "Error:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-          } catch (SQLException ex) {
-              JOptionPane.showMessageDialog(null, "Error:   " + ex, "ERROR", JOptionPane.ERROR_MESSAGE);
+              RH_fechasReporte rango = new RH_fechasReporte(nomsem, nomdep, emp, car, 1);
+              rango.show();
+          } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, "" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
+
 
       }//GEN-LAST:event_btnReporteGeneralActionPerformed
 
@@ -722,29 +707,17 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btntxtreporteActionPerformed
 
     private void btnPercepcionesYDeduccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercepcionesYDeduccionesActionPerformed
+          String nomsem = comboSemana.getSelectedItem().toString();
+        String nomdep = comboDepto.getSelectedItem().toString();
+        String emp = lblnombrerh.getText();
+        String car = lblcargo.getText();
         try {
-            String nomsem = comboSemana.getSelectedItem().toString();
-            String nomdep = comboDepto.getSelectedItem().toString();
-            String emp = lblnombrerh.getText();
-            String car = lblcargo.getText();
-            JFileChooser guardar = new JFileChooser();
-
-            HSSFWorkbook workbook = new EstiloPercepReport().generateExcel(semana(nomsem), nomsem, emp, car, nomdep);
-            if (PercepcionesReport.datos) {
-                guardar.setApproveButtonText("Guardar");
-                if (guardar.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-
-                    try (OutputStream out = new FileOutputStream(guardar.getSelectedFile() + ".xls")) {
-                        workbook.write(out);
-                        workbook.close();
-                        out.flush();
-                        JOptionPane.showMessageDialog(null, "Reporte guardado!", "Reporte guardado!", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/View/img/ok3.png")));
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Error at file writing" + e);
+            RH_fechasReporte rango = new RH_fechasReporte(nomsem, nomdep, emp, car, 2);
+            rango.show();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_btnPercepcionesYDeduccionesActionPerformed
 
     private void btnCalcularFaltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularFaltasActionPerformed
@@ -754,34 +727,31 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
     private void btnPrimaDominicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimaDominicalActionPerformed
 
-        String nomsem = comboSemana.getSelectedItem().toString();
-        String semana = String.valueOf(semana(nomsem));
+            String nomsem = comboSemana.getSelectedItem().toString();
+        String nomdep = comboDepto.getSelectedItem().toString();
+        String emp = lblnombrerh.getText();
+        String car = lblcargo.getText();
         try {
-            PrimaDominical pri = new PrimaDominical();
-            pri.insertar(semana);
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            JOptionPane.showMessageDialog(null, "Prima Dominical actualizada");
+            RH_fechasReporte rango = new RH_fechasReporte(nomsem, nomdep, emp, car, 3);
+            rango.show();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
 
     }//GEN-LAST:event_btnPrimaDominicalActionPerformed
 
     private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
-        System.out.println("percepciones ");
+
         try {
             int fila = tbincidencias.getSelectedRow();
             int numfila = tbincidencias.getSelectedRowCount();
-            String nomsem = comboSemana.getSelectedItem().toString();
-            System.out.println(fila);
+
             if (numfila == 1) {
                 String nom = tbincidencias.getValueAt(fila, 1).toString();
                 String idemp = tbincidencias.getValueAt(fila, 0).toString();
-                RH_SelectPD per = new RH_SelectPD(nomsem);
+                RH_SelectPD per = new RH_SelectPD(idemp);
                 per.show(true);
-                RH_SelectPD.lblcod.setText(idemp);
                 RH_SelectPD.lblnombre.setText(nom);
             } else {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila", "", JOptionPane.WARNING_MESSAGE);

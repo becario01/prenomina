@@ -72,62 +72,58 @@ public class exportReporte {
         tableHeader.add("NOMBRE");
         tableHeader.add("DEPARTAMENTO");
         tableHeader.add("PUESTO");
-        tableHeader.add("INCIDENCIA");
-        tableHeader.add("COMENTARIO");
-        tableHeader.add("HORAS EXTRA");
-        tableHeader.add("INCIDENCIA");
-        tableHeader.add("COMENTARIO");
-        tableHeader.add("HORAS EXTRA");
-        tableHeader.add("INCIDENCIA");
-        tableHeader.add("COMENTARIO");
-        tableHeader.add("HORAS EXTRA");
-        tableHeader.add("INCIDENCIA");
-        tableHeader.add("COMENTARIO");
-        tableHeader.add("HORAS EXTRA");
-        tableHeader.add("INCIDENCIA");
-        tableHeader.add("COMENTARIO");
-        tableHeader.add("HORAS EXTRA");
-        tableHeader.add("INCIDENCIA");
-        tableHeader.add("COMENTARIO");
-        tableHeader.add("HORAS EXTRA");
-        tableHeader.add("INCIDENCIA");
-        tableHeader.add("COMENTARIO");
-        tableHeader.add("HORAS EXTRA");
-
-        return tableHeader;
-    }
-
-    public static List<String> getTableHeaders2(int idSemana) {
-        fechas(idSemana);
-        List<String> tableHeader = new ArrayList<String>();
         tableHeader.add("");
         tableHeader.add("");
-        tableHeader.add("");
-        tableHeader.add("");
-        tableHeader.add("LUNES    "+fec[0]);
-        tableHeader.add("");
-        tableHeader.add("");
-        tableHeader.add("MARTES    "+fec[0]);
-        tableHeader.add("");
-        tableHeader.add("");
-        tableHeader.add("MIERCOLES    "+fec[0]);
-        tableHeader.add("");
-        tableHeader.add("");
-        tableHeader.add("JUEVEZ    "+fec[0]);
-        tableHeader.add("");
-        tableHeader.add("");
-        tableHeader.add("VIERNES    "+fec[0]);
-        tableHeader.add("");
-        tableHeader.add("");
-        tableHeader.add("SABADO    "+fec[0]);
-        tableHeader.add("");
-        tableHeader.add("");
-        tableHeader.add("DOMINGO    "+fec[0]);
         tableHeader.add("");
         tableHeader.add("");
         return tableHeader;
     }
+//
+//    public static List<String> getTableHeaders2(int idSemana) {
+//        fechas(idSemana);
+//        List<String> tableHeader = new ArrayList<String>();
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("LUNES    "+fec[0]);
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("MARTES    "+fec[0]);
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("MIERCOLES    "+fec[0]);
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("JUEVEZ    "+fec[0]);
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("VIERNES    "+fec[0]);
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("SABADO    "+fec[0]);
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        tableHeader.add("DOMINGO    "+fec[0]);
+//        tableHeader.add("");
+//        tableHeader.add("");
+//        return tableHeader;
+//    }
+    public static List<String> getTableregistros() {
+        List<String> tableregistros = new ArrayList<String>();
+        tableregistros.add("INCIDENCIA");
+        tableregistros.add("COMENTARIO");
+        tableregistros.add("DIA");
+        tableregistros.add("FECHA");
+        tableregistros.add("HEN   ");
+        tableregistros.add("HS     ");
+        tableregistros.add("HT     ");
+        tableregistros.add("HEX");
+    
+ 
 
+        return tableregistros;
+    }
     public static int dia(String fec) {
 
         String nomdia = "";

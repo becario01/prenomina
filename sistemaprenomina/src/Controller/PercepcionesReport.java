@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,79 +26,66 @@ public class PercepcionesReport {
     static PreparedStatement stmt;
     public static ResultSet rs;
     private static Connection userConn;
-    public static boolean datos=false;
+    static Connection conn1;
+    static PreparedStatement stmt1;
+    public static ResultSet rs1;
+    private static Connection userConn1;
+    public static Connection conn5;
+    public static PreparedStatement stmt5;
+    public static ResultSet rs5;
+    private static Connection userConn5;
+    static Vector<String> listadoempe = new Vector<String>();
+    public static boolean valores = false;
 
     public static List<String> getHeaders() {
         List<String> tableHeader = new ArrayList<>();
-        tableHeader.add("EMPLEADO ID");
-        tableHeader.add("NOMBRE EMPLEADO");
-        tableHeader.add("BONO DE PRODUCTIVIDAD");
-        tableHeader.add("PREMIO DE ASISTENCIA");
-        tableHeader.add("DIFERENCIA DE SUELDO");
-        tableHeader.add("SUPLENCIA");
-        tableHeader.add("FESTIVO");
-        tableHeader.add("PRIMA DOMINICAL");
-        tableHeader.add("SOBRESUELDO");
-        tableHeader.add("FALTA ADMINISTRATIVA");
-        tableHeader.add("FALTA SANCION");
-        tableHeader.add("DAÑO A LA PRODUCCION");
-        tableHeader.add("DAÑO A LA CALIDAD");
+        tableHeader.add("PERC / DEDU");
+        tableHeader.add("COMENTARIO");
+        tableHeader.add("DIA");
+        tableHeader.add("FECHA");
 
         return tableHeader;
 
     }
 
-    public static List<List<String>> getContent(int numRow, int semana,String nomdep ) {
-      List<List<String>> tableContent = new ArrayList<List<String>>();
+    public static List<String> getHeadersnom() {
+        List<String> tableHeader = new ArrayList<String>();
+        tableHeader.add("ID");
+        tableHeader.add("NOMBRE");
+        tableHeader.add("DEPARTAMENTO");
+        tableHeader.add("PUESTO");
+     
+        return tableHeader;
+    }
+
+    public static List<List<String>> getContent(String idemp, String fecha) {
+        List<List<String>> tableContent = new ArrayList<List<String>>();
         List<String> row = null;
-String sql="";
-        if (nomdep.contains("-SELECCIONE UNA OPCION-")) {
-            sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
+        String sql = "SELECT  nper.nombre AS nomper , per.comentario, per.dia, per.fecha\n"
                 + "FROM percepciones per \n"
                 + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                + "where per.idSemana='" + semana + "'";
-        } else {
-            sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
-                + "FROM percepciones per \n"
-                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                + "where per.idSemana='" + semana + "'and em.depto='"+nomdep+"'";
-        }
-         
+                + "INNER JOIN nomPercepciones nper on per.idNomPer=nper.idNomPer\n"
+                + "where per.fecha='" + fecha + "' and per.empleadoId='" + idemp + "' ";
 
         try {
             conn = Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-         
-                
-            if (!rs.isBeforeFirst() ) {
-                datos=false;
-                JOptionPane.showMessageDialog(null, "Esta semana no tiene registros","",JOptionPane.WARNING_MESSAGE);
-            }else{
-                datos=true;
+
+            
+            
                 while (rs.next()) {
                     tableContent.add(row = new ArrayList<String>());
-                    row.add(rs.getString("empleadoId"));
-                    row.add(rs.getString("nombre"));
-                    
-                    for(int i=1;i<=11;i++){
-                        if(rs.getString("per"+i)==null){
-                            row.add(" ");
-                        }else if (rs.getString("per"+i).equals("0")) {
-                            row.add(" ");
-                        }else if(rs.getString("per"+i).equals("1")){
-                            
-                            row.add(rs.getString("per"+i));
-                        }
-                    }
-                    
-                }
+                    row.add(rs.getString("nomper"));
+                    row.add(rs.getString("comentario"));
+                    row.add(rs.getString("dia"));
+                    row.add(rs.getString("fecha"));
                 
-                
+
             }
-           
+
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
@@ -109,6 +97,112 @@ String sql="";
 
         return tableContent;
 
+    }
+
+    public static void listarid(Vector<String> dias, String deptonom) {
+        listadoempe.clear();
+        for (int dia = 0; dia < dias.size(); dia++) {
+            String sql;
+            String fecharepo = dias.elementAt(dia);
+
+            if (deptonom.contains("-SELECCIONE UNA OPCION-")) {
+
+                sql = "SELECT per.empleadoId AS idemp, em.nombre AS nomemp, em.depto, em.puesto\n"
+                        + "FROM percepciones per \n"
+                        + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                        + "INNER JOIN nomPercepciones nper on per.idNomPer=nper.idNomPer\n"
+                        + "where per.fecha='" + fecharepo + "'";
+            } else {
+                sql = "SELECT per.empleadoId AS idemp, em.nombre AS nomemp, em.depto, em.puesto\n"
+                        + "FROM percepciones per \n"
+                        + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                        + "INNER JOIN nomPercepciones nper on per.idNomPer=nper.idNomPer\n"
+                        + "where per.fecha='" + fecharepo + "' and em.depto='" + deptonom + "'";
+
+            }
+            String datos[] = new String[2];
+
+            try {
+                conn5 = (PercepcionesReport.userConn5 != null) ? PercepcionesReport.userConn5 : Conexion1.getConnection();
+                stmt5 = conn5.prepareStatement(sql);
+                rs5 = stmt5.executeQuery();
+                while (rs5.next()) {
+                    boolean boolean1 = false;
+                    boolean boolean2 = false;
+                    datos[0] = rs5.getString("idemp");
+                    if (listadoempe.isEmpty()) {
+                        listadoempe.add(datos[0]);
+                    }
+                    for (int i = 0; i < listadoempe.size(); i++) {
+                        boolean1 = listadoempe.elementAt(i).equalsIgnoreCase(datos[0]);
+                        if (boolean1) {
+                            boolean2 = true;
+                        }
+                    }
+                    if (boolean2) {
+                    } else {
+                        listadoempe.add(datos[0]);
+                    }
+                }
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                Conexion1.close(rs5);
+                Conexion1.close(stmt5);
+                if (PercepcionesReport.userConn5 == null) {
+                    Conexion1.close(conn5);
+                }
+            }
+
+        }
+    }
+
+    public static List<List<String>> getContentnombres(String nomdep, Vector<String> dias) {
+         System.out.println(listadoempe+"11");
+        List<List<String>> tableContent = new ArrayList<List<String>>();
+        try {
+        List<String> row = null;
+        listarid(dias,nomdep);
+        System.out.println(listadoempe+"***");
+        if(listadoempe.isEmpty()){
+             JOptionPane.showMessageDialog(null, "Este rango de fechas no tiene registros", "", JOptionPane.WARNING_MESSAGE);
+             valores=false;
+        }else{
+            valores=true;
+        }
+        for (int idemp = 0; idemp < listadoempe.size(); idemp++) {
+            String empleId=listadoempe.elementAt(idemp);
+            System.out.println("°°°"+empleId);
+        String sql = "SELECT DISTINCT per.empleadoId AS idemp, em.nombre AS nomemp, em.depto, em.puesto\n"
+                + "FROM percepciones per \n"
+                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                + "INNER JOIN nomPercepciones nper on per.idNomPer=nper.idNomPer\n"
+                + "where per.empleadoId='"+empleId+"'";
+      
+            conn1 = Conexion1.getConnection();
+            stmt1 = conn1.prepareStatement(sql);
+            rs1 = stmt1.executeQuery();
+           
+               
+           
+                while (rs1.next()) {
+                    tableContent.add(row = new ArrayList<String>());
+                    row.add(rs1.getString("idemp"));
+                    row.add(rs1.getString("nomemp"));
+                    row.add(rs1.getString("depto"));
+                    row.add(rs1.getString("puesto"));
+                }
+             }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            Conexion1.close(rs);
+            Conexion1.close(stmt);
+            if (userConn == null) {
+                Conexion1.close(conn);
+            }
+        }
+        return tableContent;
     }
 
     public void cargar(int semana) throws SQLException {
@@ -126,7 +220,7 @@ String sql="";
 
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             Conexion1.close(rs);
             Conexion1.close(stmt);
