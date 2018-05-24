@@ -237,7 +237,13 @@ public class reptxtran extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        this.hide();
+        try {
+            RH_UsuariosConIncidencias rsh = new RH_UsuariosConIncidencias();
+           RH_UsuariosConIncidencias.TstVentNvoPres=false;
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(reptxtran.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
