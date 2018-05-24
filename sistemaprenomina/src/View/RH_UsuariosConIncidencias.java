@@ -46,7 +46,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  * @author Programacion 2
  */
 public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
-
+    
     Connection conn;
     PreparedStatement stmt;
     public static ResultSet rs;
@@ -54,10 +54,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private TableRowSorter trsFiltro;
     int x, y;
     public static String codid;
+   public static boolean TstVentNvoPres = false;
     
     
     
-    /**
+   /**
      * Creates new form RH_UsuariosConIncidencias
      *
      * @throws java.sql.SQLException
@@ -217,74 +218,9 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             i -= 1;
         }
     }
-
     
-    public void reportetxt(int semana) {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.txt", "txt", "TXT"));//filtro para ver solo archivos .edu
-        int seleccion = fileChooser.showSaveDialog(null);
-        try {
-            if (seleccion == JFileChooser.APPROVE_OPTION) {//comprueba si ha presionado el boton de aceptar
-                File JFC = fileChooser.getSelectedFile();
-                String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
-                PrintWriter printwriter = new PrintWriter(JFC);
-                BufferedWriter bw = new BufferedWriter(printwriter);
-                PreparedStatement nstmt = null;
-                ResultSet interno = null;
-                try {
-                    String sql = "SELECT DISTINCT  empleadoId  from incidencias";
-                    conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                    stmt = conn.prepareStatement(sql);
-                    rs = stmt.executeQuery();
-                    while (rs.next()) {
-                        String idempleado = rs.getString("empleadoId");
-                        bw.write("E\t" + idempleado);
-                        bw.newLine();
-                        String incidencias = " select nomi.nombre,inc.fecha,inc.horasExtra from incidencias inc  inner join NomIncidencia nomi  "
-                                + " on inc.idNomIncidencia  = nomi.idNomIncidencia where inc.fecha BETWEEN '20180421' AND '20180530' and inc.empleadoId ='" + idempleado + "' and inc.idSemana ='" + semana + "' ";
-                        conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                        nstmt = conn.prepareStatement(incidencias);
-                        interno = nstmt.executeQuery();
-                        while (interno.next()) {
-                            String nomcidencia = interno.getString("nombre");
-                            String Fechainc = interno.getString("fecha");
-                            int hrsext = interno.getInt("horasExtra");
-                            String[] datos = Fechainc.split("-");
-                            String año = datos[0];
-                            String mes = datos[1];
-                            String dia = datos[2];
-                            String fecha = dia + "/" + mes + "/" + año;
-                            String incidencia = "D " + nomcidencia;
-                            Calendar cal = Calendar.getInstance();
-                            int añoact = cal.get(Calendar.YEAR);
-                            if (incidencia.length() < 40) {
-                                for (int i = incidencia.length(); i < 40; i++) {
-                                    incidencia += " ";
-                                }
-                            }
-                            bw.write(incidencia);
-                            bw.write(hrsext+" " + fecha + "\t" + añoact);
-                            bw.newLine();
-                        }
-                    }
-                    bw.close();//cierra el archivo
-                    if (!(PATH.endsWith(".txt"))) {
-                        File temp = new File(PATH + ".txt");
-                        JFC.renameTo(temp);//renombramos el archivo
-                    }
-                    JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
-                } catch (HeadlessException | IOException | SQLException e) {
-                    System.out.println("" + e);
-                } finally {
-                    Conexion.close(rs);
-                    Conexion.close(stmt);
-                }
-                //comprobamos si a la hora de guardar obtuvo la extension y si no se la asignamos
-            }
-        } catch (FileNotFoundException e) {//por alguna excepcion salta un mensaje de error
-            JOptionPane.showMessageDialog(null, "Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    
+    
 
     public int obteneridsem(String nombresemana) throws SQLException {
         Connection conn = null;
@@ -693,16 +629,15 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
     private void btntxtreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntxtreporteActionPerformed
 
-        try {
-            String sem = comboSemana.getSelectedItem().toString();
-            System.out.println(sem);
-            select_fechas selc = new select_fechas();
-            int semana = obteneridsem(sem);
-            System.out.println(semana);
-            reportetxt(semana);
-        } catch (SQLException ex) {
-            Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(Level.SEVERE, null, ex);
+        if (TstVentNvoPres == false) {
+            reptxtran rpt = new reptxtran();
+            rpt.setVisible(true);
+
+            TstVentNvoPres = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "La ventana Nuevo Prestatario ya esta abierta!!!");
         }
+
 
     }//GEN-LAST:event_btntxtreporteActionPerformed
 

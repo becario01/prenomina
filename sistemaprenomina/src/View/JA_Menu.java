@@ -192,6 +192,7 @@ JA_iniciosem semj;
         //mostra internalframe 
         if (mese == null) {
             mese = new JA_iniciomeses();
+            JA_iniciomeses.idusers=iduser;
             escritorio.add(mese);
             escritorio.getDesktopManager().maximizeFrame(mese);
             mese.setVisible(true);

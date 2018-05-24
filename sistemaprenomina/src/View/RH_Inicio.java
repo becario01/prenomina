@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author Vertsequer
  */
 public class RH_Inicio extends javax.swing.JFrame implements Runnable {
-
+    
     String hora, minutos, segundos;
     Thread hilo;
     int x, y;
@@ -38,24 +38,25 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         fecha();
-          panellist.setBackground(new Color(0,153,255, 130));
-        panelinc.setBackground(new Color(153,255,255,130));
-        panelusin.setBackground(new Color(102,255,255,130));
-        panelusrcin.setBackground(new Color(102,204,255,130));
-        panelperc.setBackground(new Color(0,153,204,130));
-        panelsem.setBackground(new Color(102,204,255,130));
-        panelusr.setBackground(new Color(153,255,255,130));
-        menupanle.setBackground(new Color(0,0,0, 130));
+        panellist.setBackground(new Color(0, 153, 255, 130));
+        panelnuevo.setBackground(new Color(102, 204, 255, 130));
+        panelinc.setBackground(new Color(153, 255, 255, 130));
+        panelusin.setBackground(new Color(102, 255, 255, 130));
+        panelusrcin.setBackground(new Color(102, 204, 255, 130));
+        panelperc.setBackground(new Color(0, 153, 204, 130));
+        panelsem.setBackground(new Color(102, 204, 255, 130));
+        panelusr.setBackground(new Color(153, 255, 255, 130));
+        menupanle.setBackground(new Color(0, 0, 0, 130));
         pnlrelog.setBackground(new Color(0, 0, 0, 130));
         hilo = new Thread(this);
         hilo.start();
         setVisible(true);
-           lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
+        lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
         lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
         lblcargo.setHorizontalAlignment(lblcargo.CENTER);
         lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
-
+    
     public void fecha() {
         Date fechaHoy = new Date();
         SimpleDateFormat formatoEsMX = new SimpleDateFormat(
@@ -68,7 +69,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         lblmes.setText(mes);
         lblaño.setText(anio);
     }
-
+    
     public void hora() {
         Calendar calendario = new GregorianCalendar();
         Date horaactual = new Date();
@@ -77,7 +78,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         minutos = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE) : "0" + calendario.get(Calendar.MINUTE);
         segundos = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND) : "0" + calendario.get(Calendar.SECOND);
     }
-
+    
     public void run() {
         //while
         Thread current = Thread.currentThread();
@@ -278,6 +279,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         pnlrelog.add(txthora, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 140, 50));
 
         getContentPane().add(pnlrelog, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/fondoredes.png"))); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
 
         menupanle.setBackground(new java.awt.Color(0, 24, 96));
@@ -476,15 +479,15 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         this.setExtendedState(ICONIFIED);
-
+        
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       String dep = lblcargo.getText();
-          String nom = lblnombrerh.getText();
+        String dep = lblcargo.getText();
+        String nom = lblnombrerh.getText();
         menuopciones us = new menuopciones();
         us.show(true);
         menuopciones.lblcargo.setText(dep);
@@ -504,7 +507,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         String dep = lblcargo.getText();
         String nom = lblnombrerh.getText();
-
+        
         try {
             RH_ListadoPersonal lis = new RH_ListadoPersonal();
             lis.show();
@@ -548,8 +551,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         RH_Incidencias inc = new RH_Incidencias();
         RH_Incidencias.lblnombrerh.setText(lblnombrerh.getText());
         RH_Incidencias.lblcargo.setText(lblcargo.getText());
-        nombre= RH_Inicio.lblnombrerh.getText();
-        depto= RH_Inicio.lblcargo.getText();
+        nombre = RH_Inicio.lblnombrerh.getText();
+        depto = RH_Inicio.lblcargo.getText();
         inc.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnIncidenciasActionPerformed
@@ -565,26 +568,26 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-     try {
-            RH_PercepcionesDeducciones per= new RH_PercepcionesDeducciones();
+        try {
+            RH_PercepcionesDeducciones per = new RH_PercepcionesDeducciones();
             per.show();
             RH_PercepcionesDeducciones.lblcargo.setText(lblcargo.getText());
             RH_PercepcionesDeducciones.lblnombrerh.setText(lblnombrerh.getText());
             this.show(false);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
- try {
+        try {
             RH_SEMANA sema = new RH_SEMANA();
-        sema.show();
-        this.show(false);
-        RH_SEMANA.lblcargo.setText(lblcargo.getText());
-        RH_SEMANA.lblnombrerh.setText(lblnombrerh.getText());
+            sema.show();
+            this.show(false);
+            RH_SEMANA.lblcargo.setText(lblcargo.getText());
+            RH_SEMANA.lblnombrerh.setText(lblnombrerh.getText());
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en: "+e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
             Logger.getLogger(RH_Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:
@@ -611,7 +614,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

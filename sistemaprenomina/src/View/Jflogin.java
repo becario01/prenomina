@@ -167,7 +167,7 @@ public class Jflogin extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 300, 350));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Becarios\\Desktop\\fondologin.png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/fondologin.png"))); // NOI18N
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 350));
 
         pack();

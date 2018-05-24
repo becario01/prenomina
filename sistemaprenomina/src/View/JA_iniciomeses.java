@@ -31,41 +31,41 @@ import javax.swing.table.TableRowSorter;
  * @author Becarios
  */
 public class JA_iniciomeses extends javax.swing.JInternalFrame {
+
     public static ResultSet rs;
     private Connection userConn;
     private TableRowSorter trsFiltro;
     private PreparedStatement st;
+    public static int idusers;
     Conexion con = new Conexion();
     Connection conn;
     PreparedStatement stmt;
     DefaultTableModel modeloincidenciasjefe = new DefaultTableModel(null, getColumas());
-    
+    public static boolean TstVentNvoPres = false;
     public JA_iniciomeses() {
         initComponents();
-         this.setResizable(false);
+        this.setResizable(false);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         tbIncidencias.setRowHeight(25);
         filas();
         tbIncidencias.setBorder(BorderFactory.createCompoundBorder());
     }
-    
+
     // clase columanas para el modelo de la tabla 
-       private String[] getColumas() {
+    private String[] getColumas() {
         String columna[] = {"ID", "Nombre", "Puesto", "Depto", "Detalles"};
         return columna;
     }//fin del clase
-       
-       
-       
-       //clase muestra los datos que contrendra la tabla 
-  public void filas() {
+
+    //clase muestra los datos que contrendra la tabla 
+    public void filas() {
         tbIncidencias.setDefaultRenderer(Object.class, new Render());
         //añadimos boton a columna de la tabla 
         JButton btn1 = new JButton("Detalles");
         btn1.setName("Detalles");
         //boton
         try {
-            String sql = "SELECT empleadoId,nombre,puesto,depto  from empleados  where estatus = 1";
+            String sql = "SELECT emp.empleadoId,emp.nombre,emp.puesto,emp.depto  from empleados emp  LEFT JOIN asignacion asg  ON emp.empleadoId = asg.empleadoId where emp.estatus = 1 AND asg.idUser='" + idusers + "'";
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -88,10 +88,11 @@ public class JA_iniciomeses extends javax.swing.JInternalFrame {
         }
     } //fin del la clase de filas 
 
-  //clase de filtro de busquueda
+    //clase de filtro de busquueda
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }//fin filtro 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -159,6 +160,11 @@ public class JA_iniciomeses extends javax.swing.JInternalFrame {
         cmbMes.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cmbMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione opcion", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
         cmbMes.setToolTipText("");
+        cmbMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMesActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmbMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 247, -1));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
@@ -230,7 +236,20 @@ public class JA_iniciomeses extends javax.swing.JInternalFrame {
             }
         }        // TODO add your handling code here:
     }//GEN-LAST:event_tbIncidenciasMouseClicked
+
+    private void cmbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMesActionPerformed
+        JA_iniciosem inis = new JA_iniciosem();
+        inis.limpiar(modeloincidenciasjefe);
+        int sem = cmbMes.getSelectedIndex();
+
+        if (sem < 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar ", "Verificar", JOptionPane.WARNING_MESSAGE);
+        } else {
+            filas();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbMesActionPerformed
 //clase para identificar el mes
+
     public String nummes(String num) {
         String numi = "";
         if (num.equalsIgnoreCase("Enero")) {
