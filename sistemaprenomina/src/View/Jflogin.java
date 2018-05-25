@@ -61,7 +61,7 @@ public class Jflogin extends javax.swing.JFrame {
   public boolean consultar() {
         boolean datos = false;
         try {
-            String sql = "SELECT * FROM DatosIniciales";
+            String sql = "SELECT * FROM ConfigIniciales";
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();

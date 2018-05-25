@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -34,22 +35,24 @@ public class RH_detallePercep extends javax.swing.JFrame {
     PreparedStatement stmt;
     public static ResultSet rs;
     private Connection userConn;
-    static String nombresem;
+
     static String nombrecargo;
     static String nombreusuario;
     static String idempleado;
+       static  Vector<String> fechas = new Vector<String>();
 
-    public RH_detallePercep(String nomsem, String idemp, String cargo, String usuario) throws SQLException {
+    public RH_detallePercep(Vector<String> dias , String idemp, String cargo, String usuario) throws SQLException {
         initComponents();
-        nombresem = nomsem;
+ 
         idempleado = idemp;
         nombrecargo = cargo;
         nombreusuario = usuario;
+        fechas=dias;
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
         cargartitulos();
-        cargardatos(nomsem, idemp);
+        cargardatos( idemp);
     }
     DefaultTableModel tabla1 = new DefaultTableModel() {
         @Override
@@ -71,14 +74,17 @@ public class RH_detallePercep extends javax.swing.JFrame {
         columnModel.getColumn(3).setPreferredWidth(50);
     }
 
-    public void cargardatos(String nomse, String cod) throws SQLException {
-        String sql = "SELECT  nper.nombre AS nomper , per.comentario, per.dia, per.fecha   \n"
+    public void cargardatos( String cod) throws SQLException {
+           try {
+        for (int i = 0; i < fechas.size(); i++) {
+            String dia= fechas.elementAt(i);
+              String sql = "SELECT  nper.nombre AS nomper , per.comentario, per.dia, per.fecha   \n"
                 + "FROM percepciones per \n"
                 + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
                 + "INNER JOIN nomPercepciones nper on per.idNomPer=nper.idNomPer\n"
-                + "where per.Semana='"+nomse+"' and per.empleadoId='"+cod+"' ORDER BY per.fecha asc";
+                + "where per.fecha='"+dia+"' and per.empleadoId='"+cod+"' ORDER BY per.fecha asc";
         Object datos[] = new Object[10];
-        try {
+    
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
@@ -90,6 +96,8 @@ public class RH_detallePercep extends javax.swing.JFrame {
                 datos[3] = rs.getString("comentario");
                 tabla1.addRow(datos);
             }
+        }
+      
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
@@ -236,20 +244,16 @@ public class RH_detallePercep extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(144, 144, 144)
-                                .addComponent(jLabel2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtid)
-                            .addComponent(txtnombre)))
+                        .addGap(89, 89, 89)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(350, 350, 350)
-                        .addComponent(txtsemana)))
+                        .addGap(144, 144, 144)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtsemana)
+                    .addComponent(txtid)
+                    .addComponent(txtnombre))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -322,7 +326,7 @@ public class RH_detallePercep extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new RH_detallePercep(nombresem, idempleado, nombrecargo, nombreusuario).setVisible(true);
+                    new RH_detallePercep(fechas, idempleado, nombrecargo, nombreusuario).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(RH_detallePercep.class.getName()).log(Level.SEVERE, null, ex);
                 }
