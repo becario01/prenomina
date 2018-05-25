@@ -10,6 +10,9 @@ import Controller.EstiloPercepReport;
 import Controller.PercepcionesReport;
 import Controller.PrimaDominical;
 import Controller.estilosreporte;
+import com.sun.awt.AWTUtilities;
+import java.awt.Shape;
+import java.awt.geom.RoundRectangle2D;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -57,6 +60,7 @@ public class RH_fechasReporte extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
+                                                                                                                                                                                                                                             
         if (jframe == 3) {
             btnguardar.setText("Calcular");
         }
