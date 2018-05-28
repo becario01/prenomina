@@ -51,6 +51,12 @@ public class RH_Calendario2 extends javax.swing.JFrame {
             case 5:
                 RH_SelectPD.txtFecha.setText(formatoDeFecha.format(calendario2.getDate()));
                 break;
+            case 6:
+                RH_PercepcionesDeducciones.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                break;
+            case 7:
+                RH_PercepcionesDeducciones.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                break;
             default:
                 break;
         }
@@ -80,7 +86,13 @@ public class RH_Calendario2 extends javax.swing.JFrame {
                         RH_fechasReporte.txtDate2.setText(formatoDeFecha.format(calendario2.getDate()));
                         break;
                     case 5:
-                         RH_SelectPD.txtFecha.setText(formatoDeFecha.format(calendario2.getDate()));
+                        RH_SelectPD.txtFecha.setText(formatoDeFecha.format(calendario2.getDate()));
+                        break;
+                    case 6:
+                        RH_PercepcionesDeducciones.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                        break;
+                    case 7:
+                        RH_PercepcionesDeducciones.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
                         break;
                     default:
                         break;
@@ -90,6 +102,7 @@ public class RH_Calendario2 extends javax.swing.JFrame {
             }
         });
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

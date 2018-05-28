@@ -13,6 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -34,19 +39,26 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     private Connection userConn;
     private TableRowSorter trsFiltro;
     int x, y;
-
+public static Connection conn5;
+    public static PreparedStatement stmt5;
+    public static ResultSet rs5;
+    private static Connection userConn5;
+     Vector<String> empleados = new Vector<String>();
+     
     public RH_PercepcionesDeducciones() throws SQLException {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         cargarTitulos1();
-        combosemana();
+//        combosemana();
         combodepto();
         lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
         lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
         lblcargo.setHorizontalAlignment(lblcargo.CENTER);
         lblcargo.setVerticalAlignment(lblcargo.CENTER);
+        panel.setVisible(false);
+
     }
 
     DefaultTableModel tabla1 = new DefaultTableModel() {
@@ -56,31 +68,30 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         }
     };
 
-    public void combosemana() {
-
-        String sql = "select semana from semanas where estatus=1";
-
-        try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            cmbsema.addItem("-SELECCIONE UNA OPCION-");
-            while (rs.next()) {
-                String nombre = rs.getString("semana");
-                cmbsema.addItem(nombre);
-
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (this.userConn == null) {
-                Conexion1.close(conn);
-            }
-        }
-    }
-
+//    public void combosemana() {
+//
+//        String sql = "select semana from semanas where estatus=1";
+//
+//        try {
+//            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+//            stmt = conn.prepareStatement(sql);
+//            rs = stmt.executeQuery();
+//            cmbsema.addItem("-SELECCIONE UNA OPCION-");
+//            while (rs.next()) {
+//                String nombre = rs.getString("semana");
+//                cmbsema.addItem(nombre);
+//
+//            }
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+//        } finally {
+//            Conexion1.close(rs);
+//            Conexion1.close(stmt);
+//            if (this.userConn == null) {
+//                Conexion1.close(conn);
+//            }
+//        }
+//    }
     public void combodepto() {
 
         String sql = "select DISTINCT depto from empleados  ";
@@ -141,6 +152,32 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         }
     }
 
+    public Vector<String> listarfechas() throws ParseException {
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Vector<Date> listaFechas = new Vector<>();
+        Vector<String> dias = new Vector<String>();
+        listaFechas.clear();
+        dias.clear();
+        Date fechaInicio = formato.parse(txtdate1.getText());
+        Date fechaFin = formato.parse(txtdate2.getText());
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(fechaInicio);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(fechaFin);
+
+        while (!c1.after(c2)) {
+            listaFechas.add(c1.getTime());
+            c1.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        dias.clear();
+        for (int i = 0; i < listaFechas.size(); i++) {
+            dias.add(formato.format(listaFechas.elementAt(i)));
+
+        }
+        return dias;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,7 +189,6 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
         PopDetalle = new javax.swing.JPopupMenu();
         ItemDetalles = new javax.swing.JMenuItem();
-        jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -166,11 +202,17 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbpercepciones = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
         txtBuscar = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         cmbdepto = new javax.swing.JComboBox();
-        cmbsema = new javax.swing.JComboBox();
+        txtdate1 = new javax.swing.JTextField();
+        txtdate2 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
 
         ItemDetalles.setText("Detalles");
         ItemDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -182,10 +224,6 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Reportar semana");
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -208,7 +246,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, 32, 30));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 32, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
         jButton3.setBorderPainted(false);
@@ -218,7 +256,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 32, 30));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 32, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
         jButton4.setBorderPainted(false);
@@ -228,7 +266,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, 32, 30));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
@@ -282,10 +320,6 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         tbpercepciones.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tbpercepciones);
 
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jSeparator1.setAlignmentX(0.7F);
-        jSeparator1.setAlignmentY(0.8F);
-
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setBorder(null);
@@ -298,6 +332,10 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
         jLabel4.setToolTipText("");
 
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setAlignmentX(0.7F);
+        jSeparator2.setAlignmentY(0.8F);
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -306,10 +344,13 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelLayout.createSequentialGroup()
+                    .addGap(68, 68, 68)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(544, Short.MAX_VALUE)))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,12 +358,14 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelLayout.createSequentialGroup()
+                    .addGap(49, 49, 49)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(232, Short.MAX_VALUE)))
         );
 
         cmbdepto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -332,10 +375,48 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             }
         });
 
-        cmbsema.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        cmbsema.addActionListener(new java.awt.event.ActionListener() {
+        txtdate1.setBackground(new java.awt.Color(51, 102, 255));
+        txtdate1.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
+        txtdate1.setForeground(new java.awt.Color(255, 255, 255));
+        txtdate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtdate1.setBorder(null);
+        txtdate1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtdate1MouseClicked(evt);
+            }
+        });
+
+        txtdate2.setBackground(new java.awt.Color(51, 102, 255));
+        txtdate2.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
+        txtdate2.setForeground(new java.awt.Color(255, 255, 255));
+        txtdate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtdate2.setBorder(null);
+        txtdate2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtdate2MouseClicked(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Fecha Inicio");
+
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Fecha Fin");
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setAlignmentX(0.7F);
+        jSeparator1.setAlignmentY(0.8F);
+
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setAlignmentX(0.7F);
+        jSeparator3.setAlignmentY(0.8F);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbsemaActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -344,36 +425,63 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbsema, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(103, 103, 103)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtdate2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(83, 83, 83))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtdate1, txtdate2});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbsema, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31)
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtdate2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtdate1, txtdate2});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -412,29 +520,31 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
     private void cmbdeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbdeptoActionPerformed
         try {
-            int sem = cmbsema.getSelectedIndex();
-            String nomsem = cmbsema.getSelectedItem().toString();
+           
             String depp = cmbdepto.getSelectedItem().toString();
-            if (sem != 0) {
+            if (!txtdate1.getText().equalsIgnoreCase("")||!txtdate2.getText().equalsIgnoreCase("")) {
                 limpiar(tabla1);
                 if (depp.equalsIgnoreCase("-SELECCIONE UNA OPCION-")) {
-                    cargardatosFiltroSemana(nomsem);
+                    CargarDatosRango(listarfechas());
                 } else {
-                    cargardatosFiltroDepto(nomsem, depp);
+                    cargardatosFiltroDepto(listarfechas(), depp);
                 }
             } else {
                 cmbdepto.setSelectedIndex(0);
-//                      JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
+                      JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
             }
 
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException ex) {
+            Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_cmbdeptoActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
         txtBuscar.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyReleased(final KeyEvent e) {
                 String cadena = (txtBuscar.getText()).toUpperCase();
                 txtBuscar.setText(cadena);
@@ -446,39 +556,22 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         tbpercepciones.setRowSorter(trsFiltro);
     }//GEN-LAST:event_txtBuscarKeyTyped
 
-    private void cmbsemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbsemaActionPerformed
-        limpiar(tabla1);
-        int sem = cmbsema.getSelectedIndex();
-        String sema = cmbsema.getSelectedItem().toString();
-        try {
-            if (sem != 0) {
-                panel.setVisible(true);
-                cargardatosFiltroSemana(sema);
-
-            } else {
-                panel.setVisible(false);
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_cmbsemaActionPerformed
-
     private void ItemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemDetallesActionPerformed
         try {
              int count = tbpercepciones.getSelectedRowCount();
         int fila = tbpercepciones.getSelectedRow();
         String nomcargo = lblcargo.getText();
         String nomusuario = lblnombrerh.getText();
-        String nomsema = (String) cmbsema.getSelectedItem().toString();
+     String inicio= txtdate1.getText();
+     String fin= txtdate2.getText();
         if (count == 1) {
             String idemp= tbpercepciones.getValueAt(fila, 0).toString();
             String nomemp= tbpercepciones.getValueAt(fila, 1).toString();
-            RH_detallePercep dper= new RH_detallePercep(nomsema,idemp,nomcargo,nomusuario);
+            RH_detallePercep dper= new RH_detallePercep(listarfechas(),idemp,nomcargo,nomusuario);
             dper.show();
             RH_detallePercep.lblcargo.setText(nomcargo);
             RH_detallePercep.lblnombrerh.setText(nomusuario);
-            RH_detallePercep.txtsemana.setText(nomsema);
+            RH_detallePercep.txtsemana.setText("FECHA:  "+inicio+"  -  "+fin);
             RH_detallePercep.txtid.setText(idemp);
             RH_detallePercep.txtnombre.setText(nomemp);
         } else if (count == 0) {
@@ -486,9 +579,40 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         }
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e,"",JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException ex) {
+            Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(Level.SEVERE, null, ex);
         }
        
     }//GEN-LAST:event_ItemDetallesActionPerformed
+
+    private void txtdate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdate1MouseClicked
+        try {
+            RH_Calendario2 cale = new RH_Calendario2(6);
+            cale.show();
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_txtdate1MouseClicked
+
+    private void txtdate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdate2MouseClicked
+        try {
+            RH_Calendario2 cale = new RH_Calendario2(7);
+            cale.show();
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_txtdate2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            panel.setVisible(true);
+            CargarDatosRango(listarfechas());
+            System.out.println(empleados);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -533,74 +657,56 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     private javax.swing.JMenuItem ItemDetalles;
     private javax.swing.JPopupMenu PopDetalle;
     private javax.swing.JComboBox cmbdepto;
-    private javax.swing.JComboBox cmbsema;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JPanel panel;
     private javax.swing.JTable tbpercepciones;
     private javax.swing.JTextField txtBuscar;
+    public static javax.swing.JTextField txtdate1;
+    public static javax.swing.JTextField txtdate2;
     // End of variables declaration//GEN-END:variables
 
-    private void cargardatosFiltroSemana(String nomsem) {
-        String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
-                + "from percepciones per \n"
-                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                + "INNER JOIN semanas se on per.Semana=se.semana\n"
-                + "where se.semana='" + nomsem + "' ";
+   
 
-        String datos[] = new String[13];
+    private void cargardatosFiltroDepto(Vector<String> dias, String depp) {
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                datos[0] = rs.getString("empleadoId");
-                datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("depto");
-                datos[3] = rs.getString("puesto");
-                tabla1.addRow(datos);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (this.userConn == null) {
-                Conexion1.close(conn);
-            }
-        }
-    }
+            for (int i = 0; i < dias.size(); i++) {
+                String fecha = dias.elementAt(i);
+                String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
+                        + "from percepciones per \n"
+                        + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                        + "INNER JOIN semanas se on per.Semana=se.semana\n"
+                        + "where per.fecha='" + fecha + "' and em.depto='" + depp + "'";
 
-    private void cargardatosFiltroDepto(String nomsem, String depp) {
-        String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
-                + "from percepciones per \n"
-                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                + "INNER JOIN semanas se on per.Semana=se.semana\n"
-                + "where se.semana='" + nomsem + "' and em.depto='" + depp + "'";
+                String datos[] = new String[13];
 
-        String datos[] = new String[13];
-        try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                datos[0] = rs.getString("empleadoId");
-                datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("depto");
-                datos[3] = rs.getString("puesto");
-                tabla1.addRow(datos);
+                conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    datos[0] = rs.getString("empleadoId");
+                    datos[1] = rs.getString("nombre");
+                    datos[2] = rs.getString("depto");
+                    datos[3] = rs.getString("puesto");
+                    tabla1.addRow(datos);
+                    
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -625,5 +731,57 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         columnModel.getColumn(1).setPreferredWidth(200);
         columnModel.getColumn(2).setPreferredWidth(150);
         columnModel.getColumn(3).setPreferredWidth(150);
+    }
+     public  void CargarDatosRango(Vector<String> dias) {
+        empleados.clear();
+        for (int dia = 0; dia < dias.size(); dia++) {
+           
+            String fecharepo = dias.elementAt(dia);
+
+           String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
+                        + "from percepciones per \n"
+                        + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                        + "INNER JOIN semanas se on per.Semana=se.semana\n"
+                        + "where per.fecha='" + fecharepo + "'";
+            String datos[] = new String[10];
+
+            try {
+                conn5 = (RH_PercepcionesDeducciones.userConn5 != null) ? RH_PercepcionesDeducciones .userConn5 : Conexion1.getConnection();
+                stmt5 = conn5.prepareStatement(sql);
+                rs5 = stmt5.executeQuery();
+                while (rs5.next()) {
+                    boolean boolean1 = false;
+                    boolean boolean2 = false;
+                    datos[0] = rs5.getString("empleadoId");
+                    datos[1] = rs5.getString("nombre");
+                    datos[2] = rs5.getString("depto");
+                    datos[3] = rs5.getString("puesto");
+                    if (empleados.isEmpty()) {
+                        empleados.add(datos[0]);
+                        tabla1.addRow(datos);
+                    }
+                    for (int i = 0; i < empleados.size(); i++) {
+                        boolean1 = empleados.elementAt(i).equalsIgnoreCase(datos[0]);
+                        if (boolean1) {
+                            boolean2 = true;
+                        }
+                    }
+                    if (boolean2) {
+                    } else {
+                        empleados.add(datos[0]);
+                        tabla1.addRow(datos);
+                    }
+                }
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                Conexion1.close(rs5);
+                Conexion1.close(stmt5);
+                if (RH_PercepcionesDeducciones.userConn5 == null) {
+                    Conexion1.close(conn5);
+                }
+            }
+
+        }
     }
 }
