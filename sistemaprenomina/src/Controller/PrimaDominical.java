@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,7 +46,7 @@ public class PrimaDominical {
     private Connection userConn4;
     Connection conn4;
     PreparedStatement stmt;
-    Conexion1 con = new Conexion1();
+    Conexion con = new Conexion();
     Vector<String> arrayidR = new Vector<>();
     Vector<String> arrayfechaR = new Vector<>();
     Vector<String> arraynomsema = new Vector<>();
@@ -90,7 +90,7 @@ public class PrimaDominical {
             String domingo = arrayDomingos.elementAt(j);
             String sql = "select empleadoId, fecha from registros where fecha='" + domingo + "'";
             try {
-                conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
+                conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion.getConnection();
                 stmt1 = conn1.prepareStatement(sql);
                 rs1 = stmt1.executeQuery();
                 int cont = 0;
@@ -101,10 +101,10 @@ public class PrimaDominical {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs1);
-                Conexion1.close(stmt1);
+                Conexion.close(rs1);
+                Conexion.close(stmt1);
                 if (this.userConn1 == null) {
-                    Conexion1.close(conn1);
+                    Conexion.close(conn1);
                 }
             }
         }
@@ -126,7 +126,7 @@ public class PrimaDominical {
         try {
 
             for (int i = 0; i < arrayemp.size(); i++) {
-                conn2 = (this.userConn2 != null) ? this.userConn2 : Conexion1.getConnection();
+                conn2 = (this.userConn2 != null) ? this.userConn2 : Conexion.getConnection();
                 String sql = "INSERT INTO percepciones( empleadoId, fecha, idNomPer, dia, comentario, Semana) values (?,?,?,?,?,?)";
 
                 stmt2 = conn2.prepareStatement(sql);
@@ -160,10 +160,10 @@ public class PrimaDominical {
             JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } finally {
-            Conexion1.close(stmt2);
+            Conexion.close(stmt2);
 
             if (this.userConn2 == null) {
-                Conexion1.close(conn2);
+                Conexion.close(conn2);
             }
 
         }
@@ -172,7 +172,7 @@ public class PrimaDominical {
 
     public Vector<String> listar()  {
         try {
-             conn3 = (this.userConn3 != null) ? this.userConn3 : Conexion1.getConnection();
+             conn3 = (this.userConn3 != null) ? this.userConn3 : Conexion.getConnection();
         String sql1 = "select * from percepciones";
 
         stmt3 = conn3.prepareStatement(sql1);
@@ -190,9 +190,9 @@ public class PrimaDominical {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(stmt3);
+            Conexion.close(stmt3);
             if (this.userConn3 == null) {
-                Conexion1.close(conn3);
+                Conexion.close(conn3);
             }
         }
         return arrayidR;
@@ -202,7 +202,7 @@ public class PrimaDominical {
     public void actualizar(String idem, String fech, String semana) {
       
             try {
-                conn4 = (this.userConn4 != null) ? this.userConn4 : Conexion1.getConnection();
+                conn4 = (this.userConn4 != null) ? this.userConn4 : Conexion.getConnection();
                 String sql = "UPDATE percepciones SET  idNomPer='1', dia='DOMINGO', comentario='PRIMA DOMINICAL', Semana='"+semana+"'"
                         + " WHERE empleadoId='" + idem + "' and  fecha='" + fech+ "' ";
 
@@ -214,10 +214,10 @@ public class PrimaDominical {
                 JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
             } finally {
-                Conexion1.close(stmt4);
+                Conexion.close(stmt4);
 
                 if (this.userConn4 == null) {
-                    Conexion1.close(conn4);
+                    Conexion.close(conn4);
                 }
 
             }

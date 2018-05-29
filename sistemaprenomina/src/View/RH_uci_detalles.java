@@ -5,7 +5,7 @@
  */
 package View;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import Controller.EJefes;
 import Controller.autorizacionRH;
 import static View.RH_UsuariosConIncidencias.rs;
@@ -124,7 +124,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                     + "where inc.fecha='" + fecha + "' and inc.empleadoId='" + cod + "'   ORDER BY inc.fecha ASC";
             Object datos[] = new Object[10];
           
-                conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
 
@@ -150,7 +150,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                     datos[9] = rs.getString("comentario");
 
                     String sql1 = "SELECT entrada, salida, horas from registros where empleadoId='" + cod + "' and fecha='" + datos[3] + "'";                  
-                        conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
+                        conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion.getConnection();
                         stmt1 = conn1.prepareStatement(sql1);
                         rs1 = stmt1.executeQuery();
                         while (rs1.next()) {
@@ -164,19 +164,19 @@ public class RH_uci_detalles extends javax.swing.JFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs);
-                Conexion1.close(stmt);
+                Conexion.close(rs);
+                Conexion.close(stmt);
                 if (this.userConn == null) {
-                    Conexion1.close(conn);
+                    Conexion.close(conn);
                 }
-                Conexion1.close(rs1);
-                        Conexion1.close(stmt1);
+                Conexion.close(rs1);
+                        Conexion.close(stmt1);
                         if (this.userConn1 == null) {
-                            Conexion1.close(conn1);
-                        }Conexion1.close(rs1);
-                        Conexion1.close(stmt1);
+                            Conexion.close(conn1);
+                        }Conexion.close(rs1);
+                        Conexion.close(stmt1);
                         if (this.userConn1 == null) {
-                            Conexion1.close(conn1);
+                            Conexion.close(conn1);
                         }
             }
         
@@ -191,7 +191,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 //                    + "WHERE (re.Entrada='00:00:00.0000000' or re.Salida='00:00:00.0000000' or re.horas='00:00:00.0000000' or re.fecha='1111-11-11') and re.empleadoId='"+cod+"'";
 //            String datos[] = new String[10];
 //            try {
-//                  conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+//                  conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
 //                  stmt = conn.prepareStatement(sql);
 //                  rs = stmt.executeQuery();
 //
@@ -211,10 +211,10 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 //            } catch (Exception e) {
 //                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
 //            } finally {
-//                  Conexion1.close(rs);
-//                  Conexion1.close(stmt);
+//                  Conexion.close(rs);
+//                  Conexion.close(stmt);
 //                  if (this.userConn == null) {
-//                        Conexion1.close(conn);
+//                        Conexion.close(conn);
 //                  }
 //            }
 //            dia();

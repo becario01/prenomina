@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -53,7 +53,7 @@ public class PercepcionesDeducciones {
         try {
             obtenerfechas(fecha);
             System.out.println(arrayfechas + "´´´´");
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             String sql = "INSERT INTO percepciones( empleadoId, fecha, idNomPer, dia, comentario, Semana) values (?,?,?,?,?,?)";
             System.out.println(arrayfechas.size() + "#");
             if (arrayfechas.size() == 1) {
@@ -90,9 +90,9 @@ public class PercepcionesDeducciones {
         } catch (ParseException ex) {
             Logger.getLogger(PercepcionesDeducciones.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            Conexion1.close(stmt);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
     }
@@ -144,7 +144,7 @@ public class PercepcionesDeducciones {
         String numerod = null;
         try {
             String sql1 = "select * from nomPercepciones where idNomPer='" + percep + "'";
-            conn6 = (this.userConn6 != null) ? this.userConn6 : Conexion1.getConnection();
+            conn6 = (this.userConn6 != null) ? this.userConn6 : Conexion.getConnection();
             stmt6 = conn6.prepareStatement(sql1);
             rs6 = stmt6.executeQuery();
             while (rs6.next()) {
@@ -153,10 +153,10 @@ public class PercepcionesDeducciones {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(stmt6);
-            Conexion1.close(stmt6);
+            Conexion.close(stmt6);
+            Conexion.close(stmt6);
             if (this.userConn6 == null) {
-                Conexion1.close(conn6);
+                Conexion.close(conn6);
             }
 
         }
@@ -203,7 +203,7 @@ public class PercepcionesDeducciones {
         arrayidR.clear();
         arrayfeR.clear();
         try {
-            conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
+            conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion.getConnection();
             String sql1 = "select * from percepciones";
             stmt1 = conn1.prepareStatement(sql1);
             rs1 = stmt1.executeQuery();
@@ -216,10 +216,10 @@ public class PercepcionesDeducciones {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(stmt1);
+            Conexion.close(stmt1);
 
             if (this.userConn1 == null) {
-                Conexion1.close(conn1);
+                Conexion.close(conn1);
             }
 
         }
@@ -244,7 +244,7 @@ public class PercepcionesDeducciones {
         PreparedStatement stmt2 = null;
         try {
 
-            conn2 = (this.userConn2 != null) ? this.userConn2 : Conexion1.getConnection();
+            conn2 = (this.userConn2 != null) ? this.userConn2 : Conexion.getConnection();
             String sql = "UPDATE percepciones SET idNomPer='" + idper + "', comentario='" + coment + "'"
                     + " WHERE empleadoId='" + empleadoid + "' and  fecha='" + fecha + "' ";
 
@@ -256,10 +256,10 @@ public class PercepcionesDeducciones {
             JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } finally {
-            Conexion1.close(stmt2);
+            Conexion.close(stmt2);
             JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
             if (this.userConn2 == null) {
-                Conexion1.close(conn2);
+                Conexion.close(conn2);
             }
 
         }
@@ -271,7 +271,7 @@ public class PercepcionesDeducciones {
         Connection conn3 = null;
         PreparedStatement stmt3 = null;
         try {
-            conn3 = (this.userConn3 != null) ? this.userConn3 : Conexion1.getConnection();
+            conn3 = (this.userConn3 != null) ? this.userConn3 : Conexion.getConnection();
             String sql = "INSERT INTO nomPercepciones(nombre, estatus, dias) values (?,?,?)";
 
             stmt3 = conn3.prepareStatement(sql);
@@ -286,10 +286,10 @@ public class PercepcionesDeducciones {
             JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } finally {
-            Conexion1.close(stmt3);
+            Conexion.close(stmt3);
 
             if (this.userConn3 == null) {
-                Conexion1.close(conn3);
+                Conexion.close(conn3);
             }
 
         }
@@ -303,16 +303,16 @@ public class PercepcionesDeducciones {
         PreparedStatement stmt4 = null;
         int rows = 0;
         try {
-            conn4 = (this.userConn4 != null) ? this.userConn4 : Conexion1.getConnection();
+            conn4 = (this.userConn4 != null) ? this.userConn4 : Conexion.getConnection();
 
             stmt4 = conn4.prepareStatement(sql);
 
             rows = stmt4.executeUpdate();
 
         } finally {
-            Conexion1.close(stmt4);
+            Conexion.close(stmt4);
             if (this.userConn4 == null) {
-                Conexion1.close(conn4);
+                Conexion.close(conn4);
             }
         }
     }
@@ -324,16 +324,16 @@ public class PercepcionesDeducciones {
         PreparedStatement stmt5 = null;
         int rows = 0;
         try {
-            conn5 = (this.userConn5 != null) ? this.userConn5 : Conexion1.getConnection();
+            conn5 = (this.userConn5 != null) ? this.userConn5 : Conexion.getConnection();
 
             stmt5 = conn5.prepareStatement(sql);
 
             rows = stmt5.executeUpdate();
 
         } finally {
-            Conexion1.close(stmt5);
+            Conexion.close(stmt5);
             if (this.userConn5 == null) {
-                Conexion1.close(conn5);
+                Conexion.close(conn5);
             }
         }
     }

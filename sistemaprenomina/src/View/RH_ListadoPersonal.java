@@ -5,7 +5,7 @@
  */
 package View;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import Controller.EJefes;
 
 import Controller.controllerBD;
@@ -104,7 +104,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         Object datos[] = new Object[5];
 
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -120,10 +120,10 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
 
@@ -134,7 +134,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         Object datos[] = new Object[5];
 
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -148,10 +148,10 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
 

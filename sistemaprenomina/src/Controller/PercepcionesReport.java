@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,7 +68,7 @@ public class PercepcionesReport {
                 + "where per.fecha='" + fecha + "' and per.empleadoId='" + idemp + "' ";
 
         try {
-            conn = Conexion1.getConnection();
+            conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -87,10 +87,10 @@ public class PercepcionesReport {
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
 
         }
@@ -123,7 +123,7 @@ public class PercepcionesReport {
             String datos[] = new String[2];
 
             try {
-                conn5 = (PercepcionesReport.userConn5 != null) ? PercepcionesReport.userConn5 : Conexion1.getConnection();
+                conn5 = (PercepcionesReport.userConn5 != null) ? PercepcionesReport.userConn5 : Conexion.getConnection();
                 stmt5 = conn5.prepareStatement(sql);
                 rs5 = stmt5.executeQuery();
                 while (rs5.next()) {
@@ -147,10 +147,10 @@ public class PercepcionesReport {
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs5);
-                Conexion1.close(stmt5);
+                Conexion.close(rs5);
+                Conexion.close(stmt5);
                 if (PercepcionesReport.userConn5 == null) {
-                    Conexion1.close(conn5);
+                    Conexion.close(conn5);
                 }
             }
 
@@ -179,7 +179,7 @@ public class PercepcionesReport {
                 + "INNER JOIN nomPercepciones nper on per.idNomPer=nper.idNomPer\n"
                 + "where per.empleadoId='"+empleId+"'";
       
-            conn1 = Conexion1.getConnection();
+            conn1 = Conexion.getConnection();
             stmt1 = conn1.prepareStatement(sql);
             rs1 = stmt1.executeQuery();
            
@@ -196,10 +196,10 @@ public class PercepcionesReport {
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
         return tableContent;
@@ -212,7 +212,7 @@ public class PercepcionesReport {
                 + "where per.idSemana='" + semana + "'";
 
         try {
-            conn = (PercepcionesReport.userConn != null) ? PercepcionesReport.userConn : Conexion1.getConnection();
+            conn = (PercepcionesReport.userConn != null) ? PercepcionesReport.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             int fila = 4;
@@ -222,10 +222,10 @@ public class PercepcionesReport {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (PercepcionesReport.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
 
         }

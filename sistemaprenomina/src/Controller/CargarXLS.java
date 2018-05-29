@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -55,7 +55,7 @@ public class CargarXLS {
       public void cargarempleados() throws IOException, SQLException, ParseException, BiffException {
 
             Connection conn = null;
-            Conexion1 con = new Conexion1();
+            Conexion con = new Conexion();
             PreparedStatement stmt = null;
 
             int rows = 0;
@@ -121,7 +121,7 @@ public class CargarXLS {
                                           System.out.println("ETE REGISTRO YA EXISTE EN LA BASE ");
                                     } else {
 
-                                          conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                                          conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                                           
 
                                           String sentencia = "INSERT INTO empleados( empleadoId, nombre, estatus, puesto, depto) VALUES ('" + employedId + "','" + nombre + "','" + estatus + "','" + puesto + "','" + depto + "')";
@@ -135,10 +135,10 @@ public class CargarXLS {
                   } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
                   } finally {
-                        Conexion1.close(stmt);
+                        Conexion.close(stmt);
                         JOptionPane.showMessageDialog(null, "Registros Exitosos!");
                         if (this.userConn == null) {
-                              Conexion1.close(conn);
+                              Conexion.close(conn);
                         }
 
                   }
@@ -162,7 +162,7 @@ public class CargarXLS {
       public void cargarregistros() throws IOException, SQLException, ParseException, BiffException {
 
             Connection conn = null;
-            Conexion1 con = new Conexion1();
+            Conexion con = new Conexion();
             PreparedStatement stmt = null;
 
             int rows = 0;
@@ -236,7 +236,7 @@ public class CargarXLS {
                                           System.out.println("ETE REGISTRO YA EXISTE EN LA BASE ");
                                     } else {
 
-                                          conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                                          conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                                          
 
                                           String sentencia = "INSERT INTO registros(empleadoId, Entrada, Salida, horas, fecha) VALUES ('" + employedId + "','" + entrada + "','" + Salida + "','" + horas + "','" + fecha + "')";
@@ -250,10 +250,10 @@ public class CargarXLS {
                   } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
                   } finally {
-                        Conexion1.close(stmt);
+                        Conexion.close(stmt);
                         JOptionPane.showMessageDialog(null, "Registros Exitosos!");
                         if (this.userConn == null) {
-                              Conexion1.close(conn);
+                              Conexion.close(conn);
                         }
 
                   }
@@ -279,7 +279,7 @@ public class CargarXLS {
             Connection conn = null;
             PreparedStatement stmt1 = null;
 
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             String sql1 = "select * from registros";
 
             stmt1 = conn.prepareStatement(sql1);
@@ -308,7 +308,7 @@ public class CargarXLS {
             Connection conn = null;
             PreparedStatement stmt1 = null;
 
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             String sql1 = "select * from empleados";
 
             stmt1 = conn.prepareStatement(sql1);

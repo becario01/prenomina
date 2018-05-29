@@ -6,7 +6,7 @@
 package View;
 
 import Conexion.Conexion;
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import Controller.EJefes;
 import Controller.EstiloPercepReport;
 import Controller.PercepcionesReport;
@@ -110,7 +110,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         
         String sql = "select DISTINCT depto from empleados";
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             comboDepto.addItem("-SELECCIONE UNA OPCION-");
@@ -122,10 +122,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
     }
@@ -142,7 +142,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                     + "                    where  inc.fecha='" + fecha + "'";
             String datos[] = new String[10];
             try {
-                conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
                 while (rs.next()) {
@@ -171,10 +171,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs);
-                Conexion1.close(stmt);
+                Conexion.close(rs);
+                Conexion.close(stmt);
                 if (this.userConn == null) {
-                    Conexion1.close(conn);
+                    Conexion.close(conn);
                 }
             }
         }
@@ -191,7 +191,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                     + "where  inc.fecha='" + fecha + "'  and emp.depto='" + depto + "'";
             String datos[] = new String[10];
             try {
-                conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
                 while (rs.next()) {
@@ -220,10 +220,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs);
-                Conexion1.close(stmt);
+                Conexion.close(rs);
+                Conexion.close(stmt);
                 if (this.userConn == null) {
-                    Conexion1.close(conn);
+                    Conexion.close(conn);
                 }
             }
         }
@@ -885,7 +885,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         String sql = "select * from semanas where semana='" + nomsem + "' ";
         int codigo = 0;
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -894,10 +894,10 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
         return codigo;

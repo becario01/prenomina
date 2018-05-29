@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 
 import Data.UsuariosAcIn;
 import java.sql.Connection;
@@ -30,16 +30,16 @@ public class controllerBD {
         PreparedStatement stmt = null;
         int rows = 0;
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             
             stmt = conn.prepareStatement(sql);
           
             rows = stmt.executeUpdate();
             
         } finally {
-            Conexion1.close(stmt);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }   
     }
@@ -50,16 +50,16 @@ public class controllerBD {
         PreparedStatement stmt = null;
         int rows = 0;
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
           
             stmt = conn.prepareStatement(sql);
           
             rows = stmt.executeUpdate();
             
         } finally {
-            Conexion1.close(stmt);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }   
     }

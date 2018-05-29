@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -260,7 +260,7 @@ public class EstiloPercepReport {
 //                + "where per.idSemana='" + semana + "' and em.depto='"+nomdep+"'";
 //        }
 //        try {
-//            conn = Conexion1.getConnection();
+//            conn = Conexion.getConnection();
 //            stmt = conn.prepareStatement(sql);
 //            rs = stmt.executeQuery();
 //            while (rs.next()) {
@@ -269,10 +269,10 @@ public class EstiloPercepReport {
 //        } catch (Exception e) {
 //            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
 //        } finally {
-//            Conexion1.close(rs);
-//            Conexion1.close(stmt);
+//            Conexion.close(rs);
+//            Conexion.close(stmt);
 //            if (userConn == null) {
-//                Conexion1.close(conn);
+//                Conexion.close(conn);
 //            }
 //        }
 //

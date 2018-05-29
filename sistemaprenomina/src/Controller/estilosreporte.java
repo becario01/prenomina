@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import static Controller.exportReporte.conn;
 import static Controller.exportReporte.rs;
 import static Controller.exportReporte.dia;
@@ -201,7 +201,7 @@ if(listadoempe.isEmpty()){
             String datos[] = new String[11];
 
             try {
-                conn = (estilosreporte.userConn != null) ? estilosreporte.userConn : Conexion1.getConnection();
+                conn = (estilosreporte.userConn != null) ? estilosreporte.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
 
@@ -255,7 +255,7 @@ if(listadoempe.isEmpty()){
                                 + " where inc.fecha='" + fecha + "' and inc.empleadoId='" + idemple + "' and inc.actualizadoRH='AUTORIZADO'";
 
                         try {
-                            conn2 = (estilosreporte.userConn2 != null) ? estilosreporte.userConn2 : Conexion1.getConnection();
+                            conn2 = (estilosreporte.userConn2 != null) ? estilosreporte.userConn2 : Conexion.getConnection();
                             stmt2 = conn2.prepareStatement(sql2);
                             rs2 = stmt2.executeQuery();
 
@@ -302,10 +302,10 @@ if(listadoempe.isEmpty()){
                         } catch (HeadlessException | SQLException e) {
                             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                         } finally {
-                            Conexion1.close(rs2);
-                            Conexion1.close(stmt2);
+                            Conexion.close(rs2);
+                            Conexion.close(stmt2);
                             if (estilosreporte.userConn2 == null) {
-                                Conexion1.close(conn2);
+                                Conexion.close(conn2);
                             }
                         }
 
@@ -326,10 +326,10 @@ if(listadoempe.isEmpty()){
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs);
-                Conexion1.close(stmt);
+                Conexion.close(rs);
+                Conexion.close(stmt);
                 if (estilosreporte.userConn == null) {
-                    Conexion1.close(conn);
+                    Conexion.close(conn);
                 }
             }
 
@@ -436,7 +436,7 @@ if(listadoempe.isEmpty()){
             String datos[] = new String[11];
 
             try {
-                conn5 = (estilosreporte.userConn5 != null) ? estilosreporte.userConn5 : Conexion1.getConnection();
+                conn5 = (estilosreporte.userConn5 != null) ? estilosreporte.userConn5 : Conexion.getConnection();
                 stmt5 = conn5.prepareStatement(sql);
                 rs5 = stmt5.executeQuery();
                 while (rs5.next()) {
@@ -460,10 +460,10 @@ if(listadoempe.isEmpty()){
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs5);
-                Conexion1.close(stmt5);
+                Conexion.close(rs5);
+                Conexion.close(stmt5);
                 if (estilosreporte.userConn5 == null) {
-                    Conexion1.close(conn5);
+                    Conexion.close(conn5);
                 }
             }
 
@@ -476,7 +476,7 @@ if(listadoempe.isEmpty()){
         sql = "SELECT * from registros where empleadoId='" + idemple + "' and fecha='" + fecharepo + "'";
 
         try {
-            conn3 = (estilosreporte.userConn3 != null) ? estilosreporte.userConn3 : Conexion1.getConnection();
+            conn3 = (estilosreporte.userConn3 != null) ? estilosreporte.userConn3 : Conexion.getConnection();
             stmt3 = conn3.prepareStatement(sql);
             rs3 = stmt3.executeQuery();
             while (rs3.next()) {
@@ -487,10 +487,10 @@ if(listadoempe.isEmpty()){
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs3);
-            Conexion1.close(stmt3);
+            Conexion.close(rs3);
+            Conexion.close(stmt3);
             if (estilosreporte.userConn3 == null) {
-                Conexion1.close(conn3);
+                Conexion.close(conn3);
             }
         }
 

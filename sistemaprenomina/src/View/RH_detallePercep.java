@@ -5,7 +5,7 @@
  */
 package View;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -85,7 +85,7 @@ public class RH_detallePercep extends javax.swing.JFrame {
                 + "where per.fecha='"+dia+"' and per.empleadoId='"+cod+"' ORDER BY per.fecha asc";
         Object datos[] = new Object[10];
     
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -101,10 +101,10 @@ public class RH_detallePercep extends javax.swing.JFrame {
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
      

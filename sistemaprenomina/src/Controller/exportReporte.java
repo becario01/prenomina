@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import static View.RH_ListadoPersonal.rs;
 //import static View.RH_UsuariosConIncidencias.rs;
 import java.io.*;
@@ -158,7 +158,7 @@ public class exportReporte {
                 + "                 where inc.idSemana='1' ";
 
         try {
-            conn2 = Conexion1.getConnection();
+            conn2 = Conexion.getConnection();
             stmt2 = conn2.prepareStatement(sql);
             rs2 = stmt2.executeQuery();
             while (rs2.next()) {
@@ -167,10 +167,10 @@ public class exportReporte {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs2);
-            Conexion1.close(stmt2);
+            Conexion.close(rs2);
+            Conexion.close(stmt2);
             if (userConn2 == null) {
-                Conexion1.close(conn2);
+                Conexion.close(conn2);
             }
         }
 
@@ -183,7 +183,7 @@ public class exportReporte {
         String sql = "SELECT * from semanas where idSemana='" + idSemana + "' ";
 
         try {
-            conn2 = Conexion1.getConnection();
+            conn2 = Conexion.getConnection();
             stmt2 = conn2.prepareStatement(sql);
             rs2 = stmt2.executeQuery();
             while (rs2.next()) {
@@ -198,10 +198,10 @@ public class exportReporte {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs2);
-            Conexion1.close(stmt2);
+            Conexion.close(rs2);
+            Conexion.close(stmt2);
             if (userConn2 == null) {
-                Conexion1.close(conn2);
+                Conexion.close(conn2);
             }
         }
 

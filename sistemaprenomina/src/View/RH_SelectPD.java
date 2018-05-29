@@ -5,7 +5,7 @@
  */
 package View;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import Controller.PercepcionesDeducciones;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,7 +44,7 @@ Connection conn;
 
         String sql = "select * from nomPercepciones where estatus=1";
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             cmbPercep.addItem("-SELECCIONE UNA OPCION-");
@@ -56,10 +56,10 @@ Connection conn;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
     }
@@ -256,7 +256,7 @@ public int percecp( String nom){
      
 int codigo=0;
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -265,10 +265,10 @@ int codigo=0;
         } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
         return codigo;
