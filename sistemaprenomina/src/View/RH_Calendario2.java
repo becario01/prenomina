@@ -57,6 +57,14 @@ public class RH_Calendario2 extends javax.swing.JFrame {
             case 7:
                 RH_PercepcionesDeducciones.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
                 break;
+            case 8:
+                RH_UsuariosConIncidencias.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                RH_UsuariosConIncidencias.Rdate1=formatoDeFecha.format(calendario2.getDate());
+                break;
+            case 9:
+                RH_UsuariosConIncidencias.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                RH_UsuariosConIncidencias.Rdate2=formatoDeFecha.format(calendario2.getDate());
+                break;
             default:
                 break;
         }
@@ -93,6 +101,14 @@ public class RH_Calendario2 extends javax.swing.JFrame {
                         break;
                     case 7:
                         RH_PercepcionesDeducciones.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                        break;
+                    case 8:
+                        RH_UsuariosConIncidencias.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                        RH_UsuariosConIncidencias.Rdate1=formatoDeFecha.format(calendario2.getDate());
+                        break;
+                    case 9:
+                        RH_UsuariosConIncidencias.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                        RH_UsuariosConIncidencias.Rdate2=formatoDeFecha.format(calendario2.getDate());
                         break;
                     default:
                         break;

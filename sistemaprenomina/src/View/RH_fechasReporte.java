@@ -50,10 +50,10 @@ public class RH_fechasReporte extends javax.swing.JFrame {
     static String cargouser;
     static int frame;
 
-    public RH_fechasReporte(String sema, String depto, String usurio, String cargo, int jframe) {
+    public RH_fechasReporte(String depto, String usurio, String cargo, int jframe) {
         initComponents();
         nomdepto = depto;
-        nomsema = sema;
+     
         user = usurio;
         cargouser = cargo;
         frame = jframe;
@@ -430,7 +430,7 @@ public class RH_fechasReporte extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RH_fechasReporte(nomsema, nomdepto, user, cargouser, frame).setVisible(true);
+                new RH_fechasReporte( nomdepto, user, cargouser, frame).setVisible(true);
             }
         });
     }

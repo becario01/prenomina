@@ -27,7 +27,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -54,11 +57,11 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private TableRowSorter trsFiltro;
     int x, y;
     public static String codid;
-   public static boolean TstVentNvoPres = false;
-    
-    
-    
-   /**
+    public static boolean TstVentNvoPres = false;    
+    Vector<String> empleadosR = new Vector<String>();
+    public static String Rdate1="";
+    public static String Rdate2="";
+    /**
      * Creates new form RH_UsuariosConIncidencias
      *
      * @throws java.sql.SQLException
@@ -68,7 +71,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
-        combosemana();
+      
         combodepartamento();
         cargarTitulos1();
         panelincidencias.setVisible(false);
@@ -78,16 +81,16 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         lblcargo.setHorizontalAlignment(lblcargo.CENTER);
         lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
-
+    
     DefaultTableModel tabla1 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int Fila, int Colum) {
             return false;
         }
     };
-
+    
     public void cargarTitulos1() throws SQLException {
-
+        
         tabla1.addColumn("ID");
         tabla1.addColumn("NOMBRE");
         tabla1.addColumn("DEPARTAMENTO");
@@ -98,34 +101,13 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         columnModel.getColumn(1).setPreferredWidth(200);
         columnModel.getColumn(2).setPreferredWidth(150);
         columnModel.getColumn(3).setPreferredWidth(150);
-
+        
     }
-
-    public void combosemana() {
-        String sql = "select semana from semanas where estatus=1";
-        try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            comboSemana.addItem("-SELECCIONE UNA OPCION-");
-            while (rs.next()) {
-                String nombre = rs.getString("semana");
-                comboSemana.addItem(nombre);
-
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (this.userConn == null) {
-                Conexion1.close(conn);
-            }
-        }
-    }
-
+    
+   
+    
     public void combodepartamento() {
-
+        
         String sql = "select DISTINCT depto from empleados";
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
@@ -135,7 +117,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             while (rs.next()) {
                 String nombre = rs.getString("depto");
                 comboDepto.addItem(nombre);
-
+                
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -147,71 +129,136 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             }
         }
     }
-
-    public void cargardatosFiltroSemana(String idSemana) throws SQLException {
-        String sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
-                + "                    from incidencias inc\n"
-                + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "                    where se.semana='" + idSemana + "'";
-        String datos[] = new String[10];
-        try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                datos[0] = rs.getString("empleadoId");
-                datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("depto");
-                datos[3] = rs.getString("puesto");
-                tabla1.addRow(datos);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (this.userConn == null) {
-                Conexion1.close(conn);
-            }
-        }
-    }
-
-    public void cargardatosFiltroDepto(String idSemana, String depto) throws SQLException {
-        String sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
-                + "                    from incidencias inc\n"
-                + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "                    where se.semana='" + idSemana + "' and emp.depto='" + depto + "'";
-        String datos[] = new String[10];
-        try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                datos[0] = rs.getString("empleadoId");
-                datos[1] = rs.getString("nombre");
-                datos[2] = rs.getString("depto");
-                datos[3] = rs.getString("puesto");
-                tabla1.addRow(datos);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (this.userConn == null) {
-                Conexion1.close(conn);
-            }
-        }
-    }
-
     
+    public void CargarDatosRango(Vector<String> dias) throws SQLException {
+        empleadosR.clear();
+        for (int dia = 0; dia < dias.size(); dia++) {
+            String fecha = dias.elementAt(dia);
+            
+            String sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
+                    + "                    from incidencias inc\n"
+                    + "                    INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
+                    + "                    INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
+                    + "                    where  inc.fecha='" + fecha + "'";
+            String datos[] = new String[10];
+            try {
+                conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    boolean boolean1 = false;
+                    boolean boolean2 = false;
+                    datos[0] = rs.getString("empleadoId");
+                    datos[1] = rs.getString("nombre");
+                    datos[2] = rs.getString("depto");
+                    datos[3] = rs.getString("puesto");
+                    if (empleadosR.isEmpty()) {
+                        empleadosR.add(datos[0]);
+                        tabla1.addRow(datos);
+                    }
+                    for (int i = 0; i < empleadosR.size(); i++) {
+                        boolean1 = empleadosR.elementAt(i).equalsIgnoreCase(datos[0]);
+                        if (boolean1) {
+                            boolean2 = true;
+                        }
+                    }
+                    if (boolean2) {
+                    } else {
+                        empleadosR.add(datos[0]);
+                        tabla1.addRow(datos);
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                Conexion1.close(rs);
+                Conexion1.close(stmt);
+                if (this.userConn == null) {
+                    Conexion1.close(conn);
+                }
+            }
+        }
+    }
+    
+    public void cargardatosFiltroDepto(Vector<String> dias, String depto) throws SQLException {
+        empleadosR.clear();
+        for (int i = 0; i < dias.size(); i++) {
+            String fecha = dias.elementAt(i);
+            String sql = "SELECT DISTINCT  emp.empleadoId, emp.nombre, emp.depto, emp.puesto\n"
+                    + "from incidencias inc\n"
+                    + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
+                    + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
+                    + "where  inc.fecha='" + fecha + "'  and emp.depto='" + depto + "'";
+            String datos[] = new String[10];
+            try {
+                conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    boolean boolean1 = false;
+                    boolean boolean2 = false;
+                    datos[0] = rs.getString("empleadoId");
+                    datos[1] = rs.getString("nombre");
+                    datos[2] = rs.getString("depto");
+                    datos[3] = rs.getString("puesto");
+                    if (empleadosR.isEmpty()) {
+                        empleadosR.add(datos[0]);
+                        tabla1.addRow(datos);
+                    }
+                    for (int a = 0; a < empleadosR.size(); a++) {
+                        boolean1 = empleadosR.elementAt(a).equalsIgnoreCase(datos[0]);
+                        if (boolean1) {
+                            boolean2 = true;
+                        }
+                    }
+                    if (boolean2) {
+                    } else {
+                        empleadosR.add(datos[0]);
+                        tabla1.addRow(datos);
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                Conexion1.close(rs);
+                Conexion1.close(stmt);
+                if (this.userConn == null) {
+                    Conexion1.close(conn);
+                }
+            }
+        }
+    }
+    
+    public Vector<String> listarfechas() throws ParseException {
+        
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Vector<Date> listaFechas = new Vector<>();
+        Vector<String> dias = new Vector<String>();
+        listaFechas.clear();
+        dias.clear();
+        Date fechaInicio = formato.parse(Rdate1);
+        Date fechaFin = formato.parse(Rdate2);
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(fechaInicio);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(fechaFin);
+        
+        while (!c1.after(c2)) {
+            listaFechas.add(c1.getTime());
+            c1.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        dias.clear();
+        for (int i = 0; i < listaFechas.size(); i++) {
+            dias.add(formato.format(listaFechas.elementAt(i)));
+            
+        }
+        return dias;
+    }
     
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }
-
+    
     public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
@@ -219,9 +266,6 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         }
     }
     
-    
-    
-
     public int obteneridsem(String nombresemana) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -281,7 +325,13 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbincidencias = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
-        comboSemana = new javax.swing.JComboBox<String>();
+        txtdate2 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtdate1 = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        label = new javax.swing.JLabel();
 
         itemDetalles.setText("Detalles");
         itemDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -305,13 +355,13 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Reportar semana");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 88, 151, 30));
+        jLabel1.setText("Fecha Fin");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 80, 30));
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Reportar area");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, 160, 30));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 110, 30));
 
         comboDepto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         comboDepto.addActionListener(new java.awt.event.ActionListener() {
@@ -319,7 +369,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
                 comboDeptoActionPerformed(evt);
             }
         });
-        getContentPane().add(comboDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 229, 30));
+        getContentPane().add(comboDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, 229, 30));
 
         jPanel2.setBackground(new java.awt.Color(229, 230, 234));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -480,11 +530,16 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jLabel7.setText("Calcular Sobre Sueldo");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 140, -1, -1));
 
-        panelincidencias.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 38, -1, -1));
+        panelincidencias.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         txtBuscar.setBackground(new java.awt.Color(51, 102, 255));
         txtBuscar.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
@@ -535,15 +590,57 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/search1.png"))); // NOI18N
         panelincidencias.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 30));
 
-        getContentPane().add(panelincidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 142, 1060, -1));
+        getContentPane().add(panelincidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1060, -1));
 
-        comboSemana.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        comboSemana.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboSemanaActionPerformed(evt);
+        txtdate2.setBackground(new java.awt.Color(51, 102, 255));
+        txtdate2.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
+        txtdate2.setForeground(new java.awt.Color(255, 255, 255));
+        txtdate2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtdate2.setBorder(null);
+        txtdate2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtdate2MouseClicked(evt);
             }
         });
-        getContentPane().add(comboSemana, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 210, 30));
+        txtdate2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtdate2KeyPressed(evt);
+            }
+        });
+        getContentPane().add(txtdate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 170, 30));
+
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Fecha Inicio");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 100, 30));
+
+        txtdate1.setBackground(new java.awt.Color(51, 102, 255));
+        txtdate1.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
+        txtdate1.setForeground(new java.awt.Color(255, 255, 255));
+        txtdate1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtdate1.setBorder(null);
+        txtdate1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtdate1MouseClicked(evt);
+            }
+        });
+        txtdate1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtdate1KeyPressed(evt);
+            }
+        });
+        getContentPane().add(txtdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 170, 30));
+
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 170, -1));
+        getContentPane().add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 170, 0));
+
+        jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, 170, 10));
+
+        label.setForeground(new java.awt.Color(255, 255, 255));
+        label.setText("Pulsa ENTER para buscar ");
+        getContentPane().add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -560,47 +657,45 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
           });
           trsFiltro = new TableRowSorter(tbincidencias.getModel());
           tbincidencias.setRowSorter(trsFiltro);
-
+          
 
       }//GEN-LAST:event_txtBuscarKeyTyped
 
       private void comboDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDeptoActionPerformed
           try {
               limpiar(tabla1);
-              String nomsema = comboSemana.getSelectedItem().toString();
-              int numsema = comboSemana.getSelectedIndex();
               String nomdep = comboDepto.getSelectedItem().toString();
               int numdep = comboDepto.getSelectedIndex();
-              if (numsema != 0) {
+              if (!Rdate1.equalsIgnoreCase("") && !Rdate2.equalsIgnoreCase("")) {
                   if (numdep == 0) {
-
-                      cargardatosFiltroSemana(nomsema);
+                      CargarDatosRango(listarfechas());
                   } else {
-                      cargardatosFiltroDepto(nomsema, nomdep);
+                      label.setVisible(false);
+                      panelincidencias.setVisible(true);
+                      cargardatosFiltroDepto(listarfechas(), nomdep);
                   }
               } else {
                   comboDepto.setSelectedIndex(0);
               }
-
           } catch (SQLException e) {
               JOptionPane.showMessageDialog(null, "Error en " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+          } catch (ParseException ex) {
+              Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(Level.SEVERE, null, ex);
           }
       }//GEN-LAST:event_comboDeptoActionPerformed
 
       private void btnReporteGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteGeneralActionPerformed
-
-      String nomsem = comboSemana.getSelectedItem().toString();
+          
+          
           String nomdep = comboDepto.getSelectedItem().toString();
           String emp = lblnombrerh.getText();
           String car = lblcargo.getText();
           try {
-              RH_fechasReporte rango = new RH_fechasReporte(nomsem, nomdep, emp, car, 1);
+              RH_fechasReporte rango = new RH_fechasReporte(nomdep, emp, car, 1);
               rango.show();
           } catch (Exception e) {
               JOptionPane.showMessageDialog(null, "" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
           }
-
-
       }//GEN-LAST:event_btnReporteGeneralActionPerformed
 
     private void btnMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizarActionPerformed
@@ -612,7 +707,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-
+        
         try {
             RH_Inicio sele = new RH_Inicio();
             sele.setVisible(true);
@@ -635,26 +730,26 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel11MouseDragged
 
     private void btntxtreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntxtreporteActionPerformed
-
+        
         if (TstVentNvoPres == false) {
             reptxtran rpt = new reptxtran();
             rpt.setVisible(true);
-
+            
             TstVentNvoPres = true;
         } else {
             JOptionPane.showMessageDialog(null, "La ventana Nuevo Prestatario ya esta abierta!!!");
         }
-
+        
 
     }//GEN-LAST:event_btntxtreporteActionPerformed
 
     private void btnPercepcionesYDeduccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercepcionesYDeduccionesActionPerformed
-          String nomsem = comboSemana.getSelectedItem().toString();
+        
         String nomdep = comboDepto.getSelectedItem().toString();
         String emp = lblnombrerh.getText();
         String car = lblcargo.getText();
         try {
-            RH_fechasReporte rango = new RH_fechasReporte(nomsem, nomdep, emp, car, 2);
+            RH_fechasReporte rango = new RH_fechasReporte( nomdep, emp, car, 2);
             rango.show();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -668,37 +763,37 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCalcularFaltasActionPerformed
 
     private void btnPrimaDominicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimaDominicalActionPerformed
-
-            String nomsem = comboSemana.getSelectedItem().toString();
+        
+        
         String nomdep = comboDepto.getSelectedItem().toString();
         String emp = lblnombrerh.getText();
         String car = lblcargo.getText();
         try {
-            RH_fechasReporte rango = new RH_fechasReporte(nomsem, nomdep, emp, car, 3);
+            RH_fechasReporte rango = new RH_fechasReporte( nomdep, emp, car, 3);
             rango.show();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-
+        
 
     }//GEN-LAST:event_btnPrimaDominicalActionPerformed
 
     private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
-
+        System.out.println(Rdate1+"     -     "+Rdate2);
         try {
             int fila = tbincidencias.getSelectedRow();
             int numfila = tbincidencias.getSelectedRowCount();
-
+            
             if (numfila == 1) {
                 String nom = tbincidencias.getValueAt(fila, 1).toString();
                 String idemp = tbincidencias.getValueAt(fila, 0).toString();
-                RH_SelectPD per = new RH_SelectPD(idemp,1);
+                RH_SelectPD per = new RH_SelectPD(idemp, 1);
                 per.show(true);
                 RH_SelectPD.lblnombre.setText(nom);
             } else {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila", "", JOptionPane.WARNING_MESSAGE);
             }
-
+            
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "ERROR EN: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -706,18 +801,19 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
     private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
         try {
+            System.out.println(Rdate1+"     -     "+Rdate2);
             String nomcargo = lblcargo.getText();
             String nomusuario = lblnombrerh.getText();
             int fila = tbincidencias.getSelectedRow();
             int numfila = tbincidencias.getSelectedRowCount();
-            String nomsema = (String) comboSemana.getSelectedItem().toString();
+            String nomsema = Rdate1+"     -     "+Rdate2;
             if (numfila == 1) {
                 String idEmp = tbincidencias.getValueAt(fila, 0).toString();
                 String nomEmp = tbincidencias.getValueAt(fila, 1).toString();
                 int idempleado = Integer.parseInt(idEmp);
-                RH_uci_detalles deta = new RH_uci_detalles(nomsema, idempleado, nomcargo, nomusuario);
+                RH_uci_detalles deta = new RH_uci_detalles(listarfechas(), idempleado, nomcargo, nomusuario);
                 deta.show(true);
-
+                
                 RH_uci_detalles.txtsemana.setText(nomsema);
                 RH_uci_detalles.txtid.setText(idEmp);
                 RH_uci_detalles.txtnombre.setText(nomEmp);
@@ -726,31 +822,65 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             }
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException ex) {
+            Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_itemDetallesActionPerformed
 
-    private void comboSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSemanaActionPerformed
-        limpiar(tabla1);
-        String nomsem = comboSemana.getSelectedItem().toString();
-        int numsem = comboSemana.getSelectedIndex();
-        System.out.println(nomsem);
-        System.out.println(numsem);
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtdate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdate1MouseClicked
         try {
-            if (numsem != 0) {
-                panelincidencias.setVisible(true);
-                cargardatosFiltroSemana(nomsem);
-
-            } else {
-                panelincidencias.setVisible(false);
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            RH_Calendario2 cale = new RH_Calendario2(8);
+            cale.show();
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+    }//GEN-LAST:event_txtdate1MouseClicked
 
+    private void txtdate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdate2MouseClicked
+        try {
+            RH_Calendario2 cale = new RH_Calendario2(9);
+            cale.show();
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_txtdate2MouseClicked
 
-    }//GEN-LAST:event_comboSemanaActionPerformed
+    private void txtdate1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdate1KeyPressed
+        if (!Rdate2.equalsIgnoreCase("")) {
+            try {
+                limpiar(tabla1);
+                panelincidencias.setVisible(true);
+                label.setVisible(false);
+                CargarDatosRango(listarfechas());
+                System.out.println(empleadosR);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_txtdate1KeyPressed
+
+    private void txtdate2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdate2KeyPressed
+        if (!Rdate1.equalsIgnoreCase("")) {
+            try {
+                limpiar(tabla1);
+                panelincidencias.setVisible(true);
+                label.setVisible(false);
+                CargarDatosRango(listarfechas());
+                System.out.println(empleadosR);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(RH_UsuariosConIncidencias.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_txtdate2KeyPressed
     public int semana(String nomsem) {
         String sql = "select * from semanas where semana='" + nomsem + "' ";
         int codigo = 0;
@@ -822,13 +952,13 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private javax.swing.JButton btnSobresueldo;
     private javax.swing.JButton btntxtreporte;
     private javax.swing.JComboBox comboDepto;
-    private javax.swing.JComboBox<String> comboSemana;
     private javax.swing.JMenuItem itemDetalles;
     private javax.swing.JMenuItem itemPercepciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -840,12 +970,18 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel label;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JPanel panelincidencias;
     private javax.swing.JPopupMenu pmAutorizar;
     private javax.swing.JTable tbincidencias;
     private javax.swing.JTextField txtBuscar;
+    public static javax.swing.JTextField txtdate1;
+    public static javax.swing.JTextField txtdate2;
     // End of variables declaration//GEN-END:variables
 
 }

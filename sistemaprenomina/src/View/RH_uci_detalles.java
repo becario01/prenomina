@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -24,7 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-
 
 /**
  *
@@ -40,11 +40,13 @@ public class RH_uci_detalles extends javax.swing.JFrame {
     PreparedStatement stmt1;
     public static ResultSet rs1;
     private Connection userConn1;
-    static String nombresem;
+
     static String nombrecargo;
     static String nombreusuario;
     static int idempleado;
-    RH_UsuariosConIncidencias inci = new RH_UsuariosConIncidencias();
+   
+    static Vector<String> dias = new Vector<String>();
+    Vector<String> empleados = new Vector<String>();
 
     /**
      * Creates new form RH_uci_detalles
@@ -55,18 +57,18 @@ public class RH_uci_detalles extends javax.swing.JFrame {
      * @param usuario
      * @throws java.sql.SQLException
      */
-    public RH_uci_detalles(String nomsem, int idemp, String cargo, String usuario ) throws SQLException {
+    public RH_uci_detalles(Vector<String> diass, int idemp, String cargo, String usuario) throws SQLException {
         initComponents();
-        nombresem = nomsem;
+        dias = diass;
         idempleado = idemp;
-        nombrecargo=cargo;
-        nombreusuario=usuario;
+        nombrecargo = cargo;
+        nombreusuario = usuario;
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
         cargartitulos();
         limpiar(tabla1);
-        cargardatosFiltroSemana(nomsem, idemp);
+        cargardatosFiltroSemana(diass, idemp);
         lblcargo.setText(cargo);
         lblnombrerh.setText(usuario);
         tbdetalles.setDefaultRenderer(Object.class, new EJefes());
@@ -109,76 +111,75 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
     }
 
-    public void cargardatosFiltroSemana(String idSemana, int cod) throws SQLException {
+    public void cargardatosFiltroSemana(Vector<String> dias, int cod) throws SQLException {
+         try {
+        for (int dia = 0; dia < dias.size(); dia++) {
+            String fecha = dias.elementAt(dia);
 
-        String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario, inc.horasExtra \n"
-                + "from incidencias inc\n"
-                + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
-                + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "where se.semana='" + idSemana + "' and inc.empleadoId='" + cod + "'   ORDER BY inc.fecha ASC";
-        Object datos[] = new Object[10];
-        try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
+            String sql = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario, inc.horasExtra \n"
+                    + "from incidencias inc\n"
+                    + "INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
+                    + "INNER JOIN NomIncidencia nomin on  nomin.idNomIncidencia = inc.idNomIncidencia\n"
+                    + "INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
+                    + "where inc.fecha='" + fecha + "' and inc.empleadoId='" + cod + "'   ORDER BY inc.fecha ASC";
+            Object datos[] = new Object[10];
+          
+                conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
 
-            while (rs.next()) {
-//                       
-
-                if (rs.getString("actualizadoJA") == null || "".equals(rs.getString("actualizadoJA")) || rs.getString("actualizadoJA").equalsIgnoreCase("NEGADO")) {
-                    datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
-                } else {
-                    datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
-                }
-                if (rs.getString("actualizadoRH") == null || "".equals(rs.getString("actualizadoRH")) || rs.getString("actualizadoRH").equalsIgnoreCase("NEGADO")) {
-                    datos[1] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
-                } else {
-                    datos[1] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
-                }
+                while (rs.next()) {
+                    if (rs.getString("actualizadoJA") == null || "".equals(rs.getString("actualizadoJA")) || rs.getString("actualizadoJA").equalsIgnoreCase("NEGADO")) {
+                        datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
+                    } else {
+                        datos[0] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
+                    }
+                    if (rs.getString("actualizadoRH") == null || "".equals(rs.getString("actualizadoRH")) || rs.getString("actualizadoRH").equalsIgnoreCase("NEGADO")) {
+                        datos[1] = new JLabel(new ImageIcon(getClass().getResource("/View/img/noactualizadoj.png")));
+                    } else {
+                        datos[1] = new JLabel(new ImageIcon(getClass().getResource("/View/img/actulizadoj.png")));
+                    }
 //                datos[1] = rs.getString("actualizadoJA");
 //                datos[2] = rs.getString("actualizadoRH");
-                datos[3] = rs.getString("fecha");
-                datos[4] = "";
-                datos[5] = "";
-                datos[6] = "";
-                datos[7] = rs.getString("horasExtra");
-                datos[8] = rs.getString("nombreinc");
-                datos[9] = rs.getString("comentario");
+                    datos[3] = rs.getString("fecha");
+                    datos[4] = "";
+                    datos[5] = "";
+                    datos[6] = "";
+                    datos[7] = rs.getString("horasExtra");
+                    datos[8] = rs.getString("nombreinc");
+                    datos[9] = rs.getString("comentario");
 
-                String sql1 = "SELECT entrada, salida, horas from registros where empleadoId='" + cod + "' and fecha='" + datos[3] + "'";
-                try {
-                    conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
-                    stmt1 = conn1.prepareStatement(sql1);
-                    rs1 = stmt1.executeQuery();
-
-                    while (rs1.next()) {
-                        datos[4] = rs1.getString("entrada");
-                        datos[5] = rs1.getString("salida");
-                        datos[6] = rs1.getString("horas");
-
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-                } finally {
-                    Conexion1.close(rs1);
-                    Conexion1.close(stmt1);
-                    if (this.userConn1 == null) {
-                        Conexion1.close(conn1);
-                    }
+                    String sql1 = "SELECT entrada, salida, horas from registros where empleadoId='" + cod + "' and fecha='" + datos[3] + "'";                  
+                        conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion1.getConnection();
+                        stmt1 = conn1.prepareStatement(sql1);
+                        rs1 = stmt1.executeQuery();
+                        while (rs1.next()) {
+                            datos[4] = rs1.getString("entrada");
+                            datos[5] = rs1.getString("salida");
+                            datos[6] = rs1.getString("horas");
+                        }
+                    tabla1.addRow(datos);
                 }
-
-                tabla1.addRow(datos);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (this.userConn == null) {
-                Conexion1.close(conn);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                Conexion1.close(rs);
+                Conexion1.close(stmt);
+                if (this.userConn == null) {
+                    Conexion1.close(conn);
+                }
+                Conexion1.close(rs1);
+                        Conexion1.close(stmt1);
+                        if (this.userConn1 == null) {
+                            Conexion1.close(conn1);
+                        }Conexion1.close(rs1);
+                        Conexion1.close(stmt1);
+                        if (this.userConn1 == null) {
+                            Conexion1.close(conn1);
+                        }
             }
-        }
+        
         dia();
 
     }
@@ -425,7 +426,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                             .addComponent(txtid)
                             .addComponent(txtnombre)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(394, 394, 394)
                         .addComponent(txtsemana)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -433,9 +434,9 @@ public class RH_uci_detalles extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtsemana)
-                .addGap(25, 25, 25)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtnombre))
@@ -476,7 +477,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                   try {
                       au.autorizar(cod, fec);
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(nombresem, id);
+                      cargardatosFiltroSemana(dias, id);
                   } catch (SQLException e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
@@ -490,7 +491,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                           au.autorizar(cod, fec);
                       }
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(nombresem, id);
+                      cargardatosFiltroSemana(dias, id);
                   } catch (SQLException e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
@@ -514,7 +515,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                   try {
                       au.negar(cod, fec);
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(nombresem, id);
+                      cargardatosFiltroSemana(dias, id);
                   } catch (SQLException e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
@@ -528,7 +529,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
                           au.negar(cod, fec);
                       }
                       limpiar(tabla1);
-                      cargardatosFiltroSemana(nombresem, id);
+                      cargardatosFiltroSemana(dias, id);
                   } catch (SQLException e) {
                       JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
@@ -587,7 +588,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new RH_uci_detalles(nombresem, idempleado,nombrecargo,nombreusuario).setVisible(true);
+                    new RH_uci_detalles(dias, idempleado, nombrecargo, nombreusuario).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(RH_uci_detalles.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -39,12 +39,12 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
     private Connection userConn;
     private TableRowSorter trsFiltro;
     int x, y;
-public static Connection conn5;
+    public static Connection conn5;
     public static PreparedStatement stmt5;
     public static ResultSet rs5;
     private static Connection userConn5;
-     Vector<String> empleados = new Vector<String>();
-     
+    Vector<String> empleados = new Vector<String>();
+
     public RH_PercepcionesDeducciones() throws SQLException {
         initComponents();
         this.setResizable(false);
@@ -212,7 +212,7 @@ public static Connection conn5;
         jLabel13 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        label = new javax.swing.JLabel();
 
         ItemDetalles.setText("Detalles");
         ItemDetalles.addActionListener(new java.awt.event.ActionListener() {
@@ -340,7 +340,7 @@ public static Connection conn5;
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,13 +360,14 @@ public static Connection conn5;
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(203, 203, 203))
             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelLayout.createSequentialGroup()
                     .addGap(49, 49, 49)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(232, Short.MAX_VALUE)))
+                    .addContainerGap(435, Short.MAX_VALUE)))
         );
 
         cmbdepto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -386,6 +387,16 @@ public static Connection conn5;
                 txtdate1MouseClicked(evt);
             }
         });
+        txtdate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdate1ActionPerformed(evt);
+            }
+        });
+        txtdate1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtdate1KeyPressed(evt);
+            }
+        });
 
         txtdate2.setBackground(new java.awt.Color(51, 102, 255));
         txtdate2.setFont(new java.awt.Font("Century Gothic", 2, 18)); // NOI18N
@@ -395,6 +406,11 @@ public static Connection conn5;
         txtdate2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtdate2MouseClicked(evt);
+            }
+        });
+        txtdate2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtdate2KeyPressed(evt);
             }
         });
 
@@ -414,22 +430,13 @@ public static Connection conn5;
         jSeparator3.setAlignmentX(0.7F);
         jSeparator3.setAlignmentY(0.8F);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        label.setForeground(new java.awt.Color(255, 255, 255));
+        label.setText("Pulsa ENTER para buscar ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,17 +446,19 @@ public static Connection conn5;
                 .addGap(103, 103, 103)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtdate2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                    .addComponent(txtdate2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(83, 83, 83))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label)
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtdate1, txtdate2});
@@ -470,16 +479,16 @@ public static Connection conn5;
                             .addComponent(txtdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtdate2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator1)
+                            .addComponent(jSeparator3)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbdepto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0)
+                .addComponent(label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtdate1, txtdate2});
@@ -521,18 +530,20 @@ public static Connection conn5;
 
     private void cmbdeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbdeptoActionPerformed
         try {
-           
+
             String depp = cmbdepto.getSelectedItem().toString();
-            if (!txtdate1.getText().equalsIgnoreCase("")||!txtdate2.getText().equalsIgnoreCase("")) {
+            if (!txtdate1.getText().equalsIgnoreCase("") || !txtdate2.getText().equalsIgnoreCase("")) {
                 limpiar(tabla1);
                 if (depp.equalsIgnoreCase("-SELECCIONE UNA OPCION-")) {
+                    panel.setVisible(true);
                     CargarDatosRango(listarfechas());
                 } else {
                     cargardatosFiltroDepto(listarfechas(), depp);
+                    panel.setVisible(true);
                 }
             } else {
                 cmbdepto.setSelectedIndex(0);
-                      JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA","",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Si desea hacer un filtro por departamento SELECCIONE ANTES UNA SEMANA", "", JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (HeadlessException e) {
@@ -559,31 +570,31 @@ public static Connection conn5;
 
     private void ItemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemDetallesActionPerformed
         try {
-             int count = tbpercepciones.getSelectedRowCount();
-        int fila = tbpercepciones.getSelectedRow();
-        String nomcargo = lblcargo.getText();
-        String nomusuario = lblnombrerh.getText();
-     String inicio= txtdate1.getText();
-     String fin= txtdate2.getText();
-        if (count == 1) {
-            String idemp= tbpercepciones.getValueAt(fila, 0).toString();
-            String nomemp= tbpercepciones.getValueAt(fila, 1).toString();
-            RH_detallePercep dper= new RH_detallePercep(listarfechas(),idemp,nomcargo,nomusuario);
-            dper.show();
-            RH_detallePercep.lblcargo.setText(nomcargo);
-            RH_detallePercep.lblnombrerh.setText(nomusuario);
-            RH_detallePercep.txtsemana.setText("FECHA:  "+inicio+"  -  "+fin);
-            RH_detallePercep.txtid.setText(idemp);
-            RH_detallePercep.txtnombre.setText(nomemp);
-        } else if (count == 0) {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila ", "", JOptionPane.WARNING_MESSAGE);
-        }
+            int count = tbpercepciones.getSelectedRowCount();
+            int fila = tbpercepciones.getSelectedRow();
+            String nomcargo = lblcargo.getText();
+            String nomusuario = lblnombrerh.getText();
+            String inicio = txtdate1.getText();
+            String fin = txtdate2.getText();
+            if (count == 1) {
+                String idemp = tbpercepciones.getValueAt(fila, 0).toString();
+                String nomemp = tbpercepciones.getValueAt(fila, 1).toString();
+                RH_detallePercep dper = new RH_detallePercep(listarfechas(), idemp, nomcargo, nomusuario);
+                dper.show();
+                RH_detallePercep.lblcargo.setText(nomcargo);
+                RH_detallePercep.lblnombrerh.setText(nomusuario);
+                RH_detallePercep.txtsemana.setText("FECHA:  " + inicio + "  -  " + fin);
+                RH_detallePercep.txtid.setText(idemp);
+                RH_detallePercep.txtnombre.setText(nomemp);
+            } else if (count == 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione una fila ", "", JOptionPane.WARNING_MESSAGE);
+            }
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e,"",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
             Logger.getLogger(RH_PercepcionesDeducciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_ItemDetallesActionPerformed
 
     private void txtdate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdate1MouseClicked
@@ -596,6 +607,7 @@ public static Connection conn5;
     }//GEN-LAST:event_txtdate1MouseClicked
 
     private void txtdate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtdate2MouseClicked
+
         try {
             RH_Calendario2 cale = new RH_Calendario2(7);
             cale.show();
@@ -604,16 +616,37 @@ public static Connection conn5;
         }
     }//GEN-LAST:event_txtdate2MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            panel.setVisible(true);
-            CargarDatosRango(listarfechas());
-            System.out.println(empleados);
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+    private void txtdate1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdate1KeyPressed
+        if (!txtdate2.getText().equalsIgnoreCase("")) {
+            try {
+                limpiar(tabla1);
+                panel.setVisible(true);
+                label.setVisible(false);
+                CargarDatosRango(listarfechas());
+                System.out.println(empleados);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
+    }//GEN-LAST:event_txtdate1KeyPressed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void txtdate2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdate2KeyPressed
+        if (!txtdate1.getText().equalsIgnoreCase("")) {
+            try {
+                limpiar(tabla1);
+                panel.setVisible(true);
+                label.setVisible(false);
+                CargarDatosRango(listarfechas());
+                System.out.println(empleados);
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_txtdate2KeyPressed
+
+    private void txtdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdate1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdate1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -658,7 +691,6 @@ public static Connection conn5;
     private javax.swing.JMenuItem ItemDetalles;
     private javax.swing.JPopupMenu PopDetalle;
     private javax.swing.JComboBox cmbdepto;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -674,6 +706,7 @@ public static Connection conn5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel label;
     public static javax.swing.JLabel lblcargo;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JPanel panel;
@@ -683,10 +716,9 @@ public static Connection conn5;
     public static javax.swing.JTextField txtdate2;
     // End of variables declaration//GEN-END:variables
 
-   
-
     private void cargardatosFiltroDepto(Vector<String> dias, String depp) {
         try {
+            empleados.clear();
             for (int i = 0; i < dias.size(); i++) {
                 String fecha = dias.elementAt(i);
                 String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
@@ -694,19 +726,32 @@ public static Connection conn5;
                         + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
                         + "INNER JOIN semanas se on per.Semana=se.semana\n"
                         + "where per.fecha='" + fecha + "' and em.depto='" + depp + "'";
-
                 String datos[] = new String[13];
-
                 conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
                 while (rs.next()) {
+                    boolean boolean1 = false;
+                    boolean boolean2 = false;
                     datos[0] = rs.getString("empleadoId");
                     datos[1] = rs.getString("nombre");
                     datos[2] = rs.getString("depto");
                     datos[3] = rs.getString("puesto");
-                    tabla1.addRow(datos);
-                    
+                    if (empleados.isEmpty()) {
+                        empleados.add(datos[0]);
+                        tabla1.addRow(datos);
+                    }
+                    for (int a = 0; a < empleados.size(); a++) {
+                        boolean1 = empleados.elementAt(a).equalsIgnoreCase(datos[0]);
+                        if (boolean1) {
+                            boolean2 = true;
+                        }
+                    }
+                    if (boolean2) {
+                    } else {
+                        empleados.add(datos[0]);
+                        tabla1.addRow(datos);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -733,21 +778,22 @@ public static Connection conn5;
         columnModel.getColumn(2).setPreferredWidth(150);
         columnModel.getColumn(3).setPreferredWidth(150);
     }
-     public  void CargarDatosRango(Vector<String> dias) {
+
+    public void CargarDatosRango(Vector<String> dias) {
         empleados.clear();
         for (int dia = 0; dia < dias.size(); dia++) {
-           
+
             String fecharepo = dias.elementAt(dia);
 
-           String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
-                        + "from percepciones per \n"
-                        + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                        + "INNER JOIN semanas se on per.Semana=se.semana\n"
-                        + "where per.fecha='" + fecharepo + "'";
+            String sql = "select DISTINCT per.empleadoId, em.nombre,em.depto, em.puesto\n"
+                    + "from percepciones per \n"
+                    + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
+                    + "INNER JOIN semanas se on per.Semana=se.semana\n"
+                    + "where per.fecha='" + fecharepo + "'";
             String datos[] = new String[10];
 
             try {
-                conn5 = (RH_PercepcionesDeducciones.userConn5 != null) ? RH_PercepcionesDeducciones .userConn5 : Conexion1.getConnection();
+                conn5 = (RH_PercepcionesDeducciones.userConn5 != null) ? RH_PercepcionesDeducciones.userConn5 : Conexion1.getConnection();
                 stmt5 = conn5.prepareStatement(sql);
                 rs5 = stmt5.executeQuery();
                 while (rs5.next()) {
