@@ -379,7 +379,7 @@ public class PercepcionesDeducciones {
                     nomdia = "MIERCOLES";
                     break;
                 case 5:
-                    nomdia = "JUEVEZ";
+                    nomdia = "JUEVES";
                     break;
                 case 6:
                     nomdia = "VIERNES";
