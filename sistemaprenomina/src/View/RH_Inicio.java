@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author Vertsequer
  */
 public class RH_Inicio extends javax.swing.JFrame implements Runnable {
-    
+
     String hora, minutos, segundos;
     Thread hilo;
     int x, y;
@@ -38,15 +38,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         fecha();
-        panellist.setBackground(new Color(0, 153, 255, 130));
-        panelnuevo.setBackground(new Color(102, 204, 255, 130));
-        panelinc.setBackground(new Color(153, 255, 255, 130));
-        panelusin.setBackground(new Color(102, 255, 255, 130));
-        panelusrcin.setBackground(new Color(102, 204, 255, 130));
-        panelperc.setBackground(new Color(0, 153, 204, 130));
-        panelsem.setBackground(new Color(102, 204, 255, 130));
-        panelusr.setBackground(new Color(153, 255, 255, 130));
-        menupanle.setBackground(new Color(0, 0, 0, 130));
+         pnlMenu.setBackground(new Color(0,153,255, 130));
         pnlrelog.setBackground(new Color(0, 0, 0, 130));
         hilo = new Thread(this);
         hilo.start();
@@ -55,8 +47,11 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
         lblcargo.setHorizontalAlignment(lblcargo.CENTER);
         lblcargo.setVerticalAlignment(lblcargo.CENTER);
+        Animacion.Animacion.mover_izquierda(211, 5, 2, 2, btnMenu);
+        Animacion.Animacion.mover_izquierda(5, -250, 2, 2, pnlMenu);
+        Animacion.Animacion.mover_izquierda(5, -250, 2, 2, lblfondomenu);
     }
-    
+
     public void fecha() {
         Date fechaHoy = new Date();
         SimpleDateFormat formatoEsMX = new SimpleDateFormat(
@@ -69,7 +64,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         lblmes.setText(mes);
         lblaño.setText(anio);
     }
-    
+
     public void hora() {
         Calendar calendario = new GregorianCalendar();
         Date horaactual = new Date();
@@ -78,7 +73,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         minutos = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE) : "0" + calendario.get(Calendar.MINUTE);
         segundos = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND) : "0" + calendario.get(Calendar.SECOND);
     }
-    
+
     public void run() {
         //while
         Thread current = Thread.currentThread();
@@ -101,6 +96,16 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        btnMenu = new javax.swing.JButton();
+        pnlMenu = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        btnincidencias = new javax.swing.JButton();
+        btnlistado = new javax.swing.JButton();
+        btnpercepsiones = new javax.swing.JButton();
+        btnnuevasinc = new javax.swing.JButton();
+        btnusuarios = new javax.swing.JButton();
+        btnsininc = new javax.swing.JButton();
+        btnusuarioconin = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -119,32 +124,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         logozunfeld = new javax.swing.JLabel();
         txthora = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        menupanle = new javax.swing.JPanel();
-        panellist = new javax.swing.JPanel();
-        jButton16 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        panelusin = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        panelusrcin = new javax.swing.JPanel();
-        jButton17 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        panelinc = new javax.swing.JPanel();
-        btnIncidencias = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        panelperc = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        panelusr = new javax.swing.JPanel();
-        jButton14 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        panelsem = new javax.swing.JPanel();
-        jButton13 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
-        panelnuevo = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        btnIncidencias1 = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
+        lblfondomenu = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -177,6 +157,157 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/menublue.png"))); // NOI18N
+        btnMenu.setBorder(null);
+        btnMenu.setContentAreaFilled(false);
+        btnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 50, 50));
+
+        pnlMenu.setBackground(new java.awt.Color(255, 255, 255));
+        org.jdesktop.swingx.border.DropShadowBorder dropShadowBorder1 = new org.jdesktop.swingx.border.DropShadowBorder();
+        dropShadowBorder1.setCornerSize(25);
+        dropShadowBorder1.setShowBottomShadow(false);
+        pnlMenu.setBorder(dropShadowBorder1);
+
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logoZunfeld.png"))); // NOI18N
+
+        btnincidencias.setBackground(new java.awt.Color(169, 223, 191));
+        btnincidencias.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnincidencias.setText("Incidencias");
+        btnincidencias.setBorder(null);
+        btnincidencias.setContentAreaFilled(false);
+        btnincidencias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnincidencias.setOpaque(true);
+        btnincidencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnincidenciasActionPerformed(evt);
+            }
+        });
+
+        btnlistado.setBackground(new java.awt.Color(0, 153, 204));
+        btnlistado.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnlistado.setText("Listado Personal");
+        btnlistado.setBorder(null);
+        btnlistado.setContentAreaFilled(false);
+        btnlistado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlistado.setOpaque(true);
+        btnlistado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlistadoActionPerformed(evt);
+            }
+        });
+
+        btnpercepsiones.setBackground(new java.awt.Color(0, 153, 204));
+        btnpercepsiones.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnpercepsiones.setText("Percepciones y deducciones");
+        btnpercepsiones.setBorder(null);
+        btnpercepsiones.setContentAreaFilled(false);
+        btnpercepsiones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnpercepsiones.setOpaque(true);
+        btnpercepsiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpercepsionesActionPerformed(evt);
+            }
+        });
+
+        btnnuevasinc.setBackground(new java.awt.Color(169, 223, 191));
+        btnnuevasinc.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnnuevasinc.setText("Nuevas Persepciones");
+        btnnuevasinc.setBorder(null);
+        btnnuevasinc.setContentAreaFilled(false);
+        btnnuevasinc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnnuevasinc.setOpaque(true);
+        btnnuevasinc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnuevasincActionPerformed(evt);
+            }
+        });
+
+        btnusuarios.setBackground(new java.awt.Color(169, 223, 191));
+        btnusuarios.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnusuarios.setText("Usuarios");
+        btnusuarios.setBorder(null);
+        btnusuarios.setContentAreaFilled(false);
+        btnusuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnusuarios.setOpaque(true);
+        btnusuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnusuariosActionPerformed(evt);
+            }
+        });
+
+        btnsininc.setBackground(new java.awt.Color(169, 223, 191));
+        btnsininc.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnsininc.setText("Usuarios sin Incidencias");
+        btnsininc.setBorder(null);
+        btnsininc.setContentAreaFilled(false);
+        btnsininc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnsininc.setOpaque(true);
+        btnsininc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsinincActionPerformed(evt);
+            }
+        });
+
+        btnusuarioconin.setBackground(new java.awt.Color(0, 153, 204));
+        btnusuarioconin.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnusuarioconin.setText("Usuarios con Incidencias");
+        btnusuarioconin.setBorder(null);
+        btnusuarioconin.setContentAreaFilled(false);
+        btnusuarioconin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnusuarioconin.setOpaque(true);
+        btnusuarioconin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnusuarioconinActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlMenuLayout = new javax.swing.GroupLayout(pnlMenu);
+        pnlMenu.setLayout(pnlMenuLayout);
+        pnlMenuLayout.setHorizontalGroup(
+            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMenuLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(btnusuarioconin, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+            .addComponent(btnnuevasinc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnlistado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnusuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnsininc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnpercepsiones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnincidencias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlMenuLayout.setVerticalGroup(
+            pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnincidencias, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnlistado, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnnuevasinc, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnpercepsiones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnusuarioconin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnsininc, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(pnlMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 53, 210, 490));
+
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -194,7 +325,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 32, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 0, 32, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
         jButton3.setBorderPainted(false);
@@ -204,7 +335,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 0, 32, 30));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 32, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
         jButton4.setBorderPainted(false);
@@ -214,17 +345,17 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 0, 32, 30));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
         lblnombrerh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
-        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 320, 20));
+        jPanel1.add(lblnombrerh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 270, 20));
 
         lblcargo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblcargo.setForeground(new java.awt.Color(51, 102, 255));
         lblcargo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 102, 255)));
-        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 330, 20));
+        jPanel1.add(lblcargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 200, 20));
 
         jLabel5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -236,7 +367,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
                 jLabel5MousePressed(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 50));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 52));
 
@@ -247,28 +378,28 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Bienvenido");
-        pnlrelog.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, 50));
+        pnlrelog.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, -1, 50));
 
-        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("de");
-        pnlrelog.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 30, 30));
+        pnlrelog.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 40, 40));
 
         lblaño.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
         lblaño.setForeground(new java.awt.Color(255, 255, 255));
-        pnlrelog.add(lblaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 140, 60));
+        pnlrelog.add(lblaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, 140, 60));
 
         lbldia.setBackground(new java.awt.Color(255, 255, 255));
         lbldia.setFont(new java.awt.Font("Century Gothic", 1, 60)); // NOI18N
         lbldia.setForeground(new java.awt.Color(255, 255, 255));
-        pnlrelog.add(lbldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 100, 70));
+        pnlrelog.add(lbldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 100, 70));
 
-        lblmes.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblmes.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
         lblmes.setForeground(new java.awt.Color(255, 255, 255));
-        pnlrelog.add(lblmes, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, 80, 30));
+        pnlrelog.add(lblmes, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 160, 50));
 
         logozunfeld.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/logoZunfeld.png"))); // NOI18N
-        pnlrelog.add(logozunfeld, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 170, 80));
+        pnlrelog.add(logozunfeld, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 170, 80));
 
         txthora.setEditable(false);
         txthora.setFont(new java.awt.Font("Segoe UI Light", 0, 36)); // NOI18N
@@ -276,200 +407,15 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         txthora.setBorder(null);
         txthora.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txthora.setEnabled(false);
-        pnlrelog.add(txthora, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 440, 140, 50));
+        pnlrelog.add(txthora, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 440, 140, 50));
 
-        getContentPane().add(pnlrelog, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
+        getContentPane().add(pnlrelog, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 740, 500));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/fondoredes.png"))); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 460, 490));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/fondoredesrh.png"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, 490));
 
-        menupanle.setBackground(new java.awt.Color(0, 24, 96));
-        menupanle.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        panellist.setBackground(new java.awt.Color(0, 153, 255));
-        panellist.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton16.setBackground(new java.awt.Color(183, 212, 62));
-        jButton16.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton16.setForeground(new java.awt.Color(51, 102, 255));
-        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/lecture.png"))); // NOI18N
-        jButton16.setBorder(null);
-        jButton16.setBorderPainted(false);
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
-            }
-        });
-        panellist.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Listado Personal");
-        panellist.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 130, -1));
-
-        menupanle.add(panellist, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 180, 130));
-
-        panelusin.setBackground(new java.awt.Color(102, 255, 255));
-        panelusin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton11.setBackground(new java.awt.Color(242, 182, 146));
-        jButton11.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(51, 102, 255));
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/team.png"))); // NOI18N
-        jButton11.setBorder(null);
-        jButton11.setBorderPainted(false);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        panelusin.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Usuarios sin Incidencias ");
-        panelusin.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 25));
-
-        menupanle.add(panelusin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 180, 130));
-
-        panelusrcin.setBackground(new java.awt.Color(102, 204, 255));
-        panelusrcin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton17.setBackground(new java.awt.Color(177, 224, 234));
-        jButton17.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton17.setForeground(new java.awt.Color(51, 102, 255));
-        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/problem.png"))); // NOI18N
-        jButton17.setBorderPainted(false);
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
-            }
-        });
-        panelusrcin.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Usuario con Incidencias");
-        panelusrcin.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 25));
-
-        menupanle.add(panelusrcin, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 180, 130));
-
-        panelinc.setBackground(new java.awt.Color(102, 204, 255));
-        panelinc.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnIncidencias.setBackground(new java.awt.Color(247, 203, 111));
-        btnIncidencias.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnIncidencias.setForeground(new java.awt.Color(51, 102, 255));
-        btnIncidencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/test.png"))); // NOI18N
-        btnIncidencias.setBorder(null);
-        btnIncidencias.setBorderPainted(false);
-        btnIncidencias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncidenciasActionPerformed(evt);
-            }
-        });
-        panelinc.add(btnIncidencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText(" Incidencias");
-        panelinc.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
-
-        menupanle.add(panelinc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 180, 130));
-
-        panelperc.setBackground(new java.awt.Color(0, 153, 204));
-        panelperc.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton10.setBackground(new java.awt.Color(192, 179, 179));
-        jButton10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(51, 102, 255));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/form.png"))); // NOI18N
-        jButton10.setBorderPainted(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        panelperc.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Percepciones Deducciones");
-        panelperc.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, 25));
-
-        menupanle.add(panelperc, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 180, 130));
-
-        panelusr.setBackground(new java.awt.Color(153, 255, 255));
-        panelusr.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton14.setBackground(new java.awt.Color(97, 209, 182));
-        jButton14.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton14.setForeground(new java.awt.Color(51, 102, 255));
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/usuarios.png"))); // NOI18N
-        jButton14.setBorderPainted(false);
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-        panelusr.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Usuarios ");
-        panelusr.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 80, -1));
-
-        menupanle.add(panelusr, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 180, 130));
-
-        panelsem.setBackground(new java.awt.Color(102, 204, 255));
-        panelsem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton13.setBackground(new java.awt.Color(243, 162, 194));
-        jButton13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(51, 102, 255));
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/calendario.png"))); // NOI18N
-        jButton13.setBorderPainted(false);
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-        panelsem.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("  Semanas ");
-        panelsem.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
-
-        menupanle.add(panelsem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 180, 130));
-
-        panelnuevo.setBackground(new java.awt.Color(102, 204, 255));
-        panelnuevo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Nuevas percepciones");
-        panelnuevo.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
-
-        btnIncidencias1.setBackground(new java.awt.Color(221, 65, 58));
-        btnIncidencias1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnIncidencias1.setForeground(new java.awt.Color(51, 102, 255));
-        btnIncidencias1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/persepciones.png"))); // NOI18N
-        btnIncidencias1.setBorder(null);
-        btnIncidencias1.setBorderPainted(false);
-        btnIncidencias1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIncidencias1ActionPerformed(evt);
-            }
-        });
-        panelnuevo.add(btnIncidencias1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 120, 80));
-
-        menupanle.add(panelnuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 180, 130));
-
-        getContentPane().add(menupanle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 650, 490));
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/background-1634817_960_720.jpg"))); // NOI18N
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 650, 490));
+        lblfondomenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/background-1634817_960_720.jpg"))); // NOI18N
+        getContentPane().add(lblfondomenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 200, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -479,9 +425,9 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         this.setExtendedState(ICONIFIED);
-        
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -504,97 +450,46 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel5MouseDragged
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        String dep = lblcargo.getText();
-        String nom = lblnombrerh.getText();
-        
-        try {
-            RH_ListadoPersonal lis = new RH_ListadoPersonal();
-            lis.show();
-            RH_ListadoPersonal.lblcargo.setText(dep);
-            RH_ListadoPersonal.lblnombrerh.setText(nom);
-            this.show(false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        int posicion = btnMenu.getX();
+        if (posicion > 5) {
+            Animacion.Animacion.mover_izquierda(211, 5, 2, 2, btnMenu);
+            Animacion.Animacion.mover_izquierda(5, -250, 2, 2, pnlMenu);
+            Animacion.Animacion.mover_izquierda(5, -250, 2, 2, lblfondomenu);
+        } else {
+            Animacion.Animacion.mover_derecha(5, 200, 2, 2, btnMenu);
+            Animacion.Animacion.mover_derecha(-200, 1, 2, 2, pnlMenu);
+            Animacion.Animacion.mover_derecha(-230, 1, 2, 2, lblfondomenu);
         }
-    }//GEN-LAST:event_jButton16ActionPerformed
+    }//GEN-LAST:event_btnMenuActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        String dep = lblcargo.getText();
-        String nom = lblnombrerh.getText();
-        try {
-            RH_UsuariosSinIncidencias usu = new RH_UsuariosSinIncidencias();
-            usu.show();
-            RH_UsuariosSinIncidencias.lblcargo.setText(dep);
-            RH_UsuariosSinIncidencias.lblnombrerh.setText(nom);
-            this.show(false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        String dep = lblcargo.getText();
-        String nom = lblnombrerh.getText();
-        try {
-            RH_UsuariosConIncidencias usu = new RH_UsuariosConIncidencias();
-            usu.show();
-            RH_UsuariosConIncidencias.lblcargo.setText(dep);
-            RH_UsuariosConIncidencias.lblnombrerh.setText(nom);
-            this.show(false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }//GEN-LAST:event_jButton17ActionPerformed
-
-    private void btnIncidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidenciasActionPerformed
-        RH_Incidencias inc = new RH_Incidencias();
+    private void btnincidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnincidenciasActionPerformed
+ RH_Incidencias inc = new RH_Incidencias();
         RH_Incidencias.lblnombrerh.setText(lblnombrerh.getText());
         RH_Incidencias.lblcargo.setText(lblcargo.getText());
         nombre = RH_Inicio.lblnombrerh.getText();
         depto = RH_Inicio.lblcargo.getText();
         inc.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnIncidenciasActionPerformed
+        this.setVisible(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnincidenciasActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        String dep = lblcargo.getText();
-        String nom = lblnombrerh.getText();
-        RH_registrarusrs usur = new RH_registrarusrs();
-        RH_registrarusrs.lblnomjefe.setText(nom);
-        RH_registrarusrs.lbldepjefe.setText(dep);
-        usur.show();
-        this.show(false);
-    }//GEN-LAST:event_jButton14ActionPerformed
+    private void btnlistadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistadoActionPerformed
+ String dep = lblcargo.getText();
+          String nom = lblnombrerh.getText();
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        try {
-            RH_PercepcionesDeducciones per = new RH_PercepcionesDeducciones();
-            per.show();
-            RH_PercepcionesDeducciones.lblcargo.setText(lblcargo.getText());
-            RH_PercepcionesDeducciones.lblnombrerh.setText(lblnombrerh.getText());
-            this.show(false);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton10ActionPerformed
+          try {
+              RH_ListadoPersonal lis = new RH_ListadoPersonal();
+              lis.show();
+              RH_ListadoPersonal.lblcargo.setText(dep);
+              RH_ListadoPersonal.lblnombrerh.setText(nom);
+              this.show(false);
+          } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, e);
+          }        
+    }//GEN-LAST:event_btnlistadoActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        try {
-            RH_SEMANA sema = new RH_SEMANA();
-            sema.show();
-            this.show(false);
-            RH_SEMANA.lblcargo.setText(lblcargo.getText());
-            RH_SEMANA.lblnombrerh.setText(lblnombrerh.getText());
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (ParseException ex) {
-            Logger.getLogger(RH_Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void btnIncidencias1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncidencias1ActionPerformed
-        try {
+    private void btnnuevasincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevasincActionPerformed
+try {
             RH_NewPercepciones inc = new RH_NewPercepciones();
             RH_NewPercepciones.lblnombrerh.setText(lblnombrerh.getText());
             RH_NewPercepciones.lblcargo.setText(lblcargo.getText());
@@ -604,8 +499,60 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
             this.setVisible(false);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnIncidencias1ActionPerformed
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnnuevasincActionPerformed
+
+    private void btnusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnusuariosActionPerformed
+     String dep = lblcargo.getText();
+        String nom = lblnombrerh.getText();
+        RH_registrarusrs usur = new RH_registrarusrs();
+        RH_registrarusrs.lblnomjefe.setText(nom);
+        RH_registrarusrs.lbldepjefe.setText(dep);
+        usur.show();
+        this.show(false);   // TODO add your handling code here:
+    }//GEN-LAST:event_btnusuariosActionPerformed
+
+    private void btnpercepsionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpercepsionesActionPerformed
+     try {
+            RH_NewPercepciones inc = new RH_NewPercepciones();
+            RH_NewPercepciones.lblnombrerh.setText(lblnombrerh.getText());
+            RH_NewPercepciones.lblcargo.setText(lblcargo.getText());
+            nombre = RH_Inicio.lblnombrerh.getText();
+            depto = RH_Inicio.lblcargo.getText();
+            inc.setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e, "", JOptionPane.ERROR_MESSAGE);
+        }   // TODO add your handling code here:
+    }//GEN-LAST:event_btnpercepsionesActionPerformed
+
+    private void btnusuarioconinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnusuarioconinActionPerformed
+ String dep = lblcargo.getText();
+        String nom = lblnombrerh.getText();
+        try {
+            RH_UsuariosConIncidencias usu = new RH_UsuariosConIncidencias();
+            usu.show();
+            RH_UsuariosConIncidencias.lblcargo.setText(dep);
+            RH_UsuariosConIncidencias.lblnombrerh.setText(nom);
+            this.show(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnusuarioconinActionPerformed
+
+    private void btnsinincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsinincActionPerformed
+   String dep = lblcargo.getText();
+        String nom = lblnombrerh.getText();
+        try {
+            RH_UsuariosSinIncidencias usu = new RH_UsuariosSinIncidencias();
+            usu.show();
+            RH_UsuariosSinIncidencias.lblcargo.setText(dep);
+            RH_UsuariosSinIncidencias.lblnombrerh.setText(nom);
+            this.show(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_btnsinincActionPerformed
 
     /**
      * @param args the command line arguments
@@ -650,32 +597,24 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIncidencias;
-    private javax.swing.JButton btnIncidencias1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
+    private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnincidencias;
+    private javax.swing.JButton btnlistado;
+    private javax.swing.JButton btnnuevasinc;
+    private javax.swing.JButton btnpercepsiones;
+    private javax.swing.JButton btnsininc;
+    private javax.swing.JButton btnusuarioconin;
+    private javax.swing.JButton btnusuarios;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -684,18 +623,11 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel lblaño;
     public static javax.swing.JLabel lblcargo;
     private javax.swing.JLabel lbldia;
+    private javax.swing.JLabel lblfondomenu;
     private javax.swing.JLabel lblmes;
     public static javax.swing.JLabel lblnombrerh;
     private javax.swing.JLabel logozunfeld;
-    private javax.swing.JPanel menupanle;
-    private javax.swing.JPanel panelinc;
-    private javax.swing.JPanel panellist;
-    private javax.swing.JPanel panelnuevo;
-    private javax.swing.JPanel panelperc;
-    private javax.swing.JPanel panelsem;
-    private javax.swing.JPanel panelusin;
-    private javax.swing.JPanel panelusr;
-    private javax.swing.JPanel panelusrcin;
+    private javax.swing.JPanel pnlMenu;
     private javax.swing.JPanel pnlrelog;
     private javax.swing.JTextField txthora;
     // End of variables declaration//GEN-END:variables

@@ -7,11 +7,9 @@ package BD;
 
 import java.sql.*;
 import Conexion.Conexion;
-import View.JA_Menu;
 import View.JA_inicio;
 import static View.JA_inicio.lblcargojefe;
 import static View.JA_inicio.lblnombrejefe;
-import View.JA_newincidencia;
 import View.RH_Inicio;
 import javax.swing.JOptionPane;
 import View.JA_inicio;

@@ -70,32 +70,6 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
     }
 
    
-
-    public void blocquear(String fechal, String fechama, String fechami, String fechaj, String fechav, String fechas, String fechad) {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date fechaInicial = dateFormat.parse("2018-04-26");
-            java.util.Date fecha = new java.util.Date();
-            java.util.Date fechaFinal = new java.util.Date();
-            String date1 = dateFormat.format(fechaInicial);
-            String date2 = dateFormat.format(fechaFinal);
-
-            if (fechal.equals(date2) || fechama.equals(date2) || fechami.equals(date2) || fechaj.equals(date2) || fechav.equals(date2) || fechas.equals(date2) || fechad.equals(date2)) {
-
-            } else {
-                cmbincidencia.setEnabled(false);
-                txtcomentario.setEnabled(false);
-                
-
-                JOptionPane.showMessageDialog(rootPane, "Por motivos de seguridad el sistema esta "
-                        + "inabilitado para semanas anteriores");
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(JA_newincidencia.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
     public int registrargrupos(int empleadoId, String dia, String fecha, String horasextra, String comentario, int idSemana, int idNomIncidencias, String horasTrab) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;

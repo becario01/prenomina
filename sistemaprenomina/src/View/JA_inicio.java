@@ -26,7 +26,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import View.Incidenciasgrupales;
-import static View.JA_iniciomes.cmbMes;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
