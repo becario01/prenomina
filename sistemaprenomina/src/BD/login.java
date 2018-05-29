@@ -59,10 +59,11 @@ public class login {
 
                 if (tipousuario == 0) {
                     JOptionPane.showMessageDialog(null, "Bienvenido Usuario Jefe", "", JOptionPane.INFORMATION_MESSAGE);
-                    JA_Menu ini = new JA_Menu();
-                    JA_Menu.lblcargojefe.setText(depto);
-                    JA_Menu.lblnombrejefe.setText(nombre);
-                    JA_Menu.iduser = idusremp;
+                     JA_inicio ini=new JA_inicio();
+                    ini.filas(idusremp);
+                     JA_inicio.lblcargojefe.setText(depto);
+                      JA_inicio.lblnombrejefe.setText(nombre);
+                    System.out.println(idusremp);
                     ini.show(true);
                 } else if (tipousuario == 1) {
                     JOptionPane.showMessageDialog(null, "Bienvenido Usuario RH", "", JOptionPane.INFORMATION_MESSAGE);

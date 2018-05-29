@@ -8,6 +8,7 @@ package View;
 import Conexion.Conexion;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -198,6 +199,11 @@ public class Jflogin extends javax.swing.JFrame {
                 txtPassMouseClicked(evt);
             }
         });
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPassKeyPressed(evt);
+            }
+        });
         jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 200, 20));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -292,6 +298,31 @@ public class Jflogin extends javax.swing.JFrame {
         dto.show();
         this.hide();
     }//GEN-LAST:event_btnconfigActionPerformed
+
+    private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+        
+        String Usuario = txtUsuario.getText();
+        String Pass = txtPass.getText();
+        if (Usuario.equals("")) {
+            JOptionPane.showMessageDialog(null, "Verifique sus datos .\n Usuario Vacio", "Usuario Vacio", JOptionPane.WARNING_MESSAGE);
+        } else if (Pass.equals("")) {
+            JOptionPane.showMessageDialog(null, "Verifique sus datos.\n Contraseña Vacia", "Contraseña Vacia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            BD.login lo = new BD.login();
+            boolean confv = consultar();
+            if (confv == true) {
+               conf();
+                this.setVisible(true);
+            } else {
+                lo.validar_ingreso(txtUsuario.getText(), txtPass.getText());
+                this.setVisible(false);
+            }
+
+        }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassKeyPressed
     public void cerrar() {
         Object[] opciones = {"Aceptar", "Cancelar"};
         int eleccion = JOptionPane.showOptionDialog(rootPane, "En realidad desea realizar cerrar la aplicacion", "Mensaje de Confirmacion",

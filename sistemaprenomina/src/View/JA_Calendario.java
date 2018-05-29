@@ -35,10 +35,36 @@ public class JA_Calendario extends javax.swing.JFrame {
     }
 
     public void asignarfecha() {
-        if (ncalen == 1) {
-//            select_fechas.txtDate1.setText(formatoDeFecha.format(CalendarJA.getDate()));
-        } else if (ncalen == 2) {
-//            select_fechas.txtDate2.setText(formatoDeFecha.format(CalendarJA.getDate()));
+        switch (ncalen) {
+            case 1:
+                RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            case 2:
+                RH_Calculofaltas.txtFin.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            case 3:
+                RH_fechasReporte.txtDate1.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            case 4:
+                RH_fechasReporte.txtDate2.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            case 5:
+                RH_SelectPD.txtFecha.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            case 6:
+                RH_PercepcionesDeducciones.txtdate1.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            case 7:
+                RH_PercepcionesDeducciones.txtdate2.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            case 8:
+                destallesJA.txtinicio.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            case 9:
+                destallesJA.txtfin.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                break;
+            default:
+                break;
         }
     }
 
@@ -47,20 +73,46 @@ public class JA_Calendario extends javax.swing.JFrame {
         CalendarJA.getDayChooser().addPropertyChangeListener(
                 new java.beans.PropertyChangeListener() {
 
-            @Override
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                    @Override
+                    public void propertyChange(java.beans.PropertyChangeEvent evt) {
 
-                cerrar = true;
+                        cerrar = true;
 
-                if (ncalen == 1) {
-//                    select_fechas.txtDate1.setText(formatoDeFecha.format(CalendarJA.getDate()));
-                } else if (ncalen == 2) {
-//                    select_fechas.txtDate2.setText(formatoDeFecha.format(CalendarJA.getDate()));
-                }
+                        switch (ncalen) {
+                            case 1:
+                                RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            case 2:
+                                RH_Calculofaltas.txtFin.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            case 3:
+                                RH_fechasReporte.txtDate1.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            case 4:
+                                RH_fechasReporte.txtDate2.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            case 5:
+                                RH_SelectPD.txtFecha.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            case 6:
+                                RH_PercepcionesDeducciones.txtdate1.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            case 7:
+                                RH_PercepcionesDeducciones.txtdate2.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            case 8:
+                                destallesJA.txtinicio.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            case 9:
+                                destallesJA.txtfin.setText(formatoDeFecha.format(CalendarJA.getDate()));
+                                break;
+                            default:
+                                break;
+                        }
 
-                cerra();
-            }
-        });
+                        cerra();
+                    }
+                });
     }
 
     /**

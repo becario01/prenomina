@@ -141,7 +141,7 @@ public class JA_iniciomeses extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbIncidencias);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1370, 320));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1370, 320));
 
         txtBuscar.setBackground(new java.awt.Color(238, 240, 245));
         txtBuscar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N

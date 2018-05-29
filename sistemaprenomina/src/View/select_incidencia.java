@@ -22,20 +22,21 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-public class select_incidencia extends javax.swing.JFrame{
-      Nomincidencia rin;
-      DefaultComboBoxModel <Rincidencia> modeloselincidencia;
-      Rjefes rjf;
-      String nom;
-      String codi;
-      public static ResultSet rs;
-      private Connection userConn;
-      private PreparedStatement st;
-      Conexion con = new Conexion();
-      Connection conn;
-      PreparedStatement stmt;
-      int x, y;
-   
+public class select_incidencia extends javax.swing.JFrame {
+
+    Nomincidencia rin;
+    DefaultComboBoxModel<Rincidencia> modeloselincidencia;
+    Rjefes rjf;
+    String nom;
+    String codi;
+    public static ResultSet rs;
+    private Connection userConn;
+    private PreparedStatement st;
+    Conexion con = new Conexion();
+    Connection conn;
+    PreparedStatement stmt;
+    int x, y;
+
     public select_incidencia() {
         modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
         rin = new Nomincidencia();
@@ -48,7 +49,8 @@ public class select_incidencia extends javax.swing.JFrame{
         cantidadhoras.hide();
         lblcant.hide();
     }
-   public void mostrardatos(Object cod, Object nombre) {
+
+    public void mostrardatos(Object cod, Object nombre) {
         String nom = (String) nombre;
         Object codi = cod;
         lblnombre.setText(nom);
@@ -56,7 +58,7 @@ public class select_incidencia extends javax.swing.JFrame{
 
     }
 
- private void cargarModeloSem() {
+    private void cargarModeloSem() {
         ArrayList<Rincidencia> listaSemanas;
         listaSemanas = rin.obtenerIncnidecnias();
 //  modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1,1));
@@ -92,36 +94,35 @@ public class select_incidencia extends javax.swing.JFrame{
         return aux;
     }//metodo obtenerDia
 
-    public void verfechas(int codigoemp, String dia, String fecha, String horaextra, String comentario, int idNominci, String horastrab) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-        int id = semana.getIdSemana();
-        try {
-            String sql = "select  * from incidencias where  empleadoId='" + codigoemp + "' and fecha='" + fecha + "' and idSemana='" + id + "'  and dia='" + dia + "'";
-            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-
-            if (!rs.next()) {
-                RegistrarIncidencia regin = new RegistrarIncidencia();
-                regin.insert(codigoemp, dia, fecha, horaextra, comentario, id, idNominci, horastrab);
-            } else {
-
-                JOptionPane.showMessageDialog(rootPane, "Está persona cuenta con incidencia en este dia!!", "Warning",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-
-        } catch (Exception e) {
-            System.out.println("" + e);
-        } finally {
-            Conexion.close(rs);
-            Conexion.close(stmt);
-        }
-
-    }
-
+//    public void verfechas(int codigoemp, String dia, String fecha, String horaextra, String comentario, int idNominci, String horastrab) {
+//        Connection conn = null;
+//        PreparedStatement stmt = null;
+//        ResultSet rs = null;
+////        EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
+////        int id = semana.getIdSemana();
+//        try {
+//            String sql = "select  * from incidencias where  empleadoId='" + codigoemp + "' and fecha='" + fecha + "' and idSemana='" + id + "'  and dia='" + dia + "'";
+//            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+//            stmt = conn.prepareStatement(sql);
+//            rs = stmt.executeQuery();
+//
+//            if (!rs.next()) {
+//                RegistrarIncidencia regin = new RegistrarIncidencia();
+//                regin.insert(codigoemp, dia, fecha, horaextra, comentario, id, idNominci, horastrab);
+//            } else {
+//
+//                JOptionPane.showMessageDialog(rootPane, "Está persona cuenta con incidencia en este dia!!", "Warning",
+//                        JOptionPane.WARNING_MESSAGE);
+//            }
+//
+//        } catch (Exception e) {
+//            System.out.println("" + e);
+//        } finally {
+//            Conexion.close(rs);
+//            Conexion.close(stmt);
+//        }
+//
+//    }
     public static boolean isNumeric(String cadena) {
         try {
             Integer.parseInt(cadena);
@@ -152,13 +153,19 @@ public class select_incidencia extends javax.swing.JFrame{
         String mensaje = "";
         java.util.List<java.util.Date> listaEntreFechas = getListaEntreFechas(c1.getTime(), c2.getTime());
         int datos = 0;
+        Connection conn = null ;
+        PreparedStatement stmt = null ;
+        ResultSet rs = null ;
+        try{
+            ArrayList<String> al = new ArrayList<String>();
         for (int i = 0; i < listaEntreFechas.size(); i++) {
-            try {
+        
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 java.util.Date fec = listaEntreFechas.get(i);
                 RegistrarIncidencia inc = new RegistrarIncidencia();
                 //datos
-                int empid = Integer.parseInt(lblid.getText());
+                String ide = lblid.getText();
+                int idempr = Integer.valueOf(ide);
                 select_fechas selc = new select_fechas();
                 String fe = sdf.format(fec);
                 String indi = select_incidencia.obtenerDiaSemana(fe);
@@ -168,15 +175,33 @@ public class select_incidencia extends javax.swing.JFrame{
                 Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
                 int idinc = incidencia.getIdNomIncidencia();
                 String horastrab = "10";
-                datos = inc.insert(empid, indi, fe, horasest, comentarios, idsemana, idinc, horastrab);
-
-            } catch (ParseException ex) {
-                Logger.getLogger(select_incidencia.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                String mens = "";
+                String sql = "select  * from incidencias where  empleadoId='" + idempr + "' and fecha='" + fe + "'   and dia='" + indi + "'";
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+                 
+                if (!rs.next()) {
+//                   datos = inc.insert(idempr, indi, fe, horasest, comentarios, idsemana, idinc, horastrab);
+                }else{
+                  String fechar = rs.getString("fecha");
+                 al.add(fechar);
+                } 
         }
         if (datos > 0) {
             JOptionPane.showMessageDialog(null, "Registos exitosos");
         }
+        if (rs.getRow() >= 1 ) {
+           String output="";
+            for (int i = 0; i < al.size(); i++) {
+                output += "\n"+ al.get(i).toString();
+            }
+           JOptionPane.showMessageDialog(null, "Existen registros en estas fechas :" + output, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+        }
+        } catch (ParseException ex) {
+                Logger.getLogger(select_incidencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     public java.util.List<java.util.Date> getListaEntreFechas(java.util.Date fechaInicio, java.util.Date fechaFin) {
@@ -193,7 +218,7 @@ public class select_incidencia extends javax.swing.JFrame{
         return listaFechas;
     }
 
-   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -373,19 +398,19 @@ public class select_incidencia extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-System.exit(0);        // TODO add your handling code here:
+        System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-  this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-   this.setVisible(false);
+        this.hide();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void cmbincidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbincidenciaActionPerformed
-     Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
+        Rincidencia incidencia = (Rincidencia) cmbincidencia.getSelectedItem();
         if (incidencia.getIncidencia().equalsIgnoreCase("Horas extras")) {
             cantidadhoras.show();
             lblcant.show();
@@ -397,7 +422,7 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_cmbincidenciaActionPerformed
 
     private void btnincidenciaLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnincidenciaLActionPerformed
-  try {
+        try {
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
             DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
             String formato = jDateChooser1.getDateFormatString();
@@ -414,12 +439,12 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_btnincidenciaLActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-          x = evt.getX();
-         y = evt.getY();
+        x = evt.getX();
+        y = evt.getY();
     }//GEN-LAST:event_jLabel3MousePressed
 
     private void jLabel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseDragged
-       this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
+        this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel3MouseDragged
     public java.util.Date sumarRestarDiasFecha(java.util.Date fecha, int dias) {
         Calendar calendar = Calendar.getInstance();
@@ -427,6 +452,7 @@ System.exit(0);        // TODO add your handling code here:
         calendar.add(Calendar.DAY_OF_YEAR, dias - 1);  // numero de días a añadir, o restar en caso de días<0
         return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos	
     }
+
     /**
      * @param args the command line arguments
      */
