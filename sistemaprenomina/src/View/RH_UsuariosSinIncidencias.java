@@ -158,7 +158,7 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         }
     }
 
-     
+     //filtro por semana  (este se tenia que mopdificar a por rango )
    public void cargardatosFiltroSemana(int idSemana) throws SQLException {
         String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp \n"
                 + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idSemana+"'\n"
@@ -185,7 +185,7 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
             }
         }
     }
-
+//calse para filtro por d epartamento 
     public void cargardatosFiltroDepto(int idSemana, String depto) throws SQLException {
         String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idSemana+"' \n" +
 "WHERE  inc.empleadoId  IS NULL AND emp.estatus='1'  AND emp.depto ='"+depto+"'";
@@ -211,11 +211,11 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
             }
         }
     }
-
+//busque del filtro 
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }
-
+//limpiar tabla 
     public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
@@ -223,136 +223,9 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         }
     }
 
-//      public void cargarfaltadepto(String depto) {
-//            String sql = "select emp.empleadoId, emp.nombre, emp.depto, emp.puesto \n"
-//                    + "from registros  reg \n"
-//                    + "INNER JOIN empleados emp on reg.empleadoId= emp.empleadoId \n"
-//                    + "WHERE ( reg.Entrada='00:00:00.0000000' or reg.Salida='00:00:00.0000000'  or reg.fecha='1111-11-11') and emp.depto='" + depto + "'";
-//            String datos[] = new String[10];
-//            try {
-//                  conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-//                  stmt = conn.prepareStatement(sql);
-//                  rs = stmt.executeQuery();
-//                  while (rs.next()) {
-//                        datos[0] = rs.getString("empleadoId");
-//                        datos[1] = rs.getString("nombre");
-//                        datos[2] = rs.getString("depto");
-//                        datos[3] = rs.getString("puesto");
-//                        tabla1.addRow(datos);
-//                  }
-//            } catch (Exception e) {
-//                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-//            } finally {
-//                  Conexion.close(rs);
-//                  Conexion.close(stmt);
-//                  if (this.userConn == null) {
-//                        Conexion.close(conn);
-//                  }
-//            }
-//
-//      }
-//      public void cargarfaltasemana() {
-//            String sql = "select emp.empleadoId, emp.nombre, emp.depto, emp.puesto \n"
-//                    + "from registros  reg \n"
-//                    + "INNER JOIN empleados emp on reg.empleadoId= emp.empleadoId \n"
-//                    + "WHERE reg.Entrada='00:00:00.0000000' or reg.Salida='00:00:00.0000000'  or reg.fecha='1111-11-11' ";
-//            String datos[] = new String[10];
-//            try {
-//                  conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-//                  stmt = conn.prepareStatement(sql);
-//                  rs = stmt.executeQuery();
-//                  while (rs.next()) {
-//                        datos[0] = rs.getString("empleadoId");
-//                        datos[1] = rs.getString("nombre");
-//                        datos[2] = rs.getString("depto");
-//                        datos[3] = rs.getString("puesto");
-//                        tabla1.addRow(datos);
-//                  }
-//            } catch (Exception e) {
-//                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-//            } finally {
-//                  Conexion.close(rs);
-//                  Conexion.close(stmt);
-//                  if (this.userConn == null) {
-//                        Conexion.close(conn);
-//                  }
-//            }
-//
-//      }
-    public void reportetxt(int semana) {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.txt", "txt", "TXT"));//filtro para ver solo archivos .edu
-        int seleccion = fileChooser.showSaveDialog(null);
-        try {
-            if (seleccion == JFileChooser.APPROVE_OPTION) {//comprueba si ha presionado el boton de aceptar
-                File JFC = fileChooser.getSelectedFile();
-                String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
-                PrintWriter printwriter = new PrintWriter(JFC);
-                BufferedWriter bw = new BufferedWriter(printwriter);
-                Connection conn = null;
-                PreparedStatement stmt = null;
-                PreparedStatement nstmt = null;
-                ResultSet rs = null;
-                ResultSet interno = null;
-                try {
-                    String sql = "SELECT DISTINCT  empleadoId  from incidencias";
-                    conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                    stmt = conn.prepareStatement(sql);
-                    rs = stmt.executeQuery();
 
-                    while (rs.next()) {
-                        String idempleado = rs.getString("empleadoId");
-                        bw.write("E\t" + idempleado);
-                        bw.newLine();
-                        String incidencias = " select nomi.nombre,inc.fecha from incidencias inc  inner join NomIncidencia nomi   on inc.idNomIncidencia  = nomi.idNomIncidencia where inc.empleadoId ='" + idempleado + "' and inc.idSemana ='" + semana + "' ";
-                        conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                        nstmt = conn.prepareStatement(incidencias);
-                        interno = nstmt.executeQuery();
-                        while (interno.next()) {
-                            String nomcidencia = interno.getString("nombre");
-                            String Fechainc = interno.getString("fecha");
-                            String[] datos = Fechainc.split("-");
-                            String año = datos[0];
-                            String mes = datos[1];
-                            String dia = datos[2];
-                            String fecha = dia + "/" + mes + "/" + año;
-                            String incidencia = "D " + nomcidencia;
-                            Calendar cal = Calendar.getInstance();
-                            int añoact = cal.get(Calendar.YEAR);
-                            if (incidencia.length() < 40) {
-                                for (int i = incidencia.length(); i < 40; i++) {
-                                    incidencia += " ";
-                                }
-                            }
-                            bw.write(incidencia);
-                            bw.write("" + fecha + "\t" + añoact);
-                            bw.newLine();
 
-                        }
-
-                    }
-                    bw.close();//cierra el archivo
-                    if (!(PATH.endsWith(".txt"))) {
-                        File temp = new File(PATH + ".txt");
-                        JFC.renameTo(temp);//renombramos el archivo
-                    }
-
-                    JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
-
-                } catch (Exception e) {
-                    System.out.println("" + e);
-                } finally {
-                    Conexion.close(rs);
-                    Conexion.close(stmt);
-                }
-
-                //comprobamos si a la hora de guardar obtuvo la extension y si no se la asignamos
-            }
-        } catch (Exception e) {//por alguna excepcion salta un mensaje de error
-            JOptionPane.showMessageDialog(null, "Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
+//clase para obtener idsemana 
   public int obteneridsem(String nombresemana) {
        int idsemp = 0; 
       try {
