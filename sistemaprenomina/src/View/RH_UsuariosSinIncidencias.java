@@ -158,10 +158,10 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         }
     }
 
-     //filtro por semana  (este se tenia que mopdificar a por rango )
-   public void cargardatosFiltroSemana(int idSemana) throws SQLException {
+    //filtro por semana  (este se tenia que mopdificar a por rango )
+    public void cargardatosFiltroSemana(int idSemana) throws SQLException {
         String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp \n"
-                + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idSemana+"'\n"
+                + "LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='" + idSemana + "'\n"
                 + "WHERE  inc.empleadoId  IS NULL AND emp.estatus='1'";
         String datos[] = new String[10];
         try {
@@ -186,9 +186,10 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         }
     }
 //calse para filtro por d epartamento 
+
     public void cargardatosFiltroDepto(int idSemana, String depto) throws SQLException {
-        String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='"+idSemana+"' \n" +
-"WHERE  inc.empleadoId  IS NULL AND emp.estatus='1'  AND emp.depto ='"+depto+"'";
+        String sql = "SELECT emp.empleadoId, emp.nombre, emp.depto, emp.puesto  FROM empleados emp LEFT JOIN incidencias inc ON emp.empleadoId = inc.empleadoId AND inc.idSemana='" + idSemana + "' \n"
+                + "WHERE  inc.empleadoId  IS NULL AND emp.estatus='1'  AND emp.depto ='" + depto + "'";
         String datos[] = new String[10];
         try {
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
@@ -212,10 +213,12 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         }
     }
 //busque del filtro 
+
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }
 //limpiar tabla 
+
     public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
@@ -223,12 +226,10 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
         }
     }
 
-
-
 //clase para obtener idsemana 
-  public int obteneridsem(String nombresemana) {
-       int idsemp = 0; 
-      try {
+    public int obteneridsem(String nombresemana) {
+        int idsemp = 0;
+        try {
             Connection conn = null;
             PreparedStatement stmt = null;
             ResultSet rs = null;
@@ -236,13 +237,13 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-           
+
             if (!rs.next()) {
-               
+
             } else {
                 idsemp = rs.getInt("idSemana");
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(RH_UsuariosSinIncidencias.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -449,43 +450,40 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
       private void cmbSemanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSemanaActionPerformed
-                                          
-            limpiar(tabla1);
-            String nomsem = cmbSemana.getSelectedItem().toString();
-            int numsem = cmbSemana.getSelectedIndex();
-            int idnomsem =obteneridsem(nomsem);
-            System.out.println(nomsem);
-            System.out.println(numsem);
-            try {
-                
-                System.out.println(idnomsem);
-                if (numsem != 0) {
-                    panelincidencias.setVisible(true);
-                    cargardatosFiltroSemana(idnomsem);
-                    
-                } else {
-                    panelincidencias.setVisible(false);
-                }
-                
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-            
-            
-      
+
+          limpiar(tabla1);
+          String nomsem = cmbSemana.getSelectedItem().toString();
+          int numsem = cmbSemana.getSelectedIndex();
+          int idnomsem = obteneridsem(nomsem);
+          System.out.println(nomsem);
+          System.out.println(numsem);
+          try {
+
+              System.out.println(idnomsem);
+              if (numsem != 0) {
+                  panelincidencias.setVisible(true);
+                  cargardatosFiltroSemana(idnomsem);
+
+              } else {
+                  panelincidencias.setVisible(false);
+              }
+
+          } catch (SQLException e) {
+              JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+          }
 
 
       }//GEN-LAST:event_cmbSemanaActionPerformed
 
       private void cmbDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDeptoActionPerformed
-      try {
+          try {
               limpiar(tabla1);
               String nomsema = cmbSemana.getSelectedItem().toString();
               int numsema = cmbSemana.getSelectedIndex();
               String nomdep = cmbDepto.getSelectedItem().toString();
               int numdep = cmbDepto.getSelectedIndex();
-              
-        int idnomsem = obteneridsem(nomsema);
+
+              int idnomsem = obteneridsem(nomsema);
               if (numsema != 0) {
                   if (numdep == 0) {
 
@@ -565,13 +563,12 @@ public class RH_UsuariosSinIncidencias extends javax.swing.JFrame {
             if (numfila == 1) {
                 String nom = tbsinIncidencias.getValueAt(fila, 1).toString();
                 String idemp = tbsinIncidencias.getValueAt(fila, 0).toString();
-                RH_SelectPD per = new RH_SelectPD(idemp,1);
+                RH_SelectPD per = new RH_SelectPD(idemp, 1);
                 per.show(true);
                 RH_SelectPD.lblnombre.setText(nom);
             } else {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila", "", JOptionPane.WARNING_MESSAGE);
             }
-
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "ERROR EN: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
