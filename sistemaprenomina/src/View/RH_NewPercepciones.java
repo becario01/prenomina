@@ -49,24 +49,25 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
         cargardatos();
         tbpercep.setDefaultRenderer(Object.class, new EJefes());
     }
+    //creacion de modelo de tabla 
     DefaultTableModel tabla1 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int Fila, int Colum) {
             return false;
         }
     };
-
+//mmetodo de busqueda 
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }
-
+//remueve los datos de la tabla 
     public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
             i -= 1;
         }
     }
-
+//carga los datos de la tabla 
     private void cargardatos() {
         String sql = "SELECT * FROM nomPercepciones";
 
@@ -97,7 +98,7 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
             }
         }
     }
-
+//carga los titulos de la tabla 
     public void cargarTitulos1() throws SQLException {
 
         tabla1.addColumn("CLAVE");
@@ -129,9 +130,9 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
         ItemActivar = new javax.swing.JMenuItem();
         Itemdesactivar = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
+        btnmini = new javax.swing.JButton();
+        btncerrar = new javax.swing.JButton();
+        btnregresar = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
         lblcargo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -171,35 +172,35 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(229, 230, 234));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnmini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
+        btnmini.setBorderPainted(false);
+        btnmini.setContentAreaFilled(false);
+        btnmini.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnminiActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 32, 30));
+        jPanel1.add(btnmini, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 32, 30));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
+        btncerrar.setBorderPainted(false);
+        btncerrar.setContentAreaFilled(false);
+        btncerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btncerrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 32, 30));
+        jPanel1.add(btncerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 32, 30));
 
-        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
-        btnRegresar.setBorderPainted(false);
-        btnRegresar.setContentAreaFilled(false);
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
+        btnregresar.setBorderPainted(false);
+        btnregresar.setContentAreaFilled(false);
+        btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnregresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 32, 30));
+        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
@@ -372,15 +373,18 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnminiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminiActionPerformed
+        //minimiza la ventana 
         this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnminiActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
+        //cierra todo el sistema 
         System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btncerrarActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
+        //regresa a la ventana anterior 
         String cargo = RH_Inicio.lblcargo.getText();
         String nombre = RH_Inicio.lblnombrerh.getText();
         RH_Inicio rh_i = new RH_Inicio();
@@ -388,13 +392,14 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
         RH_Inicio.lblcargo.setText(cargo);
         RH_Inicio.lblnombrerh.setText(nombre);
         this.setVisible(false);
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnregresarActionPerformed
 
     private void txtnombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreKeyReleased
 
     private void GuardarInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarInActionPerformed
+        // valida que los campos esten llenos y guarda la nueva incidencia 
         String Nompercepcion = txtnombre.getText();
         String numdias = txtdias.getText();
         try {
@@ -424,11 +429,8 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtBuscarKeyReleased
 
-    private void txtdiasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdiasKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtdiasKeyReleased
-
     private void ItemActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemActivarActionPerformed
+        //activa la percepcion seleccionada 
         try {
             PercepcionesDeducciones percep = new PercepcionesDeducciones();
             int numfila = tbpercep.getSelectedRowCount();
@@ -467,6 +469,7 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
     }//GEN-LAST:event_ItemActivarActionPerformed
 
     private void ItemdesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemdesactivarActionPerformed
+        //desactiva la percepcion seleccionada 
         try {
             int numfila = tbpercep.getSelectedRowCount();
             int fila = tbpercep.getSelectedRow();
@@ -497,6 +500,10 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_ItemdesactivarActionPerformed
+
+    private void txtdiasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdiasKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdiasKeyReleased
 
     /**
      * @param args the command line arguments
@@ -542,9 +549,9 @@ public class RH_NewPercepciones extends javax.swing.JFrame {
     private javax.swing.JMenuItem ItemActivar;
     private javax.swing.JMenuItem Itemdesactivar;
     private javax.swing.JPopupMenu MenuOpciones;
-    private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btncerrar;
+    private javax.swing.JButton btnmini;
+    private javax.swing.JButton btnregresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

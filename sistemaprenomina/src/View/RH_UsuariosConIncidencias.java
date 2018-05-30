@@ -81,14 +81,14 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
         lblcargo.setHorizontalAlignment(lblcargo.CENTER);
         lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
-    
+    //creacion del modelo de la tabla 
     DefaultTableModel tabla1 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int Fila, int Colum) {
             return false;
         }
     };
-    
+    //carga los titulos de la tabla 
     public void cargarTitulos1() throws SQLException {
         
         tabla1.addColumn("ID");
@@ -105,7 +105,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }
     
    
-    
+    //carga los departamentos existentes a el combo box 
     public void combodepartamento() {
         
         String sql = "select DISTINCT depto from empleados";
@@ -129,7 +129,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             }
         }
     }
-    
+    //carga los datos por rango 
     public void CargarDatosRango(Vector<String> dias) throws SQLException {
         empleadosR.clear();
         for (int dia = 0; dia < dias.size(); dia++) {
@@ -179,7 +179,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             }
         }
     }
-    
+    //carga los datos por rango y por departamento 
     public void cargardatosFiltroDepto(Vector<String> dias, String depto) throws SQLException {
         empleadosR.clear();
         for (int i = 0; i < dias.size(); i++) {
@@ -228,7 +228,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             }
         }
     }
-    
+    //lista las fechas de los rangos ingresados 
     public Vector<String> listarfechas() throws ParseException {
         
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -662,6 +662,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
       }//GEN-LAST:event_txtBuscarKeyTyped
 
       private void comboDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDeptoActionPerformed
+          //carga los datos a la table al seleccionar un departamento 
           try {
               limpiar(tabla1);
               String nomdep = comboDepto.getSelectedItem().toString();
@@ -686,7 +687,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
       private void btnReporteGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteGeneralActionPerformed
           
-          
+          //boton para generar reporte general 
           String nomdep = comboDepto.getSelectedItem().toString();
           String emp = lblnombrerh.getText();
           String car = lblcargo.getText();
@@ -730,7 +731,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel11MouseDragged
 
     private void btntxtreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntxtreporteActionPerformed
-        
+        //boton para generar reporte txt 
         if (TstVentNvoPres == false) {
             reptxtran rpt = new reptxtran();
             rpt.setVisible(true);
@@ -744,7 +745,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btntxtreporteActionPerformed
 
     private void btnPercepcionesYDeduccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercepcionesYDeduccionesActionPerformed
-        
+        //boton para generar reporte de percepciones y deducciones 
         String nomdep = comboDepto.getSelectedItem().toString();
         String emp = lblnombrerh.getText();
         String car = lblcargo.getText();
@@ -758,13 +759,14 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPercepcionesYDeduccionesActionPerformed
 
     private void btnCalcularFaltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularFaltasActionPerformed
+        //boton para calcular faltas 
         RH_Calculofaltas clf = new RH_Calculofaltas();
         clf.setVisible(true);
     }//GEN-LAST:event_btnCalcularFaltasActionPerformed
 
     private void btnPrimaDominicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimaDominicalActionPerformed
         
-        
+        //boton para calcular la prima dominical 
         String nomdep = comboDepto.getSelectedItem().toString();
         String emp = lblnombrerh.getText();
         String car = lblcargo.getText();
@@ -779,6 +781,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrimaDominicalActionPerformed
 
     private void itemPercepcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPercepcionesActionPerformed
+       //abre la ventana de percepciones 
         System.out.println(Rdate1+"     -     "+Rdate2);
         try {
             int fila = tbincidencias.getSelectedRow();
@@ -800,6 +803,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
     }//GEN-LAST:event_itemPercepcionesActionPerformed
 
     private void itemDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDetallesActionPerformed
+        //abre la ventana de detalles de incidencias 
         try {
             System.out.println(Rdate1+"     -     "+Rdate2);
             String nomcargo = lblcargo.getText();

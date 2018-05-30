@@ -60,7 +60,7 @@ public class RH_detallePercep extends javax.swing.JFrame {
             return false;
         }
     };
-
+//carga los titulos de la tabla 
     public void cargartitulos() throws SQLException {
         tabla1.addColumn("PERC / DEDU");
         tabla1.addColumn("DIA");
@@ -73,7 +73,7 @@ public class RH_detallePercep extends javax.swing.JFrame {
         columnModel.getColumn(2).setPreferredWidth(40);
         columnModel.getColumn(3).setPreferredWidth(50);
     }
-
+//carga los datos de la tabla 
     public void cargardatos( String cod) throws SQLException {
            try {
         for (int i = 0; i < fechas.size(); i++) {

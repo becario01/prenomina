@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,7 +80,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
             return false;
         }
     };
-
+//carga los titulos de la tabla 
     public void cargartitulos() throws SQLException {
 
         tabla1.addColumn("ACTUALOZADO JA");
@@ -110,7 +111,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
         columnModel.getColumn(9).setPreferredWidth(200);
 
     }
-
+//carga los datos de la tabla 
     public void cargardatosFiltroSemana(Vector<String> dias, int cod) throws SQLException {
          try {
         for (int dia = 0; dia < dias.size(); dia++) {
@@ -184,41 +185,8 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
     }
 
-//      public void cargarfaltas(int cod) {
-//            String sql = "SELECT  emp.empleadoId, emp.nombre, re.fecha, re.entrada, re.salida, re.horas\n"
-//                    + "from registros re \n"
-//                    + "INNER JOIN empleados emp on re.empleadoId= emp.empleadoId\n"
-//                    + "WHERE (re.Entrada='00:00:00.0000000' or re.Salida='00:00:00.0000000' or re.horas='00:00:00.0000000' or re.fecha='1111-11-11') and re.empleadoId='"+cod+"'";
-//            String datos[] = new String[10];
-//            try {
-//                  conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-//                  stmt = conn.prepareStatement(sql);
-//                  rs = stmt.executeQuery();
-//
-//                  while (rs.next()) {
-//
-//                        datos[1] = "";
-//                        datos[2] = "";
-//                        datos[3] = rs.getString("fecha");
-//                        datos[4] = rs.getString("entrada");
-//                        datos[5] = rs.getString("salida");
-//                        datos[6] = rs.getString("horas");
-//                        datos[7] = "";
-//                        datos[8] = "";
-//
-//                        tabla1.addRow(datos);
-//                  }
-//            } catch (Exception e) {
-//                  JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e);
-//            } finally {
-//                  Conexion.close(rs);
-//                  Conexion.close(stmt);
-//                  if (this.userConn == null) {
-//                        Conexion.close(conn);
-//                  }
-//            }
-//            dia();
-//      }
+
+    //asigna el nombre del dia dependiendo la fecha 
     public void dia() {
         GregorianCalendar cal = new GregorianCalendar();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -248,7 +216,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
 
             }
 
-        } catch (Exception e) {
+        } catch (ParseException e) {
 
             JOptionPane.showMessageDialog(null, "Errorn en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
@@ -465,6 +433,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
       }//GEN-LAST:event_formMouseEntered
 
       private void itemAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAutorizarActionPerformed
+         //autoriza las o la incidencia seleccionadas 
           int fila = tbdetalles.getSelectedRow();
           String cod = txtid.getText();
 
@@ -503,6 +472,7 @@ public class RH_uci_detalles extends javax.swing.JFrame {
       }//GEN-LAST:event_itemAutorizarActionPerformed
 
       private void itemNegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNegarActionPerformed
+         //niega las o la incidencias seleccionadas 
           int fila = tbdetalles.getSelectedRow();
           String cod = txtid.getText();
 

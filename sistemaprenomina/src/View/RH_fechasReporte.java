@@ -65,7 +65,7 @@ public class RH_fechasReporte extends javax.swing.JFrame {
             btnguardar.setText("Calcular");
         }
     }
-
+//valida el frame 
     public void seleccionframe() throws ParseException {
         switch (frame) {
             case 1:
@@ -314,7 +314,8 @@ public class RH_fechasReporte extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void txtDate2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDate2MouseClicked
-       try {
+      //abre el calendario 
+        try {
             RH_Calendario2 cale = new RH_Calendario2(4);
             cale.show(true);
         } catch (ParseException e) {
@@ -323,7 +324,8 @@ public class RH_fechasReporte extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDate2MouseClicked
 
     private void txtDate1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDate1MouseClicked
-            try {
+        //abre un calendario  
+        try {
             RH_Calendario2 cale = new RH_Calendario2(3);
             cale.show(true);
         } catch (ParseException e) {
@@ -336,7 +338,7 @@ public class RH_fechasReporte extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDate1ActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-
+//valida que los campos no esten vacion 
         if (txtDate1.getText().equalsIgnoreCase("") && txtDate2.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Ambos campos estan vacios");
         } else if (txtDate1.getText().equalsIgnoreCase("")) {
@@ -351,6 +353,7 @@ public class RH_fechasReporte extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnguardarActionPerformed
+    //obtiene el nombre de la semana dependiendo la fecha 
     public int semana(String nomsem) {
         String sql = "select * from semanas where semana='" + nomsem + "' ";
         int codigo = 0;

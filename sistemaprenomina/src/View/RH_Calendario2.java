@@ -23,6 +23,7 @@ public class RH_Calendario2 extends javax.swing.JFrame {
     public RH_Calendario2(int numcal) throws ParseException {
         initComponents();
         numcalen = numcal;
+        //se obtiene el numero del calendario 
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
@@ -35,6 +36,7 @@ public class RH_Calendario2 extends javax.swing.JFrame {
     }
 
     public void asignarfecha() {
+        //se asigna la fecha actual dependiendo el numero de el calendario 
         switch (numcalen) {
             case 1:
                 RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(calendario2.getDate()));
@@ -71,7 +73,7 @@ public class RH_Calendario2 extends javax.swing.JFrame {
     }
 
     private void agregarOyente() throws ParseException {
-
+//se asigna la fecha seleccionada dependiendo el numero de el calendario 
         calendario2.getDayChooser().addPropertyChangeListener(
                 new java.beans.PropertyChangeListener() {
 
