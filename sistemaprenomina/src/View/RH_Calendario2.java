@@ -61,12 +61,21 @@ public class RH_Calendario2 extends javax.swing.JFrame {
                 break;
             case 8:
                 RH_UsuariosConIncidencias.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
-                RH_UsuariosConIncidencias.Rdate1=formatoDeFecha.format(calendario2.getDate());
+                RH_UsuariosConIncidencias.Rdate1 = formatoDeFecha.format(calendario2.getDate());
                 break;
             case 9:
                 RH_UsuariosConIncidencias.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
-                RH_UsuariosConIncidencias.Rdate2=formatoDeFecha.format(calendario2.getDate());
+                RH_UsuariosConIncidencias.Rdate2 = formatoDeFecha.format(calendario2.getDate());
                 break;
+            case 10:
+                RH_UsuariosSinIncidencias.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                RH_UsuariosSinIncidencias.Rdate1 = formatoDeFecha.format(calendario2.getDate());
+                break;
+            case 11:
+                RH_UsuariosSinIncidencias.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                RH_UsuariosSinIncidencias.Rdate2 = formatoDeFecha.format(calendario2.getDate());
+                break;
+
             default:
                 break;
         }
@@ -77,48 +86,56 @@ public class RH_Calendario2 extends javax.swing.JFrame {
         calendario2.getDayChooser().addPropertyChangeListener(
                 new java.beans.PropertyChangeListener() {
 
-            @Override
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                    @Override
+                    public void propertyChange(java.beans.PropertyChangeEvent evt) {
 
-                cerrar = true;
+                        cerrar = true;
 
-                switch (numcalen) {
-                    case 1:
-                        RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(calendario2.getDate()));
-                        break;
-                    case 2:
-                        RH_Calculofaltas.txtFin.setText(formatoDeFecha.format(calendario2.getDate()));
-                        break;
-                    case 3:
-                        RH_fechasReporte.txtDate1.setText(formatoDeFecha.format(calendario2.getDate()));
-                        break;
-                    case 4:
-                        RH_fechasReporte.txtDate2.setText(formatoDeFecha.format(calendario2.getDate()));
-                        break;
-                    case 5:
-                        RH_SelectPD.txtFecha.setText(formatoDeFecha.format(calendario2.getDate()));
-                        break;
-                    case 6:
-                        RH_PercepcionesDeducciones.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
-                        break;
-                    case 7:
-                        RH_PercepcionesDeducciones.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
-                        break;
-                    case 8:
-                        RH_UsuariosConIncidencias.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
-                        RH_UsuariosConIncidencias.Rdate1=formatoDeFecha.format(calendario2.getDate());
-                        break;
-                    case 9:
-                        RH_UsuariosConIncidencias.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
-                        RH_UsuariosConIncidencias.Rdate2=formatoDeFecha.format(calendario2.getDate());
-                        break;
-                    default:
-                        break;
-                }
+                        switch (numcalen) {
+                            case 1:
+                                RH_Calculofaltas.txtInicio.setText(formatoDeFecha.format(calendario2.getDate()));
+                                break;
+                            case 2:
+                                RH_Calculofaltas.txtFin.setText(formatoDeFecha.format(calendario2.getDate()));
+                                break;
+                            case 3:
+                                RH_fechasReporte.txtDate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                                break;
+                            case 4:
+                                RH_fechasReporte.txtDate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                                break;
+                            case 5:
+                                RH_SelectPD.txtFecha.setText(formatoDeFecha.format(calendario2.getDate()));
+                                break;
+                            case 6:
+                                RH_PercepcionesDeducciones.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                                break;
+                            case 7:
+                                RH_PercepcionesDeducciones.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                                break;
+                            case 8:
+                                RH_UsuariosConIncidencias.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                                RH_UsuariosConIncidencias.Rdate1 = formatoDeFecha.format(calendario2.getDate());
+                                break;
+                            case 9:
+                                RH_UsuariosConIncidencias.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                                RH_UsuariosConIncidencias.Rdate2 = formatoDeFecha.format(calendario2.getDate());
+                                break;
+                            case 10:
+                                RH_UsuariosSinIncidencias.txtdate1.setText(formatoDeFecha.format(calendario2.getDate()));
+                                RH_UsuariosSinIncidencias.Rdate1 = formatoDeFecha.format(calendario2.getDate());
+                                break;
+                            case 11:
+                                RH_UsuariosSinIncidencias.txtdate2.setText(formatoDeFecha.format(calendario2.getDate()));
+                                RH_UsuariosSinIncidencias.Rdate2 = formatoDeFecha.format(calendario2.getDate());
+                                break;
+                            default:
+                                break;
+                        }
 
-                cerra();
-            }
-        });
+                        cerra();
+                    }
+                });
     }
 
     /**

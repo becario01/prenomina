@@ -640,7 +640,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
 
         label.setForeground(new java.awt.Color(255, 255, 255));
         label.setText("Pulsa ENTER para buscar ");
-        getContentPane().add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
+        getContentPane().add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -790,7 +790,7 @@ public class RH_UsuariosConIncidencias extends javax.swing.JFrame {
             if (numfila == 1) {
                 String nom = tbincidencias.getValueAt(fila, 1).toString();
                 String idemp = tbincidencias.getValueAt(fila, 0).toString();
-                RH_SelectPD per = new RH_SelectPD(idemp, 1);
+                RH_SelectPD per = new RH_SelectPD(idemp, 1); 
                 per.show(true);
                 RH_SelectPD.lblnombre.setText(nom);
             } else {

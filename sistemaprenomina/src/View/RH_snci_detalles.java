@@ -7,19 +7,28 @@ package View;
 
 import BD.Nomincidencia;
 import Conexion.Conexion;
+import Controller.EJefes;
+import static View.RH_Incidencias.cargo;
 import static View.RH_Incidencias.rs;
+import static View.RH_uci_detalles.rs;
+import static View.RH_uci_detalles.rs1;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
 
@@ -30,109 +39,157 @@ import javax.swing.table.TableRowSorter;
  */
 public class RH_snci_detalles extends javax.swing.JFrame {
 
-   DefaultTableModel detallessin = new DefaultTableModel(null,getColums());
-       public static ResultSet rs;
-      private Connection userConn;
-      private TableRowSorter trsFiltro;
-      private PreparedStatement st;
-      Conexion con = new Conexion();
-      Connection conn;
-      PreparedStatement stmt;
-      Nomincidencia nom;
+  
+    Connection conn;
+    PreparedStatement stmt;
+    public static ResultSet rs;
+    private Connection userConn;
+    Connection conn1;
+    PreparedStatement stmt1;
+    public static ResultSet rs1;
+    private Connection userConn1;
+
+    static String nombrecargo;
+    static String nombreusuario;
+    static int idempleado;
+   
+    static Vector<String> dias = new Vector<String>();
+    Vector<String> empleados = new Vector<String>();
     /**
      * Creates new form RH_uci_detalles
      */
-    public RH_snci_detalles() throws SQLException  {
-     detallessin=   new DefaultTableModel(null,getColums());
-        initComponents();
+    public RH_snci_detalles(Vector<String> diass, int idemp, String cargo, String usuario) throws SQLException  {
+      initComponents();
+        dias = diass;
+        idempleado = idemp;
+        nombrecargo = cargo;
+        nombreusuario = usuario;
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
-        
-        int idemp = Integer.parseInt(RH_UsuariosSinIncidencias.codid);
-        SetFilas(idemp);
+        cargartitulos();
+        limpiar(tabla1);
+        cargardatosFiltroSemana(diass, idemp);
+        lblcargo.setText(cargo);
+        lblnombrerh.setText(usuario);
+        tbdetalles.setDefaultRenderer(Object.class, new EJefes());
     }
-    
-private String[] getColums(){
-        
-        String columna[]={"Dia","Fecha","Entrada","Salida","Horas"};
-           return columna;
-        
-    }
-        
-public  void SetFilas(int idemp) throws SQLException{
-   
-              String sem = (String) RH_UsuariosSinIncidencias.cmbSemana.getSelectedItem();
-      String idsem = "";
-        String sql1="Select * from semanas  where  semana= '"+sem+"'";
-         conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-            stmt = conn.prepareStatement(sql1);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                idsem = rs.getString("idSemana");
-            }
-            
-            try {
-                 String sql = "SELECT  reg.Entrada , reg.Salida, reg.horas,reg.fecha FROM registros reg   \n" +
-"LEFT JOIN semanas sem  on reg.fecha = sem.fechaL or reg.fecha= sem.fechaMa or reg.fecha=sem.fechaMi\n" +
-"or reg.fecha = sem.fechaJ or reg.fecha = sem.fechaV or reg.fecha = sem.fechaS or reg.fecha = sem.fechaD \n" +
-"where empleadoId = '"+idemp+"' and sem.idSemana='"+idsem+"'";
-        conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-        stmt = conn.prepareStatement(sql);
-        rs = stmt.executeQuery();
-        Object datos[] = new Object[5];
-        while (rs.next()) {
-            for (int i = 0; i < 5; i++) {
-                datos[1] = rs.getString("fecha");
-                datos[2] = rs.getString("Entrada");
-                datos[3] = rs.getString("Salida");
-                datos[4] = rs.getString("horas");
-            }
-            detallessin.addRow(datos);
+    DefaultTableModel tabla1 = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int Fila, int Colum) {
+            return false;
         }
-    } catch (Exception e) {
-        System.out.println("" + e);
-    } finally {
-        Conexion.close(rs);
-        Conexion.close(stmt);
+    };
+//carga los titulos de la tabla 
+    public void cargartitulos() throws SQLException {
+
+        tabla1.addColumn("ACTUALOZADO JA");
+        tabla1.addColumn("ACTUALIZADO RH");
+        tabla1.addColumn("Dia");
+        tabla1.addColumn("FECHA");
+        tabla1.addColumn("ENTRADA");
+        tabla1.addColumn("SALIDA");
+        tabla1.addColumn("HORAS");
+ 
+
+        this.tbdetalles.setModel(tabla1);
+//            tabla1.addColumn(0, "");
+
+    
+
+      
+
     }
-            dia();
-         }
+//carga los datos de la tabla 
+    public void cargardatosFiltroSemana(Vector<String> dias, int cod) throws SQLException {
+         try {
+        for (int dia = 0; dia < dias.size(); dia++) {
+            String fecha = dias.elementAt(dia);
+
+            String sql = "SELECT Entrada , Salida, horas,fecha FROM registros where empleadoId = '"+cod+"'  and fecha ='"+fecha+"' ";
+            Object datos[] = new Object[10];
+          
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+                stmt = conn.prepareStatement(sql);
+                rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    
+//                datos[1] = rs.getString("actualizadoJA");
+//                datos[2] = rs.getString("actualizadoRH");
+                    datos[3] = rs.getString("fecha");
+                    datos[4] = "";
+                    datos[5] = "";
+                    datos[6] = "";
+              
+
+                    String sql1 = "SELECT entrada, salida, horas from registros where empleadoId='" + cod + "' and fecha='" + datos[3] + "'";                  
+                        conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion.getConnection();
+                        stmt1 = conn1.prepareStatement(sql1);
+                        rs1 = stmt1.executeQuery();
+                        while (rs1.next()) {
+                            datos[4] = rs1.getString("entrada");
+                            datos[5] = rs1.getString("salida");
+                            datos[6] = rs1.getString("horas");
+                        }
+                    tabla1.addRow(datos);
+                }
+            }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                Conexion.close(rs);
+                Conexion.close(stmt);
+                if (this.userConn == null) {
+                    Conexion.close(conn);
+                }
+                Conexion.close(rs1);
+                        Conexion.close(stmt1);
+                        if (this.userConn1 == null) {
+                            Conexion.close(conn1);
+                        }Conexion.close(rs1);
+                        Conexion.close(stmt1);
+                        if (this.userConn1 == null) {
+                            Conexion.close(conn1);
+                        }
+            }
+        
+        dia();
+
+    }
 
 
-
-public void dia() {
+    //asigna el nombre del dia dependiendo la fecha 
+    public void dia() {
         GregorianCalendar cal = new GregorianCalendar();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             for (int i = 0; i < tbdetalles.getRowCount(); i++) {
-                String fec = tbdetalles.getValueAt(i, 1).toString();
+                String fec = tbdetalles.getValueAt(i, 3).toString();
                 Date fecha = formato.parse(fec);
                 cal.setTime(fecha);
-                
-                System.out.println(fecha);
                 int dia = cal.get(Calendar.DAY_OF_WEEK);
 
                 if (dia == 1) {
-                    tbdetalles.setValueAt("DOMINGO", i, 0);
+                    tbdetalles.setValueAt("DOMINGO", i, 2);
                 } else if (dia == 2) {
-                    tbdetalles.setValueAt("LUNES", i, 0);
+                    tbdetalles.setValueAt("LUNES", i, 2);
                 } else if (dia == 3) {
-                    tbdetalles.setValueAt("MARTES", i, 0);
+                    tbdetalles.setValueAt("MARTES", i, 2);
                 } else if (dia == 4) {
-                    tbdetalles.setValueAt("MIERCOLES", i, 0);
+                    tbdetalles.setValueAt("MIERCOLES", i, 2);
                 } else if (dia == 5) {
-                    tbdetalles.setValueAt("JUEVEZ", i, 0);
+                    tbdetalles.setValueAt("JUEVEZ", i, 2);
                 } else if (dia == 6) {
-                    tbdetalles.setValueAt("VIERNES", i, 0);
+                    tbdetalles.setValueAt("VIERNES", i, 2);
                 } else if (dia == 7) {
-                    tbdetalles.setValueAt("SABADO", i, 0);
+                    tbdetalles.setValueAt("SABADO", i, 2);
                 }
 
             }
 
-        } catch (Exception e) {
+        } catch (ParseException e) {
 
             JOptionPane.showMessageDialog(null, "Errorn en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
@@ -140,6 +197,14 @@ public void dia() {
 
 //   
     }
+
+    public void limpiar(DefaultTableModel tabla) {
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            tabla.removeRow(i);
+            i -= 1;
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -182,7 +247,14 @@ public void dia() {
         tbdetalles.setAutoCreateRowSorter(true);
         tbdetalles.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tbdetalles.setForeground(new java.awt.Color(51, 51, 51));
-        tbdetalles.setModel(detallessin);
+        tbdetalles.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         tbdetalles.setFillsViewportHeight(true);
         tbdetalles.setGridColor(new java.awt.Color(255, 255, 255));
         tbdetalles.setInheritsPopupMenu(true);
@@ -387,7 +459,7 @@ this.hide();
             public void run() {
              
                 try {
-                    new RH_snci_detalles().setVisible(true);
+                    new RH_snci_detalles(dias, idempleado, nombrecargo, nombreusuario).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(RH_snci_detalles.class.getName()).log(Level.SEVERE, null, ex);
                 }
