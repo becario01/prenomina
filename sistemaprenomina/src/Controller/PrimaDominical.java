@@ -60,30 +60,25 @@ public class PrimaDominical {
         arrayDias = dias;
     }
 
-
+//se obtienen las fechas de los domiengos en el rango de fechas ingresado
     public void domingos() {
         GregorianCalendar cal = new GregorianCalendar();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-
         try {
             for (int i = 0; i < arrayDias.size(); i++) {
             String fechadia = arrayDias.elementAt(i);
                 Date fecha = formato.parse(fechadia);
                 cal.setTime(fecha);
                 int dia = cal.get(Calendar.DAY_OF_WEEK);
-
                 if (dia == 1) {
                    arrayDomingos.add(fechadia);
                 }
             }
         } catch (ParseException e) {
-
             JOptionPane.showMessageDialog(null, "Errorn en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-
         }
-
-//   
     }
+    //se obtienen el id de todos los empleados que allan trabajado en los domingo en el rango de fechas 
     public Vector<String> empleado() throws SQLException, ParseException {
         arrayemp.clear();
         for (int j = 0; j < arrayDomingos.size(); j++) {
@@ -114,13 +109,12 @@ public class PrimaDominical {
         }
         return arrayemp;
     }
-
+//se ingresa la prima dominical a todos los empleados que la tengan 
     public void insertar() throws SQLException, ParseException {
 
-        listar();
         domingos();
         empleado();
-        System.out.println(arrayDomingos+"***");
+        
         Boolean com = false;
         Boolean fin = false;
         try {
@@ -136,24 +130,8 @@ public class PrimaDominical {
                 stmt2.setString(4, "DOMINGO");
                 stmt2.setString(5, "PRIMA DOMINICAL");
                 stmt2.setString(6, arraynomsema.elementAt(i));
-               
-                for (int j = 0; j < arrayidR.size(); j++) {
-                    com = arrayidR.elementAt(j).equals(String.valueOf(arrayemp.elementAt(i))) && arrayfechaR.elementAt(j).equals(arrayfecha.elementAt(i));
-                        if (com) {
-                            fin = true;
-                        }
-                    }
-                
-                if (fin) {
-                    String idem=arrayemp.elementAt(i);
-                    String fech=arrayfecha.elementAt(i);
-                    String se=arraynomsema.elementAt(i);
-                    actualizar(idem, fech, se);
-
-                } else {
-                    
- stmt2.execute();
-                }
+                stmt2.execute();
+             
 
             }
         } catch (HeadlessException | SQLException e) {
@@ -170,61 +148,7 @@ public class PrimaDominical {
 
     }
 
-    public Vector<String> listar()  {
-        try {
-             conn3 = (this.userConn3 != null) ? this.userConn3 : Conexion.getConnection();
-        String sql1 = "select * from percepciones";
-
-        stmt3 = conn3.prepareStatement(sql1);
-
-        rs3 = stmt3.executeQuery();
-
-        int con2 = 0;
-
-        while (rs3.next()) {
-
-            arrayidR.add(con2, rs3.getString("empleadoId"));
-            arrayfechaR.add(con2, rs3.getString("fecha"));
-            con2++;
-        }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e,"ERROR",JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion.close(stmt3);
-            if (this.userConn3 == null) {
-                Conexion.close(conn3);
-            }
-        }
-        return arrayidR;
-
-    }
-
-    public void actualizar(String idem, String fech, String semana) {
-      
-            try {
-                conn4 = (this.userConn4 != null) ? this.userConn4 : Conexion.getConnection();
-                String sql = "UPDATE percepciones SET  idNomPer='1', dia='DOMINGO', comentario='PRIMA DOMINICAL', Semana='"+semana+"'"
-                        + " WHERE empleadoId='" + idem + "' and  fecha='" + fech+ "' ";
-
-                PreparedStatement pst = conn4.prepareStatement(sql);
-                pst.executeUpdate();
-                conn4.close();
-
-            } catch (HeadlessException | SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-
-            } finally {
-                Conexion.close(stmt4);
-
-                if (this.userConn4 == null) {
-                    Conexion.close(conn4);
-                }
-
-            }
-
-        
-
-    }
+ //se obtiene el nomvre de la semana dependiendo de la fecha 
     public String nomsenanas(String fecha) throws ParseException, SQLException {
 
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");

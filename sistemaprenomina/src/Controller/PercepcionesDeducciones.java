@@ -40,51 +40,25 @@ public class PercepcionesDeducciones {
     public static Vector<String> arrayfeR = new Vector<>();
     public static Vector<String> arrayfechas = new Vector<>();
     String percep;
+//se realiza la asignacion de las percepciones a los empleados 
 
     public void insertar(String empleadoid, String fecha, int idper, String coment, JRootPane rootPane) throws SQLException {
         ResultSet rs = null;
         Connection conn = null;
         PreparedStatement stmt = null;
-        listar();
-        System.out.println("°°°°" + arrayidR);
-        System.out.println("°°°°" + arrayfeR);
-
         percep = String.valueOf(idper);
         try {
-            obtenerfechas(fecha);
-            System.out.println(arrayfechas + "´´´´");
             conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             String sql = "INSERT INTO percepciones( empleadoId, fecha, idNomPer, dia, comentario, Semana) values (?,?,?,?,?,?)";
-            System.out.println(arrayfechas.size() + "#");
-            if (arrayfechas.size() == 1) {
-                Boolean comu = false;
-                Boolean comf = false;
-                Boolean fin = false;
-                stmt = conn.prepareStatement(sql);
-                stmt.setString(1, empleadoid);
-                stmt.setString(2, fecha);
-                stmt.setString(3, percep);
-                stmt.setString(4, dia(fecha));
-                stmt.setString(5, coment);
-                stmt.setString(6, nomsenanas(fecha));
-                for (int j = 0; j < arrayfeR.size(); j++) {
-                    comf = arrayfeR.elementAt(j).equals(fecha);
-                    if (comf) {
-                        comu = arrayidR.elementAt(j).equals(String.valueOf(empleadoid));
-                        if (comu) {
-                            fin = true;
-                        }
-                    }
-                }
-                if (fin) {
-                    duplicado(empleadoid, fecha, percep, dia(fecha), coment, nomsenanas(fecha), rootPane);
-                } else {
-                    stmt.execute();
-                    JOptionPane.showMessageDialog(null, "Registro Exitoso!");
-                }
-            } else if (arrayfechas.size() > 1) {
-                repetido(empleadoid, stmt, rs, conn, sql, coment, rootPane);
-            }
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, empleadoid);
+            stmt.setString(2, fecha);
+            stmt.setString(3, percep);
+            stmt.setString(4, dia(fecha));
+            stmt.setString(5, coment);
+            stmt.setString(6, nomsenanas(fecha));
+            stmt.execute();
+            JOptionPane.showMessageDialog(null, "Registro Exitoso!");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
@@ -96,175 +70,7 @@ public class PercepcionesDeducciones {
             }
         }
     }
-
-    public void repetido(String empleadoid, PreparedStatement stmt, ResultSet rs, Connection conn, String sql, String coment, JRootPane rootPane) {
-        try {
-
-            for (int i = 0; i < arrayfechas.size(); i++) {
-                Boolean comu = false;
-                Boolean comf = false;
-                Boolean fin = false;
-                String fechaFin = arrayfechas.elementAt(i);
-                stmt = conn.prepareStatement(sql);
-                stmt.setString(1, empleadoid);
-                stmt.setString(2, fechaFin);
-                stmt.setString(3, percep);
-                stmt.setString(4, dia(fechaFin));
-                stmt.setString(5, coment);
-                stmt.setString(6, nomsenanas(fechaFin));
-
-               for (int j = 0; j < arrayfeR.size(); j++) {
-                    comf = arrayfeR.elementAt(j).equals(fechaFin);
-                    if (comf) {
-                        comu = arrayidR.elementAt(j).equals(String.valueOf(empleadoid));
-                        if (comu) {
-                            fin = true;
-                        }
-                    }
-                }
-                if (fin) {
-                    duplicado(empleadoid, fechaFin, percep, dia(fechaFin), coment, nomsenanas(fechaFin), rootPane);
-                } else {
-                    stmt.execute();
-                }
-            }
-        } catch (HeadlessException | SQLException | ParseException e) {
-            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            JOptionPane.showMessageDialog(null, "Registros Exitosos!");
-        }
-
-    }
-
-    public void obtenerfechas(String fecha) throws ParseException {
-
-        ResultSet rs6;
-        Connection conn6 = null;
-        PreparedStatement stmt6 = null;
-        String numerod = null;
-        try {
-            String sql1 = "select * from nomPercepciones where idNomPer='" + percep + "'";
-            conn6 = (this.userConn6 != null) ? this.userConn6 : Conexion.getConnection();
-            stmt6 = conn6.prepareStatement(sql1);
-            rs6 = stmt6.executeQuery();
-            while (rs6.next()) {
-                numerod = rs6.getString("dias");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion.close(stmt6);
-            Conexion.close(stmt6);
-            if (this.userConn6 == null) {
-                Conexion.close(conn6);
-            }
-
-        }
-        int numd = Integer.valueOf(numerod);
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar cale2 = Calendar.getInstance();
-        Date date1 = formato.parse(fecha);
-        cale2.setTime(date1);
-        cale2.add(Calendar.DAY_OF_YEAR, numd - 1);
-        Date date2 = cale2.getTime();
-        String fecha2 = formato.format(date2);
-        System.out.println(fecha);
-        System.out.println(fecha2);
-        listarfechas(date1, date2);
-    }
-
-    public void listarfechas(Date date1, Date date2) throws ParseException {
-
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Vector<Date> listaFechas = new Vector<>();
-        listaFechas.clear();
-        arrayfechas.clear();
-        Calendar c1 = Calendar.getInstance();
-        c1.setTime(date1);
-        Calendar c2 = Calendar.getInstance();
-        c2.setTime(date2);
-
-        while (!c1.after(c2)) {
-            listaFechas.add(c1.getTime());
-            c1.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        arrayfechas.clear();
-        for (int i = 0; i < listaFechas.size(); i++) {
-            arrayfechas.add(formato.format(listaFechas.elementAt(i)));
-
-        }
-
-    }
-
-    public void listar() {
-        ResultSet rs1;
-        Connection conn1 = null;
-        PreparedStatement stmt1 = null;
-        arrayidR.clear();
-        arrayfeR.clear();
-        try {
-            conn1 = (this.userConn1 != null) ? this.userConn1 : Conexion.getConnection();
-            String sql1 = "select * from percepciones";
-            stmt1 = conn1.prepareStatement(sql1);
-            rs1 = stmt1.executeQuery();
-            int con2 = 0;
-            while (rs1.next()) {
-                arrayidR.add(con2, rs1.getString("empleadoId"));
-                arrayfeR.add(con2, rs1.getString("fecha"));
-                con2++;
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion.close(stmt1);
-
-            if (this.userConn1 == null) {
-                Conexion.close(conn1);
-            }
-
-        }
-
-    }
-
-    public void duplicado(String empleadoid, String fecha, String idper, String dia, String coment, String semana, JRootPane rootPane) {
-        Object[] opciones = {"Aceptar", "Cancelar"};
-        int eleccion = JOptionPane.showOptionDialog(rootPane, fecha + " cuanta ya con alguna percepcion \no deduccion desea actualizarla", "Mensaje de Confirmacion",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
-        if (eleccion == JOptionPane.YES_OPTION) {
-            actualizar(empleadoid, fecha, percep, dia, coment, semana);
-
-        } else {
-        }
-    }
-
-    public void actualizar(String empleadoid, String fecha, String idper, String dia, String coment, String semana) {
-        ResultSet rs2;
-        Connection conn2 = null;
-        PreparedStatement stmt2 = null;
-        try {
-
-            conn2 = (this.userConn2 != null) ? this.userConn2 : Conexion.getConnection();
-            String sql = "UPDATE percepciones SET idNomPer='" + idper + "', comentario='" + coment + "'"
-                    + " WHERE empleadoId='" + empleadoid + "' and  fecha='" + fecha + "' ";
-
-            PreparedStatement pst = conn2.prepareStatement(sql);
-            pst.executeUpdate();
-            conn2.close();
-
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-
-        } finally {
-            Conexion.close(stmt2);
-            JOptionPane.showMessageDialog(null, "Actualizacion Exitosa!");
-            if (this.userConn2 == null) {
-                Conexion.close(conn2);
-            }
-
-        }
-    }
-
+    //se realiza el registro de las nuevas percepciones 
     public void newPercep(String nombre, String dias) throws SQLException {
         String estatus = "1";
         ResultSet rs3;
@@ -295,7 +101,7 @@ public class PercepcionesDeducciones {
         }
 
     }
-
+//se desactivan las percepciones creadas 
     public void desactivar(String semana) throws SQLException {
         String sql = "UPDATE nomPercepciones SET estatus=0 WHERE  idNomPer='" + semana + "'";
         ResultSet rs4;
@@ -316,7 +122,7 @@ public class PercepcionesDeducciones {
             }
         }
     }
-
+// se activan las percepciones creadas 
     public void activar(String semana) throws SQLException {
         String sql = "UPDATE nomPercepciones SET estatus=1 WHERE  idNomPer='" + semana + "'";
         ResultSet rs5;
@@ -337,7 +143,7 @@ public class PercepcionesDeducciones {
             }
         }
     }
-
+//se obtiene el nombre de la semana dependiendo la fecha de creacion 
     public String nomsenanas(String fecha) throws ParseException, SQLException {
 
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
@@ -352,11 +158,10 @@ public class PercepcionesDeducciones {
         String strinyear = String.valueOf(year);
         String sSubCadena = strinyear.substring(2, 4);
         String nomsemana = "SEMANA" + " " + numbstring + "_" + sSubCadena;
-        System.out.println(nomsemana);
 
         return nomsemana;
     }
-
+//se obtiene el dia de la percepcion dependiendo la fecha 
     public String dia(String fec) {
         GregorianCalendar cal = new GregorianCalendar();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");

@@ -22,7 +22,7 @@ public class controllerBD {
       
         private Connection userConn;
       
-    
+    //se activan o desactivan los empleados registrados 
     
     public void desactivar(String cod, String nom)  throws SQLException{
        String sql="UPDATE empleados SET estatus=0 WHERE empleadoId='"+cod+"'and nombre='"+nom+"'";

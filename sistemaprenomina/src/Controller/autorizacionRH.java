@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class autorizacionRH {
        private Connection userConn;
-      
+     //se autorizan las incidencias  
       public void autorizar(String cod, String fec)  throws SQLException{
        String sql="UPDATE incidencias SET actualizadoRH='AUTORIZADO' WHERE empleadoId='"+cod+"' AND fecha='"+fec+"'";
         Connection conn = null;
@@ -36,7 +36,7 @@ public class autorizacionRH {
             }
         }   
     }
-    
+    //se niegan la o las incidencias 
     public void negar(String cod, String fec)  throws SQLException{
        String sql="UPDATE incidencias SET actualizadoRH='NEGADO' WHERE empleadoId='"+cod+"' AND fecha='"+fec+"'";
         Connection conn = null;
