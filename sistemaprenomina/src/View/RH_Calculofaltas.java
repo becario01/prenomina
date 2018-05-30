@@ -17,70 +17,69 @@ import javax.swing.JOptionPane;
  * @author Becarios
  */
 public class RH_Calculofaltas extends javax.swing.JFrame {
-int x,y;
+
+    int x, y;
+
     public RH_Calculofaltas() {
         initComponents();
-          this.setResizable(false);
-          this.setLocationRelativeTo(null);
-          this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
     }
 
-    
-    public void calcular(String inicialD){
-        
-         if(txtInicio.getText().equalsIgnoreCase("") && txtFin.getText().equalsIgnoreCase("")){//devuelve verdadero si es ese mismo el botón que se ha pulsado
-  JOptionPane.showMessageDialog(null,"Ambos campos estas vacios");
-  }else if(txtFin.getText().equalsIgnoreCase("")){
-       JOptionPane.showMessageDialog(null,"El campo Fecha fin esta vacio");
-    }else if(txtInicio.getText().equalsIgnoreCase("")){
-                JOptionPane.showMessageDialog(null,"El campo Fecha inicio esta vacio");
-        }else{          
-    
+    public void calcular(String inicialD) {
+
+        if (txtInicio.getText().equalsIgnoreCase("") && txtFin.getText().equalsIgnoreCase("")) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+            JOptionPane.showMessageDialog(null, "Ambos campos estas vacios");
+        } else if (txtFin.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "El campo Fecha fin esta vacio");
+        } else if (txtInicio.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "El campo Fecha inicio esta vacio");
+        } else {
+
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
-          //fecha inicio
-//            String formato = jDateChooser2.getDateFormatString();
-//            Date dates = jDateChooser2.getDate();
+            //fecha inicio
             String fechainicio = txtInicio.getText();
             //fecha fin
-//            String formatofin = jDateChooser1.getDateFormatString();
-//            Date datefin = jDateChooser1.getDate();
             String fechafin = txtFin.getText();
             String india = inicialD;
             fechainicio = fechainicio.replace("-", "");
             fechafin = fechafin.replace("-", "");
-            
-             System.out.println(fechainicio+fechafin);
-       RegistrarIncidencia  rgsi = new RegistrarIncidencia();
-       rgsi.calculoFaltas(fechainicio, fechafin,india);
-    }
-   
-    }
-      public static String obtenerDiaSemana(String fechaP) throws ParseException{
-          String[] dias = {"D", "L", "Ma", "Mi", "J", "V", "S"};
-          String aux = "";
-          fechaP = fechaP.replaceAll(" ", "");
-          SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-          if (fechaP.equalsIgnoreCase("")) {
 
-          } else {
-              String dateInString = fechaP;
-              String[] dates = dateInString.split("-");
-              String año = dates[0];
-              String mes = dates[1];
-              String dia = dates[2];
-              String fecha = dia + "-" + mes + "-" + año;
-              fecha = fecha.replaceAll(" ", "");
+            System.out.println(fechainicio + fechafin);
+            RegistrarIncidencia rgsi = new RegistrarIncidencia();
+            rgsi.calculoFaltas(fechainicio, fechafin, india);
+        }
 
-              java.util.Date date = formatter.parse(fecha);
-              int numeroDia = 0;
-              Calendar cal = Calendar.getInstance();
-              cal.setTime(date);
-              numeroDia = cal.get(Calendar.DAY_OF_WEEK);
-
-              aux = dias[numeroDia - 1];
-          }
-          return aux;
     }
+
+    public static String obtenerDiaSemana(String fechaP) throws ParseException {
+        String[] dias = {"D", "L", "Ma", "Mi", "J", "V", "S"};
+        String aux = "";
+        fechaP = fechaP.replaceAll(" ", "");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        if (fechaP.equalsIgnoreCase("")) {
+
+        } else {
+            String dateInString = fechaP;
+            String[] dates = dateInString.split("-");
+            String año = dates[0];
+            String mes = dates[1];
+            String dia = dates[2];
+            String fecha = dia + "-" + mes + "-" + año;
+            fecha = fecha.replaceAll(" ", "");
+
+            java.util.Date date = formatter.parse(fecha);
+            int numeroDia = 0;
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            numeroDia = cal.get(Calendar.DAY_OF_WEEK);
+
+            aux = dias[numeroDia - 1];
+        }
+        return aux;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,25 +213,24 @@ int x,y;
             .addGroup(pnDiaLayout.createSequentialGroup()
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbllunes))
-                    .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGap(119, 119, 119)
                         .addComponent(btnViernes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblviernes, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(226, 226, 226)
+                        .addGap(169, 169, 169)
                         .addComponent(btnSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblsabado))
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGap(291, 291, 291)
+                        .addContainerGap()
+                        .addComponent(btnLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbllunes)
+                        .addGap(121, 121, 121)
                         .addComponent(btnMartes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblmartes, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121)
+                        .addGap(154, 154, 154)
                         .addComponent(btnMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblmiercoles)))
@@ -242,63 +240,62 @@ int x,y;
                         .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbljueves)
-                        .addGap(50, 50, 50))
+                        .addGap(54, 54, 54))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDiaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbldomingo)
-                        .addGap(133, 133, 133))))
+                        .addGap(146, 146, 146))))
         );
         pnDiaLayout.setVerticalGroup(
             pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDiaLayout.createSequentialGroup()
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGap(67, 67, 67)
+                        .addContainerGap()
                         .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMartes)
-                            .addComponent(btnMiercoles))
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(lblsabado))
-                            .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(btnSabado))))
+                            .addComponent(btnMiercoles)
+                            .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(lbljueves))
-                            .addGroup(pnDiaLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(50, 50, 50)
+                        .addGap(36, 36, 36)
+                        .addComponent(lblmartes))
+                    .addGroup(pnDiaLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(lbljueves)))
+                .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnDiaLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
                         .addComponent(lbldomingo))
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblmiercoles)
-                            .addComponent(lblmartes))
-                        .addGap(28, 28, 28)
-                        .addComponent(btnDomingo)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(59, 59, 59)
+                        .addComponent(lblsabado)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnDiaLayout.createSequentialGroup()
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addContainerGap()
+                        .addComponent(btnLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDiaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnMartes))
+                    .addGroup(pnDiaLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addComponent(lbllunes))
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(35, 35, 35)
+                        .addComponent(lblmiercoles)))
                 .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(lblviernes))
+                        .addGap(36, 36, 36)
+                        .addGroup(pnDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSabado)
+                            .addComponent(btnDomingo)
+                            .addComponent(btnViernes)))
                     .addGroup(pnDiaLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(btnViernes)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(55, 55, 55)
+                        .addComponent(lblviernes)))
+                .addGap(0, 71, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 1020, -1));
@@ -386,46 +383,46 @@ int x,y;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLunesActionPerformed
- if(evt.getSource().equals(btnLunes)){
-    calcular(lbllunes.getText());
- }
+        if (evt.getSource().equals(btnLunes)) {
+            calcular(lbllunes.getText());
+        }
     }//GEN-LAST:event_btnLunesActionPerformed
 
     private void btnDomingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDomingoActionPerformed
- if(evt.getSource().equals(btnDomingo)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
-    calcular(lbldomingo.getText());
-   }
-      
+        if (evt.getSource().equals(btnDomingo)) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+            calcular(lbldomingo.getText());
+        }
+
     }//GEN-LAST:event_btnDomingoActionPerformed
 
     private void btnJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuevesActionPerformed
-        if(evt.getSource().equals(btnJueves)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
-    calcular(lbljueves.getText());
-   }
+        if (evt.getSource().equals(btnJueves)) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+            calcular(lbljueves.getText());
+        }
     }//GEN-LAST:event_btnJuevesActionPerformed
 
     private void btnMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiercolesActionPerformed
-     if(evt.getSource().equals(btnMiercoles)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
-    calcular(lblmiercoles.getText());
-   } 
+        if (evt.getSource().equals(btnMiercoles)) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+            calcular(lblmiercoles.getText());
+        }
     }//GEN-LAST:event_btnMiercolesActionPerformed
 
     private void btnMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMartesActionPerformed
- if(evt.getSource().equals(btnMartes)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
-    calcular(lblmartes.getText());
-   }
+        if (evt.getSource().equals(btnMartes)) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+            calcular(lblmartes.getText());
+        }
     }//GEN-LAST:event_btnMartesActionPerformed
 
     private void btnViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViernesActionPerformed
-        if(evt.getSource().equals(btnViernes)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
-    calcular(lblviernes.getText());
-   }
+        if (evt.getSource().equals(btnViernes)) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+            calcular(lblviernes.getText());
+        }
     }//GEN-LAST:event_btnViernesActionPerformed
 
     private void btnSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSabadoActionPerformed
-   if(evt.getSource().equals(btnSabado)){//devuelve verdadero si es ese mismo el botón que se ha pulsado
-    calcular(lblsabado.getText());
-   }
+        if (evt.getSource().equals(btnSabado)) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+            calcular(lblsabado.getText());
+        }
     }//GEN-LAST:event_btnSabadoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -441,7 +438,7 @@ int x,y;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jLabel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseDragged
-        this.setLocation(this.getLocation().x+evt.getX()-x, this.getLocation().y+evt.getY()-y);
+        this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel3MouseDragged
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
@@ -451,19 +448,19 @@ int x,y;
 
     private void txtInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtInicioMouseClicked
         try {
-            RH_Calendario2 cale= new RH_Calendario2(1);
+            RH_Calendario2 cale = new RH_Calendario2(1);
             cale.show(true);
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_txtInicioMouseClicked
 
     private void txtFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFinMouseClicked
-try {
-            RH_Calendario2 cale= new RH_Calendario2(2);
+        try {
+            RH_Calendario2 cale = new RH_Calendario2(2);
             cale.show(true);
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null,"Error en: "+ e,"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_txtFinMouseClicked
 

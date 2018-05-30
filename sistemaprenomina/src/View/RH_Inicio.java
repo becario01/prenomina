@@ -43,10 +43,12 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         hilo = new Thread(this);
         hilo.start();
         setVisible(true);
+        //alineacion de los label con el nombre y  departamento 
         lblnombrerh.setHorizontalAlignment(lblnombrerh.CENTER);
         lblnombrerh.setVerticalAlignment(lblnombrerh.CENTER);
         lblcargo.setHorizontalAlignment(lblcargo.CENTER);
         lblcargo.setVerticalAlignment(lblcargo.CENTER);
+        //mostrar el menu minimizado 
         Animacion.Animacion.mover_izquierda(211, 5, 2, 2, btnMenu);
         Animacion.Animacion.mover_izquierda(5, -250, 2, 2, pnlMenu);
         Animacion.Animacion.mover_izquierda(5, -250, 2, 2, lblfondomenu);
@@ -64,7 +66,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         lblmes.setText(mes);
         lblaño.setText(anio);
     }
-
+//calse para visuaalizar la hora en tiempo real 
     public void hora() {
         Calendar calendario = new GregorianCalendar();
         Date horaactual = new Date();
@@ -72,8 +74,9 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
         hora = calendario.get(Calendar.HOUR_OF_DAY) > 9 ? "" + calendario.get(Calendar.HOUR_OF_DAY) : "0" + calendario.get(Calendar.HOUR_OF_DAY);
         minutos = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE) : "0" + calendario.get(Calendar.MINUTE);
         segundos = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND) : "0" + calendario.get(Calendar.SECOND);
-    }
-
+    }//fin de clase hora 
+    
+//ejecutar el reloj
     public void run() {
         //while
         Thread current = Thread.currentThread();
@@ -81,7 +84,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
             hora();
             txthora.setText(hora + ":" + minutos + ":" + segundos);
         }
-    }
+    }//fin 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -205,7 +208,7 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
 
         btnpercepsiones.setBackground(new java.awt.Color(0, 153, 204));
         btnpercepsiones.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        btnpercepsiones.setText("Percepciones y deducciones");
+        btnpercepsiones.setText("Persepciones y deducciones");
         btnpercepsiones.setBorder(null);
         btnpercepsiones.setContentAreaFilled(false);
         btnpercepsiones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -425,13 +428,14 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+//minimizar la ventana 
         this.setExtendedState(ICONIFIED);
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+//regresar a ventana anterior 
         String dep = lblcargo.getText();
         String nom = lblnombrerh.getText();
         menuopciones us = new menuopciones();
@@ -447,10 +451,12 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel5MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseDragged
+     //movilizacion de la ventana con un jlabel
         this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel5MouseDragged
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+     //animacion para el menu de opciones
         int posicion = btnMenu.getX();
         if (posicion > 5) {
             Animacion.Animacion.mover_izquierda(211, 5, 2, 2, btnMenu);
@@ -464,7 +470,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnincidenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnincidenciasActionPerformed
- RH_Incidencias inc = new RH_Incidencias();
+//apartado de registro de incidencias
+        RH_Incidencias inc = new RH_Incidencias();
         RH_Incidencias.lblnombrerh.setText(lblnombrerh.getText());
         RH_Incidencias.lblcargo.setText(lblcargo.getText());
         nombre = RH_Inicio.lblnombrerh.getText();
@@ -474,7 +481,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btnincidenciasActionPerformed
 
     private void btnlistadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistadoActionPerformed
- String dep = lblcargo.getText();
+    //btn listado del personal
+        String dep = lblcargo.getText();
           String nom = lblnombrerh.getText();
 
           try {
@@ -489,7 +497,8 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_btnlistadoActionPerformed
 
     private void btnnuevasincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevasincActionPerformed
-try {
+///btn para acceder al crear persepciones y deducciones
+        try {
             RH_NewPercepciones inc = new RH_NewPercepciones();
             RH_NewPercepciones.lblnombrerh.setText(lblnombrerh.getText());
             RH_NewPercepciones.lblcargo.setText(lblcargo.getText());
@@ -503,7 +512,8 @@ try {
     }//GEN-LAST:event_btnnuevasincActionPerformed
 
     private void btnusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnusuariosActionPerformed
-     String dep = lblcargo.getText();
+//btn entrar a registro de ususario y asignacion de usuarios
+        String dep = lblcargo.getText();
         String nom = lblnombrerh.getText();
         RH_registrarusrs usur = new RH_registrarusrs();
         RH_registrarusrs.lblnomjefe.setText(nom);
@@ -513,7 +523,8 @@ try {
     }//GEN-LAST:event_btnusuariosActionPerformed
 
     private void btnpercepsionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpercepsionesActionPerformed
-     try {
+//btnm para entrar a percepciones y deducciones 
+        try {
             RH_NewPercepciones inc = new RH_NewPercepciones();
             RH_NewPercepciones.lblnombrerh.setText(lblnombrerh.getText());
             RH_NewPercepciones.lblcargo.setText(lblcargo.getText());
@@ -527,7 +538,8 @@ try {
     }//GEN-LAST:event_btnpercepsionesActionPerformed
 
     private void btnusuarioconinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnusuarioconinActionPerformed
- String dep = lblcargo.getText();
+//btn entrar a usuarios con incidencias
+        String dep = lblcargo.getText();
         String nom = lblnombrerh.getText();
         try {
             RH_UsuariosConIncidencias usu = new RH_UsuariosConIncidencias();
@@ -541,7 +553,8 @@ try {
     }//GEN-LAST:event_btnusuarioconinActionPerformed
 
     private void btnsinincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsinincActionPerformed
-   String dep = lblcargo.getText();
+   // btn para entrar a usuarios sin incidencias
+        String dep = lblcargo.getText();
         String nom = lblnombrerh.getText();
         try {
             RH_UsuariosSinIncidencias usu = new RH_UsuariosSinIncidencias();

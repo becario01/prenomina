@@ -44,12 +44,12 @@ public class Asignacion extends javax.swing.JFrame {
         lblnombrejefe.setHorizontalAlignment(lblnombrejefe.CENTER);
         lblcargojefe.setHorizontalAlignment(lblcargojefe.CENTER);
     }
-
+//columanas de la tabla 
       private String[] getColumas(){
         String columna[]={"Tipo Usuario ","Nombre","Empleado ID","Asignar"};
         return columna;
     }
-      
+      //mostrar los datos de usuario a los que seran asignados
          private void SetFilas(){
                    tblasig.setDefaultRenderer(Object.class, new Render());
         JButton btn1 = new JButton("Asignar");
@@ -211,7 +211,8 @@ public class Asignacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblasigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblasigMouseClicked
-    int column = tblasig.getColumnModel().getColumnIndexAtX(evt.getX());
+ //si la tabla es pulsada ver la ventan para asignar 
+        int column = tblasig.getColumnModel().getColumnIndexAtX(evt.getX());
         int row = evt.getY()/tblasig.getRowHeight();
         
         if(row < tblasig.getRowCount() && row >= 0 && column < tblasig.getColumnCount() && column >= 0){

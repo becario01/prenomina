@@ -59,6 +59,7 @@ public class Jflogin extends javax.swing.JFrame {
             btnconfig.setVisible(false);
         }
     }
+    //clase para datos iniciales de configuracion
   public boolean consultar() {
         boolean datos = false;
         try {
@@ -85,8 +86,8 @@ public class Jflogin extends javax.swing.JFrame {
          EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-              
-
+                
+                
                 ImageIcon icon = new ImageIcon(Jflogin.class.getResource("/View/img/question.png"));
           
                 JOptionPane.showMessageDialog(
@@ -97,6 +98,7 @@ public class Jflogin extends javax.swing.JFrame {
             }
         });
  }
+  //finclase de configuracion 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

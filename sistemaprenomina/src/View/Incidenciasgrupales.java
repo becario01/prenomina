@@ -53,20 +53,10 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         rin = new Nomincidencia();
         sle = new select_incidencia();
         initComponents();
-        cargarModeloSem();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
 
-    }
-
-    private void cargarModeloSem() {
-        ArrayList<Rincidencia> listaSemanas;
-        listaSemanas = rin.obtenerIncnidecnias();
-        modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1, 1));
-        for (Rincidencia semana : listaSemanas) {
-            modeloselincidencia.addElement(semana);
-        }
     }
 
    
@@ -94,12 +84,13 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         return rows;
 
     }
-
+//calse para el rango de fechas 
     public String guardar(String Fechainicio, String Fechafin) throws SQLException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         select_incidencia sin = new select_incidencia();
         select_fechas selc = new select_fechas();
         String Finicio = Fechainicio;
+        //separar fecha inicion y fin y convertir a int 
         String[] parts = Finicio.split("-");
         int añoi = Integer.parseInt(parts[0]);
         int mesi = Integer.parseInt(parts[1]);
@@ -112,16 +103,19 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         int diaf = Integer.parseInt(part[2]);
 
         Calendar c1 = Calendar.getInstance();
+        //enviar la variables de año,mes,dia
         c1.set(añoi, mesi - 1, diai);
         Calendar c2 = Calendar.getInstance();
         c2.set(añof, mesf - 1, diaf);
         String fecha = "";
+        //lamamos la clase de rango de fechas
         java.util.List<java.util.Date> listaEntreFechas = getListaEntreFechas(c1.getTime(), c2.getTime());
             int result = 0;
+            //lista de fechas
         for (Date date : listaEntreFechas) {
             fecha = sdf.format(date);
             int tabla = jtbdatosgrupos.getRowCount();
-        
+        //obtener todos lo usuarios de la tabla 
             for (int i = 0; i < tabla; i++) {
                 try {
                     String codigos = jtbdatosgrupos.getValueAt(i, 0).toString();
@@ -133,6 +127,7 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
                     String indi = select_incidencia.obtenerDiaSemana(fecha);
                     String horastrab = "10";
                     String cantidad =" ";
+                    //clase para registrar incidencias
                     result = registrargrupos(codigo, indi, fecha, cantidad, comentario, idsemana, idinc, horastrab);
                 } catch (ParseException ex) {
                     Logger.getLogger(Incidenciasgrupales.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,7 +141,7 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         }
         return fecha;
     }
-
+//clase para obtener el rango de fechas
     public java.util.List<java.util.Date> getListaEntreFechas(java.util.Date fechaInicio, java.util.Date fechaFin) {
 
         Calendar c1 = Calendar.getInstance();

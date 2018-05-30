@@ -54,12 +54,12 @@ public class destallesJA extends javax.swing.JFrame {
         tbjdetallesjefes.getColumnModel().getColumn(2).setPreferredWidth(200);
 
     }
-
+//mostra nombre de columnas del modelo de la tabla 
     private String[] getColumas() {
         String columna[] = {"Dia", "Fecha", "Incidencia"};
         return columna;
     }
-
+//ver datos en el modelo de la tabla  con el intervalo de fechas
     public void inrtevalofechas(String Fechainicio, String Fechafin) throws ParseException, SQLException {
         tbjdetallesjefes.setDefaultRenderer(Object.class, new Render());
         String sql = "SELECT  DATENAME(dw, inc.fecha)as diasemana, inc.*,nomin.nombre FROM incidencias inc  left JOIN NomIncidencia nomin on  inc.idNomIncidencia = nomin.idNomIncidencia WHERE inc.fecha  BETWEEN '" + Fechainicio + "' and '" + Fechafin + "'   and  inc.empleadoId ='" + txtidempleado.getText() + "' order by inc.fecha asc  ";
@@ -80,7 +80,7 @@ public class destallesJA extends javax.swing.JFrame {
             centrar_datos();
         }
     }
-
+//clase para convertir la primera letra en mayuscula
     public static String mayus(String str) {
         if (str.isEmpty()) {
             return str;
@@ -88,21 +88,7 @@ public class destallesJA extends javax.swing.JFrame {
             return Character.toUpperCase(str.charAt(0)) + str.substring(1);
         }
     }
-
-    public java.util.List<Date> getListaEntreFechas(Date fechaInicio, Date fechaFin) {
-
-        Calendar c1 = Calendar.getInstance();
-        c1.setTime(fechaInicio);
-        Calendar c2 = Calendar.getInstance();
-        c2.setTime(fechaFin);
-        java.util.List<Date> listaFechas = new java.util.ArrayList<Date>();
-        while (!c1.after(c2)) {
-            listaFechas.add(c1.getTime());
-            c1.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        return listaFechas;
-    }
-
+    //clase para centrar datos de la tabla 
     public void centrar_datos() {
 
         DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
@@ -117,7 +103,7 @@ public class destallesJA extends javax.swing.JFrame {
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }//fin filtro 
-
+//liampiar modelo de la tabla 
      public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
@@ -297,16 +283,19 @@ public class destallesJA extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
+     //mover fventana 
         this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
+       //variables para al ser presionada se pueda mover 
         x = evt.getX();
         y = evt.getY();
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-try {
+//btn para buscar los datos 
+        try {
     limpiar(modelodetalles);
     
         if (txtinicio == null && txtfin == null) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
@@ -319,6 +308,7 @@ try {
                 SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
                 String finici = txtinicio.getText();
                 String ffin = txtfin.getText();
+                //enviar fecha incio y fin para ver los datos 
                 inrtevalofechas(finici,ffin); 
         }
         } catch (ParseException ex) {
@@ -329,6 +319,7 @@ try {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+       //filtro de busqueda 
         txtBuscar.addKeyListener(new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
                 String cadena = txtBuscar.getText();
@@ -342,7 +333,8 @@ try {
     }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void txtinicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtinicioMouseClicked
- try {
+ //mostra calendario para seleccionar la fecha al dar click
+        try {
             JA_Calendario cale = new JA_Calendario(8);
             cale.show();
         } catch (ParseException e) {
@@ -351,7 +343,8 @@ try {
     }//GEN-LAST:event_txtinicioMouseClicked
 
     private void txtfinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtfinMouseClicked
- try {
+ //mostra calendario para fecha  al dar click
+        try {
             JA_Calendario cale = new JA_Calendario(9);
             cale.show();
         } catch (ParseException e) {

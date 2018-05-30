@@ -33,7 +33,7 @@ public class login {
     public login(Connection conn) {
         this.userConn = conn;
     }
-
+//clase para validadcion de usuarios a base de datos
     public boolean validar_ingreso(String usuario, String pass) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -81,4 +81,5 @@ public class login {
         }
         return true;
     }
+    //fin clase validacion de datos
 }

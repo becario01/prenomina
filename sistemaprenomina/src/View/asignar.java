@@ -57,7 +57,7 @@ public class asignar extends javax.swing.JFrame {
         String columna[] = {"EmpleadoID", "Nombre"};
         return columna;
     }
-
+//clase para mostrar los empleados que estan asignados
     public void SetFilas(String id) {
 
         try {
@@ -82,8 +82,9 @@ public class asignar extends javax.swing.JFrame {
             Conexion.close(stmt);
         }
 
-    }
-
+    }//fin de clase asignados
+    
+///clase para mostrar listado de empleados no asignados 
     public void setFilasnoasig() throws SQLException {
         String sql = "SELECT  emp.empleadoId, emp.nombre FROM empleados emp \n"
                 + "LEFT JOIN asignacion asg ON emp.empleadoId = asg.empleadoId \n"
@@ -101,8 +102,8 @@ public class asignar extends javax.swing.JFrame {
             }
             modelonoasiganados.addRow(datos);
         }
-    }
-
+    }//fin clase no asignados
+//clase para inserta los empleados a usuario jefe
     public int insert(String empleadoid, String iduser) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -123,8 +124,9 @@ public class asignar extends javax.swing.JFrame {
             }
         }
         return rows;
-    }
-
+    }//fin de clase para insertar empleados
+    
+//clase para eliminar empleados asignados
     public int delete(String empleadoid) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -145,15 +147,16 @@ public class asignar extends javax.swing.JFrame {
             }
         }
         return rows;
-    }
+    }//fin para eliminar  empleados
 
+    //limpiar tabla del modelo 
     public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
             i -= 1;
         }
 
-    }
+    }//fin  limpiar  
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -327,6 +330,7 @@ public class asignar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+///seleccion individual  de mepleados para  asignar
         int fila = tblnoasignados.getSelectedRow();
         if (fila >= 0) {
             int cuentaFilasSeleccionadas = tblnoasignados.getSelectedRowCount();
@@ -345,6 +349,7 @@ public class asignar extends javax.swing.JFrame {
                     Logger.getLogger(asignar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
+                ///grupo de usuarios seleccionados para asignar 
                 int[] indicesfilasSeleccionadas = tblnoasignados.getSelectedRows();
                 try {
                     for (int indice : indicesfilasSeleccionadas) {
@@ -368,6 +373,7 @@ public class asignar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+///ocultar ventana para regresar 
         this.hide();
     }//GEN-LAST:event_jButton4ActionPerformed
 

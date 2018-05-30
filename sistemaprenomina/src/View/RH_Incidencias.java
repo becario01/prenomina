@@ -24,78 +24,79 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class RH_Incidencias extends javax.swing.JFrame {
-   public static String nombre="";
-   public static String cargo="";
 
-   DefaultTableModel modeloincidencias = new DefaultTableModel(null,getColums());
-      public static ResultSet rs;
-      private Connection userConn;
-      private TableRowSorter trsFiltro;
-      private PreparedStatement st;
-      Conexion con = new Conexion();
-      Connection conn;
-      PreparedStatement stmt;
-      Nomincidencia nom;
-      
+    public static String nombre = "";
+    public static String cargo = "";
+//variable del modelo de la tabla de registros 
+    DefaultTableModel modeloincidencias = new DefaultTableModel(null, getColums());
+    //variable del filtro 
+    private TableRowSorter trsFiltro;
+    //variables para la conexion a la base de datos
+    private PreparedStatement st;
+    public static ResultSet rs;
+    private Connection userConn;
+    Conexion con = new Conexion();
+    Connection conn;
+    PreparedStatement stmt;
+    Nomincidencia nom;
+
     public RH_Incidencias() {
-          nom = new Nomincidencia();
-        modeloincidencias = new DefaultTableModel(null,getColums());
+        nom = new Nomincidencia();
+        modeloincidencias = new DefaultTableModel(null, getColums());
+       //cargar  datos al abrir la ventana
         SetFilas();
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
-        
-    }
 
-      private String[] getColums(){
-        
-        String columna[]={"Clave","Nombre","Estatus"};
-           return columna;
-        
     }
-        
-         private void SetFilas(){
-            
-       
-            try {
-                 String sql = "select idNomIncidencia, nombre,estatus from nomIncidencia";
-                  conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-                  stmt = conn.prepareStatement(sql);
-                  rs = stmt.executeQuery();
-                  Object datos[] = new Object[3];
-                while (rs.next()) {
-                    for (int i = 0; i < 3; i++) {
-                        datos[0] = rs.getString("idNomIncidencia");
-                        datos[1] = rs.getString("nombre");
-                        int est = rs.getInt("estatus");
-                        if (est== 1){
+//clase columnas para el modelo de la tabla
+
+    private String[] getColums() {
+        String columna[] = {"Clave", "Nombre", "Estatus"};
+        return columna;
+
+    }//fin de la clase
+    //mostrar registros de la tabl a incidencias en el modelo de la tabla 
+
+    private void SetFilas() {
+        try {
+            String sql = "select idNomIncidencia, nombre,estatus from nomIncidencia";
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            Object datos[] = new Object[3];
+            while (rs.next()) {
+                for (int i = 0; i < 3; i++) {
+                    datos[0] = rs.getString("idNomIncidencia");
+                    datos[1] = rs.getString("nombre");
+                    int est = rs.getInt("estatus");
+                    if (est == 1) {
                         datos[2] = "Activo";
-                        }else{
+                    } else {
                         datos[2] = "Inactivo";
-                        }
                     }
-                    modeloincidencias.addRow(datos);
                 }
-                      
-//                        tabla1.addRow(datos);
-             } catch (Exception e) {
-                System.out.println(""+e);
-             }finally{
-                 Conexion.close(rs);
-                  Conexion.close(stmt);
-             }
-             
-           
-         }
-   public void limpiar(DefaultTableModel tabla) {
-            for (int i = 0; i < tabla.getRowCount(); i++) {
-                  tabla.removeRow(i);
-                  i -= 1;
+                modeloincidencias.addRow(datos);
             }
+//                        tabla1.addRow(datos);
+        } catch (Exception e) {
+            System.out.println("" + e);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+        }
+    }//fin clase vista de registros modelo tabla 
+    //clase para  limpiar la tabla 
 
-      }
-   
+    public void limpiar(DefaultTableModel tabla) {
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            tabla.removeRow(i);
+            i -= 1;
+        }
+    }//fin clase para limpiar la tabla
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -316,17 +317,20 @@ public class RH_Incidencias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-System.exit(0);        // TODO add your handling code here:
+        //boton salir 
+        System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-  this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
+        //boton para minimizar la ventana
+        this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-cargo= RH_Inicio.depto;
-nombre= RH_Inicio.nombre;
-        RH_Inicio rh_i=new RH_Inicio();
+        //boton para regresar a ventana anterior
+        cargo = RH_Inicio.depto;
+        nombre = RH_Inicio.nombre;
+        RH_Inicio rh_i = new RH_Inicio();
         rh_i.setVisible(true);
         RH_Inicio.lblcargo.setText(cargo);
         RH_Inicio.lblnombrerh.setText(nombre);
@@ -334,33 +338,33 @@ nombre= RH_Inicio.nombre;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void actincActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actincActionPerformed
-         int fila = tblincidencias.getSelectedRow();
-        int estatus=0;
-            if (fila >= 0) {
-                  String cod = tblincidencias.getValueAt(fila, 0).toString();
-                  String status = tblincidencias.getValueAt(fila,2).toString();
-             
-                 
-                 
+        //activar incidencias 
+        int fila = tblincidencias.getSelectedRow();
+        int estatus = 0;
+        if (fila >= 0) {
+            String cod = tblincidencias.getValueAt(fila, 0).toString();
+            String status = tblincidencias.getValueAt(fila, 2).toString();
+
             try {
-                  nom.Activar(cod);
-                  limpiar(modeloincidencias);
-                  SetFilas();
-                  JOptionPane.showMessageDialog(null, "Incidencia Desactivada");
+                nom.Activar(cod);
+                limpiar(modeloincidencias);
+                SetFilas();
+                JOptionPane.showMessageDialog(null, "Incidencia Desactivada");
             } catch (SQLException ex) {
                 Logger.getLogger(RH_Incidencias.class.getName()).log(Level.SEVERE, null, ex);
             }
-            } else {
-                  JOptionPane.showMessageDialog(null, "Selecione una fila ");
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione una fila ");
+        }
     }//GEN-LAST:event_actincActionPerformed
 
     private void desciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desciActionPerformed
+        //desactivar incidencia
         int fila = tblincidencias.getSelectedRow();
-        int estatus=0;
-            if (fila >= 0) {
-                  String cod = tblincidencias.getValueAt(fila, 0).toString();
-                  String status = tblincidencias.getValueAt(fila,2).toString();
+        int estatus = 0;
+        if (fila >= 0) {
+            String cod = tblincidencias.getValueAt(fila, 0).toString();
+            String status = tblincidencias.getValueAt(fila, 2).toString();
             try {
                 nom.Desactivar(cod);
                 limpiar(modeloincidencias);
@@ -370,12 +374,13 @@ nombre= RH_Inicio.nombre;
             } catch (SQLException ex) {
                 Logger.getLogger(RH_Incidencias.class.getName()).log(Level.SEVERE, null, ex);
             }
-            } else {
-                  JOptionPane.showMessageDialog(null, "Selecione una fila ");
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione una fila ");
+        }
     }//GEN-LAST:event_desciActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        //txtfield para buscar registros dentro del modelo de la tabla
         limpiar(modeloincidencias);
         String cadenaBusqueda = txtBuscar.getText();
 
@@ -385,15 +390,15 @@ nombre= RH_Inicio.nombre;
 
         modeloincidencias.setNumRows(numeroProductos);
 
-        for(int i = 0; i < numeroProductos; i++){
+        for (int i = 0; i < numeroProductos; i++) {
             Rincidencia inc = listarIncidencias.get(i);
             int clave = inc.getIdNomIncidencia();
             String nombre = inc.getIncidencia();
             int estatus = inc.getEstatus();
             String estatu;
-            if (estatus== 1) {
+            if (estatus == 1) {
                 estatu = "Activo";
-            }else{
+            } else {
                 estatu = "Inactivo";
 
             }
@@ -406,16 +411,20 @@ nombre= RH_Inicio.nombre;
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void GuardarInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarInActionPerformed
-        String NomIncidencia= txtNomIncidencia.getText();
-        int dias =Integer.parseInt(txtdias.getText());
+        //guardar  registro de incidencias nuevas
+        String NomIncidencia = txtNomIncidencia.getText();
+        int dias = Integer.parseInt(txtdias.getText());
         if (NomIncidencia.equals("")) {
-            JOptionPane.showMessageDialog(null,"El campo esta vacio","",JOptionPane.WARNING_MESSAGE);
-        }else{
+            JOptionPane.showMessageDialog(null, "El campo esta vacio", "", JOptionPane.WARNING_MESSAGE);
+        } else {
             try {
-
-                nom.insert(NomIncidencia,dias);
+                //llamar funcion insertar incidencias nuevas 
+                nom.insert(NomIncidencia, dias);
+                //limpar txt del nombre de la incidenca
                 txtNomIncidencia.setText("");
+                //limpiar el modelo de la tabla
                 limpiar(modeloincidencias);
+                //cargar filas de los datos en la tabal
                 SetFilas();
             } catch (SQLException ex) {
                 Logger.getLogger(RH_Incidencias.class.getName()).log(Level.SEVERE, null, ex);

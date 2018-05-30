@@ -50,8 +50,9 @@ public class reptxtran extends javax.swing.JFrame {
         AWTUtilities.setWindowShape(this, forma);
         
     }
-
+//clase para generar el reporte en txt dependiendo del intervalo de fechas
     public void intervalo(String fechainicio,String fechafin) throws SQLException {
+      //abrir ventana para guardar el archivo 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.txt", "txt", "TXT"));//filtro para ver solo archivos .edu
         int seleccion = fileChooser.showSaveDialog(null);
@@ -63,7 +64,7 @@ public class reptxtran extends javax.swing.JFrame {
                 BufferedWriter bw = new BufferedWriter(printwriter);
                 PreparedStatement nstmt = null;
                 ResultSet interno = null;
-                
+               // obtener el id y nombre del empleado
                 String sql = "SELECT DISTINCT  empleadoId  from incidencias";
                 conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
@@ -72,6 +73,7 @@ public class reptxtran extends javax.swing.JFrame {
                     String idempleado = rs.getString("empleadoId");
                      bw.write("E\t" + idempleado);
                         bw.newLine();
+                        //obtener incidencias 
                     String incidencias = " select DISTINCT nomi.nombre,inc.fecha,inc.horasExtra from incidencias inc  inner join NomIncidencia nomi   on inc.idNomIncidencia  = nomi.idNomIncidencia where  inc.fecha  BETWEEN  '"+fechainicio+"' and '"+fechafin+"' and  inc.empleadoId ='" + idempleado + "' ";
                     conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                     stmt = conn.prepareStatement(incidencias);
@@ -89,6 +91,7 @@ public class reptxtran extends javax.swing.JFrame {
                         String incidencia = "D " + nomcidencia;
                         Calendar cal = Calendar.getInstance();
                         int añoact = cal.get(Calendar.YEAR);
+                      //validar enumero de digitos  y si no cumple rellenar con espacios en blanco 
                         if (incidencia.length() < 40) {
                             for (int i = incidencia.length(); i < 40; i++) {
                                 incidencia += " ";
@@ -202,7 +205,8 @@ public class reptxtran extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btntxtreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntxtreporteActionPerformed
-   try {  if (jDateChooser2.getDate() == null && jDateChooser1.getDate() == null) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
+  //enviar datos a clase para generrar el reporte txt 
+        try {  if (jDateChooser2.getDate() == null && jDateChooser1.getDate() == null) {//devuelve verdadero si es ese mismo el botón que se ha pulsado
                 JOptionPane.showMessageDialog(null, "Ambos campos estas vacios");
             } else if (jDateChooser1.getDate() == null) {
                 JOptionPane.showMessageDialog(null, "El campo Fecha fin esta vacio");
@@ -237,6 +241,7 @@ public class reptxtran extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+//regresar al ventana anterior 
         try {
             RH_UsuariosConIncidencias rsh = new RH_UsuariosConIncidencias();
            RH_UsuariosConIncidencias.TstVentNvoPres=false;

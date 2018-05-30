@@ -41,7 +41,6 @@ public class select_incidencia extends javax.swing.JFrame {
         modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
         rin = new Nomincidencia();
         rjf = new Rjefes();
-        cargarModeloSem();
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -49,7 +48,7 @@ public class select_incidencia extends javax.swing.JFrame {
         cantidadhoras.hide();
         lblcant.hide();
     }
-
+//calse para mostrar datos del usuario que inicio sesion 
     public void mostrardatos(Object cod, Object nombre) {
         String nom = (String) nombre;
         Object codi = cod;
@@ -58,15 +57,7 @@ public class select_incidencia extends javax.swing.JFrame {
 
     }
 
-    private void cargarModeloSem() {
-        ArrayList<Rincidencia> listaSemanas;
-        listaSemanas = rin.obtenerIncnidecnias();
-//  modeloselincidencia.addElement(new Rincidencia(0, "Selecciona opcion", 1,1));
-        for (Rincidencia semana : listaSemanas) {
-            modeloselincidencia.addElement(semana);
-        }
-    }
-
+//clase para opener dia de la semana 
     public static String obtenerDiaSemana(String fechaP) throws ParseException {
         String[] dias = {"D", "L", "Ma", "Mi", "J", "V", "S"};
         String aux = "";
@@ -94,35 +85,7 @@ public class select_incidencia extends javax.swing.JFrame {
         return aux;
     }//metodo obtenerDia
 
-//    public void verfechas(int codigoemp, String dia, String fecha, String horaextra, String comentario, int idNominci, String horastrab) {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-////        EJefes semana = (EJefes) JA_inicio.cmbSemana.getSelectedItem();
-////        int id = semana.getIdSemana();
-//        try {
-//            String sql = "select  * from incidencias where  empleadoId='" + codigoemp + "' and fecha='" + fecha + "' and idSemana='" + id + "'  and dia='" + dia + "'";
-//            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            rs = stmt.executeQuery();
-//
-//            if (!rs.next()) {
-//                RegistrarIncidencia regin = new RegistrarIncidencia();
-//                regin.insert(codigoemp, dia, fecha, horaextra, comentario, id, idNominci, horastrab);
-//            } else {
-//
-//                JOptionPane.showMessageDialog(rootPane, "Está persona cuenta con incidencia en este dia!!", "Warning",
-//                        JOptionPane.WARNING_MESSAGE);
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println("" + e);
-//        } finally {
-//            Conexion.close(rs);
-//            Conexion.close(stmt);
-//        }
-//
-//    }
+//clase para validar si los datos en el campo son  numeros
     public static boolean isNumeric(String cadena) {
         try {
             Integer.parseInt(cadena);
@@ -131,7 +94,7 @@ public class select_incidencia extends javax.swing.JFrame {
             return false;
         }
     }
-
+//obtener intervalo de fechas y guradar en ese intervalo
     public void intervalo(String Fechainicio, String Fechafin) throws SQLException {
 
         String Finicio = Fechainicio;
@@ -182,7 +145,7 @@ public class select_incidencia extends javax.swing.JFrame {
                 rs = stmt.executeQuery();
                  
                 if (!rs.next()) {
-//                   datos = inc.insert(idempr, indi, fe, horasest, comentarios, idsemana, idinc, horastrab);
+                   datos = inc.insert(idempr, indi, fe, horasest, comentarios, idsemana, idinc, horastrab);
                 }else{
                   String fechar = rs.getString("fecha");
                  al.add(fechar);

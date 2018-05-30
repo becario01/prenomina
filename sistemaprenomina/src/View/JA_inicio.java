@@ -48,7 +48,7 @@ public class JA_inicio extends javax.swing.JFrame {
     PreparedStatement stmt;
     public static boolean TstVentNvoPres = false;
     int x, y;
-     Incidenciasgrupales ing;
+    Incidenciasgrupales ing;
 
     public JA_inicio() {
         ing = new Incidenciasgrupales();
@@ -58,9 +58,9 @@ public class JA_inicio extends javax.swing.JFrame {
         this.getContentPane().setBackground(new java.awt.Color(51, 102, 255));
         JTableHeader anHeader = tbIncidencias.getTableHeader();
         anHeader.setFont(new java.awt.Font("Segoe UI", 0, 12));
-         tbIncidencias.setRowHeight(25);
-         
-
+        tbIncidencias.setRowHeight(25);
+    
+    
     }
 
     // clase columanas para el modelo de la tabla 
@@ -69,10 +69,13 @@ public class JA_inicio extends javax.swing.JFrame {
         return columna;
     }//fin del clase
 
+//calse para el filtro de busque en el modelo de la tabla 
     public void filtroBusqueda(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }
+    //fin clase filtro 
 
+    //clase para cargar filas al modelo de la tabla 
     public void filas(int iduser) {
         tbIncidencias.setDefaultRenderer(Object.class, new Render());
         //añadimos boton a columna de la tabla 
@@ -102,13 +105,16 @@ public class JA_inicio extends javax.swing.JFrame {
             Conexion.close(stmt);
         }
     } //fin del la clase de filas 
-        public void limpiar(DefaultTableModel tabla) {
+    //<--clase para limpiar la tabla 
+
+    public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
             i -= 1;
         }
 
     }
+// fin clase limpiar -->
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -320,6 +326,7 @@ public class JA_inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseDragged
 
     private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
+      //parametros para mover ventanas del Frame
         x = evt.getX();
         y = evt.getY();
     }//GEN-LAST:event_jLabel6MousePressed
@@ -329,16 +336,16 @@ public class JA_inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_pmiRegistrarMouseClicked
 
     private void pmiRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmiRegistrarActionPerformed
-
-            int cuentaFilasSeleccionadas = tbIncidencias.getSelectedRowCount();   
+// insercon de incidencias por grupos e individuales
+        int cuentaFilasSeleccionadas = tbIncidencias.getSelectedRowCount();
         if (cuentaFilasSeleccionadas == 1) {
-        int fila = tbIncidencias.getSelectedRow();
+            int fila = tbIncidencias.getSelectedRow();
             String empid = tbIncidencias.getValueAt(fila, 0).toString();
             String nombre = tbIncidencias.getValueAt(fila, 1).toString();
-            select_incidencia slc = new  select_incidencia();
+            select_incidencia slc = new select_incidencia();
             slc.show();
-            slc.mostrardatos(empid,nombre);
-                } else {
+            slc.mostrardatos(empid, nombre);
+        } else {
 
             TableModel model1 = tbIncidencias.getModel();
             int indexs[] = tbIncidencias.getSelectedRows();
@@ -355,11 +362,12 @@ public class JA_inicio extends javax.swing.JFrame {
 
             ing.setVisible(true);
 
-        }      
+        }
 
     }//GEN-LAST:event_pmiRegistrarActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+      //filtro de busqueda en el modelo de la tabla
         txtBuscar.addKeyListener(new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
 
