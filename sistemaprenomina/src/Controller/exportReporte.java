@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import static View.RH_ListadoPersonal.rs;
 //import static View.RH_UsuariosConIncidencias.rs;
 import java.io.*;
@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,7 +66,7 @@ public class exportReporte {
     boolean vi = false;
     boolean sa = false;
     public static String fec[] = new String[7];
-
+//se crean listado de encabezados de los empleados 
     public static List<String> getTableHeaders() {
         List<String> tableHeader = new ArrayList<String>();
         tableHeader.add("ID");
@@ -78,37 +79,7 @@ public class exportReporte {
         tableHeader.add("");
         return tableHeader;
     }
-//
-//    public static List<String> getTableHeaders2(int idSemana) {
-//        fechas(idSemana);
-//        List<String> tableHeader = new ArrayList<String>();
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("LUNES    "+fec[0]);
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("MARTES    "+fec[0]);
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("MIERCOLES    "+fec[0]);
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("JUEVEZ    "+fec[0]);
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("VIERNES    "+fec[0]);
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("SABADO    "+fec[0]);
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        tableHeader.add("DOMINGO    "+fec[0]);
-//        tableHeader.add("");
-//        tableHeader.add("");
-//        return tableHeader;
-//    }
+    //se crea listado de los encabezados de registos de incidencias 
     public static List<String> getTableregistros() {
         List<String> tableregistros = new ArrayList<String>();
         tableregistros.add("INCIDENCIA");
@@ -119,94 +90,8 @@ public class exportReporte {
         tableregistros.add("HS     ");
         tableregistros.add("HT     ");
         tableregistros.add("HEX");
-    
- 
-
         return tableregistros;
     }
-    public static int dia(String fec) {
 
-        String nomdia = "";
-        int dia = 0;
-
-        GregorianCalendar cal = new GregorianCalendar();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {
-
-            Date fecha = formato.parse(fec);
-            cal.setTime(fecha);
-            dia = cal.get(Calendar.DAY_OF_WEEK);
-
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(null, "Errorn en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-
-        }
-
-        return dia;
-
-    }
-
-    public static int contador() {
-
-        int con = 0;
-        String sql = "SELECT DISTINCT inc.empleadoId  \n"
-                + "                 from incidencias inc\n"
-                + "               INNER JOIN empleados emp on inc.empleadoId= emp.empleadoId\n"
-                + "                 INNER JOIN semanas se on inc.idSemana= se.idSemana\n"
-                + "                 where inc.idSemana='1' ";
-
-        try {
-            conn2 = Conexion1.getConnection();
-            stmt2 = conn2.prepareStatement(sql);
-            rs2 = stmt2.executeQuery();
-            while (rs2.next()) {
-                con = rs2.getRow();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs2);
-            Conexion1.close(stmt2);
-            if (userConn2 == null) {
-                Conexion1.close(conn2);
-            }
-        }
-
-        return con;
-
-    }
-
-    public static String[] fechas(int idSemana) {
-
-        String sql = "SELECT * from semanas where idSemana='" + idSemana + "' ";
-
-        try {
-            conn2 = Conexion1.getConnection();
-            stmt2 = conn2.prepareStatement(sql);
-            rs2 = stmt2.executeQuery();
-            while (rs2.next()) {
-                fec[0] = rs2.getString("fechaL");
-                fec[1] = rs2.getString("fechaMa");
-                fec[2] = rs2.getString("fechaMi");
-                fec[3] = rs2.getString("fechaJ");
-                fec[4] = rs2.getString("fechaV");
-                fec[5] = rs2.getString("fechaS");
-                fec[6] = rs2.getString("fechaD");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs2);
-            Conexion1.close(stmt2);
-            if (userConn2 == null) {
-                Conexion1.close(conn2);
-            }
-        }
-
-        return fec;
-
-    }
 
 }

@@ -5,7 +5,7 @@
  */
 package View;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import Controller.PercepcionesDeducciones;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,11 +40,12 @@ Connection conn;
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
         combopercepciones();
     }
+    //carga las percepciones activas al combo 
       public void combopercepciones() {
 
         String sql = "select * from nomPercepciones where estatus=1";
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             cmbPercep.addItem("-SELECCIONE UNA OPCION-");
@@ -56,10 +57,10 @@ Connection conn;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
     }
@@ -77,8 +78,8 @@ Connection conn;
         jComboBox7 = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         lblnombre = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnmini = new javax.swing.JButton();
+        btnregresar = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         txtFecha = new javax.swing.JTextField();
@@ -104,25 +105,25 @@ Connection conn;
         lblnombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel2.add(lblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 310, 20));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnmini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
+        btnmini.setBorderPainted(false);
+        btnmini.setContentAreaFilled(false);
+        btnmini.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnminiActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 32, 30));
+        jPanel2.add(btnmini, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 32, 30));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
+        btnregresar.setBorderPainted(false);
+        btnregresar.setContentAreaFilled(false);
+        btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnregresarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 32, 30));
+        jPanel2.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 32, 30));
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 50));
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/save1.png"))); // NOI18N
@@ -209,22 +210,23 @@ Connection conn;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnminiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminiActionPerformed
         this.setExtendedState(ICONIFIED);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnminiActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+    private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
+//regresa a la ventana anterior 
         try {
             this.show(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnregresarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       try {
+     //obtiene los datos ingresado y guarda la percepcion 
+        try {
              String idempleado = idemp;
         String fecha= txtFecha.getText();
         String nomper= cmbPercep.getSelectedItem().toString();
@@ -244,7 +246,8 @@ Connection conn;
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtFechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMouseClicked
-     try {
+     //abre el calendario para asignar fechas 
+        try {
             RH_Calendario2 cale = new RH_Calendario2(5);
             cale.show(true);
         } catch (ParseException e) {
@@ -256,7 +259,7 @@ public int percecp( String nom){
      
 int codigo=0;
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -265,10 +268,10 @@ int codigo=0;
         } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
         return codigo;
@@ -308,9 +311,9 @@ int codigo=0;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnmini;
+    private javax.swing.JButton btnregresar;
     private javax.swing.JComboBox<String> cmbPercep;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox7;
     private javax.swing.JLabel jLabel14;

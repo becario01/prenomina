@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -244,41 +244,6 @@ public class EstiloPercepReport {
 
         return style;
     }
-
-//    public static int contador(int semana,String nomdep) {
-// String sql="";
-//        int con = 0;
-//        if(nomdep.contains("-SELECCIONE UNA OPCION-")){
-//        sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
-//                + "FROM percepciones per \n"
-//                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-//                + "where per.idSemana='" + semana + "'";
-//        }else{
-//            sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
-//                + "FROM percepciones per \n"
-//                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-//                + "where per.idSemana='" + semana + "' and em.depto='"+nomdep+"'";
-//        }
-//        try {
-//            conn = Conexion1.getConnection();
-//            stmt = conn.prepareStatement(sql);
-//            rs = stmt.executeQuery();
-//            while (rs.next()) {
-//                con = rs.getRow();
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e,"ERROR",JOptionPane.ERROR_MESSAGE);
-//        } finally {
-//            Conexion1.close(rs);
-//            Conexion1.close(stmt);
-//            if (userConn == null) {
-//                Conexion1.close(conn);
-//            }
-//        }
-//
-//        return con;
-//
-//    }
     public String fecha() {
 
         Date now = new Date(System.currentTimeMillis());

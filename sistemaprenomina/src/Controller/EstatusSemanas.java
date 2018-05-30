@@ -10,7 +10,7 @@ package Controller;
  * @author Programacion 04
  */
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import View.RH_SEMANA;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +25,7 @@ public class EstatusSemanas {
     private Connection userConn;
     public static ResultSet rs;
     Connection conn = null;
-    Conexion1 con = new Conexion1();
+    Conexion con = new Conexion();
     PreparedStatement stmt = null;
 
     public void desactivar(String semana) throws SQLException {
@@ -34,16 +34,16 @@ public class EstatusSemanas {
         PreparedStatement stmt = null;
         int rows = 0;
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
 
             stmt = conn.prepareStatement(sql);
 
             rows = stmt.executeUpdate();
 
         } finally {
-            Conexion1.close(stmt);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
     }
@@ -54,16 +54,16 @@ public class EstatusSemanas {
         PreparedStatement stmt = null;
         int rows = 0;
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
 
             stmt = conn.prepareStatement(sql);
 
             rows = stmt.executeUpdate();
 
         } finally {
-            Conexion1.close(stmt);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
     }
@@ -71,7 +71,7 @@ public class EstatusSemanas {
     public void agregar(String dias[],String semana) {
         try {
             String estatus="1";
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             String sql = "INSERT INTO semanas(semana, fechaL, fechaMa, fechaMi, fechaJ, fechaV, fechaS, fechaD, estatus) values (?,?,?,?,?,?,?,?,?)";
 
             stmt = conn.prepareStatement(sql);
@@ -91,10 +91,10 @@ public class EstatusSemanas {
             JOptionPane.showMessageDialog(null, "Error en:  " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } finally {
-            Conexion1.close(stmt);
+            Conexion.close(stmt);
 
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
 
         }

@@ -5,7 +5,7 @@
  */
 package View;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import Controller.EJefes;
 
 import Controller.controllerBD;
@@ -66,7 +66,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         lblcargo.setHorizontalAlignment(lblcargo.CENTER);
         lblcargo.setVerticalAlignment(lblcargo.CENTER);
     }
-
+//creacion de modelos para las tablas 
     DefaultTableModel tabla1 = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int Fila, int Colum) {
@@ -79,7 +79,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
             return false;
         }
     };
-
+//titulos para tabla 1
     public void cargarTitulos1() throws SQLException {
         tabla1.addColumn("ESTATUS");
         tabla1.addColumn("ID EMPLEADO");
@@ -98,13 +98,13 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         cargardatos1();
 
     }
-
+//datos para tabla 1 
     public void cargardatos1() throws SQLException {
         String sql = "select empleadoId, nombre, depto, puesto from empleados where  estatus=1 ";
         Object datos[] = new Object[5];
 
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -120,21 +120,21 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
 
     }
-
+//datos para tabla 2 
     public void cargardatos2() throws SQLException {
         String sql = "select empleadoId, nombre, depto, puesto from empleados where estatus=0 ";
         Object datos[] = new Object[5];
 
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -145,18 +145,18 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
                 datos[4] = rs.getString("puesto");
                 tabla2.addRow(datos);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
 
     }
-
+//limpia la tabla 
     public void limpiar(DefaultTableModel tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             tabla.removeRow(i);
@@ -164,11 +164,11 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         }
 
     }
-
+//filtros de busqueda 
     public void filtro(JTextField txt) {
         trsFiltro.setRowFilter(RowFilter.regexFilter(txt.getText()));
     }
-
+//titulos para tabla 2
     public void cargarTitulos2() throws SQLException {
         tabla2.addColumn("ESTATUS");
         tabla2.addColumn("ID EMPLEADO");
@@ -205,9 +205,9 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnmini = new javax.swing.JButton();
+        btncerrar = new javax.swing.JButton();
+        btnregresar = new javax.swing.JButton();
         lblnombrerh = new javax.swing.JLabel();
         lblcargo = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -302,35 +302,35 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/user.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnmini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/minimizar.png"))); // NOI18N
+        btnmini.setBorderPainted(false);
+        btnmini.setContentAreaFilled(false);
+        btnmini.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnminiActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 32, 30));
+        jPanel1.add(btnmini, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 32, 30));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/error.png"))); // NOI18N
+        btncerrar.setBorderPainted(false);
+        btncerrar.setContentAreaFilled(false);
+        btncerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btncerrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 32, 30));
+        jPanel1.add(btncerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 32, 30));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/img/regresar.png"))); // NOI18N
+        btnregresar.setBorderPainted(false);
+        btnregresar.setContentAreaFilled(false);
+        btnregresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnregresarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 0, 32, 30));
+        jPanel1.add(btnregresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 0, 32, 30));
 
         lblnombrerh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblnombrerh.setForeground(new java.awt.Color(51, 102, 255));
@@ -417,6 +417,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
       private void miDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDesactivarActionPerformed
+        //desactiva empleados y vuelve a cargar la tabla actualizada 
           int fila = tbListadoAct.getSelectedRow();
           if (fila >= 0) {
               String cod = tbListadoAct.getValueAt(fila, 1).toString();
@@ -447,7 +448,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
       }//GEN-LAST:event_miDesactivarActionPerformed
 
       private void miActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miActivarActionPerformed
-
+//activa los empleados y actualiza la tabla 
           int fila = tbListadoIna.getSelectedRow();
           if (fila >= 0) {
               String cod = tbListadoIna.getValueAt(fila, 1).toString();
@@ -476,15 +477,18 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
 
       }//GEN-LAST:event_miActivarActionPerformed
 
-      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      private void btnminiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnminiActionPerformed
+         //minimiza la ventana 
           this.setExtendedState(ICONIFIED);        // TODO add your handling code here:
-      }//GEN-LAST:event_jButton2ActionPerformed
+      }//GEN-LAST:event_btnminiActionPerformed
 
-      private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
+        //cierra el sistema 
           System.exit(0);        // TODO add your handling code here:
-      }//GEN-LAST:event_jButton3ActionPerformed
+      }//GEN-LAST:event_btncerrarActionPerformed
 
-      private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+      private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
+         //regresa a la anteriror ventana 
           String dep = lblcargo.getText();
           String nom = lblnombrerh.getText();
 
@@ -493,9 +497,10 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
           RH_Inicio.lblcargo.setText(dep);
           RH_Inicio.lblnombrerh.setText(nom);
           this.show(false);
-      }//GEN-LAST:event_jButton4ActionPerformed
+      }//GEN-LAST:event_btnregresarActionPerformed
 
       private void txtBuscar1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar1KeyTyped
+        //busca el carracter ingresado en los campos de la tabla 2
           txtBuscar1.addKeyListener(new KeyAdapter() {
               public void keyReleased(final KeyEvent e) {
                   String cadena = (txtBuscar1.getText()).toUpperCase();
@@ -513,7 +518,7 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
       }//GEN-LAST:event_txtBuscar1ActionPerformed
 
       private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-
+ //busca el carracter ingresado en los campos de la tabla 1
           txtBuscar.addKeyListener(new KeyAdapter() {
               public void keyReleased(final KeyEvent e) {
                   String cadena = (txtBuscar.getText()).toUpperCase();
@@ -567,9 +572,9 @@ public class RH_ListadoPersonal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btncerrar;
+    private javax.swing.JButton btnmini;
+    private javax.swing.JButton btnregresar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

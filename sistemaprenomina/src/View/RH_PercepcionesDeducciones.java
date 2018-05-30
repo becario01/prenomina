@@ -5,7 +5,7 @@
  */
 package View;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.awt.HeadlessException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -73,7 +73,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 //        String sql = "select semana from semanas where estatus=1";
 //
 //        try {
-//            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+//            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
 //            stmt = conn.prepareStatement(sql);
 //            rs = stmt.executeQuery();
 //            cmbsema.addItem("-SELECCIONE UNA OPCION-");
@@ -85,10 +85,10 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 //        } catch (Exception e) {
 //            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
 //        } finally {
-//            Conexion1.close(rs);
-//            Conexion1.close(stmt);
+//            Conexion.close(rs);
+//            Conexion.close(stmt);
 //            if (this.userConn == null) {
-//                Conexion1.close(conn);
+//                Conexion.close(conn);
 //            }
 //        }
 //    }
@@ -97,7 +97,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         String sql = "select DISTINCT depto from empleados  ";
 
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             cmbdepto.addItem("-SELECCIONE UNA OPCION-");
@@ -109,10 +109,10 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
     }
@@ -122,7 +122,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
 
         int codigo = 0;
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -131,10 +131,10 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
         return codigo;
@@ -727,7 +727,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
                         + "INNER JOIN semanas se on per.Semana=se.semana\n"
                         + "where per.fecha='" + fecha + "' and em.depto='" + depp + "'";
                 String datos[] = new String[13];
-                conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
                 while (rs.next()) {
@@ -757,10 +757,10 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
     }
@@ -793,7 +793,7 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             String datos[] = new String[10];
 
             try {
-                conn5 = (RH_PercepcionesDeducciones.userConn5 != null) ? RH_PercepcionesDeducciones.userConn5 : Conexion1.getConnection();
+                conn5 = (RH_PercepcionesDeducciones.userConn5 != null) ? RH_PercepcionesDeducciones.userConn5 : Conexion.getConnection();
                 stmt5 = conn5.prepareStatement(sql);
                 rs5 = stmt5.executeQuery();
                 while (rs5.next()) {
@@ -822,10 +822,10 @@ public class RH_PercepcionesDeducciones extends javax.swing.JFrame {
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs5);
-                Conexion1.close(stmt5);
+                Conexion.close(rs5);
+                Conexion.close(stmt5);
                 if (RH_PercepcionesDeducciones.userConn5 == null) {
-                    Conexion1.close(conn5);
+                    Conexion.close(conn5);
                 }
             }
 

@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -51,13 +51,13 @@ public class CargarXLS {
       public static Vector<String> arrayidemp = new Vector<String>();
       public static Vector<String> arrayid = new Vector<String>();
       public static Vector<String> arraynombre = new Vector<String>();
-
+//metodo que obtine los datos de el excel valida e ingresa a la base de datos a los empleados 
       public void cargarempleados() throws IOException, SQLException, ParseException, BiffException {
 
             Connection conn = null;
-            Conexion1 con = new Conexion1();
+            Conexion con = new Conexion();
             PreparedStatement stmt = null;
-
+//especificamos el tipo de archivos para buscar 
             int rows = 0;
             FileNameExtensionFilter filter1 = new FileNameExtensionFilter("Doc - MS-Office 2003", "xls");
 //            FileNameExtensionFilter filter2 = new FileNameExtensionFilter("Docx - MS-Office 2007", "xlsx");
@@ -118,10 +118,10 @@ public class CargarXLS {
                                    
 
                                     if (com) {
-                                          System.out.println("ETE REGISTRO YA EXISTE EN LA BASE ");
+
                                     } else {
 
-                                          conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                                          conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                                           
 
                                           String sentencia = "INSERT INTO empleados( empleadoId, nombre, estatus, puesto, depto) VALUES ('" + employedId + "','" + nombre + "','" + estatus + "','" + puesto + "','" + depto + "')";
@@ -132,13 +132,13 @@ public class CargarXLS {
                               }
                         }
 
-                  } catch (Exception e) {
+                  } catch (IOException | IndexOutOfBoundsException | NumberFormatException | SQLException | BiffException e) {
                         JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
                   } finally {
-                        Conexion1.close(stmt);
+                        Conexion.close(stmt);
                         JOptionPane.showMessageDialog(null, "Registros Exitosos!");
                         if (this.userConn == null) {
-                              Conexion1.close(conn);
+                              Conexion.close(conn);
                         }
 
                   }
@@ -162,7 +162,7 @@ public class CargarXLS {
       public void cargarregistros() throws IOException, SQLException, ParseException, BiffException {
 
             Connection conn = null;
-            Conexion1 con = new Conexion1();
+            Conexion con = new Conexion();
             PreparedStatement stmt = null;
 
             int rows = 0;
@@ -189,14 +189,15 @@ public class CargarXLS {
                   listare();
 
                   String fechafinal;
-//                   System.out.println(filter1.getDescription() + "**"); 
+//     
 
                   try {
                         Workbook arch = Workbook.getWorkbook(new File(ruta));
                         for (int hojas = 0; hojas < arch.getNumberOfSheets(); hojas++) {
                               Sheet hoja = arch.getSheet(hojas);
                               int numfila = hoja.getRows();
-
+//recorremos el excel si encontamos registros sin fecha se le asignara la 1111-11-11
+//se obtienen los datos del excel para hacer los registros en la base de datos.
                               for (int fila = 1; fila < numfila; fila++) {
                                     if (hoja.getCell(4, fila).getContents().length() == 0) {
                                           fechafinal = "1111-11-11";
@@ -231,14 +232,14 @@ public class CargarXLS {
                                     }
                                     
                                     
-
+//se valida para que no se ingresen registros repetidos 
                                     if (fin) {
-                                          System.out.println("ETE REGISTRO YA EXISTE EN LA BASE ");
+                                  
                                     } else {
 
-                                          conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+                                          conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
                                          
-
+//se ingresam los datos a la base 
                                           String sentencia = "INSERT INTO registros(empleadoId, Entrada, Salida, horas, fecha) VALUES ('" + employedId + "','" + entrada + "','" + Salida + "','" + horas + "','" + fecha + "')";
                                           PreparedStatement pst = conn.prepareStatement(sentencia);
                                           pst.executeUpdate();
@@ -247,13 +248,13 @@ public class CargarXLS {
                               }
                         }
 
-                  } catch (Exception e) {
+                  } catch (IOException | IndexOutOfBoundsException | NumberFormatException | SQLException | ParseException | BiffException e) {
                         JOptionPane.showMessageDialog(null, "Error en: " + e,"ERROR",JOptionPane.ERROR_MESSAGE);
                   } finally {
-                        Conexion1.close(stmt);
+                        Conexion.close(stmt);
                         JOptionPane.showMessageDialog(null, "Registros Exitosos!");
                         if (this.userConn == null) {
-                              Conexion1.close(conn);
+                              Conexion.close(conn);
                         }
 
                   }
@@ -276,10 +277,11 @@ public class CargarXLS {
       }
 
       public Vector<String> listare() throws SQLException {
+          //se listan los registros existentes en la base de datos 
             Connection conn = null;
             PreparedStatement stmt1 = null;
 
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             String sql1 = "select * from registros";
 
             stmt1 = conn.prepareStatement(sql1);
@@ -305,10 +307,11 @@ public class CargarXLS {
       }
 
       public Vector<String> listaemp() throws SQLException {
+          //se listan los empleados existentes en la base de datos 
             Connection conn = null;
             PreparedStatement stmt1 = null;
 
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             String sql1 = "select * from empleados";
 
             stmt1 = conn.prepareStatement(sql1);

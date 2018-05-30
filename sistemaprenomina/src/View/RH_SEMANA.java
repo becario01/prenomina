@@ -6,7 +6,7 @@
 package View;
 
 import Conexion.Conexion;
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import Controller.EJefes;
 import Controller.EstatusSemanas;
 import com.toedter.calendar.JCalendar;
@@ -92,7 +92,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
         Object datos[] = new Object[5];
 
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -111,10 +111,10 @@ public class RH_SEMANA extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
 
@@ -154,7 +154,7 @@ public class RH_SEMANA extends javax.swing.JFrame {
         String ultima = "1111-11-11";
         String sql = "select * from semanas order by fechaL asc";
         try {
-            conn = (this.userConn != null) ? this.userConn : Conexion1.getConnection();
+            conn = (this.userConn != null) ? this.userConn : Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -165,10 +165,10 @@ public class RH_SEMANA extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (this.userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         } 
 

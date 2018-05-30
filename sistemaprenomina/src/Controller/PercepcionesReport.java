@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,7 +36,7 @@ public class PercepcionesReport {
     private static Connection userConn5;
     static Vector<String> listadoempe = new Vector<String>();
     public static boolean valores = false;
-
+//se genera el segundo encabezado de los registros de percepciones 
     public static List<String> getHeaders() {
         List<String> tableHeader = new ArrayList<>();
         tableHeader.add("PERC / DEDU");
@@ -47,7 +47,7 @@ public class PercepcionesReport {
         return tableHeader;
 
     }
-
+// se genera el primer encabezado de los empleados 
     public static List<String> getHeadersnom() {
         List<String> tableHeader = new ArrayList<String>();
         tableHeader.add("ID");
@@ -57,7 +57,7 @@ public class PercepcionesReport {
      
         return tableHeader;
     }
-
+//se en listan los datos de registros de percepciones 
     public static List<List<String>> getContent(String idemp, String fecha) {
         List<List<String>> tableContent = new ArrayList<List<String>>();
         List<String> row = null;
@@ -68,7 +68,7 @@ public class PercepcionesReport {
                 + "where per.fecha='" + fecha + "' and per.empleadoId='" + idemp + "' ";
 
         try {
-            conn = Conexion1.getConnection();
+            conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
@@ -87,10 +87,10 @@ public class PercepcionesReport {
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
 
         }
@@ -98,7 +98,7 @@ public class PercepcionesReport {
         return tableContent;
 
     }
-
+//se en listan el id de los empleados con percepciones 
     public static void listarid(Vector<String> dias, String deptonom) {
         listadoempe.clear();
         for (int dia = 0; dia < dias.size(); dia++) {
@@ -123,7 +123,7 @@ public class PercepcionesReport {
             String datos[] = new String[2];
 
             try {
-                conn5 = (PercepcionesReport.userConn5 != null) ? PercepcionesReport.userConn5 : Conexion1.getConnection();
+                conn5 = (PercepcionesReport.userConn5 != null) ? PercepcionesReport.userConn5 : Conexion.getConnection();
                 stmt5 = conn5.prepareStatement(sql);
                 rs5 = stmt5.executeQuery();
                 while (rs5.next()) {
@@ -147,23 +147,23 @@ public class PercepcionesReport {
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs5);
-                Conexion1.close(stmt5);
+                Conexion.close(rs5);
+                Conexion.close(stmt5);
                 if (PercepcionesReport.userConn5 == null) {
-                    Conexion1.close(conn5);
+                    Conexion.close(conn5);
                 }
             }
 
         }
     }
-
+//se listan los datos de los empleados con percepciones 
     public static List<List<String>> getContentnombres(String nomdep, Vector<String> dias) {
-         System.out.println(listadoempe+"11");
+        
         List<List<String>> tableContent = new ArrayList<List<String>>();
         try {
         List<String> row = null;
         listarid(dias,nomdep);
-        System.out.println(listadoempe+"***");
+       
         if(listadoempe.isEmpty()){
              JOptionPane.showMessageDialog(null, "Este rango de fechas no tiene registros", "", JOptionPane.WARNING_MESSAGE);
              valores=false;
@@ -172,14 +172,14 @@ public class PercepcionesReport {
         }
         for (int idemp = 0; idemp < listadoempe.size(); idemp++) {
             String empleId=listadoempe.elementAt(idemp);
-            System.out.println("°°°"+empleId);
+            
         String sql = "SELECT DISTINCT per.empleadoId AS idemp, em.nombre AS nomemp, em.depto, em.puesto\n"
                 + "FROM percepciones per \n"
                 + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
                 + "INNER JOIN nomPercepciones nper on per.idNomPer=nper.idNomPer\n"
                 + "where per.empleadoId='"+empleId+"'";
       
-            conn1 = Conexion1.getConnection();
+            conn1 = Conexion.getConnection();
             stmt1 = conn1.prepareStatement(sql);
             rs1 = stmt1.executeQuery();
            
@@ -196,39 +196,12 @@ public class PercepcionesReport {
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
+            Conexion.close(rs);
+            Conexion.close(stmt);
             if (userConn == null) {
-                Conexion1.close(conn);
+                Conexion.close(conn);
             }
         }
         return tableContent;
-    }
-
-    public void cargar(int semana) throws SQLException {
-        String sql = "SELECT  em.empleadoId, em.nombre, per.per1, per.per2, per.per3, per.per4, per.per5, per.per6, per.per7, per.per8, per.per9, per.per10, per.per11 \n"
-                + "FROM percepciones per \n"
-                + "INNER JOIN empleados em on per.empleadoId=em.empleadoId\n"
-                + "where per.idSemana='" + semana + "'";
-
-        try {
-            conn = (PercepcionesReport.userConn != null) ? PercepcionesReport.userConn : Conexion1.getConnection();
-            stmt = conn.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            int fila = 4;
-            while (rs.next()) {
-
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            Conexion1.close(rs);
-            Conexion1.close(stmt);
-            if (PercepcionesReport.userConn == null) {
-                Conexion1.close(conn);
-            }
-
-        }
-
     }
 }

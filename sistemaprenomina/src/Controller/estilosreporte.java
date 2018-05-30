@@ -5,10 +5,9 @@
  */
 package Controller;
 
-import Conexion.Conexion1;
+import Conexion.Conexion;
 import static Controller.exportReporte.conn;
 import static Controller.exportReporte.rs;
-import static Controller.exportReporte.dia;
 import static Controller.exportReporte.rs;
 import static Controller.exportReporte.rs1;
 import static Controller.exportReporte.stmt;
@@ -85,13 +84,13 @@ public class estilosreporte {
         headerFont = createFont(HSSFColor.WHITE.index, (short) 12, true);
         headerFont1 = createFont(HSSFColor.WHITE.index, (short) 19, true);
         contentFont = createFont(HSSFColor.BLACK.index, (short) 11, false);
-
+// se crean los estilos 
         headerStyle1 = createStyle(headerFont1, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLUE.index, false, HSSFColor.BLACK.index);
         headerStyle2 = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.BLUE.index, false, HSSFColor.WHITE.index);
         headerStyle = createStyle(headerFont, HSSFCellStyle.ALIGN_CENTER, HSSFColor.LIGHT_BLUE.index, false, HSSFColor.DARK_BLUE.index);
         oddRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.WHITE.index, false, HSSFColor.GREY_25_PERCENT.index);
         evenRowStyle = createStyle(contentFont, HSSFCellStyle.ALIGN_LEFT, HSSFColor.LIGHT_TURQUOISE.index, false, HSSFColor.WHITE.index);
-
+//se inician el numero de columna 
         int filanombres = 3;
         int filadatos = 3;
         // New sheet
@@ -100,17 +99,7 @@ public class estilosreporte {
         HSSFCell cell = row.createCell(0);
         row = sheet.createRow(0);
 
-        // Table header dias
-//        HSSFRow headerRow2 = sheet.createRow(1);
-//        List<String> headerValues2 = exportReporte.getTableHeaders2(idSemana);
-//
-//        HSSFCell headerCell2 = null;
-//        for (int i = 0; i < headerValues2.size(); i++) {
-//            headerCell2 = headerRow2.createCell(i);
-//            headerCell2.setCellStyle(headerStyle2);
-//            headerCell2.setCellValue(headerValues2.get(i));
-//
-//        }
+//se crea el encabezado inicial 
         HSSFRow headerRow0 = sheet.createRow(0);
         HSSFCell headerCell0 = null;
         HSSFCell headerCell22 = null;
@@ -121,35 +110,9 @@ public class estilosreporte {
         sheet.addMergedRegion(re);
         HSSFRow headerR2 = sheet.createRow(1);
         HSSFCell header2 = null;
-//        for (int i = 8; i < 22; i++) {
-//            headerCell22 = headerRow0.createCell(i);
-//            headerCell22.setCellStyle(headerStyle1);
-//            header2 = headerR2.createCell(i);
-//            header2.setCellStyle(headerStyle1);
-//        }
-
-        // Table header
-//        CellRangeAddress region = new CellRangeAddress(filanombres - 2, filanombres - 2, 4, 6);
-//        sheet.addMergedRegion(region);
-//        region = new CellRangeAddress(filanombres - 2, filanombres - 2, 7, 9);
-//        sheet.addMergedRegion(region);
-//        region = new CellRangeAddress(filanombres - 2, filanombres - 2, 10, 12);
-//        sheet.addMergedRegion(region);
-//        region = new CellRangeAddress(filanombres - 2, filanombres - 2, 13, 15);
-//        sheet.addMergedRegion(region);
-//        region = new CellRangeAddress(filanombres - 2, filanombres - 2, 16, 18);
-//        sheet.addMergedRegion(region);
-//        region = new CellRangeAddress(filanombres - 2, filanombres - 2, 19, 21);
-//        sheet.addMergedRegion(region);
-//        region = new CellRangeAddress(filanombres - 2, filanombres - 2, 22, 24);
-//        sheet.addMergedRegion(region);
-//        region = new CellRangeAddress(1, 1, 0, 3);
-//        sheet.addMergedRegion(region);
         HSSFRow contentRow1 = null;
-
         HSSFRow contentRow2 = null;
         HSSFRow contentRow3 = null;
-
         HSSFCell contentCell1 = null;
         HSSFCell contentCell2 = null;
         HSSFCell contentCell3 = null;
@@ -163,14 +126,14 @@ public class estilosreporte {
         HSSFCell contentCell11 = null;
         HSSFCell contentCell12 = null;
         HSSFCell contentCell13 = null;
-
+//se valida que el rango de fechas contenga registtros 
         listarid(dias, nomdep);
-if(listadoempe.isEmpty()){
-    JOptionPane.showMessageDialog(null, "Este rango de fechas no tiene registros", "", JOptionPane.WARNING_MESSAGE);
-    resultado=false;
-}else{
-    resultado=true;
-}
+        if (listadoempe.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Este rango de fechas no tiene registros", "", JOptionPane.WARNING_MESSAGE);
+            resultado = false;
+        } else {
+            resultado = true;
+        }
         String sql = "";
         for (int emple = 0; emple < listadoempe.size(); emple++) {
             String idemple = listadoempe.elementAt(emple);
@@ -196,17 +159,16 @@ if(listadoempe.isEmpty()){
             HSSFRow headerRow;
             HSSFCell headerCell = null;
             HSSFRow headerRoe;
-
+//            se crea un listados con los titulos de datos de los empleados 
             List<String> TITULOS = exportReporte.getTableHeaders();
             String datos[] = new String[11];
 
             try {
-                conn = (estilosreporte.userConn != null) ? estilosreporte.userConn : Conexion1.getConnection();
+                conn = (estilosreporte.userConn != null) ? estilosreporte.userConn : Conexion.getConnection();
                 stmt = conn.prepareStatement(sql);
                 rs = stmt.executeQuery();
 
-         
-
+// se obtienen los datos generales del empleado.
                 while (rs.next()) {
 
                     contentRow1 = sheet.createRow(filanombres);
@@ -216,13 +178,14 @@ if(listadoempe.isEmpty()){
                     datos[2] = rs.getString("depto");
                     datos[3] = rs.getString("puesto");
 //                row = sheet.createRow(fila);
-
+//se crean los encabezados para los datos de los empleados con incidencias 
                     headerRow = sheet.createRow(filanombres - 1);
                     for (int i = 0; i < TITULOS.size(); i++) {
                         headerCell = headerRow.createCell(i);
                         headerCell.setCellStyle(headerStyle2);
                         headerCell.setCellValue(TITULOS.get(i));
                     }
+                    //se agregan los datos de empleados a el archivo .xls y se les agregan estilos 
                     contentCell1 = contentRow1.createCell(0);
                     contentCell1.setCellValue(datos[0]);
                     contentCell2 = contentRow1.createCell(1);
@@ -233,10 +196,11 @@ if(listadoempe.isEmpty()){
                     contentCell4.setCellValue(datos[3]);
                     idempleado.add(datos[0]);
                     contentCell1.setCellStyle(oddRowStyle);
-                    contentCell2.setCellStyle(oddRowStyle );
+                    contentCell2.setCellStyle(oddRowStyle);
                     contentCell3.setCellStyle(oddRowStyle);
-                    contentCell4.setCellStyle(oddRowStyle );
+                    contentCell4.setCellStyle(oddRowStyle);
                     filanombres++;
+                    //se crea un listado con los titulos de los registros de incidencias
                     List<String> registros = exportReporte.getTableregistros();
                     for (int i = 0; i < registros.size(); i++) {
                         contentCell5 = contentRow2.createCell(i);
@@ -244,7 +208,7 @@ if(listadoempe.isEmpty()){
                         contentCell5.setCellValue(registros.get(i));
                     }
                     filanombres = filanombres + 1;
-
+// se obtienen los registros de las incidencias en el rango de fechas ingresado 
                     for (int dia = 0; dia < dias.size(); dia++) {
                         String fecha = dias.elementAt(dia);
                         String sql2 = "SELECT inc.actualizadoJA, inc.actualizadoRH, emp.empleadoId, emp.nombre, inc.fecha,  nomin.nombre AS nombreinc, inc.comentario, inc.horasExtra, inc.dia\n"
@@ -255,7 +219,7 @@ if(listadoempe.isEmpty()){
                                 + " where inc.fecha='" + fecha + "' and inc.empleadoId='" + idemple + "' and inc.actualizadoRH='AUTORIZADO'";
 
                         try {
-                            conn2 = (estilosreporte.userConn2 != null) ? estilosreporte.userConn2 : Conexion1.getConnection();
+                            conn2 = (estilosreporte.userConn2 != null) ? estilosreporte.userConn2 : Conexion.getConnection();
                             stmt2 = conn2.prepareStatement(sql2);
                             rs2 = stmt2.executeQuery();
 
@@ -271,7 +235,7 @@ if(listadoempe.isEmpty()){
                                 datosR[7] = rs2.getString("horasExtra");
 
                                 headerRoe = sheet.createRow(filanombres);
-
+//se agregan los rehistros a el archivo .xsl
                                 contentCell6 = headerRoe.createCell(0);
                                 contentCell6.setCellValue(datosR[0]);
                                 contentCell7 = headerRoe.createCell(1);
@@ -289,35 +253,27 @@ if(listadoempe.isEmpty()){
                                 contentCell13 = headerRoe.createCell(7);
                                 contentCell13.setCellValue(datosR[7]);
                                 filanombres = filanombres + 1;
-                                contentCell6.setCellStyle( oddRowStyle );
-                                contentCell7.setCellStyle( evenRowStyle);
-                                contentCell8.setCellStyle( oddRowStyle );
-                                contentCell9.setCellStyle( evenRowStyle);
-                                contentCell10.setCellStyle(oddRowStyle );
-                                contentCell11.setCellStyle( evenRowStyle);
+                                contentCell6.setCellStyle(oddRowStyle);
+                                contentCell7.setCellStyle(evenRowStyle);
+                                contentCell8.setCellStyle(oddRowStyle);
+                                contentCell9.setCellStyle(evenRowStyle);
+                                contentCell10.setCellStyle(oddRowStyle);
+                                contentCell11.setCellStyle(evenRowStyle);
                                 contentCell12.setCellStyle(oddRowStyle);
                                 contentCell13.setCellStyle(evenRowStyle);
                             }
-
                         } catch (HeadlessException | SQLException e) {
                             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                         } finally {
-                            Conexion1.close(rs2);
-                            Conexion1.close(stmt2);
+                            Conexion.close(rs2);
+                            Conexion.close(stmt2);
                             if (estilosreporte.userConn2 == null) {
-                                Conexion1.close(conn2);
+                                Conexion.close(conn2);
                             }
                         }
-
                     }
-
                     filanombres = filanombres + 2;
-
-//                for (int i = 4; i <= 24; i++) {
-//                    contentCell9 = contentRow1.createCell(i);
-//                    contentCell9.setCellStyle(rowIndex % 2 == 0 ? oddRowStyle : evenRowStyle);
-//
-//                }
+                    //se hacer auto ajustables los titulos a el texto 
                     for (int i = 0; i < TITULOS.size(); sheet.autoSizeColumn(i++));
 
                 }
@@ -326,15 +282,15 @@ if(listadoempe.isEmpty()){
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs);
-                Conexion1.close(stmt);
+                Conexion.close(rs);
+                Conexion.close(stmt);
                 if (estilosreporte.userConn == null) {
-                    Conexion1.close(conn);
+                    Conexion.close(conn);
                 }
             }
 
         }
-
+//se obtienen los datos de quien el archivo asi coo fecha y hora 
         HSSFRow headerRow00 = sheet.createRow(rowIndex++);
         String dato = empleado + "   " + cargo;
         String da[] = new String[5];
@@ -436,7 +392,7 @@ if(listadoempe.isEmpty()){
             String datos[] = new String[11];
 
             try {
-                conn5 = (estilosreporte.userConn5 != null) ? estilosreporte.userConn5 : Conexion1.getConnection();
+                conn5 = (estilosreporte.userConn5 != null) ? estilosreporte.userConn5 : Conexion.getConnection();
                 stmt5 = conn5.prepareStatement(sql);
                 rs5 = stmt5.executeQuery();
                 while (rs5.next()) {
@@ -460,10 +416,10 @@ if(listadoempe.isEmpty()){
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             } finally {
-                Conexion1.close(rs5);
-                Conexion1.close(stmt5);
+                Conexion.close(rs5);
+                Conexion.close(stmt5);
                 if (estilosreporte.userConn5 == null) {
-                    Conexion1.close(conn5);
+                    Conexion.close(conn5);
                 }
             }
 
@@ -476,7 +432,7 @@ if(listadoempe.isEmpty()){
         sql = "SELECT * from registros where empleadoId='" + idemple + "' and fecha='" + fecharepo + "'";
 
         try {
-            conn3 = (estilosreporte.userConn3 != null) ? estilosreporte.userConn3 : Conexion1.getConnection();
+            conn3 = (estilosreporte.userConn3 != null) ? estilosreporte.userConn3 : Conexion.getConnection();
             stmt3 = conn3.prepareStatement(sql);
             rs3 = stmt3.executeQuery();
             while (rs3.next()) {
@@ -487,10 +443,10 @@ if(listadoempe.isEmpty()){
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cargar los datos\n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
-            Conexion1.close(rs3);
-            Conexion1.close(stmt3);
+            Conexion.close(rs3);
+            Conexion.close(stmt3);
             if (estilosreporte.userConn3 == null) {
-                Conexion1.close(conn3);
+                Conexion.close(conn3);
             }
         }
 
