@@ -109,7 +109,7 @@ public class reptxtran extends javax.swing.JFrame {
                     }
 
                     JOptionPane.showMessageDialog(null, "Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
-                    
+                    this.hide();
             }
         } catch (Exception e) {//por alguna excepcion salta un mensaje de error
             JOptionPane.showMessageDialog(null, "Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);

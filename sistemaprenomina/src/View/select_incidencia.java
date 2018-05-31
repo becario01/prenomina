@@ -41,6 +41,7 @@ public class select_incidencia extends javax.swing.JFrame {
         modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
         rin = new Nomincidencia();
         rjf = new Rjefes();
+        cargarModeloINC();
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -56,6 +57,14 @@ public class select_incidencia extends javax.swing.JFrame {
         lblid.setText((String) codi);
 
     }
+     private void cargarModeloINC() {
+        ArrayList<Rincidencia> listaSemanas;
+        listaSemanas = rin.obtenerIncnidecnias();
+        for (Rincidencia semana : listaSemanas) {
+            modeloselincidencia.addElement(semana);
+        }
+    }
+
 
 //clase para opener dia de la semana 
     public static String obtenerDiaSemana(String fechaP) throws ParseException {

@@ -52,13 +52,20 @@ public class Incidenciasgrupales extends javax.swing.JFrame {
         modeloselincidencia = new DefaultComboBoxModel<Rincidencia>();
         rin = new Nomincidencia();
         sle = new select_incidencia();
+        cargarModeloINC();
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(233, 236, 241));
 
     }
-
+ private void cargarModeloINC() {
+        ArrayList<Rincidencia> listaSemanas;
+        listaSemanas = rin.obtenerIncnidecnias();
+        for (Rincidencia semana : listaSemanas) {
+            modeloselincidencia.addElement(semana);
+        }
+    }
    
     public int registrargrupos(int empleadoId, String dia, String fecha, String horasextra, String comentario, int idSemana, int idNomIncidencias, String horasTrab) throws SQLException {
         Connection conn = null;
