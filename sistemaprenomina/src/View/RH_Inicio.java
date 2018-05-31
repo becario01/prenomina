@@ -524,17 +524,15 @@ public class RH_Inicio extends javax.swing.JFrame implements Runnable {
 
     private void btnpercepsionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpercepsionesActionPerformed
 //btnm para entrar a percepciones y deducciones 
-        try {
-            RH_NewPercepciones inc = new RH_NewPercepciones();
-            RH_NewPercepciones.lblnombrerh.setText(lblnombrerh.getText());
-            RH_NewPercepciones.lblcargo.setText(lblcargo.getText());
-            nombre = RH_Inicio.lblnombrerh.getText();
-            depto = RH_Inicio.lblcargo.getText();
-            inc.setVisible(true);
-            this.setVisible(false);
+      try {
+            RH_PercepcionesDeducciones per = new RH_PercepcionesDeducciones();
+            per.show();
+            RH_PercepcionesDeducciones.lblcargo.setText(lblcargo.getText());
+            RH_PercepcionesDeducciones.lblnombrerh.setText(lblnombrerh.getText());
+            this.show(false);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e, "", JOptionPane.ERROR_MESSAGE);
-        }   // TODO add your handling code here:
+            JOptionPane.showMessageDialog(null, "Error en: " + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnpercepsionesActionPerformed
 
     private void btnusuarioconinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnusuarioconinActionPerformed
